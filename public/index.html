@@ -409,8 +409,7 @@
       <div class="toolbar" aria-label="Керування кросвордом">
         <button id="checkBtn">Перевірити</button>
         <button class="secondary" id="hintBtn">Підказка</button>
-        <button class="secondary" id="revealBtn">Показати розв’язок</button>
-        <button class="secondary" id="clearBtn">Очистити</button>
+                <button class="secondary" id="clearBtn">Очистити</button>
         <button class="secondary" id="zoomOut">− масштаб</button>
         <button class="secondary" id="zoomIn">+ масштаб</button>
       </div>
@@ -627,16 +626,6 @@
       });
     }
 
-    function revealAll() {
-      entries.forEach(entry => {
-        getWordInputs(entry.n).forEach((input, index) => {
-          input.value = entry.answer[index];
-        });
-      });
-      updateState(true);
-      revealPhrase(true);
-    }
-
     function clearAll() {
       allInputs.forEach(input => {
         input.value = '';
@@ -665,7 +654,6 @@
 
     document.getElementById('checkBtn').addEventListener('click', () => updateState(true));
     document.getElementById('hintBtn').addEventListener('click', giveHint);
-    document.getElementById('revealBtn').addEventListener('click', revealAll);
     document.getElementById('clearBtn').addEventListener('click', clearAll);
     document.getElementById('zoomIn').addEventListener('click', () => setZoom(zoom + .08));
     document.getElementById('zoomOut').addEventListener('click', () => setZoom(zoom - .08));
