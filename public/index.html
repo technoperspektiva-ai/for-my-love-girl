@@ -8,15 +8,14 @@
     :root {
       --gold: #c7922e;
       --gold-dark: #9b6418;
-      --gold-light: #ffe9a9;
       --ink: #1f1a14;
-      --paper: #fff9ed;
       --cell: 34px;
-      --gap: 0px;
       --zoom: 1;
     }
 
     * { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
 
     body {
       margin: 0;
@@ -26,96 +25,98 @@
         radial-gradient(circle at 88% 16%, rgba(247, 191, 68, .20), transparent 13rem),
         linear-gradient(180deg, #fffdf8 0%, #f7ead1 100%);
       font-family: Georgia, "Times New Roman", serif;
+      overflow-x: hidden;
     }
 
     .app {
-      width: min(100%, 1060px);
+      width: 100%;
+      max-width: 1060px;
       margin: 0 auto;
-      padding: 12px;
+      padding: clamp(6px, 2vw, 12px);
     }
 
     .sheet {
       position: relative;
       overflow: hidden;
-      min-height: calc(100vh - 24px);
-      padding: clamp(14px, 2.6vw, 30px);
+      min-height: calc(100svh - 12px);
+      padding: clamp(10px, 2.6vw, 30px);
       background:
         radial-gradient(circle at 50% 28%, rgba(255, 255, 255, .92), transparent 28rem),
         linear-gradient(180deg, #fffaf0, #fff7e8 68%, #fff1d4);
       border: 3px double var(--gold);
-      border-radius: 28px;
+      border-radius: clamp(18px, 4vw, 28px);
       box-shadow: 0 18px 50px rgba(75, 50, 12, .16);
     }
 
-    .sheet::before,
-    .sheet::after {
+    .sheet::before {
       content: "";
       position: absolute;
-      inset: 12px;
+      inset: 10px;
       border: 1px solid rgba(199, 146, 46, .55);
-      border-radius: 22px;
+      border-radius: clamp(14px, 3vw, 22px);
       pointer-events: none;
     }
 
     .corner {
       position: absolute;
-      width: 70px;
-      height: 70px;
+      width: clamp(36px, 7vw, 70px);
+      height: clamp(36px, 7vw, 70px);
       border-color: var(--gold);
       opacity: .95;
       pointer-events: none;
     }
 
-    .corner.tl { left: 16px; top: 16px; border-top: 4px double var(--gold); border-left: 4px double var(--gold); border-radius: 20px 0 0 0; }
-    .corner.tr { right: 16px; top: 16px; border-top: 4px double var(--gold); border-right: 4px double var(--gold); border-radius: 0 20px 0 0; }
-    .corner.bl { left: 16px; bottom: 16px; border-bottom: 4px double var(--gold); border-left: 4px double var(--gold); border-radius: 0 0 0 20px; }
-    .corner.br { right: 16px; bottom: 16px; border-bottom: 4px double var(--gold); border-right: 4px double var(--gold); border-radius: 0 0 20px 0; }
+    .corner.tl { left: 14px; top: 14px; border-top: 4px double var(--gold); border-left: 4px double var(--gold); border-radius: 20px 0 0 0; }
+    .corner.tr { right: 14px; top: 14px; border-top: 4px double var(--gold); border-right: 4px double var(--gold); border-radius: 0 20px 0 0; }
+    .corner.bl { left: 14px; bottom: 14px; border-bottom: 4px double var(--gold); border-left: 4px double var(--gold); border-radius: 0 0 0 20px; }
+    .corner.br { right: 14px; bottom: 14px; border-bottom: 4px double var(--gold); border-right: 4px double var(--gold); border-radius: 0 0 20px 0; }
 
     .stars {
       position: absolute;
       inset: 0;
       pointer-events: none;
       color: var(--gold);
-      opacity: .88;
+      opacity: .8;
       font-family: Georgia, serif;
     }
 
     .stars span { position: absolute; text-shadow: 0 1px 0 #fff; }
-    .s1 { left: 5%; top: 5%; font-size: 54px; }
-    .s2 { right: 7%; top: 10%; font-size: 32px; }
-    .s3 { right: 7%; top: 6%; font-size: 56px; transform: rotate(-15deg); }
-    .s4 { left: 5%; bottom: 18%; font-size: 34px; }
-    .s5 { right: 5%; bottom: 20%; font-size: 42px; }
-    .s6 { left: 7%; bottom: 10%; font-size: 24px; }
-    .s7 { right: 10%; bottom: 11%; font-size: 26px; }
+    .s1 { left: 5%; top: 5%; font-size: clamp(26px, 6vw, 54px); }
+    .s2 { right: 7%; top: 10%; font-size: clamp(20px, 4vw, 32px); }
+    .s3 { right: 7%; top: 6%; font-size: clamp(28px, 7vw, 56px); transform: rotate(-15deg); }
+    .s4 { left: 5%; bottom: 18%; font-size: clamp(22px, 4vw, 34px); }
+    .s5 { right: 5%; bottom: 20%; font-size: clamp(26px, 5vw, 42px); }
+    .s6 { left: 7%; bottom: 10%; font-size: clamp(18px, 3.5vw, 24px); }
+    .s7 { right: 10%; bottom: 11%; font-size: clamp(18px, 3.5vw, 26px); }
 
     header {
       position: relative;
       z-index: 1;
       text-align: center;
-      margin: 0 auto 12px;
+      margin: 0 auto 10px;
       max-width: 920px;
+      padding: 0 26px;
     }
 
     h1 {
       margin: 4px 0 4px;
-      font-size: clamp(34px, 7vw, 72px);
+      font-size: clamp(30px, 8.5vw, 72px);
       line-height: .95;
-      letter-spacing: .035em;
+      letter-spacing: .025em;
       text-transform: uppercase;
       font-weight: 900;
     }
 
     .subtitle {
       margin: 0;
-      font-size: clamp(16px, 3vw, 25px);
+      font-size: clamp(15px, 3.9vw, 25px);
       line-height: 1.2;
     }
 
     .subtitle em {
       display: block;
       margin-top: 4px;
-      font-size: clamp(14px, 2.6vw, 21px);
+      font-size: clamp(13px, 3.2vw, 21px);
       color: #5b4a35;
     }
 
@@ -127,8 +128,9 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin: 12px 0 10px;
+      margin: 10px auto 8px;
       font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      max-width: 760px;
     }
 
     button {
@@ -152,37 +154,43 @@
     .status {
       position: relative;
       z-index: 2;
-      min-height: 24px;
-      margin: 4px 0 10px;
+      min-height: 22px;
+      margin: 4px 0 8px;
       text-align: center;
-      font: 700 15px/1.45 system-ui, -apple-system, Segoe UI, sans-serif;
+      font: 700 14px/1.4 system-ui, -apple-system, Segoe UI, sans-serif;
       color: #5b4118;
     }
 
-    .board-scroll {
+    .board-fit {
       position: relative;
       z-index: 2;
       width: 100%;
-      overflow: auto;
-      overscroll-behavior: contain;
-      padding: 6px 0 2px;
-      -webkit-overflow-scrolling: touch;
+      display: flex;
+      justify-content: center;
+      overflow: visible;
+      padding: 4px 0 0;
+    }
+
+    .board-space {
+      width: calc(22 * var(--cell) * var(--zoom));
+      height: calc(18 * var(--cell) * var(--zoom));
+      max-width: 100%;
+      flex: 0 0 auto;
+      overflow: visible;
     }
 
     .board {
       position: relative;
       width: calc(22 * var(--cell));
       height: calc(18 * var(--cell));
-      margin: 0 auto;
       transform: scale(var(--zoom));
-      transform-origin: top center;
-      transition: transform .18s ease;
+      transform-origin: top left;
     }
 
     .word {
       position: absolute;
       display: flex;
-      gap: var(--gap);
+      gap: 0;
       filter: drop-shadow(0 1px 0 rgba(255,255,255,.75));
     }
 
@@ -197,10 +205,7 @@
       box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
     }
 
-    .tile.secret {
-      background: linear-gradient(145deg, #ffe996, #fff3bd);
-    }
-
+    .tile.secret { background: linear-gradient(145deg, #ffe996, #fff3bd); }
     .tile.wrong { background: #ffd8d6; }
     .tile.right { background: #d7f3d8; }
 
@@ -238,7 +243,7 @@
       z-index: 2;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
-      gap: 16px;
+      gap: 14px;
       align-items: center;
       margin: 12px auto 8px;
       max-width: 780px;
@@ -255,7 +260,7 @@
     .clues-title h2 {
       margin: 0;
       color: var(--ink);
-      font-size: clamp(28px, 5vw, 42px);
+      font-size: clamp(26px, 6vw, 42px);
       line-height: 1;
     }
 
@@ -272,7 +277,7 @@
 
     .clues ol {
       margin: 0;
-      padding-left: 26px;
+      padding-left: 25px;
       font-size: clamp(14px, 2vw, 17px);
       line-height: 1.42;
     }
@@ -296,7 +301,7 @@
     .phrase-wrap {
       position: relative;
       z-index: 2;
-      margin: 18px auto 0;
+      margin: 16px auto 0;
       max-width: 900px;
       text-align: center;
     }
@@ -319,13 +324,13 @@
     .phrase-title h2 {
       margin: 0;
       color: var(--ink);
-      font-size: clamp(30px, 5.6vw, 46px);
+      font-size: clamp(28px, 6.4vw, 46px);
       line-height: 1;
     }
 
     .scroll {
       margin-top: 8px;
-      padding: 12px 28px 14px;
+      padding: 12px 20px 14px;
       border: 1.5px solid rgba(199, 146, 46, .65);
       border-radius: 999px / 42px;
       background: linear-gradient(180deg, #fff8e4, #f6dfab 52%, #fff1c6);
@@ -341,8 +346,8 @@
     }
 
     .pbox {
-      width: clamp(25px, 4.3vw, 36px);
-      height: clamp(31px, 5vw, 42px);
+      width: clamp(24px, 4.3vw, 36px);
+      height: clamp(30px, 5vw, 42px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -369,17 +374,35 @@
     }
 
     @media (max-width: 720px) {
-      :root { --cell: 32px; }
-      .sheet { border-radius: 22px; padding: 12px 10px 18px; }
-      .corner { width: 44px; height: 44px; }
-      .stars .s1 { font-size: 36px; }
-      .stars .s3 { font-size: 38px; }
-      .toolbar { position: sticky; top: 0; padding: 8px 4px; background: rgba(255, 247, 225, .92); backdrop-filter: blur(8px); border-radius: 16px; }
+      :root { --cell: 34px; }
+      .app { padding: 6px; }
+      .sheet { padding: 10px 8px 16px; border-width: 2px; }
+      header { padding: 0 18px; }
+      .toolbar {
+        position: sticky;
+        top: 0;
+        padding: 8px 5px;
+        background: rgba(255, 247, 225, .94);
+        backdrop-filter: blur(8px);
+        border-radius: 16px;
+      }
       button { padding: 9px 11px; font-size: 13px; }
-      .board-scroll { padding-bottom: 10px; }
+      .status { font-size: 13px; }
+      .tile { border-width: 1.5px; }
+      .num { font-size: 9px; left: 2px; top: 1px; }
+      input.cell-input { padding-top: 7px; }
       .clues { grid-template-columns: 1fr; gap: 8px; padding: 0 2px; }
-      .clues-title { margin-top: 8px; }
+      .clues-title { margin-top: 10px; }
       .scroll { padding: 10px 12px 12px; border-radius: 24px; }
+      .stars { opacity: .55; }
+      .s2, .s6, .s7 { display: none; }
+    }
+
+    @media (max-width: 390px) {
+      .toolbar { gap: 6px; }
+      button { padding: 8px 9px; font-size: 12px; }
+      .subtitle em { display: none; }
+      .mobile-tip { font-size: 13px; }
     }
 
     @media print {
@@ -387,8 +410,8 @@
       .app { width: 100%; padding: 0; }
       .sheet { min-height: auto; box-shadow: none; border-radius: 0; }
       .toolbar, .status, .mobile-tip { display: none !important; }
-      .board-scroll { overflow: visible; }
       .board { transform: none !important; }
+      .board-space { width: calc(22 * var(--cell)); height: calc(18 * var(--cell)); }
       input.cell-input { color: transparent; }
     }
   </style>
@@ -415,8 +438,10 @@
       </div>
       <div class="status" id="status">Натисни на клітинку та введи літеру.</div>
 
-      <div class="board-scroll" id="scrollArea">
-        <div class="board" id="board"></div>
+      <div class="board-fit" id="boardFit">
+        <div class="board-space" id="boardSpace">
+          <div class="board" id="board"></div>
+        </div>
       </div>
 
       <section class="clues-title" aria-hidden="true"><h2>Підказки</h2></section>
@@ -430,7 +455,7 @@
         <div class="scroll"><div class="phrase-boxes" id="phrase"></div></div>
       </section>
 
-      <p class="mobile-tip">На телефоні можна гортати поле ліворуч/праворуч і збільшувати масштаб кнопками зверху. HTML працює локально без інтернету.</p>
+      <p class="mobile-tip">Кросворд автоматично підлаштовується під ширину екрана телефона без розтягування. Кнопки масштабу залишені для ручного збільшення або зменшення.</p>
     </section>
   </main>
 
@@ -645,11 +670,24 @@
       updateState(true);
     }
 
+    function fitBoard(extraZoom = 1) {
+      const fit = document.getElementById('boardFit');
+      const boardSpace = document.getElementById('boardSpace');
+      const baseWidth = 22 * 34;
+      const availableWidth = Math.max(260, fit.clientWidth);
+      const autoScale = Math.min(1, availableWidth / baseWidth);
+      zoom = Math.min(1.2, Math.max(.48, autoScale * extraZoom));
+      document.documentElement.style.setProperty('--zoom', zoom.toFixed(3));
+      boardSpace.style.width = `${baseWidth * zoom}px`;
+      boardSpace.style.height = `${18 * 34 * zoom}px`;
+    }
+
     function setZoom(nextZoom) {
-      zoom = Math.min(1.25, Math.max(.72, nextZoom));
-      document.documentElement.style.setProperty('--zoom', zoom.toFixed(2));
-      const boardHeight = board.getBoundingClientRect().height;
-      document.getElementById('scrollArea').style.minHeight = `${boardHeight + 8}px`;
+      const fit = document.getElementById('boardFit');
+      const baseWidth = 22 * 34;
+      const autoScale = Math.min(1, Math.max(260, fit.clientWidth) / baseWidth);
+      const multiplier = nextZoom / autoScale;
+      fitBoard(multiplier);
     }
 
     document.getElementById('checkBtn').addEventListener('click', () => updateState(true));
@@ -661,7 +699,8 @@
     drawBoard();
     drawClues();
     drawPhrase();
-    setZoom(window.innerWidth < 720 ? .86 : 1);
+    fitBoard(1);
+    window.addEventListener('resize', () => fitBoard(1));
     updateState(false);
   </script>
 </body>
