@@ -448,6 +448,331 @@
       .mobile-tip { font-size: 13px; }
     }
 
+
+    .start-quest-btn {
+      display: block;
+      margin: 14px auto 0;
+      padding: 13px 20px;
+      min-width: 210px;
+      color: #fff7dd;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 230, 145, .25), transparent 60%),
+        linear-gradient(180deg, #2a1614, #130b0a);
+      border: 1px solid rgba(255, 204, 104, .72);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.09) inset,
+        0 0 22px rgba(205, 132, 31, .48),
+        0 10px 28px rgba(26, 10, 6, .32);
+      letter-spacing: .04em;
+      animation: questPulse 1.7s ease-in-out infinite;
+    }
+
+    @keyframes questPulse {
+      0%, 100% { transform: translateY(0); filter: brightness(1); }
+      50% { transform: translateY(-1px); filter: brightness(1.18); }
+    }
+
+    .quest-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      align-items: stretch;
+      justify-content: center;
+      padding: env(safe-area-inset-top) 10px env(safe-area-inset-bottom);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(151, 77, 28, .25), transparent 32rem),
+        radial-gradient(circle at 50% 100%, rgba(120, 13, 29, .22), transparent 24rem),
+        linear-gradient(180deg, #090707, #170d0d 58%, #090707);
+      color: #fff2d5;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .quest-overlay.open { display: flex; }
+
+    .quest-shell {
+      width: min(100%, 860px);
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      padding: 14px 0;
+    }
+
+    .quest-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      font: 700 13px/1.3 system-ui, -apple-system, Segoe UI, sans-serif;
+      color: #d8b879;
+    }
+
+    .quest-close {
+      min-width: auto;
+      padding: 9px 12px;
+      color: #ffe8b0;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255, 216, 139, .28);
+      box-shadow: none;
+    }
+
+    .quest-card {
+      position: relative;
+      flex: 1;
+      overflow: auto;
+      border: 1px solid rgba(223, 175, 88, .46);
+      border-radius: 24px;
+      padding: clamp(16px, 4vw, 30px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)),
+        rgba(19, 13, 12, .9);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.06) inset,
+        0 22px 70px rgba(0,0,0,.42);
+    }
+
+    .quest-card::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(223, 175, 88, .22);
+      border-radius: 18px;
+      pointer-events: none;
+    }
+
+    .quest-title {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 7vw, 54px);
+      line-height: .95;
+      letter-spacing: .02em;
+      text-align: center;
+      color: #ffe4a3;
+      text-shadow: 0 0 18px rgba(255, 181, 61, .16);
+    }
+
+    .quest-subtitle {
+      margin: 0 auto 16px;
+      max-width: 680px;
+      text-align: center;
+      color: #cdb98f;
+      font: 600 14px/1.5 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+
+    .quest-scene,
+    .quest-puzzle,
+    .quest-next,
+    .quest-hint-box {
+      position: relative;
+      z-index: 1;
+      margin: 12px 0;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 220, 151, .17);
+      background: rgba(255, 255, 255, .055);
+      color: #fff4da;
+      font-size: clamp(16px, 4vw, 19px);
+      line-height: 1.5;
+    }
+
+    .quest-mechanic {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      margin: 6px 0 2px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: #180d0a;
+      background: #f2cd7a;
+      font: 900 12px/1 system-ui, -apple-system, Segoe UI, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+    .quest-custom {
+      position: relative;
+      z-index: 1;
+      margin: 12px 0;
+    }
+
+    .quest-input-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .quest-input {
+      min-width: 0;
+      flex: 1;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 220, 151, .35);
+      color: #fff8e9;
+      background: rgba(0,0,0,.28);
+      outline: none;
+      font: 800 16px/1 system-ui, -apple-system, Segoe UI, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .quest-input:focus {
+      box-shadow: 0 0 0 3px rgba(209, 148, 52, .25);
+    }
+
+    .quest-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .quest-primary {
+      background: linear-gradient(180deg, #d99d3f, #8c4c18);
+      color: #120806;
+      border-color: rgba(255, 231, 171, .6);
+    }
+
+    .quest-secondary {
+      color: #ffe8b0;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255, 216, 139, .28);
+      box-shadow: none;
+    }
+
+    .quest-result {
+      min-height: 34px;
+      margin-top: 12px;
+      color: #f1ce83;
+      font: 800 15px/1.45 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+
+    .reward-strip {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin: 10px 0 14px;
+    }
+
+    .reward-letter {
+      width: 32px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 217, 137, .45);
+      background: rgba(255,255,255,.08);
+      border-radius: 8px;
+      color: #ffe7ad;
+      font: 900 20px/1 Arial, sans-serif;
+    }
+
+    .reward-letter.locked { opacity: .28; }
+
+    .file-box,
+    .chat-box,
+    .site-box,
+    .image-box,
+    .timer-box,
+    .choice-box {
+      border: 1px solid rgba(255, 220, 151, .2);
+      border-radius: 16px;
+      background: rgba(0,0,0,.22);
+      padding: 12px;
+      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+
+    .file-item,
+    .site-line,
+    .chat-msg {
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.07);
+      color: #f7e7c8;
+    }
+
+    .file-item button,
+    .choice-box button,
+    .site-box button {
+      margin-top: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .file-content,
+    .source-code {
+      display: none;
+      margin-top: 8px;
+      white-space: pre-wrap;
+      color: #ffe2a1;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+    }
+
+    .file-content.open,
+    .source-code.open { display: block; }
+
+    .chat-msg.her { margin-left: 24px; background: rgba(185, 101, 122, .18); }
+    .chat-msg.unknown { margin-right: 24px; background: rgba(214, 158, 61, .12); }
+
+    .image-box {
+      min-height: 220px;
+      background:
+        radial-gradient(circle at 24% 45%, rgba(255, 217, 114, .22), transparent 18%),
+        radial-gradient(circle at 58% 46%, rgba(255,255,255,.13), transparent 14%),
+        radial-gradient(circle at 80% 48%, rgba(168, 25, 38, .28), transparent 20%),
+        linear-gradient(135deg, #160f0f, #2b1618);
+    }
+
+    .image-caption {
+      margin: 0;
+      color: #f7e7c8;
+      font: 700 14px/1.5 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+
+    .timer {
+      font: 900 clamp(34px, 12vw, 64px)/1 Arial, sans-serif;
+      color: #ffcf73;
+      text-align: center;
+      text-shadow: 0 0 24px rgba(255, 121, 72, .2);
+    }
+
+    .final-screen {
+      text-align: center;
+      padding: 20px 8px;
+    }
+
+    .final-screen h3 {
+      font-size: clamp(34px, 9vw, 62px);
+      margin: 0 0 12px;
+      color: #ffe1a0;
+    }
+
+    .final-screen p {
+      max-width: 680px;
+      margin: 10px auto;
+      color: #f5dfb4;
+      font-size: clamp(17px, 4.3vw, 22px);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 560px) {
+      .quest-overlay { padding-left: 6px; padding-right: 6px; }
+      .quest-shell { padding: 8px 0; }
+      .quest-card { border-radius: 18px; padding: 16px 12px; }
+      .quest-input-row { flex-direction: column; }
+      .quest-input { width: 100%; }
+      .quest-actions button, .quest-input-row button { width: 100%; }
+      .reward-letter { width: 28px; height: 34px; font-size: 18px; }
+    }
+
     @media print {
       body { background: #fff; }
       .app { width: 100%; padding: 0; }
@@ -496,11 +821,43 @@
       <section class="phrase-wrap" aria-label="Таємна фраза">
         <div class="phrase-title"><h2>Таємна фраза</h2></div>
         <div class="scroll"><div class="phrase-boxes" id="phrase"></div></div>
-        <div class="quest-message" id="questMessage" aria-live="polite">Це тільки початок, насправді це твій особистий квест “Моя грешніца 😈”. Першу підказку ти маєш.</div>
+        <div class="quest-message" id="questMessage" aria-live="polite">
+          <div class="quest-message-text">Це тільки початок, насправді це твій особистий квест “Моя грешніца 😈”. Першу підказку ти маєш.</div>
+          <button class="start-quest-btn" id="startQuestBtn" type="button">Розпочати квест</button>
+        </div>
       </section>
 
       <p class="mobile-tip">Кросворд автоматично підлаштовується під ширину екрана телефона без розтягування. Кнопки масштабу залишені для ручного збільшення або зменшення.</p>
     </section>
+
+  <section class="quest-overlay" id="questOverlay" aria-hidden="true">
+    <div class="quest-shell">
+      <div class="quest-topbar">
+        <span id="questProgress">Кімната 1 / 10</span>
+        <button class="quest-close" id="questClose" type="button">Повернутися</button>
+      </div>
+      <article class="quest-card" id="questCard">
+        <h2 class="quest-title" id="questTitle"></h2>
+        <p class="quest-subtitle" id="questSubtitle"></p>
+        <div class="reward-strip" id="rewardStrip"></div>
+        <div class="quest-mechanic" id="questMechanic"></div>
+        <div class="quest-scene" id="questScene"></div>
+        <div class="quest-custom" id="questCustom"></div>
+        <div class="quest-puzzle" id="questPuzzle"></div>
+        <div class="quest-input-row" id="questInputRow">
+          <input class="quest-input" id="questAnswer" autocomplete="off" placeholder="Введи відповідь" />
+          <button class="quest-primary" id="questCheck" type="button">Відкрити двері</button>
+        </div>
+        <div class="quest-actions">
+          <button class="quest-secondary" id="questHint" type="button">Підказка</button>
+          <button class="quest-secondary" id="questRestart" type="button">Почати квест заново</button>
+        </div>
+        <div class="quest-hint-box" id="questHintBox" hidden></div>
+        <div class="quest-result" id="questResult"></div>
+      </article>
+    </div>
+  </section>
+
   </main>
 
   <script>
@@ -753,5 +1110,363 @@
     window.addEventListener('resize', () => fitBoard(1));
     updateState(false);
   </script>
+
+  <script>
+    const questLevels = [
+      {
+        title: 'Кімната 1. Шкатулка бажань',
+        subtitle: 'Легке входження · перший слід уже був у кросворді',
+        mechanic: 'памʼять із попереднього рівня',
+        scene: 'Екран темніє. На золотій рамці кросворда лишається тільки одна фраза: «ЗАГЛЯНИ В ШКАТУЛКУ БАЖАНЬ». Нижче зʼявляється маленька замкова щілина, ніби сторінка стала дверима.',
+        puzzle: 'Введи предмет, у який тебе просили заглянути.',
+        answers: ['ШКАТУЛКА'],
+        hint: 'Подивись на таємну фразу з кросворда. Вона буквально називає предмет.',
+        next: 'Кришка клацає. Усередині не подарунок, а тонке дзеркальце. На ньому подряпано: «не все, що бачиш, твоє».',
+        reward: 'В'
+      },
+      {
+        title: 'Кімната 2. Дзеркало, яке памʼятає',
+        subtitle: 'Шифр Цезаря · зсув на 3 назад',
+        mechanic: 'шифр Цезаря',
+        scene: 'Перед тобою чорне дзеркало. У ньому не відображається кімната — тільки слово, подряпане нігтем: «ЖЇЗУНГОС». Поруч алфавіт і записка: «Зсунь кожну літеру на 3 назад. Не бійся дивитися».',
+        puzzle: 'Алфавіт: А Б В Г Ґ Д Е Є Ж З И І Ї Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ь Ю Я. Розшифруй напис «ЖЇЗУНГОС».',
+        answers: ['ДЗЕРКАЛО'],
+        hint: 'Ж → Д, Ї → З. Продовжуй так само для кожної літери.',
+        next: 'Дзеркало тріскається. За ним чути серцебиття — нерівне, близьке, наче воно не з кімнати, а з телефона.',
+        reward: 'О'
+      },
+      {
+        title: 'Кімната 3. Шепіт на лінії',
+        subtitle: 'Азбука Морзе · перший голос',
+        mechanic: 'морзе',
+        scene: 'Телефон вібрує один раз. Потім ще. На екрані відкривається аудіо без звуку, але хвиля пульсує крапками й рисками. Невідомий голос пише: «Я не скажу слово. Я його відстукаю».',
+        puzzle: 'Розшифруй Morse-повідомлення латиницею й введи українською: ... . .-. -.-. .',
+        answers: ['СЕРЦЕ', 'SERCE'],
+        hint: '... = S, . = E, .-. = R, -.-. = C, . = E. Вийде SERCE.',
+        next: 'Коли ти вводиш слово, хвиля на екрані стає рівною. Хтось шепоче: «У тебе воно голосніше, ніж ти думаєш».',
+        reward: 'Н'
+      },
+      {
+        title: 'Кімната 4. Архів 03: Не відкривати',
+        subtitle: 'Файлова механіка · прихований акровірш',
+        mechanic: 'фальшиві файли',
+        scene: 'Відкривається старий файловий провідник. Папка називається «her/private/do-not-open». У ній три файли. Один із них ніби дихає, коли на нього наводиш курсор.',
+        custom: 'files',
+        puzzle: 'Відкрий файл 03_ne_vidkryvaty.txt. Прочитай перші літери кожного рядка та введи отримане слово.',
+        answers: ['ЛАМПА'],
+        hint: 'Перші літери рядків у третьому файлі складаються в предмет, який дає світло.',
+        next: 'Лампа в архіві вмикається. Світло падає на екран чату. Там уже друкують тобі повідомлення.',
+        reward: 'А'
+      },
+      {
+        title: 'Кімната 5. Чат із невідомою',
+        subtitle: 'Фейковий діалог · відповідь у недомовленому',
+        mechanic: 'чат',
+        scene: 'На екрані чат без аватарки. Імʼя співрозмовниці приховане. Вона пише так, ніби знає, як ти читаєш повідомлення: спочатку швидко, потім повертаєшся до першого рядка.',
+        custom: 'chat',
+        puzzle: 'У чаті пропущено одне слово. Допиши правило повністю: «Не дивись ____».',
+        answers: ['НАЗАД'],
+        hint: 'Це класична заборона в темних історіях. Але тут вона звучить занадто особисто.',
+        next: 'Ти вводиш слово — і чат очищується. Залишається тільки посилання на сайт, якого не повинно існувати.',
+        reward: 'Ц'
+      },
+      {
+        title: 'Кімната 6. Сайт, якого не існує',
+        subtitle: 'Псевдо-сайт · прихований текст у коді',
+        mechanic: 'source-code',
+        scene: 'Перед тобою сторінка site://moja-hreshnytsia/door. На ній написано: «Тут немає входу». Але внизу блимає маленький напис: «іноді правда не на сторінці, а під нею».',
+        custom: 'site',
+        puzzle: 'Відкрий «код сторінки» та знайди пароль у коментарі.',
+        answers: ['ПОПІЛ'],
+        hint: 'Натисни кнопку «Переглянути код сторінки». Шукай HTML-коментар.',
+        next: 'Коли ти вводиш пароль, сайт розсипається на чорний попіл. Із попелу складається фотографія.',
+        reward: 'Е'
+      },
+      {
+        title: 'Кімната 7. Фотографія без обличчя',
+        subtitle: 'Аналіз зображення · уважність до деталей',
+        mechanic: 'зображення',
+        scene: 'Зʼявляється стара фотографія кімнати. На ній немає людей, але є відчуття, що хтось щойно вийшов із кадру. У центрі — стіл, дзеркало, свічки й троянди.',
+        custom: 'image',
+        puzzle: 'Порахуй предмети на фото в порядку, у якому вони освітлені: свічки → дзеркала → троянди. Введи код цифрами.',
+        answers: ['317', '0317', '3 1 7'],
+        hint: 'На описі фото: 3 свічки, 1 дзеркало, 7 троянд.',
+        next: 'Код 3-1-7 перетворюється на час: 03:17. Саме тоді двері відчиняються тільки на одну хвилину.',
+        reward: 'Т'
+      },
+      {
+        title: 'Кімната 8. 60 секунд до вибору',
+        subtitle: 'Таймер · напруга часу',
+        mechanic: 'таймер',
+        scene: 'У кімнаті чотири двері: СТРАХ, ВИНА, БАЖАННЯ, МОВЧАННЯ. Над ними запускається таймер. Він не вбʼє гру, але змусить серце поспішати.',
+        custom: 'timer',
+        puzzle: 'Повернися до першої таємної фрази. Там була не шкатулка страхів і не шкатулка провини. Яке слово відкриває правильні двері?',
+        answers: ['БАЖАННЯ'],
+        hint: 'Повна фраза з кросворда: «Загляни в шкатулку бажань».',
+        next: 'Двері «БАЖАННЯ» відчиняються. Але за ними немає кімнати. Є тільки одне запитання, яке не любить брехні.',
+        reward: 'И'
+      },
+      {
+        title: 'Кімната 9. Запитання, яке не любить брехні',
+        subtitle: 'Психологічний вибір · чесність замість правильної відповіді',
+        mechanic: 'психологічний вибір',
+        scene: 'Темрява сідає навпроти. Вона не погрожує. Вона просто знає, що деякі двері відкриваються тільки тоді, коли перестаєш грати роль.',
+        custom: 'choice',
+        puzzle: 'Обери відповідь на екрані, а потім введи слово, яке дозволяє пройти цю кімнату.',
+        answers: ['ЧЕСНО'],
+        hint: 'Тут немає правильної емоції. Є тільки спосіб відповісти — чесно.',
+        next: 'Темрява усміхається. У тебе вже є всі літери. Вони не ведуть до неї. Вони ведуть до відповіді, хто вона така.',
+        reward: 'ключ'
+      },
+      {
+        title: 'Кімната 10. Моя грешніца',
+        subtitle: 'Метазагадка · кульмінація і твіст',
+        mechanic: 'метазагадка',
+        scene: 'Перед тобою останні двері. На них немає замка — тільки вісім зібраних літер: В О Н А Ц Е Т И. Голос каже: «Ти шукала її у файлах, чатах, дзеркалах і попелі. Але вона ніколи не була зовні».',
+        puzzle: 'Склади зібрані літери у фінальну відповідь на питання: хто така «вона»?',
+        answers: ['ВОНАЦЕТИ', 'ВОНА ЦЕ ТИ'],
+        hint: 'Розстав пробіли після 4-ї та 6-ї літери.',
+        final: true
+      }
+    ];
+
+    const rewardLetters = ['В', 'О', 'Н', 'А', 'Ц', 'Е', 'Т', 'И'];
+    let questIndex = 0;
+    let unlockedLetters = 0;
+    let timerId = null;
+    let timerValue = 60;
+
+    function qNormalize(value) {
+      return (value || '')
+        .toUpperCase()
+        .replace(/[’'`ʼ]/g, '')
+        .replace(/[^А-ЯҐЄІЇЬA-Z0-9]/g, '');
+    }
+
+    function questBuzz(ms = 35) {
+      if (navigator.vibrate) navigator.vibrate(ms);
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = 92;
+        gain.gain.value = 0.025;
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        setTimeout(() => { osc.stop(); ctx.close(); }, 90);
+      } catch (e) {}
+    }
+
+    function startQuest() {
+      questBuzz(45);
+      document.getElementById('questOverlay').classList.add('open');
+      document.getElementById('questOverlay').setAttribute('aria-hidden', 'false');
+      renderQuest();
+    }
+
+    function closeQuest() {
+      stopTimer();
+      document.getElementById('questOverlay').classList.remove('open');
+      document.getElementById('questOverlay').setAttribute('aria-hidden', 'true');
+    }
+
+    function renderRewards() {
+      const strip = document.getElementById('rewardStrip');
+      strip.innerHTML = '';
+      rewardLetters.forEach((letter, index) => {
+        const span = document.createElement('span');
+        span.className = 'reward-letter' + (index < unlockedLetters ? '' : ' locked');
+        span.textContent = index < unlockedLetters ? letter : '•';
+        strip.appendChild(span);
+      });
+    }
+
+    function customHTML(type) {
+      if (type === 'files') {
+        return `
+          <div class="file-box">
+            <div class="file-item">📄 01_readme.txt<br><small>«Перший файл завжди відволікає»</small></div>
+            <div class="file-item">📄 02_empty.txt<br><small>«Тут справді порожньо. Майже.»</small></div>
+            <div class="file-item">📄 03_ne_vidkryvaty.txt<br>
+              <button class="quest-secondary" type="button" onclick="this.nextElementSibling.classList.toggle('open')">Відкрити файл</button>
+              <pre class="file-content">Ледь помітний слід веде до столу.
+Але темрява просить не поспішати.
+Мовчи, якщо чуєш її кроки.
+Поверни ручку тільки після третього удару.
+А якщо світло згасне — назви його.</pre>
+            </div>
+          </div>`;
+      }
+
+      if (type === 'chat') {
+        return `
+          <div class="chat-box">
+            <div class="chat-msg unknown"><b>невідома:</b> Ти знову читаєш між рядків.</div>
+            <div class="chat-msg her"><b>ти:</b> Хто ти?</div>
+            <div class="chat-msg unknown"><b>невідома:</b> Та, кого ти назвала б жартом, якби стало страшно.</div>
+            <div class="chat-msg her"><b>ти:</b> Я хочу вийти.</div>
+            <div class="chat-msg unknown"><b>невідома:</b> Тоді запамʼятай правило: не дивись ____.</div>
+          </div>`;
+      }
+
+      if (type === 'site') {
+        return `
+          <div class="site-box">
+            <div class="site-line">site://moja-hreshnytsia/door</div>
+            <div class="site-line">403: вхід відсутній. Правда прихована нижче сторінки.</div>
+            <button class="quest-secondary" type="button" onclick="document.getElementById('sourceCode').classList.toggle('open')">Переглянути код сторінки</button>
+            <pre class="source-code" id="sourceCode">&lt;main&gt;
+  &lt;h1&gt;Тут немає входу&lt;/h1&gt;
+  &lt;!-- пароль: ПОПІЛ --&gt;
+&lt;/main&gt;</pre>
+          </div>`;
+      }
+
+      if (type === 'image') {
+        return `
+          <div class="image-box">
+            <p class="image-caption">
+              Опис фото: на столі стоять <b>3 свічки</b>. Позаду них висить <b>1 темне дзеркало</b>.
+              Біля краю кадру лежать <b>7 червоних троянд</b>. Обличчя в кадрі немає,
+              але на склі видно слід пальця.
+            </p>
+          </div>`;
+      }
+
+      if (type === 'timer') {
+        return `
+          <div class="timer-box">
+            <div class="timer" id="questTimer">01:00</div>
+            <div class="site-line">Двері: СТРАХ · ВИНА · БАЖАННЯ · МОВЧАННЯ</div>
+          </div>`;
+      }
+
+      if (type === 'choice') {
+        return `
+          <div class="choice-box">
+            <p>Що ти ховаєш найкраще?</p>
+            <button class="quest-secondary" type="button" onclick="psychChoice('бажання')">Бажання</button>
+            <button class="quest-secondary" type="button" onclick="psychChoice('страх')">Страх</button>
+            <button class="quest-secondary" type="button" onclick="psychChoice('провину')">Провину</button>
+            <div class="site-line" id="choiceResult">Обери не ідеальну відповідь. Обери справжню.</div>
+          </div>`;
+      }
+
+      return '';
+    }
+
+    function psychChoice(word) {
+      const result = document.getElementById('choiceResult');
+      if (result) result.innerHTML = `Ти обрала: <b>${word}</b>. Кімната приймає це. Тепер введи слово: <b>ЧЕСНО</b>.`;
+      const input = document.getElementById('questAnswer');
+      if (input) input.focus();
+      questBuzz(20);
+    }
+
+    function startTimer() {
+      stopTimer();
+      timerValue = 60;
+      const timer = document.getElementById('questTimer');
+      if (!timer) return;
+      timer.textContent = '01:00';
+      timerId = setInterval(() => {
+        timerValue -= 1;
+        const m = String(Math.floor(timerValue / 60)).padStart(2, '0');
+        const s = String(timerValue % 60).padStart(2, '0');
+        timer.textContent = `${m}:${s}`;
+        if (timerValue <= 10) questBuzz(12);
+        if (timerValue <= 0) {
+          stopTimer();
+          timer.textContent = '00:00';
+          document.getElementById('questResult').textContent = 'Час вийшов. Але ця гра не карає — вона просто дивиться, що ти зробиш далі.';
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timerId) clearInterval(timerId);
+      timerId = null;
+    }
+
+    function renderQuest() {
+      stopTimer();
+      const level = questLevels[questIndex];
+      document.getElementById('questProgress').textContent = `Кімната ${questIndex + 1} / ${questLevels.length}`;
+      document.getElementById('questTitle').textContent = level.title;
+      document.getElementById('questSubtitle').textContent = level.subtitle;
+      document.getElementById('questMechanic').textContent = level.mechanic;
+      document.getElementById('questScene').textContent = level.scene;
+      document.getElementById('questPuzzle').textContent = level.puzzle;
+      document.getElementById('questCustom').innerHTML = customHTML(level.custom);
+      document.getElementById('questHintBox').hidden = true;
+      document.getElementById('questHintBox').textContent = level.hint;
+      document.getElementById('questResult').textContent = '';
+      document.getElementById('questAnswer').value = '';
+      document.getElementById('questAnswer').focus();
+      renderRewards();
+      if (level.custom === 'timer') startTimer();
+    }
+
+    function checkQuestAnswer() {
+      const level = questLevels[questIndex];
+      const input = document.getElementById('questAnswer');
+      const answer = qNormalize(input.value);
+      const isCorrect = level.answers.some(item => qNormalize(item) === answer);
+
+      if (!isCorrect) {
+        document.getElementById('questResult').textContent = 'Замок не прийняв відповідь. Придивись уважніше.';
+        questBuzz(80);
+        return;
+      }
+
+      questBuzz(35);
+
+      if (level.final) {
+        stopTimer();
+        document.getElementById('questCard').innerHTML = `
+          <div class="final-screen">
+            <h3>Вона — це ти.</h3>
+            <p>Ти шукала «Мою грешніцу» у дзеркалі, файлах, чатах, попелі й чужих голосах.</p>
+            <p>Але вона весь час була тією частиною тебе, яка хотіла перейти межу — не щоб зникнути, а щоб нарешті бути побаченою.</p>
+            <p><b>Квест завершено. Але якщо ти читаєш це з усмішкою — значить, двері тільки відчинилися.</b></p>
+            <button class="quest-primary" type="button" onclick="closeQuest()">Закрити</button>
+          </div>`;
+        return;
+      }
+
+      if (questIndex < 8) unlockedLetters = Math.max(unlockedLetters, questIndex + 1);
+      document.getElementById('questResult').innerHTML = `Правильно. ${level.reward && level.reward !== 'ключ' ? 'Ти отримуєш літеру: <b>' + level.reward + '</b>. ' : ''}${level.next}`;
+      setTimeout(() => {
+        questIndex += 1;
+        renderQuest();
+      }, 2300);
+    }
+
+    function restartQuest() {
+      stopTimer();
+      questIndex = 0;
+      unlockedLetters = 0;
+      renderQuest();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const start = document.getElementById('startQuestBtn');
+      if (start) start.addEventListener('click', startQuest);
+      document.getElementById('questClose').addEventListener('click', closeQuest);
+      document.getElementById('questCheck').addEventListener('click', checkQuestAnswer);
+      document.getElementById('questRestart').addEventListener('click', restartQuest);
+      document.getElementById('questHint').addEventListener('click', () => {
+        const box = document.getElementById('questHintBox');
+        box.hidden = !box.hidden;
+        questBuzz(20);
+      });
+      document.getElementById('questAnswer').addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') checkQuestAnswer();
+      });
+    });
+  </script>
+
 </body>
 </html>
