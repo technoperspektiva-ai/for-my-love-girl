@@ -1,21 +1,39 @@
 # WWG QA Team
 
-Version: `v20-embedded-media`
+Version: `v24-google-signin-fixed`
 
-## Що змінено
+## Google Sign-In fixed
 
-- YouTube тепер вбудований як player на сайті
-- Champagne Coast player: Blood Orange - Champagne Coast Official Video
-- Audio тепер можна відтворити на сайті:
-  - через прямий audio URL mp3/ogg/wav
-  - або завантажити локальний audio-файл
-- Google Pay TEST authorization залишено
-- Apple Pay / Klarna / Amazon не повертав
-- чорний мінімальний стиль
+Виправлено Google Sign-In під офіційний Google Identity Services:
 
-## Google Sign-In
+```html
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+```
 
-Щоб увійти у свій Google акаунт, треба задати `GOOGLE_CLIENT_ID` у Cloudflare env.
+Додано:
+
+- `g_id_onload`
+- `g_id_signin`
+- `handleCredentialResponse(response)`
+- JWT decode
+- показ:
+  - name
+  - email
+  - avatar
+
+## Cloudflare env
+
+Щоб кнопка працювала, треба задати:
+
+```env
+GOOGLE_CLIENT_ID=your_client_id.apps.googleusercontent.com
+```
+
+У Google Cloud Console додай Authorized JavaScript origin:
+
+```txt
+https://for-my-love-girl.black-sci-official.workers.dev
+```
 
 ## Перевірка
 
