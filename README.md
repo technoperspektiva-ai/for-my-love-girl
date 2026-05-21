@@ -1,41 +1,26 @@
 # WWG QA Team Redirect Dashboard
 
-Version: `v8-payment-redirects`
+Version: `v9-structured-redirects`
 
-## Головне
+## Зміни
 
-Цей ZIP root-clean: файли лежать одразу в корені архіву.
-
-## Якщо знову бачиш помилку package.json
-
-Помилка:
-
-```txt
-ParserError parsing package.json
-1 | node_modules
-```
-
-означає, що в GitHub файл `package.json` містить текст `.gitignore`.
-
-Правильний `package.json` має починатися з:
-
-```json
-{
-  "name": "for-my-love-girl",
-```
-
-## Нове у v8
-
-- платіжні блоки тепер не `mock success`, а redirect поля:
-  - Google Pay
+- прибрано loader-кнопки;
+- кожен редірект структурований окремо;
+- платіжні провайдери окремими картками:
+  - Google Pay UPI
+  - UPI generic
+  - PhonePe UPI
+  - PayTM UPI
   - Play ID
-  - CBC KBC
-  - PayTM
-  - PhonePe
-- у кожну платіжку можна вставити URL/deeplink
-- кнопка `Відкрити редірект` відкриває зовнішній ресурс
-- кнопка `∞ loader` показує нескінченну загрузку для цього URL
-- кнопка `Копіювати` копіює URL
+  - KBC Mobile
+  - CBC Mobile
+- у кожній платіжній картці є App/deeplink/intent URL, Web fallback і Copy;
+- URL можна редагувати на сторінці.
+
+## Важливо по package.json
+
+Якщо Cloudflare пише `1 | node_modules`, значить `package.json` у GitHub зіпсований і містить `.gitignore`.
+Правильний `package.json` починається з `{`.
 
 ## Перевірка
 
