@@ -1,21 +1,29 @@
-# v31 under 3MB
+# v34 GitHub-ready Google Pay + Google Sign-In
 
-This build is made to avoid Cloudflare size problems.
+Only:
+- Google Pay button
+- Google Sign-In button
+- logged-in status with name, email, avatar
 
-Changes:
-- `src/index.js` is small
-- `public/audio.mp3` is compressed
-- no base64 MP3 inside Worker code
-- full user info removed; only User-Agent remains
-- Google Pay has no visible parameters
-- music has only default audio player
-- Amazon Pay opens sandbox test checkout modal
+`GOOGLE_CLIENT_ID` is already included as fallback:
 
-Upload ALL files to repo root and replace old files:
-- src/index.js
-- wrangler.jsonc
-- package.json
-- public/audio.mp3
+```txt
+221396849433-0f5ktd8ao72kf7qvrgi7sk7v9lpn698o.apps.googleusercontent.com
+```
 
-Check in GitHub:
-- `src/index.js` must NOT be 5 MB.
+You can still override it with Cloudflare env:
+
+```env
+GOOGLE_CLIENT_ID=221396849433-0f5ktd8ao72kf7qvrgi7sk7v9lpn698o.apps.googleusercontent.com
+```
+
+## GitHub deploy secrets
+
+Repository Settings → Secrets and variables → Actions → New repository secret:
+
+```txt
+CLOUDFLARE_API_TOKEN
+CLOUDFLARE_ACCOUNT_ID
+```
+
+Then push to `main`, GitHub Actions will deploy.
