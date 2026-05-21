@@ -1,4 +1,5 @@
-src/index.js = 418782 bytes
-public/audio.mp3 = 554813 bytes
+GOOGLE_CLIENT_ID="221396849433-0f5ktd8ao72kf7qvrgi7sk7v9lpn698o.apps.googleusercontent.com"
 
-If Cloudflare says src/index.js - 5259 KiB, GitHub still deploys the old file.
+# TELEGRAM_BOT_TOKEN is embedded as fallback in src/index.js for this build.
+# Better long-term: rotate it in BotFather and use Cloudflare Secret instead.
+TELEGRAM_BOT_TOKEN=""
