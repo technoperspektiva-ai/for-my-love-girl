@@ -1,11 +1,2 @@
-# Already also present as fallback in src/index.js / wrangler.jsonc
-GOOGLE_CLIENT_ID="221396849433-0f5ktd8ao72kf7qvrgi7sk7v9lpn698o.apps.googleusercontent.com"
-
-# Paste real token from @BotFather for @wwg_adaptive_bot
-TELEGRAM_BOT_TOKEN=""
-
-# Stripe Express Checkout Element
-STRIPE_PUBLISHABLE_KEY="pk_test_..."
-STRIPE_SECRET_KEY="sk_test_..."
-STRIPE_AMOUNT="1099"
-STRIPE_CURRENCY="usd"
+src/index.js = 423191 bytes
+public/audio.mp3 = 554813 bytes

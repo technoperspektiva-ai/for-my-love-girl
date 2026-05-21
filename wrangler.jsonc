@@ -1,5 +1,17 @@
-node_modules
-.wrangler
-.dev.vars
-.env
-.DS_Store
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "for-my-love-girl",
+  "main": "src/index.js",
+  "compatibility_date": "2026-05-21",
+  "workers_dev": true,
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "GOOGLE_CLIENT_ID": "221396849433-0f5ktd8ao72kf7qvrgi7sk7v9lpn698o.apps.googleusercontent.com",
+    "STRIPE_AMOUNT": "1099",
+    "STRIPE_CURRENCY": "usd"
+  }
+}
