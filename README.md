@@ -1,20 +1,17 @@
 # WWG QA Team
 
-Version: `v14-googlepay-api-test`
+Version: `v15-strict-cashier`
 
-## Що додано
+## Зміни
 
-- Cashier's Desk style: `#app`, mobile viewport, cashier layout.
-- Google Pay API TEST button через `https://pay.google.com/gp/p/js/pay.js`.
-- Google Pay відкриває payment sheet у `environment: TEST`.
-- Tokenization gateway: `example`, `exampleGatewayMerchantId`.
-- Link веде на `https://pay.gopay-wallet.com/payment-200?orderNo=RSbeashqk3da&payType=1`.
-- PayTM / PhonePe ведуть на `https://pay.gopay-wallet.com/payment-200?orderNo=RSbeashqkg2b&payType=1`.
-- Таймер рахує вниз.
-
-## Важливо
-
-Google Pay TEST не списує гроші. Для production потрібні реальні `merchantId`, gateway і backend processing.
+- прибрано маскота;
+- прибрано соцмережі, QR, custom links, web-open blocks;
+- строгий payment-only Cashier Desk;
+- Google Pay TEST з `PAYMENT_AUTHORIZATION`;
+- Apple Pay authorization shell через `ApplePaySession`;
+- Apple Pay потребує merchant validation endpoint на backend;
+- таймер залишено;
+- payment redirects залишено як зовнішні URL.
 
 ## Перевірка
 
