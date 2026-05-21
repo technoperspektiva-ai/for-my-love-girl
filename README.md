@@ -1,20 +1,38 @@
-# v36 full small telegram
+# v38 Stripe Express Checkout Amazon Pay
 
-Includes:
-- Google Pay
-- Google Sign-In with LOGGED IN status
-- Telegram Login endpoint `/api/auth/telegram`
-- Cashier Desk
-- App Redirect Checks
-- YouTube + audio asset
-- Amazon Pay test checkout
-- User-Agent only
-- Text / Photo / Clicker
+Old Amazon test modal has been replaced with Stripe Express Checkout Element.
 
-Cloudflare env:
-- GOOGLE_CLIENT_ID
-- TELEGRAM_BOT_TOKEN
+## Required Cloudflare env
 
-Important:
-src/index.js must be small, not 5MB.
-If Cloudflare says src/index.js 5259 KiB, your repo still has old file.
+```env
+STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_AMOUNT=1099
+STRIPE_CURRENCY=usd
+```
+
+Existing:
+
+```env
+GOOGLE_CLIENT_ID=221396849433-0f5ktd8ao72kf7qvrgi7sk7v9lpn698o.apps.googleusercontent.com
+TELEGRAM_BOT_TOKEN=...
+```
+
+## Stripe Dashboard
+
+- Enable Amazon Pay in Payment methods.
+- Register your domain in Payment method domains.
+- Use HTTPS.
+- Use test keys for test mode.
+
+## Worker endpoint
+
+```txt
+POST /create-intent
+```
+
+Creates a Stripe PaymentIntent with:
+
+```txt
+payment_method_types[]=amazon_pay
+```
