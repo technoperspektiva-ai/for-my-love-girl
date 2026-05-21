@@ -1,4 +1,5 @@
-const HTML = `<!doctype html>
+function pageHtml() {
+  return String.raw`<!doctype html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
@@ -130,13 +131,42 @@ const HTML = `<!doctype html>
     .gift-card { border-radius: 36px; padding: clamp(26px, 5vw, 54px); text-align: center; }
     .gift-card p { max-width: 760px; margin: 18px auto 28px; }
     .payment-preview { max-width: 650px; margin: 0 auto; padding: 18px; border-radius: 28px; display: grid; gap: 12px; }
-    .pay-method { width: 100%; border: 1px solid var(--line); border-radius: 18px; padding: 16px; color: #fff; background: rgba(255,255,255,.055); text-align: left; font-weight: 850; }
+    .pay-method {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      color: #fff;
+      background: rgba(255,255,255,.055);
+      text-align: left;
+      font-weight: 850;
+    }
     .pay-method.active { border-color: rgba(255,255,255,.35); background: var(--card-strong); }
     .footer { padding: 34px 18px; text-align: center; color: rgba(255,255,255,.45); border-top: 1px solid var(--line); }
-    .modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.72); backdrop-filter: blur(10px); }
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(10px);
+    }
     .modal[hidden] { display: none; }
     .modal-box { width: min(540px, 100%); border-radius: 34px; padding: 24px; position: relative; background: #0b0810; }
-    .close { position: absolute; top: 16px; right: 16px; width: 42px; height: 42px; border: 0; border-radius: 999px; color: #fff; background: rgba(255,255,255,.1); font-size: 26px; }
+    .close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(255,255,255,.1);
+      font-size: 26px;
+    }
     .modal-methods { display: grid; gap: 10px; margin-top: 18px; }
     .notice { margin-top: 16px; padding: 14px; border-radius: 18px; border: 1px solid rgba(250,204,21,.18); background: rgba(250,204,21,.1); color: #fef3c7; line-height: 1.55; }
     .success { text-align: center; padding: 28px 8px 8px; }
@@ -176,29 +206,67 @@ const HTML = `<!doctype html>
   </main>
   <div class="modal" id="checkoutModal" hidden><div class="modal-box"><button class="close" id="closeCheckout">×</button><div id="checkoutContent"><span class="eyebrow">Mock checkout</span><h2>Тестова дія</h2><p class="muted" id="selectedMethodText">Обрано: Card Test Pay</p><div class="modal-methods"><button class="pay-method active" data-method="Card Test Pay">Card Test Pay</button><button class="pay-method" data-method="App Redirect Mock">App Redirect Mock</button><button class="pay-method" data-method="Wallet Sandbox">Wallet Sandbox</button></div><div class="notice">У цьому mock-flow не можна вводити реальні карткові або банківські дані.</div><button class="btn primary full" id="continueButton">Продовжити тест</button></div></div></div>
   <script>
-    const modal = document.querySelector("#checkoutModal");
-    const closeButton = document.querySelector("#closeCheckout");
-    const checkoutContent = document.querySelector("#checkoutContent");
-    let selectedMethod = "Card Test Pay";
-    function openCheckout() { modal.hidden = false; document.body.style.overflow = "hidden"; }
-    function closeCheckout() { modal.hidden = true; document.body.style.overflow = ""; resetCheckout(); }
-    function resetCheckout() { checkoutContent.innerHTML = `<span class="eyebrow">Mock checkout</span><h2>Тестова дія</h2><p class="muted" id="selectedMethodText">Обрано: ${selectedMethod}</p><div class="modal-methods"><button class="pay-method ${selectedMethod === "Card Test Pay" ? "active" : ""}" data-method="Card Test Pay">Card Test Pay</button><button class="pay-method ${selectedMethod === "App Redirect Mock" ? "active" : ""}" data-method="App Redirect Mock">App Redirect Mock</button><button class="pay-method ${selectedMethod === "Wallet Sandbox" ? "active" : ""}" data-method="Wallet Sandbox">Wallet Sandbox</button></div><div class="notice">У цьому mock-flow не можна вводити реальні карткові або банківські дані.</div><button class="btn primary full" id="continueButton">Продовжити тест</button>`; }
-    function setMethod(method) { selectedMethod = method; document.querySelectorAll(".pay-method").forEach((button) => { button.classList.toggle("active", button.dataset.method === selectedMethod); }); document.querySelectorAll("#selectedMethodText").forEach((el) => { el.textContent = `Обрано: ${selectedMethod}`; }); }
-    document.addEventListener("click", (event) => { if (event.target.closest("#openCheckoutTop, #openCheckoutGift")) openCheckout(); const methodButton = event.target.closest(".pay-method[data-method]"); if (methodButton) setMethod(methodButton.dataset.method); if (event.target.closest("#continueButton")) { const button = event.target.closest("#continueButton"); button.disabled = true; button.textContent = "Імітуємо дію..."; window.setTimeout(() => { checkoutContent.innerHTML = `<div class="success"><div class="success-mark">✓</div><span class="eyebrow">Success</span><h2>Тест успішний</h2><p class="muted">Реальна оплата або транзакція не проводилась. Це лише sandbox-подія.</p><button class="btn primary full" id="successClose">Закрити</button></div>`; }, 850); } if (event.target.closest("#successClose")) closeCheckout(); });
-    closeButton.addEventListener("click", closeCheckout);
-    modal.addEventListener("click", (event) => { if (event.target === modal) closeCheckout(); });
-    document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !modal.hidden) closeCheckout(); });
+    const modal = document.querySelector('#checkoutModal');
+    const closeButton = document.querySelector('#closeCheckout');
+    const checkoutContent = document.querySelector('#checkoutContent');
+    let selectedMethod = 'Card Test Pay';
+
+    function checkoutMarkup() {
+      return '<span class="eyebrow">Mock checkout</span>' +
+        '<h2>Тестова дія</h2>' +
+        '<p class="muted" id="selectedMethodText">Обрано: ' + selectedMethod + '</p>' +
+        '<div class="modal-methods">' +
+        '<button class="pay-method ' + (selectedMethod === 'Card Test Pay' ? 'active' : '') + '" data-method="Card Test Pay">Card Test Pay</button>' +
+        '<button class="pay-method ' + (selectedMethod === 'App Redirect Mock' ? 'active' : '') + '" data-method="App Redirect Mock">App Redirect Mock</button>' +
+        '<button class="pay-method ' + (selectedMethod === 'Wallet Sandbox' ? 'active' : '') + '" data-method="Wallet Sandbox">Wallet Sandbox</button>' +
+        '</div>' +
+        '<div class="notice">У цьому mock-flow не можна вводити реальні карткові або банківські дані.</div>' +
+        '<button class="btn primary full" id="continueButton">Продовжити тест</button>';
+    }
+
+    function openCheckout() { modal.hidden = false; document.body.style.overflow = 'hidden'; }
+    function closeCheckout() { modal.hidden = true; document.body.style.overflow = ''; checkoutContent.innerHTML = checkoutMarkup(); }
+    function setMethod(method) {
+      selectedMethod = method;
+      document.querySelectorAll('.pay-method').forEach((button) => button.classList.toggle('active', button.dataset.method === selectedMethod));
+      document.querySelectorAll('#selectedMethodText').forEach((el) => { el.textContent = 'Обрано: ' + selectedMethod; });
+    }
+
+    document.addEventListener('click', (event) => {
+      if (event.target.closest('#openCheckoutTop, #openCheckoutGift')) openCheckout();
+      const methodButton = event.target.closest('.pay-method[data-method]');
+      if (methodButton) setMethod(methodButton.dataset.method);
+      if (event.target.closest('#continueButton')) {
+        const button = event.target.closest('#continueButton');
+        button.disabled = true;
+        button.textContent = 'Імітуємо дію...';
+        window.setTimeout(() => {
+          checkoutContent.innerHTML = '<div class="success"><div class="success-mark">✓</div><span class="eyebrow">Success</span><h2>Тест успішний</h2><p class="muted">Реальна оплата або транзакція не проводилась. Це лише sandbox-подія.</p><button class="btn primary full" id="successClose">Закрити</button></div>';
+        }, 850);
+      }
+      if (event.target.closest('#successClose')) closeCheckout();
+    });
+    closeButton.addEventListener('click', closeCheckout);
+    modal.addEventListener('click', (event) => { if (event.target === modal) closeCheckout(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !modal.hidden) closeCheckout(); });
   </script>
 </body>
 </html>`;
+}
 
 export default {
-  async fetch(request, env) {
+  async fetch(request) {
     const url = new URL(request.url);
+
     if (url.pathname === "/api/health") {
-      return Response.json({ ok: true, name: "for-my-love-girl", url: "for-my-love-girl.black-sci-official.workers.dev" });
+      return Response.json({
+        ok: true,
+        name: "for-my-love-girl",
+        url: "for-my-love-girl.black-sci-official.workers.dev"
+      });
     }
-    return new Response(HTML, {
+
+    return new Response(pageHtml(), {
       headers: {
         "content-type": "text/html; charset=UTF-8",
         "cache-control": "public, max-age=60"
