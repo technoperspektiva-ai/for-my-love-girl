@@ -1,21 +1,20 @@
 # WWG QA Team
 
-Version: `v12-googlepay-official-demo`
+Version: `v14-googlepay-api-test`
 
-## Зміни
+## Що додано
 
-- прибрано текст, що кнопка Google Pay "не працює";
-- Google Pay тепер веде на офіційний Google Pay live demo:
-  `https://developers.google.com/pay/api/web/guides/resources/demos`
-- Link веде на:
-  `https://pay.gopay-wallet.com/payment-200?orderNo=RSbeashqk3da&payType=1`
-- PayTM і PhonePe ведуть на:
-  `https://pay.gopay-wallet.com/payment-200?orderNo=RSbeashqkg2b&payType=1`
-- Play ID / CBC-KBC лишені як редаговані URL-поля, бо для них потрібні реальні checkout/deeplink URL.
+- Cashier's Desk style: `#app`, mobile viewport, cashier layout.
+- Google Pay API TEST button через `https://pay.google.com/gp/p/js/pay.js`.
+- Google Pay відкриває payment sheet у `environment: TEST`.
+- Tokenization gateway: `example`, `exampleGatewayMerchantId`.
+- Link веде на `https://pay.gopay-wallet.com/payment-200?orderNo=RSbeashqk3da&payType=1`.
+- PayTM / PhonePe ведуть на `https://pay.gopay-wallet.com/payment-200?orderNo=RSbeashqkg2b&payType=1`.
+- Таймер рахує вниз.
 
 ## Важливо
 
-Я не підключаю "чужий провайдер" без дозволу. Для реальної оплати потрібен твій PSP checkout URL або офіційна інтеграція.
+Google Pay TEST не списує гроші. Для production потрібні реальні `merchantId`, gateway і backend processing.
 
 ## Перевірка
 
