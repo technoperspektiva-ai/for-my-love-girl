@@ -1,0 +1,3 @@
+src/index.js = 419397 bytes
+public/audio.mp3 = 554813 bytes
+If Cloudflare log says src/index.js - 5259 KiB, GitHub still contains OLD index.js.
