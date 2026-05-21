@@ -1,28 +1,15 @@
-# WWG QA Team Redirect Dashboard
+# WWG QA Team
 
-Version: `v9-structured-redirects`
+Version: `v10-compact-payment-widget`
 
-## Зміни
+- компактний payment widget як на скріні
+- PayTM і PhonePe ведуть на:
+  `https://pay.gopay-wallet.com/payment-200?orderNo=RSbeashqkg2b&payType=1`
+- редіректи структуровані окремо
+- без loader-кнопок
+- без збору карток/CVV/OTP/банківських логінів
 
-- прибрано loader-кнопки;
-- кожен редірект структурований окремо;
-- платіжні провайдери окремими картками:
-  - Google Pay UPI
-  - UPI generic
-  - PhonePe UPI
-  - PayTM UPI
-  - Play ID
-  - KBC Mobile
-  - CBC Mobile
-- у кожній платіжній картці є App/deeplink/intent URL, Web fallback і Copy;
-- URL можна редагувати на сторінці.
-
-## Важливо по package.json
-
-Якщо Cloudflare пише `1 | node_modules`, значить `package.json` у GitHub зіпсований і містить `.gitignore`.
-Правильний `package.json` починається з `{`.
-
-## Перевірка
+Якщо Cloudflare пише `1 | node_modules`, у GitHub зіпсований `package.json`.
 
 ```bash
 npm install
