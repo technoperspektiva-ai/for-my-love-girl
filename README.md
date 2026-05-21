@@ -1,18 +1,22 @@
-# WWG QA Team Redirect Checker
+# WWG QA Team Redirect Dashboard
 
-Version: `v5-root-clean`
+Version: `v7-polished-dashboard`
 
-Цей архів зроблений **без вкладеної папки**: файли лежать одразу в root ZIP. Завантажуй їх у корінь GitHub repo.
+Красивий root-clean Worker dashboard з логотипом WWG QA TEAM і QA-стікером.
 
-## Важливо
+## ВАЖЛИВО
 
-Якщо Cloudflare показує помилку:
+ZIP root-clean: файли лежать одразу в корені архіву.
+
+Якщо Cloudflare пише:
 
 ```txt
-checkoutContent.innerHTML = `<span class="eyebrow">
+ParserError parsing package.json
+1 | node_modules
 ```
 
-це 100% старий `src/index.js`. У v5 такого рядка немає.
+значить у GitHub файл `package.json` зіпсований і містить текст `.gitignore`.
+Видали `package.json` у GitHub і залий правильний з цього ZIP.
 
 ## Перевірка
 
@@ -22,12 +26,19 @@ npm run check
 npm run deploy
 ```
 
-## Google login
+## Функції
 
-Функціонал доступний без входу. Якщо хочеш реальний Google login, додай Cloudflare Variable:
-
-```txt
-GOOGLE_CLIENT_ID=твій_google_oauth_client_id
-```
-
-Якщо змінної немає — працює Guest / Google demo.
+- красивий WWG QA Team dashboard
+- логотип + QA mascot
+- Google demo / optional real Google login через `GOOGLE_CLIENT_ID`
+- Guest login
+- Telegram/Viber/WhatsApp/Blogspot/Дія/Instagram/TikTok/Facebook редіректи
+- Web fallback
+- infinite loader
+- custom link checker
+- QR generator
+- photo preview
+- keyboard test
+- mock support chat
+- mock payment status: Play ID / CBC KBC / PayTM / PhonePe
+- `/api/health`
