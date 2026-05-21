@@ -1,38 +1,34 @@
 # WWG QA Team
 
-Version: `v24-google-signin-fixed`
+Version: `v25-size-fixed-assets`
 
-## Google Sign-In fixed
+## Fix Cloudflare 3 MiB limit
 
-Виправлено Google Sign-In під офіційний Google Identity Services:
+Попередня версія впала, бо MP3 був вбудований у `src/index.js` як base64.
+Через це Worker став більшим за 3 MiB.
 
-```html
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-```
+У цій версії:
 
-Додано:
+- `src/index.js` маленький
+- аудіо лежить окремо: `public/audio.mp3`
+- `wrangler.jsonc` має assets config:
+  ```json
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  }
+  ```
+- audio player використовує:
+  ```html
+  /audio.mp3
+  ```
 
-- `g_id_onload`
-- `g_id_signin`
-- `handleCredentialResponse(response)`
-- JWT decode
-- показ:
-  - name
-  - email
-  - avatar
+## Google Sign-In
 
-## Cloudflare env
-
-Щоб кнопка працювала, треба задати:
+Щоб увійти у свій Google акаунт, треба задати:
 
 ```env
 GOOGLE_CLIENT_ID=your_client_id.apps.googleusercontent.com
-```
-
-У Google Cloud Console додай Authorized JavaScript origin:
-
-```txt
-https://for-my-love-girl.black-sci-official.workers.dev
 ```
 
 ## Перевірка
