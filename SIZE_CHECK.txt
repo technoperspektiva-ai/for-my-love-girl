@@ -1,0 +1,14 @@
+IMPORTANT SIZE CHECK
+
+Correct file sizes for v31:
+src/index.js = 414392 bytes
+public/audio.mp3 = 554813 bytes
+total source relevant size ≈ 969205 bytes
+
+If Cloudflare log says:
+src/index.js - 5259 KiB
+
+then GitHub still has the OLD file with base64 MP3 inside.
+Delete src/index.js in GitHub and upload this ZIP's src/index.js.
+
+This v31 uses compressed audio so the project is lighter.
