@@ -1,0 +1,11 @@
+IMPORTANT SIZE CHECK
+
+Correct file sizes:
+src/index.js = 414453 bytes
+public/audio.mp3 = 3714235 bytes
+
+If Cloudflare log says:
+src/index.js - 5259 KiB
+
+then GitHub still has the OLD file.
+Delete src/index.js in GitHub and upload this ZIP's src/index.js.
