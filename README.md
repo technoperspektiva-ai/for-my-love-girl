@@ -1,37 +1,44 @@
 # WWG QA Team
 
-Version: `v25-size-fixed-assets`
+Version: `v28-google-clientid-safe`
 
-## Fix Cloudflare 3 MiB limit
+## Fix Google error: Missing required parameter client_id
 
-Попередня версія впала, бо MP3 був вбудований у `src/index.js` як base64.
-Через це Worker став більшим за 3 MiB.
+У попередній версії Google кнопка могла рендеритись із пустим:
 
-У цій версії:
-
-- `src/index.js` маленький
-- аудіо лежить окремо: `public/audio.mp3`
-- `wrangler.jsonc` має assets config:
-  ```json
-  "assets": {
-    "directory": "./public",
-    "binding": "ASSETS"
-  }
-  ```
-- audio player використовує:
-  ```html
-  /audio.mp3
-  ```
-
-## Google Sign-In
-
-Щоб увійти у свій Google акаунт, треба задати:
-
-```env
-GOOGLE_CLIENT_ID=your_client_id.apps.googleusercontent.com
+```html
+data-client_id=""
 ```
 
-## Перевірка
+Через це Google показував:
+
+```txt
+Missing required parameter: client_id
+```
+
+У v28 Google Sign-In рендериться тільки якщо `GOOGLE_CLIENT_ID` заданий і схожий на:
+
+```txt
+xxxx.apps.googleusercontent.com
+```
+
+## Що треба зробити
+
+У Cloudflare додай env variable:
+
+```env
+GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+```
+
+У Google Cloud Console додай Authorized JavaScript origin:
+
+```txt
+https://for-my-love-girl.black-sci-official.workers.dev
+```
+
+Якщо маєш кастомний домен — додай і його теж.
+
+## Deploy
 
 ```bash
 npm install
