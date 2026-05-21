@@ -1,78 +1,70 @@
 # WWG QA Team Redirect Checker
 
-Cloudflare Worker landing для QA-перевірок.
+Version: `v4-google-login`
 
-URL після деплою:
+## Нове у v4
+
+- додано легкий блок авторизації:
+  - Google Sign-In, якщо задано `GOOGLE_CLIENT_ID`
+  - guest/demo режим, якщо Google Client ID не заданий
+- функціонал сайту доступний у будь-якому випадку: і з Google login, і без входу
+- статус користувача зберігається у `localStorage`
+- `/api/health` показує `google_login: true/false`
+
+## Як увімкнути реальний Google Sign-In
+
+1. Google Cloud Console → APIs & Services → Credentials.
+2. Create Credentials → OAuth client ID.
+3. Application type: Web application.
+4. Authorized JavaScript origins додай:
 
 ```txt
 https://for-my-love-girl.black-sci-official.workers.dev
 ```
 
-## Що додано
+5. У Cloudflare Worker → Settings → Variables додай:
 
-- функціональні редіректи:
-  - Telegram HTTPS: `https://t.me/nsqmarket`
-  - Telegram tg://: `tg://resolve?domain=nsqmarket`
-  - Viber: `viber://`
-  - WhatsApp: `whatsapp://send?abid=serg&text=hello`
-  - Blogspot HTTP: `http://veb-page.blogspot.com/`
-  - Дія web: `https://diia.gov.ua/`
-  - Дія app placeholder: `diia://`
-  - Instagram
-  - TikTok
-  - Facebook
-- Web fallback для кожного пункту
-- власна зовнішня лінка
-- prefix перемикач: `https://`, `http://`, `tg://`, `viber://`, `whatsapp://`, `diia://`
-- режим `Безкінечна загрузка` для будь-якого ресурсу
-- QR генератор
-- швидкі кнопки:
-  - `https://webqr.com/`
-  - `https://ninja-chat-a6f8f.web.app/`
-- upload фото з preview
-- перевірка клавіатури
-- mock support chat
-- mock платіжки:
-  - Play ID
-  - CBC KBC
-  - PayTM
-  - PhonePe
-- `/api/health`
+```txt
+GOOGLE_CLIENT_ID=твій_google_oauth_client_id
+```
 
-## Запуск
+Або локально в `.dev.vars`:
+
+```txt
+GOOGLE_CLIENT_ID="твій_google_oauth_client_id"
+```
+
+Якщо `GOOGLE_CLIENT_ID` порожній — сайт працює у demo/guest режимі.
+
+## Перевірка перед деплоєм
 
 ```bash
 npm install
-npm run dev
-```
-
-## Деплой
-
-```bash
-npx wrangler login
+npm run check
 npm run deploy
 ```
 
-## GitHub
+## Функції
 
-```bash
-git init
-git add .
-git commit -m "Update WWG redirect checker"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/for-my-love-girl.git
-git push -u origin main
-```
-
-## GitHub Actions
-
-Додай repository secrets:
-
-```txt
-CLOUDFLARE_API_TOKEN
-CLOUDFLARE_ACCOUNT_ID
-```
+- Telegram HTTPS: `https://t.me/nsqmarket`
+- Telegram tg://: `tg://resolve?domain=nsqmarket`
+- Viber: `viber://`
+- WhatsApp: `whatsapp://send?abid=serg&text=hello`
+- Blogspot HTTP: `http://veb-page.blogspot.com/`
+- Дія web/app placeholder
+- Instagram / TikTok / Facebook
+- власна зовнішня лінка
+- prefix перемикач
+- безкінечна загрузка
+- QR генератор
+- WebQR / Ninja support chat
+- upload фото з preview
+- перевірка клавіатури
+- mock support chat
+- mock платіжки Play ID / CBC KBC / PayTM / PhonePe
+- `/api/health`
 
 ## Безпека
 
 Платіжні блоки тільки mock/test. Сайт не збирає реальні картки, CVV, OTP, банківські логіни або паролі.
+Google login тут використовується лише як легка ідентифікація на фронті, без блокування QA-функціоналу.
