@@ -1,28 +1,21 @@
 # WWG QA Team
 
-Version: `v18-black-minimal`
+Version: `v20-embedded-media`
 
 ## Що змінено
 
-- прибрано QA log
-- прибрано таймер
-- прибрано Google Pay authorize
-- прибрано Apple Pay authorize
-- прибрано merchant validator block
-- payment buttons без видимих URL
-- app redirects без web version
-- YouTube link: Champagne Coast (Intence)
-- Audio link: Мертвая планета wrierbrake
-- Google Sign-In через Google Identity Services
-- прибрано HTTP resource check
-- додано clicker
-- головне фото: WWG QA TEAM
-- чорний фон
-- прямокутні форми
+- YouTube тепер вбудований як player на сайті
+- Champagne Coast player: Blood Orange - Champagne Coast Official Video
+- Audio тепер можна відтворити на сайті:
+  - через прямий audio URL mp3/ogg/wav
+  - або завантажити локальний audio-файл
+- Google Pay TEST authorization залишено
+- Apple Pay / Klarna / Amazon не повертав
+- чорний мінімальний стиль
 
-## Важливо
+## Google Sign-In
 
-Щоб увійти через Google, треба задати `GOOGLE_CLIENT_ID` у Cloudflare env / secret.
+Щоб увійти у свій Google акаунт, треба задати `GOOGLE_CLIENT_ID` у Cloudflare env.
 
 ## Перевірка
 
