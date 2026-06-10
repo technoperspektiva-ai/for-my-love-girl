@@ -23,3 +23,7 @@ Expected for working login:
 ```
 
 If `matchesWidget` is false, the token belongs to another bot.
+
+
+## v59 direct checkout methods
+Adds direct checkout buttons for Play ID, CBC, KBC, Skrill, and Bank Transfer. CBC/KBC Business reuse the matching provider checkout flow.
