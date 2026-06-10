@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "for-my-love-girl",
+  "main": "src/index.js",
+  "compatibility_date": "2026-05-21",
+  "workers_dev": true,
+  "keep_vars": true,
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "GOOGLE_CLIENT_ID": "221396849433-0f5ktd8ao72kf7qvrgi7sk7v9lpn698o.apps.googleusercontent.com",
+    "TELEGRAM_BOT_USERNAME": "wwg_adaptive_bot"
+  }
+}

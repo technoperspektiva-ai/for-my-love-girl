@@ -1,4 +1,2 @@
-src/index.js = 418782 bytes
+src/index.js = 420852 bytes
 public/audio.mp3 = 554813 bytes
-
-If Cloudflare says src/index.js - 5259 KiB, GitHub still deploys the old file.
