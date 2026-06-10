@@ -1,23 +1,25 @@
-# v42 Telegram file token priority
+# v43 Telegram getMe debug
 
-Fix for Telegram `hash mismatch` when Cloudflare Dashboard has an old/wrong TELEGRAM_BOT_TOKEN.
+Adds endpoint:
 
-Changes:
-- Telegram widget is explicitly `wwg_adaptive_bot`.
-- Telegram auth uses file fallback token first.
-- Cloudflare env token is used only if file fallback is empty.
-- `/api/debug/env` now shows:
-  - `telegramTokenSource`
-  - `telegramBotUsername`
+```txt
+/api/debug/telegram-bot
+```
 
-Expected debug:
+It calls Telegram Bot API `getMe` server-side and returns:
+- configured widget username
+- actual bot username from token
+- whether they match
+
+Expected for working login:
+
 ```json
 {
-  "hasTelegramBotToken": true,
-  "telegramTokenSource": "file-fallback",
-  "telegramBotUsername": "wwg_adaptive_bot"
+  "ok": true,
+  "configuredWidgetUsername": "wwg_adaptive_bot",
+  "actualBotUsernameFromToken": "wwg_adaptive_bot",
+  "matchesWidget": true
 }
 ```
 
-Security note:
-Token is embedded because requested. Long-term, rotate it and use Cloudflare Secret only.
+If `matchesWidget` is false, the token belongs to another bot.

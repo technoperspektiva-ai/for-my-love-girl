@@ -11,6 +11,7 @@
     "binding": "ASSETS"
   },
   "vars": {
-    "GOOGLE_CLIENT_ID": "221396849433-0f5ktd8ao72kf7qvrgi7sk7v9lpn698o.apps.googleusercontent.com"
+    "GOOGLE_CLIENT_ID": "221396849433-0f5ktd8ao72kf7qvrgi7sk7v9lpn698o.apps.googleusercontent.com",
+    "TELEGRAM_BOT_USERNAME": "wwg_adaptive_bot"
   }
 }
