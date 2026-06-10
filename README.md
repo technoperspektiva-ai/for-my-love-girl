@@ -23,3 +23,11 @@ Expected for working login:
 ```
 
 If `matchesWidget` is false, the token belongs to another bot.
+
+
+## v52 redirect event logger
+- Removed Reset redirect variants button.
+- Added local Event Logger.
+- Play ID fixed to playid://.
+- CBC/KBC buttons cycle through best-effort app routes: home, dashboard, start, payment, root.
+- Redirect success is heuristic only: hidden/pagehide means likely opened; browser cannot inspect another app.
