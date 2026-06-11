@@ -143,3 +143,15 @@ The `Тимчасова пошта` section is now collapsed by default and expa
 - Rotates through active Mail.tm domains instead of always selecting the first one.
 - After repeated empty inbox checks, suggests replacing the address to try the next domain.
 - Keeps token refresh and calm inbox rendering from v85.
+
+
+## Fixed Mail.tm inbox proxy
+
+The UI includes a button `Підключити готову пошту`. Store the account credentials as Cloudflare Secrets:
+
+```bash
+npx wrangler secret put TEMP_MAIL_FIXED_ADDRESS
+npx wrangler secret put TEMP_MAIL_FIXED_PASSWORD
+```
+
+The password remains server-side and is not sent to browser JavaScript. Telegram login is required before reading the fixed inbox.
