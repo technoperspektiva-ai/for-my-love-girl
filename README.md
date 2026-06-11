@@ -161,3 +161,7 @@ The password remains server-side and is not sent to browser JavaScript. Telegram
 - Generated Mail.tm addresses now use a short local part such as `qa-ab12@domain`.
 - Removed the visible fixed-mail connection button.
 - Triple-click `Beta 2.0` to connect the embedded fixed mailbox; triple-click again to hide it locally.
+
+
+## v92
+Added per-message deletion for both generated Mail.tm inboxes and the hidden fixed inbox. Each message row and opened message view now has a delete button.
