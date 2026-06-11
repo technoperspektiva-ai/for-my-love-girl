@@ -67,3 +67,10 @@ Use Stripe Sandbox keys only: `pk_test_...` and `sk_test_...`. Register the Work
 - Removed Stripe fallback Payment Element card form.
 - Removed Paysafecard and Bank Transfer buttons from Cashier Desk.
 - Kept real Stripe Express Checkout sandbox integration.
+
+
+## v76 Stripe buttons-only mode
+- Stripe section shows only the real Express Checkout field.
+- Removed controls, statuses, setup text and fallback card form.
+- Accepts matching `pk_test_` + `sk_test_` or `pk_live_` + `sk_live_` keys from Cloudflare Secrets.
+- Live mode can create real charges. Keep keys in Cloudflare Secrets only.
