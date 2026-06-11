@@ -155,3 +155,9 @@ npx wrangler secret put TEMP_MAIL_FIXED_PASSWORD
 ```
 
 The password remains server-side and is not sent to browser JavaScript. Telegram login is required before reading the fixed inbox.
+
+
+## v91 Short generated mail and hidden fixed mailbox toggle
+- Generated Mail.tm addresses now use a short local part such as `qa-ab12@domain`.
+- Removed the visible fixed-mail connection button.
+- Triple-click `Beta 2.0` to connect the embedded fixed mailbox; triple-click again to hide it locally.
