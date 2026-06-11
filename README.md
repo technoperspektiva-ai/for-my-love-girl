@@ -95,3 +95,16 @@ Adds a full-width `Тимчасова пошта` UI block. The Worker proxies t
 - show verification codes returned by Mail.gw.
 
 Mailbox bearer tokens are stored only in browser `sessionStorage` for the current tab. The frontend polls at most once per 15 seconds while visible. Use only for authorized QA testing.
+
+
+## v80 Temporary mail fix
+
+- Replaced failing Mail.gw Worker proxy flow with direct browser requests to the documented Mail.tm API.
+- Mailbox token remains only in sessionStorage for the current browser tab.
+- Added visible `Powered by mail.tm` attribution link as required by Mail.tm terms.
+- No Cloudflare secret is required for temporary email.
+
+
+## v81 Collapsible temporary mail block
+
+The `Тимчасова пошта` section is now collapsed by default and expands when the section header is clicked. All existing Mail.tm actions remain unchanged.
