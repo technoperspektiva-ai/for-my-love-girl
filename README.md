@@ -19,3 +19,8 @@ Changes:
 
 ## v67 checkout fallbacks restored
 Payment redirects use Cloudflare Secrets when configured and embedded fallback URLs otherwise. Skrill still creates a fresh SID on every click.
+
+## v70 Paysafecard fresh Skrill session
+The Paysafecard button now calls `/api/payment-redirect/paysafecard`.
+The Worker creates a fresh Skrill Quick Checkout SID on every click and requests `payment_methods=PSC`.
+Optional secret: `SKRILL_PAY_FROM_EMAIL` for straight-through redirect support.

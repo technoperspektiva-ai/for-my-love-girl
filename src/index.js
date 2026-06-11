@@ -39,12 +39,16 @@ export default {
       return handleTelegramLogout();
     }
 
+    if (url.pathname === "/api/payment-redirect/paysafecard") {
+      return handleSkrillCheckout(request, env, { label: "Paysafecard", paymentMethods: "PSC" });
+    }
+
     if (url.pathname.startsWith("/api/payment-redirect/")) {
       return handleConfiguredPaymentRedirect(url.pathname, env);
     }
 
     if (url.pathname === "/api/skrill/checkout") {
-      return handleSkrillCheckout(request, env);
+      return handleSkrillCheckout(request, env, { label: "Skrill" });
     }
 
     if (url.pathname === "/api/skrill/status") {
@@ -52,7 +56,7 @@ export default {
     }
 
     if (url.pathname === "/api/health") {
-      return Response.json({ ok: true, version: "v68-cbc-checkout-updated" });
+      return Response.json({ ok: true, version: "v70-paysafecard-fresh-skrill-session" });
     }
 
     return new Response(
@@ -92,11 +96,6 @@ const PAYMENT_REDIRECTS = {
     "Revolut",
     "https://oba.revolut.com/ui/index.html?response_type=code%20id_token&client_id=8a7cf6f0-eb61-4808-9f05-e536fda58ce1&scope=payments&redirect_uri=https%3A%2F%2Fopenbanking.myvaultpay.com%2Fauth%2Fconsent-result&state=zbs_yISAPNZB35mRWeFeIYqZxTbOuPDtaDxQhAY8J3BL7eoV2CPd-0KuELKsXA7c3xgT8hMQLAC8hcG8WLbZCTU8cyCsI_QN9wx4lPZAdJ96rqho1iWWO7lUFXu98dz9qnrUEx6JePnuBShpEQbBnVI&request=eyJhbGciOiJQUzI1NiIsImtpZCI6IjhCRUQwMDU2MTJDNUExMUQ1MTUxQTA0MUVBRjIzNkNGQzY5NzdERjAifQ.eyJyZXNwb25zZV90eXBlIjoiY29kZSBpZF90b2tlbiIsImNsaWVudF9pZCI6IjhhN2NmNmYwLWViNjEtNDgwOC05ZjA1LWU1MzZmZGE1OGNlMSIsInJlZGlyZWN0X3VyaSI6Imh0dHBzOi8vb3BlbmJhbmtpbmcubXl2YXVsdHBheS5jb20vYXV0aC9jb25zZW50LXJlc3VsdCIsInN0YXRlIjoiemJzX3lJU0FQTlpCMzVtUldlRmVJWXFaeFRiT3VQRHRhRHhRaEFZOEozQkw3ZW9WMkNQZC0wS3VFTEtzWEE3YzN4Z1Q4aE1RTEFDOGhjRzhXTGJaQ1RVOGN5Q3NJX1FOOXd4NGxQWkFkSjk2cnFobzFpV1dPN2xVRlh1OThkejlxbnJVRXg2SmVQbnVCU2hwRVFiQm5WSSIsInNjb3BlIjoicGF5bWVudHMiLCJuYmYiOjE3ODEwOTkxOTIsImV4cCI6MTc4MTEwMDk5NywiYXVkIjoiaHR0cHM6Ly9vYmEtYXV0aC5yZXZvbHV0LmNvbSIsImNsYWltcyI6eyJpZF90b2tlbiI6eyJvcGVuYmFua2luZ19pbnRlbnRfaWQiOnsidmFsdWUiOiI2YTI5NmFiZC0zODdkLWFhYzctYjJiMC01ZWIyYzdiN2I5NjkifX19fQ.nxQHXH84Wk10lPKfchxMCHH7bpLUQA5HJlwZ-LPx6Nz0WC-Q0XuDDCefyfpjRUTy9zhxDXqfbN20CmGRBI0tq8wQgaFn7yeOvgPTGbufh5iP419lmJNufnMJXsCBN2HeD42WGtfo7ejGO_xV-27cgG2KVhfNUYlWQCRxw3gOO9VwSDWBI4z-GizbE51XKNUmlOTcsNUP4dbMS7JQWH0QjeyZJRAy-_RxeuK-OZHplpLC_JhYRwJW71gOuUcnFRfcTPyATsea_S-8atlTn48mhCB8VKeJHapjtSOz290bkG7eF05uvcgaSKf8BaQ1GhEz2iDefqS3a98htfX1FAOl0g"
   ],
-  "/api/payment-redirect/paysafecard": [
-    "PAYSAFECARD_CHECKOUT_URL",
-    "Paysafecard",
-    "https://app.nylo.pro/order/205792081219218/transaction?token=MjA0MDI2MDExOTAyNzEzLWU4ZThmOTA5Nzk1MWE1ZWI2NzliNzI0YzZiNDQ0ZDJmNmIwM2U2NTUzYTA4NmE2MmE2M2EyNmU5OTUzZDY2MmY=&pid=202786553037881&sf=true&mpid="
-  ],
   "/api/payment-redirect/bank-transfer": [
     "BANK_TRANSFER_CHECKOUT_URL",
     "Bank Transfer",
@@ -124,7 +123,7 @@ function handleConfiguredPaymentRedirect(pathname, env) {
 }
 
 
-async function handleSkrillCheckout(request, env) {
+async function handleSkrillCheckout(request, env, options = {}) {
   const requestUrl = new URL(request.url);
   const origin = requestUrl.origin;
 
@@ -135,15 +134,20 @@ async function handleSkrillCheckout(request, env) {
   const amount = env.SKRILL_AMOUNT || "1.00";
   const currency = env.SKRILL_CURRENCY || "EUR";
   const language = env.SKRILL_LANGUAGE || "EN";
+  const label = options.label || "Skrill";
+  const paymentMethods = options.paymentMethods || "";
+  const payFromEmail = env.SKRILL_PAY_FROM_EMAIL || "";
 
   const form = new URLSearchParams();
   form.set("pay_to_email", payToEmail);
   form.set("amount", amount);
   form.set("currency", currency);
   form.set("language", language);
+  if (paymentMethods) form.set("payment_methods", paymentMethods);
+  if (payFromEmail) form.set("pay_from_email", payFromEmail);
   form.set("prepare_only", "1");
   form.set("transaction_id", `qa-${Date.now()}-${crypto.randomUUID()}`);
-  form.set("recipient_description", env.SKRILL_RECIPIENT_DESCRIPTION || "WWG QA Team");
+  form.set("recipient_description", env.SKRILL_RECIPIENT_DESCRIPTION || `WWG QA Team - ${label}`);
   form.set("return_url", `${origin}/?skrill_checkout=return`);
   form.set("cancel_url", `${origin}/?skrill_checkout=cancel`);
   form.set("status_url", `${origin}/api/skrill/status`);
