@@ -74,7 +74,7 @@ export default {
     }
 
     if (url.pathname === "/api/health") {
-      return Response.json({ ok: true, version: "v89-temp-mail-normalized-debug" });
+      return Response.json({ ok: true, version: "v90-temp-mail-cache-conflict-fix" });
     }
 
     return new Response(
@@ -143,8 +143,7 @@ async function fixedTempMailFetch(path, env, { retried = false } = {}) {
       "cache-control": "no-cache, no-store, max-age=0",
       pragma: "no-cache"
     },
-    cache: "no-store",
-    cf: { cacheTtl: 0, cacheEverything: false }
+    cache: "no-store"
   });
   if (response.status === 401 && !retried) return fixedTempMailFetch(path, env, { retried: true });
   return response;
