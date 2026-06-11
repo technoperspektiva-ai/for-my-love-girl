@@ -137,3 +137,9 @@ The `Тимчасова пошта` section is now collapsed by default and expa
 - Renews Mail.tm bearer token on load and once after HTTP 401.
 - Keeps saved mailbox password locally for token re-authentication.
 - Removes stale mailbox rows locally even when Mail.tm cannot confirm remote delete.
+
+
+## v86 temp mail domain rotation
+- Rotates through active Mail.tm domains instead of always selecting the first one.
+- After repeated empty inbox checks, suggests replacing the address to try the next domain.
+- Keeps token refresh and calm inbox rendering from v85.
