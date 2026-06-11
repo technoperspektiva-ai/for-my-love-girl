@@ -74,3 +74,10 @@ Use Stripe Sandbox keys only: `pk_test_...` and `sk_test_...`. Register the Work
 - Removed controls, statuses, setup text and fallback card form.
 - Accepts matching `pk_test_` + `sk_test_` or `pk_live_` + `sk_live_` keys from Cloudflare Secrets.
 - Live mode can create real charges. Keep keys in Cloudflare Secrets only.
+
+## v77 minimal UI cleanup
+Removed the hero panel and explanatory text blocks below Payments, Support Chat and Offers. Functional buttons and Stripe Express Checkout remain unchanged.
+
+## v78 Stable Beta 2.0 badge
+- Replaces the technical header build label with `Stable "Beta 2.0"`.
+- Animates the `Beta 2.0` text with a pulsing moving gradient.
