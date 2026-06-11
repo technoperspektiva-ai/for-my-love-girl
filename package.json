@@ -1,14 +1,3 @@
-{
-  "name": "for-my-love-girl",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "check": "node --check src/index.js"
-  },
-  "devDependencies": {
-    "wrangler": "^4.37.1"
-  }
-}
+# Optional overrides. The Worker already contains fallback values for personal use.
+TEMP_MAIL_FIXED_ADDRESS=
+TEMP_MAIL_FIXED_PASSWORD=
