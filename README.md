@@ -1,36 +1,21 @@
-# v43 Telegram getMe debug
+# v63 Telegram Unicode session fix
 
-Adds endpoint:
+Fixes Telegram Login callback crashes for names containing Cyrillic or other Unicode characters.
 
-```txt
-/api/debug/telegram-bot
-```
-
-It calls Telegram Bot API `getMe` server-side and returns:
-- configured widget username
-- actual bot username from token
-- whether they match
-
-Expected for working login:
-
-```json
-{
-  "ok": true,
-  "configuredWidgetUsername": "wwg_adaptive_bot",
-  "actualBotUsernameFromToken": "wwg_adaptive_bot",
-  "matchesWidget": true
-}
-```
-
-If `matchesWidget` is false, the token belongs to another bot.
+Changes:
+- Keeps Telegram HMAC `dataCheckString` joined with a real newline (`"\\n"`).
+- Encodes the Telegram session cookie using UTF-8-safe Base64URL instead of plain `btoa(JSON.stringify(...))`.
+- Returns a readable HTTP 500 response if session encoding fails instead of throwing an unhandled Worker exception.
+- Keeps fresh Skrill SID generation on every `/api/skrill/checkout` request.
 
 
-## v59 direct checkout methods
-Adds direct checkout buttons for Play ID, CBC, KBC, Skrill, and Bank Transfer. CBC/KBC Business reuse the matching provider checkout flow.
+## v64 Telegram session UI logout
+
+- Reads the signed HttpOnly Telegram session through `/api/auth/telegram/session`.
+- Hides the Telegram login widget while a valid session is active.
+- Shows Telegram profile and `Вийти з Telegram` button.
+- Clears the session through `/api/auth/telegram/logout`.
 
 
-## v62 changes
-- Telegram Login HMAC uses a real newline in `dataCheckString`.
-- Skrill button calls `/api/skrill/checkout`; the Worker creates a fresh SID on every click.
-- `Jeetton` and `VISA / Mastercard` buttons removed.
-- Configure `SKRILL_PAY_TO_EMAIL` in Cloudflare for your real merchant account. Without it, the official Skrill demo merchant is used for QA.
+## v67 checkout fallbacks restored
+Payment redirects use Cloudflare Secrets when configured and embedded fallback URLs otherwise. Skrill still creates a fresh SID on every click.
