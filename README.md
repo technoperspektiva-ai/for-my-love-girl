@@ -108,3 +108,9 @@ Mailbox bearer tokens are stored only in browser `sessionStorage` for the curren
 ## v81 Collapsible temporary mail block
 
 The `Тимчасова пошта` section is now collapsed by default and expands when the section header is clicked. All existing Mail.tm actions remain unchanged.
+
+
+## v82 temporary mail domain fallback
+- Prefer a Mail.tm domain with `isActive === true`.
+- If Mail.tm returns domains without an active flag, use the first valid returned domain.
+- Retry `/domains?page=1`, `/domains?page=2`, `/domains?page=3`, then `/domains`.
