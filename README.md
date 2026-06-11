@@ -121,3 +121,13 @@ The `Тимчасова пошта` section is now collapsed by default and expa
 - Keeps Mail.tm attribution as a subtle visible footer link to comply with the Mail.tm API terms.
 - Adds browser-local saved mailboxes with Save, Open, and Delete actions.
 - Saves generated credentials only in localStorage on the current browser so a mailbox can be reopened later.
+
+## v84 Calm temp-mail inbox
+
+- Adds a nested collapsible `Вхідні листи` section inside `Тимчасова пошта`.
+- Reduces auto-refresh polling from 15 seconds to 30 seconds.
+- Auto-refresh runs only while the outer temporary-mail panel and the nested inbox panel are both open and the page is visible.
+- Avoids repainting the inbox list when message IDs and metadata have not changed.
+- Keeps manual `Оновити листи` available and shows the last successful check time or API error.
+- Fixes the initial refresh after creating a mailbox so it is not skipped while the create flow is marked busy.
+
