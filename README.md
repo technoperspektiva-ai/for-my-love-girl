@@ -114,3 +114,10 @@ The `Тимчасова пошта` section is now collapsed by default and expa
 - Prefer a Mail.tm domain with `isActive === true`.
 - If Mail.tm returns domains without an active flag, use the first valid returned domain.
 - Retry `/domains?page=1`, `/domains?page=2`, `/domains?page=3`, then `/domains`.
+
+
+## v83 temp mail saved mailboxes
+- Removed persistent active-address and inbox-count text under the mailbox toolbar.
+- Keeps Mail.tm attribution as a subtle visible footer link to comply with the Mail.tm API terms.
+- Adds browser-local saved mailboxes with Save, Open, and Delete actions.
+- Saves generated credentials only in localStorage on the current browser so a mailbox can be reopened later.
