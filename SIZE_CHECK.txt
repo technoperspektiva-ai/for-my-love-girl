@@ -1,2 +1,3 @@
-src/index.js = 270189 bytes
-public/audio.mp3 = 554813 bytes
+270235 /mnt/data/v88work/src/index.js
+554813 /mnt/data/v88work/public/audio.mp3
+825048 total
