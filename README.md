@@ -81,3 +81,30 @@ Removed the hero panel and explanatory text blocks below Payments, Support Chat 
 ## v78 Stable Beta 2.0 badge
 - Replaces the technical header build label with `Stable "Beta 2.0"`.
 - Animates the `Beta 2.0` text with a pulsing moving gradient.
+
+
+## v79 Temporary mail (Mail.gw)
+
+Adds a full-width `Тимчасова пошта` UI block. The Worker proxies the documented Mail.gw API and supports:
+
+- create a temporary mailbox;
+- copy its address;
+- replace or delete the mailbox;
+- refresh inbox messages;
+- open a message as sanitized plain text;
+- show verification codes returned by Mail.gw.
+
+Mailbox bearer tokens are stored only in browser `sessionStorage` for the current tab. The frontend polls at most once per 15 seconds while visible. Use only for authorized QA testing.
+
+
+## v80 Temporary mail fix
+
+- Replaced failing Mail.gw Worker proxy flow with direct browser requests to the documented Mail.tm API.
+- Mailbox token remains only in sessionStorage for the current browser tab.
+- Added visible `Powered by mail.tm` attribution link as required by Mail.tm terms.
+- No Cloudflare secret is required for temporary email.
+
+
+## v81 Collapsible temporary mail block
+
+The `Тимчасова пошта` section is now collapsed by default and expands when the section header is clicked. All existing Mail.tm actions remain unchanged.
