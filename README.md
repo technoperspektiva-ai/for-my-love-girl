@@ -177,3 +177,11 @@ Added per-message deletion for both generated Mail.tm inboxes and the hidden fix
 - Creating and deleting server presets requires an active Telegram login.
 
 See `PRESETS_KV_SETUP.md` for one-time Cloudflare KV setup.
+
+
+## v103 KV presets and touch editor fix
+
+- PRESETS_KV binding is included in `wrangler.jsonc`.
+- Triple click `HYM` toggles the hidden editor.
+- Tap an inner item to select it, drag to move it, and use the visible `↘` marker to resize it on desktop or mobile.
+- The `✎` button opens presets only.

@@ -1,33 +1,21 @@
-# Optional server presets (Cloudflare Workers KV)
+# PRESETS_KV already connected
 
-Local presets work immediately and remain in the current browser only.
-To enable shared server presets, create and bind a Workers KV namespace.
+This build already includes the Workers KV binding:
 
-## 1. Create namespace
-
-```bash
-npx wrangler kv namespace create PRESETS_KV
-```
-
-Wrangler returns a generated namespace ID.
-
-## 2. Add the binding to `wrangler.jsonc`
-
-Add this top-level property next to `assets` and `vars`:
-
-```jsonc
+```json
 "kv_namespaces": [
   {
     "binding": "PRESETS_KV",
-    "id": "PASTE_GENERATED_NAMESPACE_ID_HERE"
+    "id": "31636d7d6b7444a1a7f2f22e0a2fa251"
   }
 ]
 ```
 
-## 3. Deploy
+Deploy normally:
 
 ```bash
+npm install
 npx wrangler deploy
 ```
 
-Reading server presets is public. Creating and deleting server presets requires an active Telegram login on the dashboard.
+Server preset creation and deletion still require an active Telegram login on the site.
