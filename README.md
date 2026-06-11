@@ -48,3 +48,16 @@ npx wrangler deploy
 - Shows Stripe Docs-style preview buttons immediately, even before Stripe keys are configured.
 - Real Express Checkout replaces the preview after `pk_test_` / `sk_test_` are configured and Stripe reports availability.
 - Preview buttons are explicitly non-functional and only demonstrate layout.
+
+
+## v73 Stripe real sandbox only
+
+The Stripe section renders only the real Stripe Express Checkout Element. Fake preview buttons were removed.
+
+```bash
+npx wrangler secret put STRIPE_PUBLISHABLE_KEY
+npx wrangler secret put STRIPE_SECRET_KEY
+npx wrangler deploy
+```
+
+Use Stripe Sandbox keys only: `pk_test_...` and `sk_test_...`. Register the Worker domain in Stripe Dashboard → Payment method domains for the sandbox.
