@@ -24,3 +24,21 @@ Payment redirects use Cloudflare Secrets when configured and embedded fallback U
 The Paysafecard button now calls `/api/payment-redirect/paysafecard`.
 The Worker creates a fresh Skrill Quick Checkout SID on every click and requests `payment_methods=PSC`.
 Optional secret: `SKRILL_PAY_FROM_EMAIL` for straight-through redirect support.
+
+## v71 Stripe Express Checkout inline QA section
+
+- Adds a `Stripe тестові платіжки` card directly to the main Worker page.
+- Uses Stripe Express Checkout Element for eligible Link, Google Pay, Klarna, Amazon Pay and other sandbox buttons.
+- Includes a fallback Stripe Payment Element form.
+- Creates a new USD 1.00 PaymentIntent through `/api/stripe/create-payment-intent`.
+- Exposes the test publishable key through `/api/stripe/config`.
+- Rejects Stripe live keys: only `pk_test_...` and `sk_test_...` values are accepted.
+
+Configure Stripe test keys before testing:
+
+```bash
+npx wrangler secret put STRIPE_PUBLISHABLE_KEY
+npx wrangler secret put STRIPE_SECRET_KEY
+npx wrangler deploy
+```
+
