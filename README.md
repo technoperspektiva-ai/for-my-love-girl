@@ -131,3 +131,9 @@ The `Тимчасова пошта` section is now collapsed by default and expa
 - Keeps manual `Оновити листи` available and shows the last successful check time or API error.
 - Fixes the initial refresh after creating a mailbox so it is not skipped while the create flow is marked busy.
 
+
+
+## v85 temp mail token refresh
+- Renews Mail.tm bearer token on load and once after HTTP 401.
+- Keeps saved mailbox password locally for token re-authentication.
+- Removes stale mailbox rows locally even when Mail.tm cannot confirm remote delete.
