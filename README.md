@@ -61,3 +61,9 @@ npx wrangler deploy
 ```
 
 Use Stripe Sandbox keys only: `pk_test_...` and `sk_test_...`. Register the Worker domain in Stripe Dashboard → Payment method domains for the sandbox.
+
+
+## v75 cleanup
+- Removed Stripe fallback Payment Element card form.
+- Removed Paysafecard and Bank Transfer buttons from Cashier Desk.
+- Kept real Stripe Express Checkout sandbox integration.
