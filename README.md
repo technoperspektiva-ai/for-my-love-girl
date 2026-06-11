@@ -165,3 +165,15 @@ The password remains server-side and is not sent to browser JavaScript. Telegram
 
 ## v92
 Added per-message deletion for both generated Mail.tm inboxes and the hidden fixed inbox. Each message row and opened message view now has a delete button.
+
+
+## v101 Edit icon, standard layout and optional server presets
+
+- A separate subtle pencil icon in the header toggles layout editing without opening the presets modal.
+- Triple-click `HYM` opens the presets dialog only.
+- Restores the preferred compact desktop baseline layout.
+- Local labels, layout and visibility settings stay browser-local.
+- Optional shared server presets use the `PRESETS_KV` Workers KV binding.
+- Creating and deleting server presets requires an active Telegram login.
+
+See `PRESETS_KV_SETUP.md` for one-time Cloudflare KV setup.
