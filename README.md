@@ -42,3 +42,9 @@ npx wrangler secret put STRIPE_SECRET_KEY
 npx wrangler deploy
 ```
 
+
+
+## v72 Stripe preview + live mode
+- Shows Stripe Docs-style preview buttons immediately, even before Stripe keys are configured.
+- Real Express Checkout replaces the preview after `pk_test_` / `sk_test_` are configured and Stripe reports availability.
+- Preview buttons are explicitly non-functional and only demonstrate layout.
