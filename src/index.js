@@ -83,7 +83,7 @@ export default {
     }
 
     if (url.pathname === "/api/health") {
-      return Response.json({ ok: true, version: "v104-temp-mail-inline-images" });
+      return Response.json({ ok: true, version: "v105-mobile-editor-toolbar" });
     }
 
     return new Response(

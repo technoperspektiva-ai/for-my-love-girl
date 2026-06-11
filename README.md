@@ -185,3 +185,8 @@ See `PRESETS_KV_SETUP.md` for one-time Cloudflare KV setup.
 - Triple click `HYM` toggles the hidden editor.
 - Tap an inner item to select it, drag to move it, and use the visible `↘` marker to resize it on desktop or mobile.
 - The `✎` button opens presets only.
+
+
+## v105 mobile editor toolbar
+- Mobile edit mode uses a bottom control panel instead of free-form dragging as the primary interaction.
+- Desktop drag and resize remain available.
