@@ -111,6 +111,7 @@ body.hym-editing .grid>.card>h2,body.hym-editing .grid>.card>summary{cursor:move
 
 /* v116: collapsible cookie QA sandbox */
 #section-cookies{grid-column:span 4;padding:0}
+.cookie-card[open]{grid-column:1/-1!important;width:100%!important;justify-self:stretch!important}
 .cookie-card>summary{list-style:none;cursor:pointer;padding:12px;font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:10px;text-transform:uppercase;color:#e6fff8}
 .cookie-card>summary::-webkit-details-marker{display:none}
 .cookie-card>summary::before{content:"cookie sandbox";display:block;margin-bottom:5px;color:var(--green);font-size:9px;letter-spacing:.15em;font-weight:900;text-transform:uppercase}
@@ -984,11 +985,15 @@ function cookieVisibleItems(){
 function cookieManagedItems(){
   return cookieVisibleItems().filter(item=>item.name.startsWith("hym_test_"))
 }
-function cookieRenderList(){
-  const output=document.getElementById("cookieOutput");if(!output)return;const items=cookieManagedItems();output.value=items.length?items.map(item=>item.name).join("\n"):"Тестових cookie HYM не знайдено."
+function cookieOutputNames(){
+  const output=document.getElementById("cookieOutput");if(!output)return [];
+  return output.value.split("\n").map(item=>item.trim()).filter(item=>item.startsWith("hym_test_"))
+}
+function cookieRenderList(extraNames=[]){
+  const output=document.getElementById("cookieOutput");if(!output)return;const names=[...new Set([...cookieManagedItems().map(item=>item.name),...extraNames])];output.value=names.length?names.join("\n"):"Тестових cookie HYM не знайдено.";output.scrollTop=0
 }
 function cookieCreateRandom(){
-  const name="hym_test_"+cookieRandomToken(5);const value=cookieRandomToken(12);const secure=location.protocol==="https:"?"; Secure":"";document.cookie=name+"="+value+"; Max-Age=86400; Path=/; SameSite=Lax"+secure;cookieRenderList()
+  const name="hym_test_"+cookieRandomToken(5);const value=cookieRandomToken(12);const secure=location.protocol==="https:"?"; Secure":"";const visibleBefore=cookieOutputNames();document.cookie=name+"="+value+"; Max-Age=86400; Path=/; SameSite=Lax"+secure;cookieRenderList([...visibleBefore,name]);setTimeout(()=>cookieRenderList(),80)
 }
 function cookiePathCandidates(){
   const parts=location.pathname.split("/").filter(Boolean),paths=["/"];let current="";for(const part of parts){current+="/"+part;paths.push(current,current+"/")}return [...new Set(paths)].sort((a,b)=>b.length-a.length)

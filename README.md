@@ -266,3 +266,17 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - The section is collapsed by default and opens by clicking its title.
 - The HYM-styled `[+]` / `[-]` indicator matches the temporary-mail panel behavior.
 - All v115 privacy cleanup remains unchanged: only `hym_test_*` names are shown and only HYM test cookies are deleted.
+
+
+## v117 Cookie list sync
+
+- Fixes the `Випадковий` action in `Test - Cokies🍪`: after a new test cookie is created, the interface immediately keeps the existing visible HYM test cookies and adds the new one.
+- Re-synchronizes the list from `document.cookie` after a short delay for browsers that expose a newly written cookie one tick later.
+- Resets the list scroll position to the beginning after refresh.
+
+
+## v118 Full-width opened Test - Cokies🍪
+
+- Keeps `Test - Cokies🍪` compact while collapsed.
+- When expanded, the cookie QA section stretches across the complete dashboard grid width, matching the opened temporary-mail section.
+- Uses `!important` for the opened state so a saved HYM layout preset cannot force the expanded cookie section back into a narrow column.
