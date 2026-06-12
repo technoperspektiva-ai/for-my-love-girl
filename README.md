@@ -194,3 +194,32 @@ See `PRESETS_KV_SETUP.md` for one-time Cloudflare KV setup.
 
 ## v108 mobile Stripe fix
 Stripe Express Checkout uses one column on mobile and is constrained to the card width.
+
+
+## v111 hidden HYM admin panel
+
+Adds a server-side protected hidden admin panel, lightweight anonymous traffic analytics and public HYM template selection.
+
+### Required Cloudflare secret
+
+```bash
+npx wrangler secret put ADMIN_SECRET_KEY
+```
+
+Open the admin panel after deployment using the secret only in the path:
+
+```text
+https://<your-worker-domain>/hym-admin/<ADMIN_SECRET_KEY>
+```
+
+The panel removes the secret from the visible browser address after successful loading and uses it only for admin API requests in that browser tab. The server still validates the key for every admin operation.
+
+### Admin functions
+
+- active users online during the last 150 seconds;
+- unique browser visitors for the current Kyiv calendar day;
+- select the public HYM server preset for mobile devices;
+- select the public HYM server preset for Windows desktop;
+- clear an assigned template to fall back to the built-in standard layout.
+
+Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV` namespace is reused, so no additional Cloudflare binding is required.
