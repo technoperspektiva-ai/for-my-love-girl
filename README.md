@@ -190,3 +190,7 @@ See `PRESETS_KV_SETUP.md` for one-time Cloudflare KV setup.
 ## v105 mobile editor toolbar
 - Mobile edit mode uses a bottom control panel instead of free-form dragging as the primary interaction.
 - Desktop drag and resize remain available.
+
+
+## v108 mobile Stripe fix
+Stripe Express Checkout uses one column on mobile and is constrained to the card width.
