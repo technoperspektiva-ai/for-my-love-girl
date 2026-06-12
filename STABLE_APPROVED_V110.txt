@@ -1,0 +1,12 @@
+APPROVED BASELINE
+Project: for-my-love-girl
+Version: v110-os-neon-header-fixed
+Status: approved stable baseline
+Layout: preserve current card order
+Header: detected OS | Stable "Beta 2.0"
+
+ZIP: for-my-love-girl-STABLE-approved-v110.zip
+SHA256: fb2774f1990553c27d1158104f67a3d3a53e14a657087a746009b36978fe1c60
+
+INDEX: index-STABLE-approved-v110.js
+SHA256: 47bb3f5ab217dfa04af5f15fe86e70d99cefb89be966895697ec815e5cd0e275
