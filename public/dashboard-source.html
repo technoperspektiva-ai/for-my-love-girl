@@ -107,6 +107,14 @@ body.hym-editing .grid>.card>h2,body.hym-editing .grid>.card>summary{cursor:move
   .stripe-checkout-only,#stripeExpressCheckout{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important}
   #stripeExpressCheckout>div,#stripeExpressCheckout iframe{width:100%!important;max-width:100%!important;min-width:0!important}
 }
+
+
+/* v114: cookie QA sandbox */
+#section-cookies h2::before{content:"cookie sandbox"}
+#section-cookies{grid-column:span 4}.cookie-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.cookie-output{min-height:132px;margin-top:8px;resize:vertical;line-height:1.45}.cookie-status{min-height:15px;margin-top:5px;color:var(--muted);font-size:10px;line-height:1.4}.cookie-status.ok{color:var(--green)}.cookie-status.warn{color:#ffd27a}
+@media(max-width:1000px){#section-cookies{grid-column:auto}}
+@media(max-width:700px){.cookie-actions{grid-template-columns:1fr}.cookie-output{min-height:118px}}
+
 </style>
 </head>
 <body>
@@ -120,6 +128,7 @@ body.hym-editing .grid>.card>h2,body.hym-editing .grid>.card>summary{cursor:move
 <a href="#section-gpay">Google Pay</a>
 <a href="#section-telegram">Telegram</a>
 <a href="#section-media">Медіа</a>
+<a href="#section-cookies">Cookies🍪</a>
 </nav>
 <div class="grid">
 
@@ -173,7 +182,7 @@ body.hym-editing .grid>.card>h2,body.hym-editing .grid>.card>summary{cursor:move
 <button class="btn" id="telegramLogout" style="margin-top:10px" type="button">Вийти з Telegram</button>
 </div>
 <p class="info" id="telegramStatus">Checking Telegram session…</p>
-</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><input accept="image/*" id="photo" type="file"/><img id="preview" style="display:none;max-height:160px;max-width:100%;border:1px solid #222;margin-top:8px"/></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" src="https://www.youtube.com/embed/PxmjpQmguNM"></iframe><div style="height:10px"></div><audio controls="" src="/audio.mp3"></audio></section><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
+</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><input accept="image/*" id="photo" type="file"/><img id="preview" style="display:none;max-height:160px;max-width:100%;border:1px solid #222;margin-top:8px"/></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" src="https://www.youtube.com/embed/PxmjpQmguNM"></iframe><div style="height:10px"></div><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-cookies"><h2>Test - Cokies🍪</h2><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список доступних cookie поточного домену" readonly=""></textarea><div class="cookie-status" id="cookieStatus"></div></section><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
 <script>
 const DEFAULT_GOOGLE_CLIENT_ID="221396849433-0f5ktd8ao72kf7qvrgi7sk7v9lpn698o.apps.googleusercontent.com";
@@ -954,6 +963,43 @@ function hymPublicPlatform(){const ua=(navigator.userAgent||"").toLowerCase();if
 async function hymApplyAdminTemplate(){try{const platform=hymPublicPlatform();if(platform==="other")return;const response=await fetch("/api/hym-active-template?platform="+encodeURIComponent(platform),{cache:"no-store"});const data=await response.json();if(response.ok&&data.profile)hymApplyProfile(data.profile)}catch{}}
 hymHeartbeat();setInterval(hymHeartbeat,30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)hymHeartbeat()});setTimeout(hymApplyAdminTemplate,0);
 // --- /v111 traffic + admin-selected HYM template ---
+
+
+// --- v114 local cookie QA sandbox ---
+function cookieRandomToken(size=12){
+  const bytes=new Uint8Array(size);crypto.getRandomValues(bytes);return Array.from(bytes,byte=>byte.toString(16).padStart(2,"0")).join("")
+}
+function cookieVisibleItems(){
+  const raw=document.cookie||"";if(!raw.trim())return [];
+  return raw.split(";").map(part=>part.trim()).filter(Boolean).map(part=>{const split=part.indexOf("=");return split<0?{name:part,value:""}:{name:part.slice(0,split),value:part.slice(split+1)}})
+}
+function cookieSetStatus(text,kind=""){
+  const node=document.getElementById("cookieStatus");if(!node)return;node.textContent=text||"";node.className="cookie-status"+(kind?" "+kind:"")
+}
+function cookieRenderList(){
+  const output=document.getElementById("cookieOutput");if(!output)return;const items=cookieVisibleItems();output.value=items.length?items.map(item=>item.name+" = "+item.value).join("\n"):"Доступних cookie не знайдено.\nHttpOnly cookie не відображаються у браузерному JavaScript.";cookieSetStatus(items.length?"Знайдено cookie: "+items.length:"Список порожній",items.length?"ok":"warn")
+}
+function cookieCreateRandom(){
+  const name="hym_test_"+cookieRandomToken(5);const value=cookieRandomToken(12);const secure=location.protocol==="https:"?"; Secure":"";document.cookie=name+"="+value+"; Max-Age=86400; Path=/; SameSite=Lax"+secure;cookieRenderList();cookieSetStatus("Створено тестовий cookie: "+name,"ok")
+}
+function cookiePathCandidates(){
+  const parts=location.pathname.split("/").filter(Boolean),paths=["/"];let current="";for(const part of parts){current+="/"+part;paths.push(current,current+"/")}return [...new Set(paths)].sort((a,b)=>b.length-a.length)
+}
+function cookieDomainCandidates(){
+  const host=location.hostname;if(!host||host==="localhost"||/^\d+(?:\.\d+){3}$/.test(host)||host.includes(":"))return [];
+  const parts=host.split("."),items=[host,"."+host];for(let i=1;i<parts.length-1;i++){const domain=parts.slice(i).join(".");items.push(domain,"."+domain)}return [...new Set(items)]
+}
+function cookieExpire(name){
+  const expires="Thu, 01 Jan 1970 00:00:00 GMT";for(const path of cookiePathCandidates()){document.cookie=name+"=; Max-Age=0; Expires="+expires+"; Path="+path;for(const domain of cookieDomainCandidates())document.cookie=name+"=; Max-Age=0; Expires="+expires+"; Path="+path+"; Domain="+domain}
+}
+function cookieDeleteVisible(){
+  const items=cookieVisibleItems();for(const item of items)cookieExpire(item.name);cookieRenderList();const remaining=cookieVisibleItems().length;cookieSetStatus(items.length?(remaining?"Видалено доступні cookie. Залишилось: "+remaining:"Видалено cookie: "+items.length):"Немає доступних cookie для видалення",remaining?"warn":"ok")
+}
+function initCookieSandbox(){
+  const random=document.getElementById("cookieRandom"),list=document.getElementById("cookieList"),del=document.getElementById("cookieDelete");if(!random||!list||!del)return;random.addEventListener("click",cookieCreateRandom);list.addEventListener("click",cookieRenderList);del.addEventListener("click",cookieDeleteVisible);cookieRenderList()
+}
+initCookieSandbox();
+// --- /v114 local cookie QA sandbox ---
 
 const audio=document.querySelector("audio");
 if(audio){audio.addEventListener("play",()=>logEvent("SUCCESS","Audio","play"));audio.addEventListener("pause",()=>logEvent("INFO","Audio","pause"));audio.addEventListener("error",()=>logEvent("ERROR","Audio","load or playback error"))}

@@ -239,3 +239,13 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - The `HYM presets` button appears in the header only while editing mode is enabled.
 - Click the visible `HYM presets` button to open presets.
 - Triple-tap `HYM` again to leave editing mode; the button disappears and any open presets modal closes.
+
+
+## v114 Test - Cokies🍪
+
+- Adds a HYM-styled `Test - Cokies🍪` QA card to the dashboard.
+- `Випадковий` creates a random first-party test cookie for the current domain with `Path=/`, `SameSite=Lax`, and a one-day lifetime. HTTPS deployments also use `Secure`.
+- `Отримати список` displays cookies visible to browser JavaScript for the current domain and path.
+- `Видалити` expires visible cookies across common path and current-domain variants.
+- Browser JavaScript cannot display or delete `HttpOnly` cookies; the card states this when the visible list is empty.
+- The card participates in HYM layouts and presets like the existing dashboard cards.
