@@ -298,3 +298,23 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Toggling the cookie block applies only that block's saved size. It no longer reapplies or rearranges neighboring dashboard cards.
 - Resizing one card stores that card's parameters without introducing separate board orders for the other columns.
 - Preserves compatibility with v119 profiles by importing the previous order when an older `orders` map is encountered.
+
+
+## v121 Single-cookie preview after random generation
+
+- `Випадковий` now shows only the newly created `hym_test_*` cookie name in the output field.
+- Previously created HYM test cookies stay stored but remain hidden until `Отримати список` is pressed.
+- `Отримати список` shows all stored HYM test-cookie names.
+- The full list uses a browser-local creation order so the newest generated cookie appears first.
+- `Видалити` clears all HYM test cookies and resets the browser-local ordering list.
+
+
+## v122 Temporary-mail modal inbox
+
+- Removes the inline inbox list from the expanded temporary-mail dashboard card.
+- Adds a dedicated `Вхідні листи` button to the temporary-mail actions.
+- Opens the inbox list in a HYM-styled modal above the dashboard.
+- Opens an individual message in a second modal above the inbox modal.
+- Adds modal close buttons, backdrop close behavior, and layered `Escape` handling.
+- Keeps manual refresh in the main temporary-mail card and adds a refresh button inside the inbox modal.
+- Continues 30-second silent polling only while the inbox modal is visible.

@@ -123,6 +123,24 @@ body.hym-editing .grid>.card>h2,body.hym-editing .grid>.card>summary{cursor:move
 @media(max-width:1000px){#section-cookies{grid-column:auto}}
 @media(max-width:700px){.cookie-card>summary{padding:10px}.cookie-content{padding:10px}.cookie-actions{grid-template-columns:1fr}.cookie-output{min-height:118px}}
 
+
+/* v122: temporary-mail inbox + message modal flow */
+.temp-mail-modal{position:fixed;inset:0;display:none;place-items:center;padding:14px;background:rgba(0,0,0,.78);z-index:510}
+.temp-mail-modal.on{display:grid}
+.temp-mail-message-modal{z-index:530;background:rgba(0,0,0,.84)}
+.temp-mail-modal-box{width:min(1180px,100%);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;background:#071013;border:1px solid #2b4b50;box-shadow:0 22px 58px rgba(0,0,0,.62)}
+.temp-mail-message-modal-box{width:min(1040px,100%)}
+.temp-mail-modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid #1c2a2f;background:#081214;color:#e6fff8;text-transform:uppercase}
+.temp-mail-modal-head strong{font-size:12px;letter-spacing:.1em}
+.temp-mail-modal-head-actions{display:flex;align-items:center;gap:7px}
+.temp-mail-modal-head-actions .btn{padding:7px 9px;font-size:10px}
+.temp-mail-modal-close{appearance:none;width:30px;height:30px;display:grid;place-items:center;background:#11191c;border:1px solid #294146;color:#d7f5ee;font-size:20px;line-height:1;cursor:pointer}
+.temp-mail-modal-close:hover{border-color:var(--green);color:#fff}
+.temp-mail-modal-list{margin:0;border:0;overflow:auto;min-height:96px;max-height:78vh}
+.temp-mail-modal-viewer{display:block!important;margin:0;border:0;overflow:auto;max-height:82vh;padding:12px}
+.temp-mail-inbox-meta{display:inline-block;margin-left:10px;color:var(--dim);font-size:10px;font-weight:400;letter-spacing:0;text-transform:none}
+@media(max-width:700px){.temp-mail-modal{padding:7px}.temp-mail-modal-head{padding:8px}.temp-mail-modal-head-actions .btn{padding:7px;font-size:9px}.temp-mail-modal-list{max-height:82vh}.temp-mail-modal-viewer{max-height:84vh;padding:9px}}
+
 </style>
 </head>
 <body>
@@ -163,16 +181,13 @@ body.hym-editing .grid>.card>h2,body.hym-editing .grid>.card>summary{cursor:move
 <div class="temp-mail-actions">
 <button class="btn" id="tempMailReplace" type="button">Замінити адресу</button>
 <button class="btn" id="tempMailRefresh" type="button">Оновити листи</button>
+<button class="btn green" id="tempMailOpenInbox" type="button">Вхідні листи</button>
 <button class="btn" id="tempMailSaveAccount" type="button">Зберегти пошту</button>
 <button class="btn red" id="tempMailDelete" type="button">Видалити адресу</button>
 </div>
 <p class="info temp-mail-status" id="tempMailStatus"></p>
 <div class="temp-mail-saved" id="tempMailSaved"></div>
-<details class="temp-mail-inbox" id="tempMailInboxDetails" open="">
-<summary>Вхідні листи <span class="temp-mail-inbox-meta" id="tempMailInboxMeta">ще не перевірено</span></summary>
-<div class="temp-mail-list" id="tempMailMessages"><div class="temp-mail-empty">Вхідних листів поки немає.</div></div>
-<div class="temp-mail-viewer" id="tempMailViewer"></div>
-</details>
+
 </div>
 </details><section class="card" id="section-signin"><h2>Google Sign-In</h2><div id="signinBox"></div><p class="info" id="signinStatus">Loading Google Sign-In…</p><div class="profile" id="profile"><div class="badge">LOGGED IN</div><div class="profile-head"><img id="avatar"/><div><div id="userName"></div><div class="info" id="userEmail"></div></div></div></div></section><section class="card" id="section-telegram">
 <h2>Telegram Login</h2>
@@ -191,6 +206,27 @@ body.hym-editing .grid>.card>h2,body.hym-editing .grid>.card>summary{cursor:move
 </div>
 <p class="info" id="telegramStatus">Checking Telegram session…</p>
 </section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><input accept="image/*" id="photo" type="file"/><img id="preview" style="display:none;max-height:160px;max-width:100%;border:1px solid #222;margin-top:8px"/></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" src="https://www.youtube.com/embed/PxmjpQmguNM"></iframe><div style="height:10px"></div><audio controls="" src="/audio.mp3"></audio></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
+</div>
+<div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
+<div aria-modal="true" class="temp-mail-modal-box temp-mail-inbox-modal-box" role="dialog">
+<div class="temp-mail-modal-head">
+<div><strong>Вхідні листи</strong><span class="temp-mail-inbox-meta" id="tempMailInboxMeta">ще не перевірено</span></div>
+<div class="temp-mail-modal-head-actions">
+<button class="btn" id="tempMailInboxRefresh" type="button">Оновити</button>
+<button aria-label="Закрити список листів" class="temp-mail-modal-close" id="tempMailInboxClose" type="button">×</button>
+</div>
+</div>
+<div class="temp-mail-list temp-mail-modal-list" id="tempMailMessages"><div class="temp-mail-empty">Вхідних листів поки немає.</div></div>
+</div>
+</div>
+<div aria-hidden="true" class="temp-mail-modal temp-mail-message-modal" id="tempMailMessageModal">
+<div aria-modal="true" class="temp-mail-modal-box temp-mail-message-modal-box" role="dialog">
+<div class="temp-mail-modal-head">
+<strong>Перегляд листа</strong>
+<button aria-label="Закрити лист" class="temp-mail-modal-close" id="tempMailMessageClose" type="button">×</button>
+</div>
+<div class="temp-mail-viewer temp-mail-modal-viewer" id="tempMailViewer"></div>
+</div>
 </div>
 <script>
 const DEFAULT_GOOGLE_CLIENT_ID="221396849433-0f5ktd8ao72kf7qvrgi7sk7v9lpn698o.apps.googleusercontent.com";
@@ -539,7 +575,11 @@ async function tempMailConnectFixed(){
   }catch(error){tempMailSetStatus("Не вдалося підключити готову пошту: "+error.message)}
   finally{tempMailBusy=false}
 }
-function tempMailClearViewer(){tempMailOpenedMessageId="";tempMailReleaseViewerUrls();el("tempMailViewer").classList.remove("on");el("tempMailViewer").replaceChildren()}
+function tempMailModalOpen(node){if(!node)return;node.classList.add("on");node.setAttribute("aria-hidden","false")}
+function tempMailModalClose(node){if(!node)return;node.classList.remove("on");node.setAttribute("aria-hidden","true")}
+function tempMailClearViewer(){tempMailOpenedMessageId="";tempMailReleaseViewerUrls();const viewer=el("tempMailViewer");viewer?.classList.remove("on");viewer?.replaceChildren();tempMailModalClose(el("tempMailMessageModal"))}
+function tempMailOpenInboxModal(){tempMailModalOpen(el("tempMailInboxModal"));if(tempMailState?.token)tempMailRefresh({silent:true})}
+function tempMailCloseInboxModal(){tempMailClearViewer();tempMailModalClose(el("tempMailInboxModal"))}
 function tempMailFormatTime(value){
   if(!value)return "";
   const date=new Date(value);
@@ -661,7 +701,7 @@ async function tempMailRefresh({silent=false,force=false}={}){
 async function tempMailOpenMessage(id){
   if(!id||!tempMailState?.token||tempMailBusy)return;
   const currentViewer=el("tempMailViewer");
-  if(tempMailOpenedMessageId===id&&currentViewer?.classList.contains("on")){tempMailClearViewer();tempMailSetStatus("Лист згорнуто.");return}
+  if(tempMailOpenedMessageId===id&&el("tempMailMessageModal")?.classList.contains("on")){tempMailClearViewer();return}
   tempMailBusy=true;tempMailSetStatus("Завантаження листа…");
   try{
     const message=tempMailState?.fixed?await tempMailFixedRequest("/messages/"+encodeURIComponent(id)):await tempMailRequest("/messages/"+encodeURIComponent(id));
@@ -677,6 +717,7 @@ async function tempMailOpenMessage(id){
     await tempMailRenderRichBody(viewer,message);
     tempMailOpenedMessageId=id;
     viewer.classList.add("on");
+    tempMailModalOpen(el("tempMailMessageModal"));
     tempMailSetStatus(`Відкрито лист: ${message.subject||"Без теми"}`);
   }catch(error){tempMailSetStatus("Не вдалося відкрити лист: "+error.message)}
   finally{tempMailBusy=false}
@@ -780,18 +821,24 @@ function initTempMail(){
   el("tempMailCreate").onclick=()=>tempMailCreate();
   el("tempMailReplace").onclick=()=>tempMailCreate({replace:true});
   el("tempMailRefresh").onclick=()=>tempMailRefresh();
+  el("tempMailOpenInbox").onclick=tempMailOpenInboxModal;
+  el("tempMailInboxRefresh").onclick=()=>tempMailRefresh();
+  el("tempMailInboxClose").onclick=tempMailCloseInboxModal;
+  el("tempMailMessageClose").onclick=tempMailClearViewer;
   el("tempMailDelete").onclick=()=>tempMailDeleteCurrent();
   el("tempMailCopy").onclick=tempMailCopy;
   el("tempMailSaveAccount").onclick=tempMailSaveCurrent;
+  el("tempMailInboxModal").addEventListener("click",event=>{if(event.target===el("tempMailInboxModal"))tempMailCloseInboxModal()});
+  el("tempMailMessageModal").addEventListener("click",event=>{if(event.target===el("tempMailMessageModal"))tempMailClearViewer()});
+  document.addEventListener("keydown",event=>{if(event.key!=="Escape")return;if(el("tempMailMessageModal")?.classList.contains("on")){tempMailClearViewer();return}if(el("tempMailInboxModal")?.classList.contains("on"))tempMailCloseInboxModal()});
   initBeta20FixedMailToggle();
   tempMailRenderSaved();
   if(tempMailState?.fixed){tempMailSetStatus("");tempMailRefresh({silent:true})}
   else if(tempMailState?.address&&tempMailState?.password){tempMailSetStatus("");tempMailTokenFor(tempMailState,{force:true}).then(()=>tempMailRefresh({silent:true})).catch(error=>{tempMailSetInboxMeta("потрібно створити нову адресу");tempMailSetStatus("Не вдалося відновити доступ до пошти: "+error.message)})}
   else{tempMailSetStatus("Створи тимчасову адресу.")}
   setInterval(()=>{
-    const outer=document.querySelector(".temp-mail-card");
-    const inbox=el("tempMailInboxDetails");
-    if(document.visibilityState==="visible"&&outer?.open&&inbox?.open&&tempMailState?.token){
+    const inboxModal=el("tempMailInboxModal");
+    if(document.visibilityState==="visible"&&inboxModal?.classList.contains("on")&&tempMailState?.token){
       tempMailRefresh({silent:true});
     }
   },30000);
@@ -992,18 +1039,27 @@ function cookieVisibleItems(){
   const raw=document.cookie||"";if(!raw.trim())return [];
   return raw.split(";").map(part=>part.trim()).filter(Boolean).map(part=>{const split=part.indexOf("=");return split<0?{name:part,value:""}:{name:part.slice(0,split),value:part.slice(split+1)}})
 }
+const COOKIE_ORDER_KEY="hym_cookie_order_v1";
 function cookieManagedItems(){
   return cookieVisibleItems().filter(item=>item.name.startsWith("hym_test_"))
 }
-function cookieOutputNames(){
-  const output=document.getElementById("cookieOutput");if(!output)return [];
-  return output.value.split("\n").map(item=>item.trim()).filter(item=>item.startsWith("hym_test_"))
+function cookieReadOrder(){
+  try{const value=JSON.parse(localStorage.getItem(COOKIE_ORDER_KEY)||"[]");return Array.isArray(value)?value.filter(name=>typeof name==="string"&&name.startsWith("hym_test_")):[]}catch{return []}
 }
-function cookieRenderList(extraNames=[]){
-  const output=document.getElementById("cookieOutput");if(!output)return;const names=[...new Set([...cookieManagedItems().map(item=>item.name),...extraNames])];output.value=names.length?names.join("\n"):"Тестових cookie HYM не знайдено.";output.scrollTop=0
+function cookieWriteOrder(names){
+  try{localStorage.setItem(COOKIE_ORDER_KEY,JSON.stringify([...new Set(names)]))}catch{}
+}
+function cookieOrderedNames(){
+  const visible=cookieManagedItems().map(item=>item.name),visibleSet=new Set(visible),ordered=cookieReadOrder().filter(name=>visibleSet.has(name)),known=new Set(ordered),remaining=visible.filter(name=>!known.has(name)).reverse(),result=[...ordered,...remaining];cookieWriteOrder(result);return result
+}
+function cookieRenderList(){
+  const output=document.getElementById("cookieOutput");if(!output)return;const names=cookieOrderedNames();output.value=names.length?names.join("\n"):"Тестових cookie HYM не знайдено.";output.scrollTop=0
+}
+function cookieRenderSingle(name){
+  const output=document.getElementById("cookieOutput");if(!output)return;output.value=name||"Тестових cookie HYM не знайдено.";output.scrollTop=0
 }
 function cookieCreateRandom(){
-  const name="hym_test_"+cookieRandomToken(5);const value=cookieRandomToken(12);const secure=location.protocol==="https:"?"; Secure":"";const visibleBefore=cookieOutputNames();document.cookie=name+"="+value+"; Max-Age=86400; Path=/; SameSite=Lax"+secure;cookieRenderList([...visibleBefore,name]);setTimeout(()=>cookieRenderList(),80)
+  const name="hym_test_"+cookieRandomToken(5);const value=cookieRandomToken(12);const secure=location.protocol==="https:"?"; Secure":"";document.cookie=name+"="+value+"; Max-Age=86400; Path=/; SameSite=Lax"+secure;cookieWriteOrder([name,...cookieReadOrder()]);cookieRenderSingle(name)
 }
 function cookiePathCandidates(){
   const parts=location.pathname.split("/").filter(Boolean),paths=["/"];let current="";for(const part of parts){current+="/"+part;paths.push(current,current+"/")}return [...new Set(paths)].sort((a,b)=>b.length-a.length)
@@ -1016,7 +1072,7 @@ function cookieExpire(name){
   const expires="Thu, 01 Jan 1970 00:00:00 GMT";for(const path of cookiePathCandidates()){document.cookie=name+"=; Max-Age=0; Expires="+expires+"; Path="+path;for(const domain of cookieDomainCandidates())document.cookie=name+"=; Max-Age=0; Expires="+expires+"; Path="+path+"; Domain="+domain}
 }
 function cookieDeleteVisible(){
-  const items=cookieManagedItems();for(const item of items)cookieExpire(item.name);cookieRenderList()
+  const items=cookieManagedItems();for(const item of items)cookieExpire(item.name);cookieWriteOrder([]);cookieRenderList()
 }
 function initCookieSandbox(){
   const random=document.getElementById("cookieRandom"),list=document.getElementById("cookieList"),del=document.getElementById("cookieDelete");if(!random||!list||!del)return;random.addEventListener("click",cookieCreateRandom);list.addEventListener("click",cookieRenderList);del.addEventListener("click",cookieDeleteVisible);cookieRenderList()
