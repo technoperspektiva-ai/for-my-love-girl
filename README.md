@@ -342,3 +342,11 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Keeps a fitted two-column tablet base layout, including landscape tablet screens wider than the original 1000px responsive breakpoint.
 - Tablet editing remains independent: tuning a tablet profile does not overwrite the phone or desktop profile.
 - Applying local or server presets from the HYM presets menu now saves into the currently active device profile instead of always writing into the desktop profile.
+
+
+## v125 Visible tablet selector verification
+
+- Keeps the independent tablet template support introduced in v124.
+- Adds a visible `v125` marker to the hidden admin-panel header so the deployed Worker version can be verified immediately.
+- Highlights the `Стандартний шаблон планшета` selector with a `TABLET` badge.
+- The admin panel now clearly lists phone, tablet, and Windows standard templates.
