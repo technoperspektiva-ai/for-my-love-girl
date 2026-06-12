@@ -330,3 +330,15 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Prevents inline widths saved by the HYM editor from pushing cards beyond the screen edge on tablet and phone layouts. Saved desktop dimensions remain stored and return when the viewport becomes wider again.
 - Makes buttons, inputs, text areas, media elements, and temporary-mail modals fit the available viewport.
 - Adds `data-hym-viewport="desktop|tablet|phone"` to the root HTML element for future device-size refinements.
+
+
+## v124 Independent tablet template
+
+- Adds an independent `tablet` presentation mode for Android tablets and iPad-class devices.
+- Keeps three separate browser-local HYM editor profiles: `desktop`, `tablet`, and `phone`.
+- Adds a third admin-panel selector: `Стандартний шаблон планшета`.
+- Public tablet visits request `/api/hym-active-template?platform=tablet`; phone visits continue to use `mobile`, and Windows desktop continues to use `windows`.
+- Detects common Android-tablet user agents and touch devices with a tablet-sized short screen side.
+- Keeps a fitted two-column tablet base layout, including landscape tablet screens wider than the original 1000px responsive breakpoint.
+- Tablet editing remains independent: tuning a tablet profile does not overwrite the phone or desktop profile.
+- Applying local or server presets from the HYM presets menu now saves into the currently active device profile instead of always writing into the desktop profile.
