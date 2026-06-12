@@ -289,3 +289,12 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Each state stores its own card width, grid span, height, alignment, and dashboard order.
 - Switching the cookie section between collapsed and expanded states automatically loads the matching saved layout.
 - Existing older HYM presets remain compatible through a legacy fallback.
+
+
+## v120 Independent cookie state sizing with shared board position
+
+- Keeps separate sizes for the collapsed `[+]` and expanded `[-]` states of `Test - Cokies🍪`.
+- Uses one shared dashboard order for both states: moving the cookie block while expanded also places it in the same board position while collapsed.
+- Toggling the cookie block applies only that block's saved size. It no longer reapplies or rearranges neighboring dashboard cards.
+- Resizing one card stores that card's parameters without introducing separate board orders for the other columns.
+- Preserves compatibility with v119 profiles by importing the previous order when an older `orders` map is encountered.
