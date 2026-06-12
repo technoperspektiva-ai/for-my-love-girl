@@ -1,0 +1,7 @@
+This kit intentionally does not overwrite src/index.js.
+
+Use it in the existing for-my-love-girl project folder where your approved
+v110 src/index.js already exists. Run apply-v113-on-server.bat (Windows)
+or apply-v113-on-server.sh (Linux/macOS).
+
+The installer creates a backup before changing src/index.js.

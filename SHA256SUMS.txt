@@ -1,0 +1,15 @@
+a782012d7ea5f2130793889c87e7e7c30bca5f393b3cb130ca68836696cf229d  ./.dev.vars.example
+ea91bbfeee5a5dbc0e308a5bfa3a5a4f41783bfa88c60e024063176bb8e1340b  ./.github/workflows/deploy-cloudflare-worker.yml
+bb50ccb531fe028e2c6887688f716168ef94bf3407c6daa6fc1769d7a00bdbf8  ./.gitignore
+11c9e13e26ae8a233918ca7166498c21dda1871bacadb235dcbd8de95a25f3bb  ./FILE_LIST.txt
+1f903e2d784f87c0f818580d4955cf771a7a1ee613f8c55092cf62dfca6f8c99  ./README.md
+0e856892ae2fac06409bfc7637470fe5f8923edfe234758bf3d51afe22547dab  ./STABLE_APPROVED_V110.txt
+d66fe52bb3d9d64d3047a1ea8d84f88ff11dc135a80c6eaba62d4ecdc0edb95b  ./apply-v113-on-server.bat
+77c1bdd5ed36c4bdc8ff2b1ed74d8497e39faf93975d0cbba1a2460876a0d799  ./apply-v113-on-server.sh
+589723494f1102a44e78ad26529f1c4a08bce0c48c6ce0c38df1d04e983422ad  ./package.json
+a88ddd34c64cf77b3a111928d8a6b1777c3d8f781a434b17d91ef9897d3985ca  ./public/audio.mp3
+1d2080008a1da482c17d9974ae5d65b1bf1b75d78ad0544ee2fb96408eeff14f  ./src/PUT_CURRENT_STABLE_INDEX_HERE.txt
+cfb4b9d9ec0cc480edbc4a62b8c082c4d093277958a2f7dfcdbb5db4acb9d80b  ./tools/apply-v113-on-server.mjs
+26def1cf5a6990da10ea1cc88b42e4cf905529d82c8314a7b8c589529ff4d3ae  ./tools/v111-ios-aware-redirects-reference.js
+a34bb1432ba2598b559bd1d056b4db8bcbda6722c0b9fe7ccaa65a40a820e7b5  ./tools/v112-device-specific-presets-reference.mjs
+a1a572cf99efb5c4e7b0a2d85e537af65201a11fd917e0dea1da73591e50fa16  ./wrangler.jsonc
