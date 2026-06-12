@@ -109,11 +109,19 @@ body.hym-editing .grid>.card>h2,body.hym-editing .grid>.card>summary{cursor:move
 }
 
 
-/* v114: cookie QA sandbox */
-#section-cookies h2::before{content:"cookie sandbox"}
-#section-cookies{grid-column:span 4}.cookie-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.cookie-output{min-height:132px;margin-top:8px;resize:vertical;line-height:1.45}.cookie-status{min-height:15px;margin-top:5px;color:var(--muted);font-size:10px;line-height:1.4}.cookie-status.ok{color:var(--green)}.cookie-status.warn{color:#ffd27a}
+/* v116: collapsible cookie QA sandbox */
+#section-cookies{grid-column:span 4;padding:0}
+.cookie-card>summary{list-style:none;cursor:pointer;padding:12px;font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:10px;text-transform:uppercase;color:#e6fff8}
+.cookie-card>summary::-webkit-details-marker{display:none}
+.cookie-card>summary::before{content:"cookie sandbox";display:block;margin-bottom:5px;color:var(--green);font-size:9px;letter-spacing:.15em;font-weight:900;text-transform:uppercase}
+.cookie-card>summary::after{content:"[+]";color:var(--green);font-size:12px}
+.cookie-card[open]>summary::after{content:"[-]"}
+.cookie-card[open]>summary{border-bottom:1px solid var(--line)}
+.cookie-content{padding:12px}
+.cookie-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.cookie-output{min-height:132px;margin-top:8px;resize:vertical;line-height:1.45}
 @media(max-width:1000px){#section-cookies{grid-column:auto}}
-@media(max-width:700px){.cookie-actions{grid-template-columns:1fr}.cookie-output{min-height:118px}}
+@media(max-width:700px){.cookie-card>summary{padding:10px}.cookie-content{padding:10px}.cookie-actions{grid-template-columns:1fr}.cookie-output{min-height:118px}}
 
 </style>
 </head>
@@ -182,7 +190,7 @@ body.hym-editing .grid>.card>h2,body.hym-editing .grid>.card>summary{cursor:move
 <button class="btn" id="telegramLogout" style="margin-top:10px" type="button">Вийти з Telegram</button>
 </div>
 <p class="info" id="telegramStatus">Checking Telegram session…</p>
-</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><input accept="image/*" id="photo" type="file"/><img id="preview" style="display:none;max-height:160px;max-width:100%;border:1px solid #222;margin-top:8px"/></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" src="https://www.youtube.com/embed/PxmjpQmguNM"></iframe><div style="height:10px"></div><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-cookies"><h2>Test - Cokies🍪</h2><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список доступних cookie поточного домену" readonly=""></textarea><div class="cookie-status" id="cookieStatus"></div></section><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
+</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><input accept="image/*" id="photo" type="file"/><img id="preview" style="display:none;max-height:160px;max-width:100%;border:1px solid #222;margin-top:8px"/></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" src="https://www.youtube.com/embed/PxmjpQmguNM"></iframe><div style="height:10px"></div><audio controls="" src="/audio.mp3"></audio></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
 <script>
 const DEFAULT_GOOGLE_CLIENT_ID="221396849433-0f5ktd8ao72kf7qvrgi7sk7v9lpn698o.apps.googleusercontent.com";
@@ -965,7 +973,7 @@ hymHeartbeat();setInterval(hymHeartbeat,30000);document.addEventListener("visibi
 // --- /v111 traffic + admin-selected HYM template ---
 
 
-// --- v114 local cookie QA sandbox ---
+// --- v115 local cookie QA sandbox ---
 function cookieRandomToken(size=12){
   const bytes=new Uint8Array(size);crypto.getRandomValues(bytes);return Array.from(bytes,byte=>byte.toString(16).padStart(2,"0")).join("")
 }
@@ -973,14 +981,14 @@ function cookieVisibleItems(){
   const raw=document.cookie||"";if(!raw.trim())return [];
   return raw.split(";").map(part=>part.trim()).filter(Boolean).map(part=>{const split=part.indexOf("=");return split<0?{name:part,value:""}:{name:part.slice(0,split),value:part.slice(split+1)}})
 }
-function cookieSetStatus(text,kind=""){
-  const node=document.getElementById("cookieStatus");if(!node)return;node.textContent=text||"";node.className="cookie-status"+(kind?" "+kind:"")
+function cookieManagedItems(){
+  return cookieVisibleItems().filter(item=>item.name.startsWith("hym_test_"))
 }
 function cookieRenderList(){
-  const output=document.getElementById("cookieOutput");if(!output)return;const items=cookieVisibleItems();output.value=items.length?items.map(item=>item.name+" = "+item.value).join("\n"):"Доступних cookie не знайдено.\nHttpOnly cookie не відображаються у браузерному JavaScript.";cookieSetStatus(items.length?"Знайдено cookie: "+items.length:"Список порожній",items.length?"ok":"warn")
+  const output=document.getElementById("cookieOutput");if(!output)return;const items=cookieManagedItems();output.value=items.length?items.map(item=>item.name).join("\n"):"Тестових cookie HYM не знайдено."
 }
 function cookieCreateRandom(){
-  const name="hym_test_"+cookieRandomToken(5);const value=cookieRandomToken(12);const secure=location.protocol==="https:"?"; Secure":"";document.cookie=name+"="+value+"; Max-Age=86400; Path=/; SameSite=Lax"+secure;cookieRenderList();cookieSetStatus("Створено тестовий cookie: "+name,"ok")
+  const name="hym_test_"+cookieRandomToken(5);const value=cookieRandomToken(12);const secure=location.protocol==="https:"?"; Secure":"";document.cookie=name+"="+value+"; Max-Age=86400; Path=/; SameSite=Lax"+secure;cookieRenderList()
 }
 function cookiePathCandidates(){
   const parts=location.pathname.split("/").filter(Boolean),paths=["/"];let current="";for(const part of parts){current+="/"+part;paths.push(current,current+"/")}return [...new Set(paths)].sort((a,b)=>b.length-a.length)
@@ -993,13 +1001,13 @@ function cookieExpire(name){
   const expires="Thu, 01 Jan 1970 00:00:00 GMT";for(const path of cookiePathCandidates()){document.cookie=name+"=; Max-Age=0; Expires="+expires+"; Path="+path;for(const domain of cookieDomainCandidates())document.cookie=name+"=; Max-Age=0; Expires="+expires+"; Path="+path+"; Domain="+domain}
 }
 function cookieDeleteVisible(){
-  const items=cookieVisibleItems();for(const item of items)cookieExpire(item.name);cookieRenderList();const remaining=cookieVisibleItems().length;cookieSetStatus(items.length?(remaining?"Видалено доступні cookie. Залишилось: "+remaining:"Видалено cookie: "+items.length):"Немає доступних cookie для видалення",remaining?"warn":"ok")
+  const items=cookieManagedItems();for(const item of items)cookieExpire(item.name);cookieRenderList()
 }
 function initCookieSandbox(){
   const random=document.getElementById("cookieRandom"),list=document.getElementById("cookieList"),del=document.getElementById("cookieDelete");if(!random||!list||!del)return;random.addEventListener("click",cookieCreateRandom);list.addEventListener("click",cookieRenderList);del.addEventListener("click",cookieDeleteVisible);cookieRenderList()
 }
 initCookieSandbox();
-// --- /v114 local cookie QA sandbox ---
+// --- /v115 local cookie QA sandbox ---
 
 const audio=document.querySelector("audio");
 if(audio){audio.addEventListener("play",()=>logEvent("SUCCESS","Audio","play"));audio.addEventListener("pause",()=>logEvent("INFO","Audio","pause"));audio.addEventListener("error",()=>logEvent("ERROR","Audio","load or playback error"))}
