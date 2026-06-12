@@ -239,6 +239,43 @@ iframe,audio,img,video{max-width:100%}
   .temp-mail-modal-head strong{font-size:10px}
 }
 
+
+/* v124: independent physical-tablet presentation */
+html[data-hym-device="tablet"] .wrap{
+  width:min(1180px,calc(100vw - (var(--hym-page-gutter) * 2)))!important;
+  max-width:calc(100vw - (var(--hym-page-gutter) * 2));
+  padding-top:9px;
+}
+html[data-hym-device="tablet"] .grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+}
+html[data-hym-device="tablet"] .grid>.card,
+html[data-hym-device="tablet"] .grid>.cookie-card,
+html[data-hym-device="tablet"] .grid>.stripe-card{
+  grid-column:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+}
+html[data-hym-device="tablet"] #section-temp-mail,
+html[data-hym-device="tablet"] .temp-mail-card{
+  grid-column:1/-1!important;
+  min-width:0!important;
+  max-width:100%!important;
+  justify-self:stretch!important;
+}
+html[data-hym-device="tablet"] .card{padding:10px}
+html[data-hym-device="tablet"] h2{font-size:13px}
+html[data-hym-device="tablet"] .btn{padding:9px 8px;font-size:10px;white-space:normal}
+html[data-hym-device="tablet"] .top{gap:9px;padding:9px;flex-wrap:wrap}
+html[data-hym-device="tablet"] .top-right{margin-left:auto}
+html[data-hym-device="tablet"] .v{font-size:9px;gap:5px}
+html[data-hym-device="tablet"] [data-hym-layout-key]{max-width:100%!important}
+html[data-hym-device="tablet"] .temp-mail-modal-box,
+html[data-hym-device="tablet"] .temp-mail-message-modal-box{
+  max-width:calc(100vw - 14px);
+}
+
 </style>
 </head>
 <body>
@@ -945,6 +982,7 @@ function initTempMail(){
 // --- HYM layout editor + local/server presets ---
 const HYM_PROFILE_KEY="hym_personal_profile_v3";
 const HYM_MOBILE_PROFILE_KEY="hym_personal_profile_mobile_v1";
+const HYM_TABLET_PROFILE_KEY="hym_personal_profile_tablet_v1";
 const HYM_PRESETS_KEY="hym_personal_presets_v3";
 const HYM_LABELS_KEY="hym_custom_labels_v4";
 let hymEditMode=false;
@@ -962,7 +1000,21 @@ let hymMobileTitle=null;
 let hymMobileKind=null;
 let hymStateCardLayouts={};
 let hymSharedOrder=[];
-function hymIsMobileEditor(){return window.matchMedia("(max-width: 820px), (pointer: coarse)").matches}
+function hymDeviceClass(){
+  const ua=(navigator.userAgent||"").toLowerCase();
+  const viewport=window.visualViewport;
+  const width=Math.max(1,Math.round(viewport?.width||window.innerWidth||document.documentElement.clientWidth||1));
+  const height=Math.max(1,Math.round(viewport?.height||window.innerHeight||document.documentElement.clientHeight||1));
+  const screenWidth=Math.max(1,Number(window.screen?.width)||width);
+  const screenHeight=Math.max(1,Number(window.screen?.height)||height);
+  const shortSide=Math.min(screenWidth,screenHeight);
+  const coarse=window.matchMedia("(pointer: coarse)").matches||(navigator.maxTouchPoints||0)>0;
+  const explicitTablet=/ipad|tablet|kindle|silk|playbook/.test(ua)||(/android/.test(ua)&&!/mobile/.test(ua))||(/macintosh/.test(ua)&&(navigator.maxTouchPoints||0)>1);
+  if(explicitTablet||(coarse&&shortSide>=600))return "tablet";
+  if(/iphone|ipod|android|mobile/.test(ua)||coarse||width<=700)return "phone";
+  return "desktop"
+}
+function hymIsMobileEditor(){return hymDeviceClass()!=="desktop"||window.matchMedia("(max-width: 820px)").matches}
 function hymJsonRead(key,fallback){try{return JSON.parse(localStorage.getItem(key)||"")||fallback}catch{return fallback}}
 function hymJsonWrite(key,value){localStorage.setItem(key,JSON.stringify(value))}
 function hymCards(){return [...document.querySelectorAll(".grid > .card")].filter(card=>card.id)}
@@ -1010,7 +1062,7 @@ function hymResetInline(){
 function hymApplyLayout(layout){if(!layout||hymApplying)return;hymApplying=true;try{hymPrepareInner();hymStateCardLayouts={...(layout.cards||{})};const legacyOrder=Array.isArray(layout.order)?layout.order:(Array.isArray(layout.orders?.["cookies-open"])?layout.orders["cookies-open"]:(Array.isArray(layout.orders?.["cookies-closed"])?layout.orders["cookies-closed"]:[]));hymSharedOrder=[...legacyOrder];hymApplySharedOrder();hymApplyCurrentCardLayouts();document.querySelectorAll("[data-hym-layout-key]").forEach(node=>{const saved=layout.inner?.[node.dataset.hymLayoutKey]||{};if(saved.width)node.style.width=saved.width;if(saved.height)node.style.minHeight=saved.height;if(saved.x||saved.y){node.dataset.hymX=String(saved.x||0);node.dataset.hymY=String(saved.y||0);node.style.transform=`translate3d(${Number(saved.x)||0}px,${Number(saved.y)||0}px,0)`}})}finally{hymApplying=false;requestAnimationFrame(hymSyncOverlay)}}
 function hymApplyProfile(profile){hymResetInline();hymRestoreDefaultCaptions();hymLabelsWrite(profile?.labels||{});hymApplyCaptions();hymApplyLayout(profile?.layout||{});const hidden=new Set(profile?.hidden||[]);hymCards().forEach(card=>card.hidden=hidden.has(card.id));requestAnimationFrame(hymSyncOverlay)}
 function hymApplyStandard(){localStorage.removeItem(hymActiveProfileKey());localStorage.removeItem(HYM_LABELS_KEY);hymApplyProfile(hymStandardProfile||{layout:{},labels:{},hidden:[]})}
-function hymActiveProfileKey(){return hymIsMobileEditor()?HYM_MOBILE_PROFILE_KEY:HYM_PROFILE_KEY}
+function hymActiveProfileKey(){const mode=hymDeviceClass();return mode==="tablet"?HYM_TABLET_PROFILE_KEY:mode==="phone"?HYM_MOBILE_PROFILE_KEY:HYM_PROFILE_KEY}
 function hymSavePersonal(){const profile=hymCaptureProfile();hymJsonWrite(hymActiveProfileKey(),profile);return profile}
 function hymPersonal(){return hymJsonRead(hymActiveProfileKey(),null)}
 function hymPresets(){return hymJsonRead(HYM_PRESETS_KEY,[])}
@@ -1059,16 +1111,16 @@ async function hymSaveServerPreset(){const name=prompt("Назва сервер�
 async function hymDeleteServerPreset(id){const response=await fetch("/api/layout-presets/"+encodeURIComponent(id),{method:"DELETE",credentials:"include"});const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||"Не вдалося видалити серверний preset");return data}
 function hymOpenPresets(){
   let modal=document.querySelector(".hym-presets-modal");if(!modal){modal=document.createElement("div");modal.className="hym-presets-modal";document.body.append(modal)}
-  modal.replaceChildren();const box=document.createElement("div");box.className="hym-presets-box";const head=document.createElement("div");head.className="hym-presets-head";const title=document.createElement("strong");title.textContent="HYM presets";const close=document.createElement("button");close.className="hym-presets-close";close.type="button";close.textContent="×";close.onclick=()=>modal.classList.remove("on");head.append(title,close);box.append(head);
+  modal.replaceChildren();const box=document.createElement("div");box.className="hym-presets-box";const head=document.createElement("div");head.className="hym-presets-head";const title=document.createElement("strong");title.textContent="HYM presets · "+hymDeviceClass();const close=document.createElement("button");close.className="hym-presets-close";close.type="button";close.textContent="×";close.onclick=()=>modal.classList.remove("on");head.append(title,close);box.append(head);
   const grid=document.createElement("div");grid.className="hym-presets-grid";const left=document.createElement("div");left.className="hym-presets-panel";const right=document.createElement("div");right.className="hym-presets-panel";left.innerHTML="<h3>Пресети</h3>";right.innerHTML="<h3>Об'єкти поточного пресета</h3>";const list=document.createElement("div");list.className="hym-preset-list";left.append(list);
   const addPresetRow=(name,apply,remove,kind)=>{const row=document.createElement("div");row.className="hym-preset-row";const use=document.createElement("button");use.className="btn";use.type="button";use.textContent=name;use.onclick=apply;const tag=document.createElement("span");tag.className="hym-preset-name";tag.textContent=kind;if(remove){const del=document.createElement("button");del.className="btn red";del.type="button";del.textContent="×";del.onclick=remove;row.append(use,tag,del)}else row.append(use,tag);list.append(row)};
   addPresetRow("Стандартне розміщення",()=>{hymApplyStandard();modal.classList.remove("on")},null,"standard");
   addPresetRow("Особистий локальний",()=>{const profile=hymPersonal();if(profile){hymApplyProfile(profile);modal.classList.remove("on")}else alert("Особистий пресет ще не створено")},null,"personal");
-  hymPresets().forEach((preset,index)=>addPresetRow(preset.name||("Preset "+(index+1)),()=>{hymJsonWrite(HYM_PROFILE_KEY,preset.profile);hymApplyProfile(preset.profile);modal.classList.remove("on")},()=>{const items=hymPresets();items.splice(index,1);hymWritePresets(items);hymOpenPresets()},"local"));
+  hymPresets().forEach((preset,index)=>addPresetRow(preset.name||("Preset "+(index+1)),()=>{hymJsonWrite(hymActiveProfileKey(),preset.profile);hymApplyProfile(preset.profile);modal.classList.remove("on")},()=>{const items=hymPresets();items.splice(index,1);hymWritePresets(items);hymOpenPresets()},"local"));
   const serverTitle=document.createElement("div");serverTitle.className="hym-server-title";serverTitle.textContent="server presets";list.append(serverTitle);const serverList=document.createElement("div");serverList.className="hym-server-list";serverList.textContent="завантаження…";list.append(serverList);
-  hymFetchServerPresets().then(({response,data})=>{serverList.replaceChildren();if(!response||!response.ok||!data.configured){serverList.textContent=data.error||"PRESETS_KV не підключений";return}(data.presets||[]).forEach(preset=>addPresetRow(preset.name||preset.id,()=>{hymJsonWrite(HYM_PROFILE_KEY,preset.profile);hymApplyProfile(preset.profile);modal.classList.remove("on")},async()=>{if(!confirm("Видалити серверний preset?"))return;try{await hymDeleteServerPreset(preset.id);hymOpenPresets()}catch(error){alert(error.message)}},"server"));if(!(data.presets||[]).length)serverList.textContent="серверних пресетів поки немає"});
+  hymFetchServerPresets().then(({response,data})=>{serverList.replaceChildren();if(!response||!response.ok||!data.configured){serverList.textContent=data.error||"PRESETS_KV не підключений";return}(data.presets||[]).forEach(preset=>addPresetRow(preset.name||preset.id,()=>{hymJsonWrite(hymActiveProfileKey(),preset.profile);hymApplyProfile(preset.profile);modal.classList.remove("on")},async()=>{if(!confirm("Видалити серверний preset?"))return;try{await hymDeleteServerPreset(preset.id);hymOpenPresets()}catch(error){alert(error.message)}},"server"));if(!(data.presets||[]).length)serverList.textContent="серверних пресетів поки немає"});
   const toggles=document.createElement("div");toggles.className="hym-card-visibility";hymCards().forEach(card=>{const row=document.createElement("label");row.className="hym-card-toggle";const check=document.createElement("input");check.type="checkbox";check.checked=!card.hidden;check.onchange=()=>{card.hidden=!check.checked;hymSavePersonal();hymSyncOverlay()};const label=document.createElement("span");label.textContent=hymHeader(card)?.textContent.trim()||card.id;row.append(check,label);toggles.append(row)});right.append(toggles);
-  const actions=document.createElement("div");actions.className="hym-presets-actions";const saveLocal=document.createElement("button");saveLocal.className="btn";saveLocal.type="button";saveLocal.textContent="Зберегти локально";saveLocal.onclick=()=>{const name=prompt("Назва локального пресета");if(!name?.trim())return;const items=hymPresets();items.unshift({name:name.trim(),profile:hymSavePersonal(),savedAt:Date.now()});hymWritePresets(items.slice(0,20));hymOpenPresets()};const personal=document.createElement("button");personal.className="btn";personal.type="button";personal.textContent="Оновити особистий";personal.onclick=()=>{hymSavePersonal();modal.classList.remove("on")};const saveServer=document.createElement("button");saveServer.className="btn green";saveServer.type="button";saveServer.textContent="Закріпити на сервері";saveServer.onclick=async()=>{try{await hymSaveServerPreset();hymOpenPresets()}catch(error){alert(error.message)}};actions.append(saveLocal,personal,saveServer);box.append(grid,actions);const note=document.createElement("div");note.className="hym-presets-note";note.textContent="Редагування: три кліки по HYM. На комп’ютері доступний drag-and-resize. На телефоні торкнись об’єкта й використовуй нижню панель зі стрілками та кнопками W/H. Іконка ✎ відкриває лише пресети.";box.append(note);grid.append(left,right);modal.append(box);modal.classList.add("on");modal.onclick=event=>{if(event.target===modal)modal.classList.remove("on")}
+  const actions=document.createElement("div");actions.className="hym-presets-actions";const saveLocal=document.createElement("button");saveLocal.className="btn";saveLocal.type="button";saveLocal.textContent="Зберегти локально";saveLocal.onclick=()=>{const name=prompt("Назва локального пресета");if(!name?.trim())return;const items=hymPresets();items.unshift({name:name.trim(),profile:hymSavePersonal(),savedAt:Date.now()});hymWritePresets(items.slice(0,20));hymOpenPresets()};const personal=document.createElement("button");personal.className="btn";personal.type="button";personal.textContent="Оновити особистий";personal.onclick=()=>{hymSavePersonal();modal.classList.remove("on")};const saveServer=document.createElement("button");saveServer.className="btn green";saveServer.type="button";saveServer.textContent="Закріпити на сервері";saveServer.onclick=async()=>{try{await hymSaveServerPreset();hymOpenPresets()}catch(error){alert(error.message)}};actions.append(saveLocal,personal,saveServer);box.append(grid,actions);const note=document.createElement("div");note.className="hym-presets-note";note.textContent="Редагування: три кліки по HYM. Профілі desktop, tablet і phone зберігаються окремо. На комп’ютері доступний drag-and-resize. На телефоні та планшеті торкнись об’єкта й використовуй нижню панель зі стрілками та кнопками W/H.";box.append(note);grid.append(left,right);modal.append(box);modal.classList.add("on");modal.onclick=event=>{if(event.target===modal)modal.classList.remove("on")}
 }
 function hymStartGesture(event){
   if(!hymEditMode||event.target.closest?.(".hym-presets-modal,.hym-system-control"))return;
@@ -1123,7 +1175,7 @@ initRuntimeOsBadge();
 const HYM_VISITOR_KEY="hym_visitor_id_v1";
 function hymVisitorId(){let id="";try{id=localStorage.getItem(HYM_VISITOR_KEY)||""}catch{}if(!/^[a-zA-Z0-9_-]{12,96}$/.test(id)){id=(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)+Date.now().toString(36)).replace(/[^a-zA-Z0-9_-]/g,"");try{localStorage.setItem(HYM_VISITOR_KEY,id)}catch{}}return id}
 async function hymHeartbeat(){try{await fetch("/api/analytics/heartbeat",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({visitorId:hymVisitorId()}),keepalive:true})}catch{}}
-function hymPublicPlatform(){const ua=(navigator.userAgent||"").toLowerCase();if(/iphone|ipad|ipod|android|mobile/.test(ua)||matchMedia("(pointer: coarse)").matches||innerWidth<=820)return "mobile";if(/windows|win32|win64/.test(ua))return "windows";return "other"}
+function hymPublicPlatform(){const device=hymDeviceClass(),ua=(navigator.userAgent||"").toLowerCase();if(device==="tablet")return "tablet";if(device==="phone")return "mobile";if(/windows|win32|win64/.test(ua))return "windows";return "other"}
 async function hymApplyAdminTemplate(){try{const platform=hymPublicPlatform();if(platform==="other")return;const response=await fetch("/api/hym-active-template?platform="+encodeURIComponent(platform),{cache:"no-store"});const data=await response.json();if(response.ok&&data.profile)hymApplyProfile(data.profile)}catch{}}
 hymHeartbeat();setInterval(hymHeartbeat,30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)hymHeartbeat()});setTimeout(hymApplyAdminTemplate,0);
 // --- /v111 traffic + admin-selected HYM template ---
@@ -1184,7 +1236,9 @@ function hymUpdateViewportProfile(){
   const viewport=window.visualViewport;
   const width=Math.max(1,Math.round(viewport?.width||window.innerWidth||document.documentElement.clientWidth||1));
   const height=Math.max(1,Math.round(viewport?.height||window.innerHeight||document.documentElement.clientHeight||1));
-  const mode=width<=700?"phone":width<=1000?"tablet":"desktop";
+  const device=hymDeviceClass();
+  const mode=device==="phone"?"phone":device==="tablet"?"tablet":width<=700?"phone":width<=1000?"tablet":"desktop";
+  document.documentElement.dataset.hymDevice=device;
   document.documentElement.dataset.hymViewport=mode;
   document.documentElement.style.setProperty("--hym-viewport-width",width+"px");
   document.documentElement.style.setProperty("--hym-viewport-height",height+"px");
