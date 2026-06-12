@@ -350,3 +350,46 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Adds a visible `v125` marker to the hidden admin-panel header so the deployed Worker version can be verified immediately.
 - Highlights the `Стандартний шаблон планшета` selector with a `TABLET` badge.
 - The admin panel now clearly lists phone, tablet, and Windows standard templates.
+
+
+## v126 Strict device routing for public templates
+
+- Routes public templates by physical device class instead of browser-window width.
+- iPad, iPad desktop-mode Safari, Android tablets, and tablet-sized touch devices always use the `tablet` template bucket.
+- Phones use the `mobile` template bucket.
+- Computers and notebooks remain in the desktop flow; Windows computers use the `windows` template bucket.
+- Viewport width is now used only for visual fit and density. Resizing a browser window cannot switch the selected HYM template category.
+- Adds `data-hym-device`, `data-hym-viewport`, and `data-hym-fit` attributes for diagnostics.
+- HYM presets modal title now shows the detected bucket and physical screen dimensions, for example `HYM presets · tablet · 1024×1366`.
+
+
+## v127 Preserve individually configured object sizes
+
+- Fixes tablet HYM presets restoring card order but visually losing manually configured card dimensions.
+- Root cause: the adaptive tablet layer used `width:auto!important` and `grid-column:auto!important`, overriding the stored inline sizes.
+- Adds a per-card `data-hym-sized="1"` marker only after that specific card has been manually resized or aligned.
+- Untouched cards continue to use the automatic fitted tablet layout.
+- Individually tuned cards restore their own width, height, and alignment while remaining clamped to the screen width.
+- Resizing one card does not alter neighboring cards.
+- The same preservation rule is applied to narrow phone layouts so phone presets keep their manually configured sizes as well.
+
+
+## v128 HYM presets button fit fix
+
+- Fixes the `HYM presets` editor button on narrow screens.
+- Removes the old forced `26px` width that clipped the full label.
+- Keeps the button compact while allowing its width to fit the entire `HYM PRESETS` text.
+- Adds `min-width:max-content` and prevents flex shrinking so the label stays inside the border.
+- Does not change dashboard card sizes or saved HYM presets.
+
+
+## v129 Stripe tablet fit and resize handle
+
+- Fixes the Stripe Express Checkout card feeling clipped on tablet and touch devices.
+- Removes the old `overflow:hidden` containment that could cut off the lower wallet button.
+- Stops forcing a manually tuned Stripe card back to `width:100%` after it receives `data-hym-sized="1"`.
+- Keeps untouched Stripe cards full-width by default on phone and touch layouts.
+- Adds a hidden editor-only `Stripe wallets · resize` handle above the external Stripe iframe. Triple-tap `HYM`, then tap or drag this strip to select the Stripe card and use the lower W/H editor controls.
+- Overrides the global media iframe aspect ratio for Stripe's external iframe only.
+- Gives physical tablets a dedicated Stripe Express Checkout layout: two columns and up to three rows.
+- Phones continue using one column; desktop keeps four columns.
