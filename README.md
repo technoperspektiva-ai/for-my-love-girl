@@ -318,3 +318,15 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Adds modal close buttons, backdrop close behavior, and layered `Escape` handling.
 - Keeps manual refresh in the main temporary-mail card and adds a refresh button inside the inbox modal.
 - Continues 30-second silent polling only while the inbox modal is visible.
+
+
+## v123 Adaptive main page
+
+- Adds a viewport-aware responsive main-page layer for desktop, tablet, and phone widths.
+- Preserves the dashboard content order and existing functionality while fitting the visible UI inside the active screen width.
+- Keeps the approved desktop dashboard arrangement at full desktop widths.
+- Uses a denser but still readable desktop mode for narrower notebook windows.
+- Uses two fitted columns on tablet-sized screens and a single fitted column on phone-sized screens.
+- Prevents inline widths saved by the HYM editor from pushing cards beyond the screen edge on tablet and phone layouts. Saved desktop dimensions remain stored and return when the viewport becomes wider again.
+- Makes buttons, inputs, text areas, media elements, and temporary-mail modals fit the available viewport.
+- Adds `data-hym-viewport="desktop|tablet|phone"` to the root HTML element for future device-size refinements.
