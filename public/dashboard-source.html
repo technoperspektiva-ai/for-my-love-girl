@@ -111,7 +111,6 @@ body.hym-editing .grid>.card>h2,body.hym-editing .grid>.card>summary{cursor:move
 
 /* v116: collapsible cookie QA sandbox */
 #section-cookies{grid-column:span 4;padding:0}
-.cookie-card[open]{grid-column:1/-1!important;width:100%!important;justify-self:stretch!important}
 .cookie-card>summary{list-style:none;cursor:pointer;padding:12px;font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:10px;text-transform:uppercase;color:#e6fff8}
 .cookie-card>summary::-webkit-details-marker{display:none}
 .cookie-card>summary::before{content:"cookie sandbox";display:block;margin-bottom:5px;color:var(--green);font-size:9px;letter-spacing:.15em;font-weight:900;text-transform:uppercase}
@@ -816,6 +815,8 @@ let hymOverlayLabel=null;
 let hymMobileToolbar=null;
 let hymMobileTitle=null;
 let hymMobileKind=null;
+let hymStateCardLayouts={};
+let hymStateOrders={};
 function hymIsMobileEditor(){return window.matchMedia("(max-width: 820px), (pointer: coarse)").matches}
 function hymJsonRead(key,fallback){try{return JSON.parse(localStorage.getItem(key)||"")||fallback}catch{return fallback}}
 function hymJsonWrite(key,value){localStorage.setItem(key,JSON.stringify(value))}
@@ -840,19 +841,27 @@ function hymPrepareCaptions(){hymCaptionCandidates().forEach(node=>{if(node.clos
 function hymRestoreDefaultCaptions(){hymPrepareCaptions();document.querySelectorAll("[data-hym-caption-key]").forEach(node=>{if(typeof node.dataset.hymDefaultCaption==="string")hymCaptionWrite(node,node.dataset.hymDefaultCaption)})}
 function hymApplyCaptions(){hymPrepareCaptions();const labels=hymLabelsRead();document.querySelectorAll("[data-hym-caption-key]").forEach(node=>{const value=labels[node.dataset.hymCaptionKey];if(typeof value==="string"&&value)hymCaptionWrite(node,value)})}
 function hymEditCaption(node){if(!node)return;hymPrepareCaptions();const key=hymCaptionKey(node),labels=hymLabelsRead(),original=node.dataset.hymDefaultCaption||hymCaptionValue(node),current=hymCaptionValue(node);const next=prompt("Новий підпис. Порожнє значення повертає стандартний текст.",current);if(next===null)return;const value=String(next).trim();if(value){labels[key]=value;hymCaptionWrite(node,value)}else{delete labels[key];hymCaptionWrite(node,original)}hymLabelsWrite(labels);hymSavePersonal();hymSyncOverlay()}
+function hymStatefulCard(card){return card?.id==="section-cookies"&&card.matches?.("details")}
+function hymCardStateKey(card,openState=card?.open){return hymStatefulCard(card)?card.id+"::"+(openState?"open":"closed"):card.id}
+function hymLayoutVariant(openState=document.getElementById("section-cookies")?.open){return openState?"cookies-open":"cookies-closed"}
+function hymCaptureCardLayout(card){return {span:card.dataset.hymSpan||"",height:card.dataset.hymHeight||"",width:card.style.width||"",justifySelf:card.style.justifySelf||""}}
+function hymClearCardLayout(card){card.style.gridColumn="";card.style.minHeight="";card.style.width="";card.style.justifySelf="";delete card.dataset.hymSpan;delete card.dataset.hymHeight}
+function hymApplyCardLayout(card,saved={}){hymClearCardLayout(card);if(saved.span){card.dataset.hymSpan=String(saved.span);card.style.gridColumn="span "+saved.span}if(saved.height){card.dataset.hymHeight=String(saved.height);card.style.minHeight=String(saved.height)+"px"}if(saved.width)card.style.width=saved.width;if(saved.justifySelf)card.style.justifySelf=saved.justifySelf}
+function hymRememberLayoutVariant(openState=document.getElementById("section-cookies")?.open){const variant=hymLayoutVariant(openState);hymStateOrders[variant]=hymCards().map(card=>card.id);hymCards().forEach(card=>{hymStateCardLayouts[hymCardStateKey(card,hymStatefulCard(card)?openState:card.open)]=hymCaptureCardLayout(card)})}
+function hymApplyLayoutVariant(){const grid=document.querySelector(".grid"),variant=hymLayoutVariant(),order=hymStateOrders[variant];if(Array.isArray(order))order.forEach(id=>{const card=document.getElementById(id);if(card&&card.parentElement===grid)grid.appendChild(card)});hymCards().forEach(card=>{const exact=hymStateCardLayouts[hymCardStateKey(card)];const legacy=hymStateCardLayouts[card.id];hymApplyCardLayout(card,exact||legacy||{})});requestAnimationFrame(hymSyncOverlay)}
+function hymInitStatefulLayouts(){const card=document.getElementById("section-cookies");if(!card||card.dataset.hymStateReady)return;card.dataset.hymStateReady="1";card.dataset.hymPreviousOpen=card.open?"1":"0";card.addEventListener("toggle",()=>{const previous=card.dataset.hymPreviousOpen==="1";hymRememberLayoutVariant(previous);card.dataset.hymPreviousOpen=card.open?"1":"0";hymApplyLayoutVariant();if(hymEditMode)hymSavePersonal();requestAnimationFrame(hymSyncOverlay)})}
 function hymCaptureLayout(){
-  hymPrepareInner();const result={order:hymCards().map(card=>card.id),cards:{},inner:{}};
-  hymCards().forEach(card=>{result.cards[card.id]={span:card.dataset.hymSpan||"",height:card.dataset.hymHeight||"",width:card.style.width||"",justifySelf:card.style.justifySelf||""}});
+  hymPrepareInner();hymRememberLayoutVariant();const result={order:hymCards().map(card=>card.id),orders:{...hymStateOrders},cards:{...hymStateCardLayouts},inner:{}};
   document.querySelectorAll("[data-hym-layout-key]").forEach(node=>{result.inner[node.dataset.hymLayoutKey]={width:node.style.width||"",height:node.style.minHeight||"",x:node.dataset.hymX||"",y:node.dataset.hymY||""}});
   return result
 }
-function hymCaptureProfile(){return {version:3,layout:hymCaptureLayout(),labels:hymLabelsRead(),hidden:hymCards().filter(card=>card.hidden).map(card=>card.id),savedAt:Date.now()}}
+function hymCaptureProfile(){return {version:4,layout:hymCaptureLayout(),labels:hymLabelsRead(),hidden:hymCards().filter(card=>card.hidden).map(card=>card.id),savedAt:Date.now()}}
 function hymResetInline(){
-  const grid=document.querySelector(".grid");hymCards().forEach(card=>{card.hidden=false;card.style.gridColumn="";card.style.minHeight="";card.style.width="";card.style.justifySelf="";delete card.dataset.hymSpan;delete card.dataset.hymHeight});
+  const grid=document.querySelector(".grid");hymCards().forEach(card=>{card.hidden=false;hymClearCardLayout(card)});
   hymDefaultOrder.forEach(id=>{const card=document.getElementById(id);if(card&&card.parentElement===grid)grid.appendChild(card)});
   document.querySelectorAll("[data-hym-layout-key]").forEach(node=>{node.style.width="";node.style.minHeight="";node.style.transform="";delete node.dataset.hymX;delete node.dataset.hymY})
 }
-function hymApplyLayout(layout){if(!layout||hymApplying)return;hymApplying=true;try{hymPrepareInner();const grid=document.querySelector(".grid");if(Array.isArray(layout.order))layout.order.forEach(id=>{const card=document.getElementById(id);if(card&&card.parentElement===grid)grid.appendChild(card)});Object.entries(layout.cards||{}).forEach(([id,saved])=>{const card=document.getElementById(id);if(!card)return;if(saved.span){card.dataset.hymSpan=String(saved.span);card.style.gridColumn="span "+saved.span}if(saved.height){card.dataset.hymHeight=String(saved.height);card.style.minHeight=String(saved.height)+"px"}if(saved.width)card.style.width=saved.width;if(saved.justifySelf)card.style.justifySelf=saved.justifySelf});document.querySelectorAll("[data-hym-layout-key]").forEach(node=>{const saved=layout.inner?.[node.dataset.hymLayoutKey]||{};if(saved.width)node.style.width=saved.width;if(saved.height)node.style.minHeight=saved.height;if(saved.x||saved.y){node.dataset.hymX=String(saved.x||0);node.dataset.hymY=String(saved.y||0);node.style.transform=`translate3d(${Number(saved.x)||0}px,${Number(saved.y)||0}px,0)`}})}finally{hymApplying=false;requestAnimationFrame(hymSyncOverlay)}}
+function hymApplyLayout(layout){if(!layout||hymApplying)return;hymApplying=true;try{hymPrepareInner();hymStateCardLayouts={...(layout.cards||{})};hymStateOrders={...(layout.orders||{})};if(!Object.keys(hymStateOrders).length&&Array.isArray(layout.order)){hymStateOrders["cookies-open"]=[...layout.order];hymStateOrders["cookies-closed"]=[...layout.order]}hymApplyLayoutVariant();document.querySelectorAll("[data-hym-layout-key]").forEach(node=>{const saved=layout.inner?.[node.dataset.hymLayoutKey]||{};if(saved.width)node.style.width=saved.width;if(saved.height)node.style.minHeight=saved.height;if(saved.x||saved.y){node.dataset.hymX=String(saved.x||0);node.dataset.hymY=String(saved.y||0);node.style.transform=`translate3d(${Number(saved.x)||0}px,${Number(saved.y)||0}px,0)`}})}finally{hymApplying=false;requestAnimationFrame(hymSyncOverlay)}}
 function hymApplyProfile(profile){hymResetInline();hymRestoreDefaultCaptions();hymLabelsWrite(profile?.labels||{});hymApplyCaptions();hymApplyLayout(profile?.layout||{});const hidden=new Set(profile?.hidden||[]);hymCards().forEach(card=>card.hidden=hidden.has(card.id));requestAnimationFrame(hymSyncOverlay)}
 function hymApplyStandard(){localStorage.removeItem(hymActiveProfileKey());localStorage.removeItem(HYM_LABELS_KEY);hymApplyProfile(hymStandardProfile||{layout:{},labels:{},hidden:[]})}
 function hymActiveProfileKey(){return hymIsMobileEditor()?HYM_MOBILE_PROFILE_KEY:HYM_PROFILE_KEY}
@@ -926,7 +935,7 @@ function hymStartGesture(event){
   hymSelect(card)
 }
 function initHymEditor(){
-  hymDefaultOrder=hymCards().map(card=>card.id);hymPrepareInner();hymPrepareCaptions();hymStandardProfile={version:3,layout:hymCaptureLayout(),labels:{},hidden:[]};const profile=hymPersonal();if(profile)hymApplyProfile(profile);else hymApplyStandard();hymEnsureOverlay();
+  hymInitStatefulLayouts();hymDefaultOrder=hymCards().map(card=>card.id);hymPrepareInner();hymPrepareCaptions();hymStandardProfile={version:4,layout:hymCaptureLayout(),labels:{},hidden:[]};const profile=hymPersonal();if(profile)hymApplyProfile(profile);else hymApplyStandard();hymEnsureOverlay();
   document.addEventListener("click",hymBlockActions,true);
   document.addEventListener("pointerdown",hymStartGesture,true);
   document.addEventListener("dblclick",event=>{if(!hymEditMode||event.target.closest?.(".hym-presets-modal,.hym-system-control"))return;const node=hymCaptionTarget(event.target);if(!node)return;event.preventDefault();event.stopImmediatePropagation();event.stopPropagation();hymEditCaption(node)},true);

@@ -280,3 +280,12 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Keeps `Test - Cokies🍪` compact while collapsed.
 - When expanded, the cookie QA section stretches across the complete dashboard grid width, matching the opened temporary-mail section.
 - Uses `!important` for the opened state so a saved HYM layout preset cannot force the expanded cookie section back into a narrow column.
+
+
+## v119 Separate collapsed / expanded cookie layouts
+
+- Removes the forced full-width CSS override from `Test - Cokies🍪`; the section returns to its base compact size.
+- Adds independent HYM editor layouts for the collapsed `[+]` and expanded `[-]` states of the cookie section.
+- Each state stores its own card width, grid span, height, alignment, and dashboard order.
+- Switching the cookie section between collapsed and expanded states automatically loads the matching saved layout.
+- Existing older HYM presets remain compatible through a legacy fallback.
