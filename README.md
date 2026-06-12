@@ -393,3 +393,25 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Overrides the global media iframe aspect ratio for Stripe's external iframe only.
 - Gives physical tablets a dedicated Stripe Express Checkout layout: two columns and up to three rows.
 - Phones continue using one column; desktop keeps four columns.
+
+
+## v130 Clean local QR scanner
+
+- Adds a movable HYM dashboard card: `QR scanner`.
+- The launcher opens a local Worker route: `/qr-scanner`.
+- The scanner page is intentionally minimal: camera area, `Додати фото`, status text, and a plain-text decoded result field.
+- The page does not embed `webqr.com`, display advertising, expose unrelated navigation, or automatically open decoded URLs.
+- Requests the rear-facing camera where supported and automatically starts scanning after load.
+- Tapping the camera area retries permission or starts another scan.
+- Supports uploaded QR screenshots and camera photos through the same `Додати фото` input.
+- Uses the browser `BarcodeDetector` API when available and falls back to pinned `jsQR@1.4.0` from jsDelivr.
+- Serves the page with `Permissions-Policy: camera=(self)`.
+
+
+## v131 External webqr.com redirect
+
+- Changes the `QR scanner` dashboard block from a local Worker scanner page to a real external redirect.
+- The `Відкрити webqr.com` button navigates the current browser tab to `https://webqr.com/`.
+- This preserves the QA scenario where the page leaves the Worker origin and loads an external main page, allowing stuck-page or substitution bugs to be reproduced.
+- Removes the local `/qr-scanner` Worker route and the local scanner source file.
+- External `webqr.com` content cannot be stripped or restyled by this Worker because it is served from another origin.
