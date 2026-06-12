@@ -249,3 +249,20 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - `Видалити` expires visible cookies across common path and current-domain variants.
 - Browser JavaScript cannot display or delete `HttpOnly` cookies; the card states this when the visible list is empty.
 - The card participates in HYM layouts and presets like the existing dashboard cards.
+
+
+## v115 Cookies test-only cleanup
+
+- The `Test - Cokies🍪` card no longer exposes unrelated site cookies such as payment or Google session cookies.
+- `Отримати список` now shows only HYM test cookies created by this block (`hym_test_*`).
+- The raw cookie values are no longer displayed. Only test-cookie names are shown.
+- The visible status line under the card was removed.
+- `Видалити` now removes only HYM test cookies created through this QA block.
+
+
+## v116 Collapsible Test - Cokies🍪
+
+- Converts the `Test - Cokies🍪` card into a collapsible `<details>` section.
+- The section is collapsed by default and opens by clicking its title.
+- The HYM-styled `[+]` / `[-]` indicator matches the temporary-mail panel behavior.
+- All v115 privacy cleanup remains unchanged: only `hym_test_*` names are shown and only HYM test cookies are deleted.
