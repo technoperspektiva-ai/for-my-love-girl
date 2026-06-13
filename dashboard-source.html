@@ -702,13 +702,7 @@ body.dashboard-focus-open{overflow:hidden}
 
 
 
-/* v158: compact MEDIA STATE + useful-only EVENT LOG */
-.media-state-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:9px}
-.media-state-box{min-width:0;padding:8px 9px;border:1px solid #1c2a2f;background:linear-gradient(180deg,#05090a,#071013);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
-.media-state-title{margin-bottom:6px;color:var(--green);font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
-.media-state-line{display:flex;justify-content:space-between;gap:8px;padding:2px 0;color:#7c9994;font-size:10px;line-height:1.35}
-.media-state-line b{min-width:0;color:#dffdf2;font-weight:900;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-@media(max-width:430px){.media-state-grid{grid-template-columns:1fr}}
+/* v162: MEDIA STATE boxes removed; tracking remains internal */
 
 
 
@@ -809,7 +803,7 @@ body.dashboard-focus-open{overflow:hidden}
 <div class="temp-mail-saved" id="tempMailSaved"></div>
 
 </div>
-</details><section class="card" id="section-signin"><h2>Google Sign-In</h2><div id="signinBox"></div><p class="info" id="signinStatus">Loading Google Sign-In…</p><div class="profile" id="profile"><div class="badge">LOGGED IN</div><div class="profile-head"><img id="avatar"/><div><div id="userName"></div><div class="info" id="userEmail"></div></div></div></div></section><section class="card" id="section-telegram">
+</details><section class="card" id="section-signin"><h2>Google Sign-In</h2><div id="signinBox"></div><p class="info" id="signinStatus">Loading Google Sign-In…</p><div class="profile" id="profile"><div class="badge">LOGGED IN</div><div class="profile-head"><img id="avatar"/><div><div id="userName"></div><div class="info" id="userEmail"></div></div></div><button class="btn" id="googleLogout" style="margin-top:10px" type="button">Вийти з Google</button></div></section><section class="card" id="section-telegram">
 <h2>Telegram Login</h2>
 <div class="telegram-box" id="telegramLoginBox" style="display:none">
 <script async="" data-auth-url="https://for-my-love-girl.black-sci-official.workers.dev/api/auth/telegram" data-request-access="write" data-size="large" data-telegram-login="__TELEGRAM_BOT_USERNAME__" src="https://telegram.org/js/telegram-widget.js?22">
@@ -825,7 +819,7 @@ body.dashboard-focus-open{overflow:hidden}
 <button class="btn" id="telegramLogout" style="margin-top:10px" type="button">Вийти з Telegram</button>
 </div>
 <p class="info" id="telegramStatus">Checking Telegram session…</p>
-</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><div class="media-state-grid"><div class="media-state-box"><div class="media-state-title">MEDIA STATE</div><div class="media-state-line"><span>audio:</span><b id="mediaAudioState">paused</b></div><div class="media-state-line"><span>video:</span><b id="mediaVideoState">closed</b></div><div class="media-state-line"><span>fullscreen:</span><b id="mediaFullscreenState">off</b></div><div class="media-state-line"><span>autoplay:</span><b id="mediaAutoplayState">blocked</b></div></div><div class="media-state-box"><div class="media-state-title">AUDIO STATE</div><div class="media-state-line"><span>State:</span><b id="audioDetailState">paused</b></div><div class="media-state-line"><span>Muted:</span><b id="audioMutedState">no</b></div><div class="media-state-line"><span>Volume:</span><b id="audioVolumeState">100%</b></div><div class="media-state-line"><span>Loop:</span><b id="audioLoopState">off</b></div></div></div><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
+</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
 <div aria-hidden="true" class="temp-mail-modal ua-info-modal" id="uaInfoModal"><div aria-modal="true" class="temp-mail-modal-box ua-info-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong>Device Info</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Device Info" class="temp-mail-modal-close" id="uaInfoClose" type="button">×</button></div></div><div class="ua-info-modal-body"><div class="ua-capability-grid" id="uaCapabilityGrid"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal event-log-modal" id="eventLogModal"><div aria-modal="true" aria-labelledby="eventLogTitle" class="temp-mail-modal-box event-log-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="eventLogTitle">EVENT LOG</strong><span class="event-log-modal-head-meta" id="eventLogCount">0 events</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Event Log" class="temp-mail-modal-close" id="eventLogClose" type="button">×</button></div></div><div class="event-log-modal-body"><div class="event-log-list" id="eventLogList"></div><div class="event-log-actions"><button class="btn" id="eventLogCopy" type="button">COPY</button><button class="btn" id="eventLogExport" type="button">EXPORT</button><button class="btn red event-log-clear" id="eventLogClear" type="button">CLEAR</button></div><div class="event-log-status" id="eventLogStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal photo-preview-modal" id="photoPreviewModal"><div aria-modal="true" aria-labelledby="photoPreviewTitle" class="temp-mail-modal-box photo-preview-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong id="photoPreviewTitle">Перегляд фото</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити фото" class="temp-mail-modal-close" id="photoPreviewClose" type="button">×</button></div></div><div class="photo-preview-modal-body"><div class="photo-preview-stage"><img alt="Selected preview" id="preview"/></div><div class="photo-preview-modal-actions"><button class="btn red photo-delete-btn" id="photoDelete" type="button">Видалити фото</button></div></div></div></div><div aria-hidden="true" class="dashboard-focus-backdrop" id="dashboardFocusBackdrop"></div>
 <div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
@@ -884,10 +878,13 @@ function setCashierStatus(t){const x=el("cashierStatus");if(x)x.textContent=t}
 const EVENT_LOG_STORAGE_KEY="hym_event_log_v2_useful";
 const EVENT_LOG_LIMIT=180;
 const EVENT_LOG_ALLOWED=[
-  /^Wild Beach opened$/,/^Wild Beach closed$/,/^external redirect opened(?: · .+)?$/,/^returned to dashboard$/,
+  /^Wild Beach opened$/,/^Wild Beach closed$/,/^external redirect opened(?: · .+)?$/,/^returned to dashboard(?: · from .+)?$/,
+  /^app likely opened(?: · .+)?$/,/^market fallback opened(?: · .+)?$/,
   /^keyboard opened$/,/^keyboard closed$/,/^video started$/,/^video paused$/,/^audio started$/,/^audio paused$/,
+  /^audio volume · (?:0|100)%$/,
   /^fullscreen entered$/,/^fullscreen exited$/,/^photo attached$/,/^photo removed$/,/^cookie created$/,/^cookie deleted$/,
-  /^logined(?: · .+)?$/,/^canceled login$/,/^screen rotated(?: · .+)?$/
+  /^logined(?: · .+)?$/,/^canceled login$/,/^Google logout$/,
+  /^Telegram logined(?: · .+)?$/,/^Telegram logout$/,/^screen rotated(?: · .+)?$/
 ];
 const EXTERNAL_RETURN_KEY="hym_external_return_v1";
 let eventLogItems=[];
@@ -936,15 +933,22 @@ function eventLogStatus(text=""){const node=el("eventLogStatus");if(!node)return
 async function eventLogCopy(){const text=eventLogText();if(!text){eventLogStatus("Журнал порожній.");return}try{await navigator.clipboard.writeText(text)}catch{const area=document.createElement("textarea");area.value=text;area.style.position="fixed";area.style.opacity="0";document.body.append(area);area.select();document.execCommand("copy");area.remove()}eventLogStatus("Скопійовано.")}
 function eventLogExport(){const text=eventLogText();if(!text){eventLogStatus("Журнал порожній.");return}const blob=new Blob([text+"\n"],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download="wwg-event-log-"+new Date().toISOString().replace(/[:.]/g,"-")+".txt";document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),0);eventLogStatus("Експортовано.")}
 function eventLogClear(){eventLogItems=[];eventLogSave();eventLogRender();eventLogStatus("Журнал очищено.")}
+function eventLogPendingRead(){try{return JSON.parse(sessionStorage.getItem(EXTERNAL_RETURN_KEY)||"null")}catch{return null}}
+function eventLogPendingWrite(value){try{if(value)sessionStorage.setItem(EXTERNAL_RETURN_KEY,JSON.stringify(value));else sessionStorage.removeItem(EXTERNAL_RETURN_KEY)}catch{}}
 function eventLogMarkExternal(kind="external",label=""){
-  try{sessionStorage.setItem(EXTERNAL_RETURN_KEY,JSON.stringify({kind,label:eventLogSafe(label),at:Date.now()}))}catch{}
+  eventLogPendingWrite({kind,label:eventLogSafe(label),at:Date.now(),returnReady:true,consumeOnLoad:true});
   if(kind==="wild-beach")logUsefulEvent("Wild Beach opened");else logUsefulEvent("external redirect opened"+(label?" · "+eventLogSafe(label):""));
 }
-function eventLogConsumeExternalReturn(){
-  let pending=null;try{pending=JSON.parse(sessionStorage.getItem(EXTERNAL_RETURN_KEY)||"null");sessionStorage.removeItem(EXTERNAL_RETURN_KEY)}catch{}
-  if(!pending)return;
+function eventLogNotePendingHidden(){
+  const pending=eventLogPendingRead();if(!pending||!pending.returnReady)return;
+  pending.sawHidden=true;pending.hiddenAt=Date.now();eventLogPendingWrite(pending);
+}
+function eventLogConsumeExternalReturn(options={}){
+  const pending=eventLogPendingRead();if(!pending||pending.kind==="app-probe"||!pending.returnReady)return;
+  if(!options.allowLoad&&!pending.sawHidden)return;
+  eventLogPendingWrite(null);
   if(pending.kind==="wild-beach")logUsefulEvent("Wild Beach closed");
-  logUsefulEvent("returned to dashboard");
+  logUsefulEvent("returned to dashboard"+(pending.label?" · from "+eventLogSafe(pending.label):""));
 }
 function initEventLogger(){
   eventLogLoad();eventLogRender();
@@ -954,8 +958,10 @@ function initEventLogger(){
   el("eventLogCopy")?.addEventListener("click",eventLogCopy);
   el("eventLogExport")?.addEventListener("click",eventLogExport);
   el("eventLogClear")?.addEventListener("click",eventLogClear);
-  window.addEventListener("pageshow",event=>{if(event.persisted)eventLogConsumeExternalReturn()});
-  setTimeout(eventLogConsumeExternalReturn,0);
+  document.addEventListener("visibilitychange",()=>{if(document.hidden)eventLogNotePendingHidden();else setTimeout(()=>eventLogConsumeExternalReturn({allowLoad:false}),100)});
+  window.addEventListener("focus",()=>setTimeout(()=>eventLogConsumeExternalReturn({allowLoad:false}),160));
+  window.addEventListener("pageshow",()=>setTimeout(()=>eventLogConsumeExternalReturn({allowLoad:true}),0));
+  setTimeout(()=>eventLogConsumeExternalReturn({allowLoad:true}),0);
   document.addEventListener("keydown",event=>{if(event.key==="Escape"&&el("eventLogModal")?.classList.contains("on")){eventLogModalClose();event.stopImmediatePropagation()}});
 }
 initEventLogger();
@@ -964,6 +970,39 @@ initEventLogger();
 
 let googleAccountSubject="";
 
+const APP_STORE_SEARCH_TERMS={
+  "PhonePe UPI":"PhonePe","Paytm UPI":"Paytm","Telegram":"Telegram","Viber":"Viber","WhatsApp":"WhatsApp",
+  "Instagram":"Instagram","TikTok":"TikTok","Facebook":"Facebook","Дія":"Дія"
+};
+function hymMobilePlatform(){const ua=navigator.userAgent||"";if(/android/i.test(ua))return"android";if(/iphone|ipad|ipod/i.test(ua))return"ios";return"other"}
+function hymAppStoreFallbackUrl(label){
+  const query=APP_STORE_SEARCH_TERMS[label]||label,encoded=encodeURIComponent(query),platform=hymMobilePlatform();
+  if(platform==="android")return"market://search?q="+encoded;
+  if(platform==="ios")return"itms-apps://itunes.apple.com/search?term="+encoded;
+  return"";
+}
+function hymSmartAppOpen(label,u){
+  if(!u)return;
+  const platform=hymMobilePlatform();
+  if(platform==="other"){eventLogMarkExternal("external",label);location.href=u;return}
+  const safeLabel=eventLogSafe(label),token=String(Date.now())+"-"+Math.random().toString(36).slice(2,8),storeUrl=hymAppStoreFallbackUrl(label);
+  let settled=false,timer=0;
+  const cleanup=()=>{clearTimeout(timer);document.removeEventListener("visibilitychange",onVisibility);window.removeEventListener("pagehide",onPageHide)};
+  const settleApp=()=>{if(settled)return;settled=true;cleanup();eventLogPendingWrite({kind:"app-deeplink",label:safeLabel,outcome:"app",token,at:Date.now(),returnReady:true,sawHidden:true});logUsefulEvent("app likely opened · "+safeLabel)};
+  const onVisibility=()=>{if(document.hidden)settleApp()};
+  const onPageHide=()=>settleApp();
+  eventLogPendingWrite({kind:"app-probe",label:safeLabel,token,at:Date.now(),returnReady:false});
+  setCashierStatus(safeLabel+": checking installed app...");
+  document.addEventListener("visibilitychange",onVisibility);
+  window.addEventListener("pagehide",onPageHide,{once:true});
+  timer=setTimeout(()=>{
+    if(settled)return;settled=true;cleanup();
+    if(!storeUrl){eventLogPendingWrite({kind:"external",label:safeLabel,at:Date.now(),returnReady:true,consumeOnLoad:true});logUsefulEvent("external redirect opened · "+safeLabel);return}
+    eventLogPendingWrite({kind:"market-fallback",label:safeLabel,outcome:"market",token,at:Date.now(),returnReady:true,sawHidden:false});
+    logUsefulEvent("market fallback opened · "+safeLabel);setCashierStatus(safeLabel+": app not detected, opening store fallback...");location.href=storeUrl;
+  },1450);
+  location.href=u;
+}
 function app(label,u){
   if(!u)return;
   eventLogMarkExternal("external",label);
@@ -1000,8 +1039,8 @@ payments.forEach(p=>{
   b.onclick=()=>app(p.label,p.url);
   el("payments").appendChild(b);
 });
-upiApps.forEach(a=>{const b=document.createElement("button");b.className="btn green";b.textContent=a[0];b.onclick=()=>app(a[0],a[1]);el("payments").appendChild(b)});
-apps.forEach(a=>{const b=document.createElement("button");b.className="btn red";b.textContent=a[0];b.onclick=()=>app(a[0],a[1]);el("apps").appendChild(b)});
+upiApps.forEach(a=>{const b=document.createElement("button");b.className="btn green";b.textContent=a[0];b.onclick=()=>hymSmartAppOpen(a[0],a[1]);el("payments").appendChild(b)});
+apps.forEach(a=>{const b=document.createElement("button");b.className="btn red";b.textContent=a[0];b.onclick=()=>hymSmartAppOpen(a[0],a[1]);el("apps").appendChild(b)});
 offers.forEach(offer=>el("offers").appendChild(buildOfferButton(offer)));
 
 let paymentsClient=null;
@@ -1018,6 +1057,17 @@ function initGooglePay(){let tries=0;const wait=setInterval(function(){tries++;i
 function decodeJwtPayload(token){try{const base64=token.split(".")[1].replace(/-/g,"+").replace(/_/g,"/");const json=decodeURIComponent(atob(base64).split("").map(c=>"%"+("00"+c.charCodeAt(0).toString(16)).slice(-2)).join(""));return JSON.parse(json)}catch(e){return null}}
 let hymGoogleLoginPending=false,hymGoogleLoginBlurAt=0;
 window.handleCredentialResponse=function(response){const user=decodeJwtPayload(response?.credential||"");if(!user){el("signinStatus").textContent="Sign-in returned token, but profile decode failed.";return}hymGoogleLoginPending=false;googleAccountSubject=user.sub||"";el("userName").textContent=user.name||"Google user";el("userEmail").textContent=user.email||"";if(user.picture)el("avatar").src=user.picture;el("profile").classList.add("on");el("signinStatus").textContent="Logged in successfully.";logUsefulEvent("logined · "+eventLogSafe(user.email||user.name||"Google account"),"SUCCESS")};
+function googleLogout(){
+  hymGoogleLoginPending=false;googleAccountSubject="";
+  try{window.google?.accounts?.id?.disableAutoSelect?.()}catch{}
+  el("profile")?.classList.remove("on");
+  if(el("userName"))el("userName").textContent="";
+  if(el("userEmail"))el("userEmail").textContent="";
+  if(el("avatar"))el("avatar").removeAttribute("src");
+  if(el("signinStatus"))el("signinStatus").textContent="Вихід з Google виконано.";
+  logUsefulEvent("Google logout");
+}
+el("googleLogout")?.addEventListener("click",googleLogout);
 function initGoogleLoginCancelTracking(){
   window.addEventListener("blur",()=>setTimeout(()=>{const box=el("signinBox"),active=document.activeElement;if(box&&active&&box.contains(active)){hymGoogleLoginPending=true;hymGoogleLoginBlurAt=Date.now()}},0));
   window.addEventListener("focus",()=>{if(!hymGoogleLoginPending)return;const started=hymGoogleLoginBlurAt;setTimeout(()=>{if(hymGoogleLoginPending&&started===hymGoogleLoginBlurAt){hymGoogleLoginPending=false;logUsefulEvent("canceled login")}},750)});
@@ -1025,7 +1075,8 @@ function initGoogleLoginCancelTracking(){
 function initGoogleSignIn(){if(!GOOGLE_CLIENT_ID||!GOOGLE_CLIENT_ID.includes(".apps.googleusercontent.com")){el("signinStatus").textContent="GOOGLE_CLIENT_ID не заданий.";return}let tries=0;const wait=setInterval(function(){tries++;if(window.google&&google.accounts&&google.accounts.id){clearInterval(wait);google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:window.handleCredentialResponse,auto_select:false,cancel_on_tap_outside:true});google.accounts.id.renderButton(el("signinBox"),{theme:"outline",size:"large",text:"signin_with",shape:"rectangular",width:280});el("signinStatus").textContent="Google Sign-In ready."}if(tries>80){clearInterval(wait);el("signinStatus").textContent="Google Identity SDK timeout.";logEvent("ERROR","Google Sign-In","SDK timeout")}},100)}
 
 const params=new URLSearchParams(location.search);
-if(params.get("telegram_login")==="success"){history.replaceState({},document.title,"/")}
+let telegramLoginCallbackSuccess=params.get("telegram_login")==="success";
+if(telegramLoginCallbackSuccess){history.replaceState({},document.title,"/")}
 
 function renderTelegramLoggedOut(){
   el("telegramLoginBox").style.display="flex";
@@ -1047,7 +1098,14 @@ async function initTelegramSession(){
   try{
     const response=await fetch("/api/auth/telegram/session",{credentials:"include",cache:"no-store"});
     const data=await response.json();
-    if(response.ok&&data.ok&&data.user){renderTelegramLoggedIn(data.user)}else{renderTelegramLoggedOut()}
+    if(response.ok&&data.ok&&data.user){
+      renderTelegramLoggedIn(data.user);
+      if(telegramLoginCallbackSuccess){
+        const account=data.user.username?("@"+data.user.username):([data.user.firstName,data.user.lastName].filter(Boolean).join(" ")||("Telegram ID: "+(data.user.telegramId||"unknown")));
+        logUsefulEvent("Telegram logined · "+eventLogSafe(account),"SUCCESS");
+        telegramLoginCallbackSuccess=false;
+      }
+    }else{renderTelegramLoggedOut()}
   }catch(error){
     renderTelegramLoggedOut();
     el("telegramStatus").textContent="Не вдалося перевірити Telegram-сесію.";
@@ -1056,6 +1114,7 @@ async function initTelegramSession(){
 el("telegramLogout").onclick=async()=>{
   el("telegramStatus").textContent="Вихід з Telegram…";
   try{await fetch("/api/auth/telegram/logout",{method:"POST",credentials:"include"})}catch(error){}
+  logUsefulEvent("Telegram logout");
   location.href="/";
 };
 el("fakeGPay").onclick=onGooglePayClick;
@@ -2066,13 +2125,16 @@ function hymMediaRender(){
 function hymMediaSetAudio(state,writeLog=true){if(hymMediaState.audio===state){hymMediaRender();return}hymMediaState.audio=state;hymMediaRender();if(writeLog)logUsefulEvent(state==="started"?"audio started":"audio paused",state==="started"?"SUCCESS":"INFO")}
 function hymMediaSetVideo(state,writeLog=true){if(hymMediaState.video===state){hymMediaRender();return}hymMediaState.video=state;hymMediaRender();if(writeLog)logUsefulEvent(state==="started"?"video started":"video paused",state==="started"?"SUCCESS":"INFO")}
 const audio=document.querySelector("audio");
+function hymAudioEffectiveVolume(){if(!audio)return 0;return audio.muted?0:Math.round(Number(audio.volume||0)*100)}
+let hymAudioPreviousEffectiveVolume=audio?hymAudioEffectiveVolume():null;
 function hymAudioRenderDetails(){if(!audio)return;hymMediaText("audioDetailState",audio.paused?"paused":"started");hymMediaText("audioMutedState",audio.muted?"yes":"no");hymMediaText("audioVolumeState",Math.round(Number(audio.volume||0)*100)+"%");hymMediaText("audioLoopState",audio.loop?"on":"off")}
+function hymAudioTrackExtremeVolume(){if(!audio)return;const volume=hymAudioEffectiveVolume();if(volume===hymAudioPreviousEffectiveVolume)return;hymAudioPreviousEffectiveVolume=volume;if(volume===0||volume===100)logUsefulEvent("audio volume · "+volume+"%")}
 if(audio){
   hymMediaState.audio=audio.paused?"paused":"started";hymAudioRenderDetails();hymMediaRender();
   audio.addEventListener("play",()=>{hymMediaSetAudio("started");hymAudioRenderDetails()});
   audio.addEventListener("pause",()=>{hymMediaSetAudio("paused");hymAudioRenderDetails()});
   audio.addEventListener("ended",()=>{hymMediaSetAudio("paused");hymAudioRenderDetails()});
-  audio.addEventListener("volumechange",hymAudioRenderDetails);
+  audio.addEventListener("volumechange",()=>{hymAudioRenderDetails();hymAudioTrackExtremeVolume()});
   audio.addEventListener("loadedmetadata",hymAudioRenderDetails);
 }
 
