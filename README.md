@@ -501,3 +501,43 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Includes `COPY`, `EXPORT`, and `CLEAR` controls inside the modal.
 - Records page restore/ready state, visibility changes, payment redirect clicks, external offer launches, photo actions, media actions, and existing QA callbacks.
 - Stores the journal only in browser `sessionStorage`; the list is capped to the most recent 180 events.
+
+
+## v153 Text + Photo compact pulsing PHOTO button
+
+- Removes the native filename row and the extra filename preview row from the Text + Photo card.
+- Keeps a fixed-height compact `Додати фото` + `PHOTO` control row so photo selection cannot push content over neighboring blocks.
+- Stops opening the photo modal automatically after file selection.
+- Activates a pulsing `PHOTO` button only while an uploaded photo exists.
+- Opens the focus preview exclusively after pressing `PHOTO`; deletion remains inside the photo modal.
+
+
+## v154 EVENT LOG startup-noise cleanup
+
+- Stops writing `Google Pay · Google Pay ready.`, `Google Sign-In · ready`, and normal `page ready` initialization rows into EVENT LOG.
+- Keeps visible readiness text inside the related dashboard cards.
+- Keeps user actions, real errors, visibility transitions, and bfcache `page restored` events in the logger.
+
+
+## v155 EVENT LOG media and cookie coverage
+
+- Adds YouTube iframe API tracking for real playback actions: play, pause, end, player error, and a throttled iframe-focus fallback.
+- Adds audio `ended` tracking alongside existing play, pause, and error events.
+- Tracks opening and closing the `Test - Cokies` panel.
+- Tracks random test-cookie creation, list refresh with item count, and visible test-cookie deletion with item count.
+- Keeps startup readiness noise suppressed.
+
+
+## v156 EVENT LOG visibility-noise cleanup
+
+- Removes automatic `visibilitychange · hidden` and `visibilitychange · visible` rows from EVENT LOG.
+- Keeps the underlying visibility listeners used by heartbeat, viewport normalization, and device-info refresh.
+- Keeps meaningful user actions, media events, cookie QA actions, errors, and bfcache `page restored` rows.
+
+
+## v157 EVENT LOG mobile keyboard coverage
+
+- Adds filtered mobile virtual-keyboard tracking through `visualViewport` resize signals.
+- Records `Keyboard · opened` and `Keyboard · closed` once per real open/close transition.
+- Requires an active editable field plus a keyboard-sized viewport height reduction before logging an open event.
+- Ignores ordinary scrolling, tab visibility changes, desktop resizes, and small browser-toolbar viewport shifts.

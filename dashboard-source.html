@@ -112,21 +112,24 @@ body.hym-editing .grid>.card>h2,body.hym-editing .grid>.card>summary{cursor:move
 @media(max-width:1000px){#section-ua{grid-column:auto!important}.ua-capability-line{font-size:9.5px}.ua-capability-row{grid-template-columns:84px minmax(0,1fr) auto}.ua-capability-value{font-size:9.5px}.ua-code{max-height:118px;font-size:9.5px;line-height:1.42}.ua-copy-btn{min-height:40px}}
 @media(max-width:700px){.ua-capability-box{padding:8px 9px}.ua-capability-line{font-size:9px;line-height:1.4}.ua-details-toggle{width:100%;min-height:36px;padding:8px 9px;font-size:9px}.ua-info-modal-body{padding:9px}.ua-capability-row{grid-template-columns:1fr;gap:5px;padding:7px 8px;align-items:flex-start}.ua-capability-key{font-size:8px}.ua-capability-value{font-size:9px;line-height:1.38}.ua-capability-copy{width:100%;min-height:32px}.ua-code{min-height:68px;max-height:104px;padding:8px 9px;font-size:9px}.ua-copy-btn{min-height:38px;padding:8px 9px;font-size:10px}}
 
-/* v151: Text + Photo compact filename + focus preview modal */
+/* v153: Text + Photo fixed compact controls + pulsing photo button */
 #section-text{min-width:0}
-.photo-file-row{display:none;min-width:0;margin-top:7px}
-.photo-file-row.on{display:block}
-.photo-file-open{appearance:none;display:flex;align-items:center;gap:8px;width:100%;min-width:0;padding:9px 10px;border:1px solid #294146;background:#071013;color:#bff6dc;text-align:left;font-size:10px;font-weight:900;letter-spacing:.04em;transition:.15s ease}
-.photo-file-open:hover,.photo-file-open:focus-visible{border-color:var(--green);background:#0b1718;color:#fff;outline:none}
-.photo-file-open::before{content:"↗";flex:0 0 auto;color:var(--green);font-size:13px;line-height:1}
-.photo-file-name{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.photo-control-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:stretch;margin-top:7px;min-width:0}
+.photo-native-input{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.photo-select-btn,.photo-open-btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-width:0;min-height:38px;padding:9px 10px;border:1px solid #294146;background:#071013;color:#bff6dc;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;transition:.15s ease}
+.photo-select-btn:hover,.photo-select-btn:focus-visible,.photo-open-btn:hover,.photo-open-btn:focus-visible{border-color:var(--green);background:#0b1718;color:#fff;outline:none}
+.photo-select-btn{cursor:pointer}
+.photo-open-btn{min-width:76px;color:#587b76;border-color:#1c2a2f;background:#060a0b;cursor:not-allowed;opacity:.64}
+.photo-open-btn.has-photo{cursor:pointer;opacity:1;color:#baffd8;border-color:#0e9151;background:#06381f;animation:photoButtonPulse 1.45s ease-in-out infinite}
+.photo-open-btn.has-photo:hover,.photo-open-btn.has-photo:focus-visible{background:#08542e;border-color:var(--green);box-shadow:0 0 16px rgba(52,255,154,.2)}
+@keyframes photoButtonPulse{0%,100%{box-shadow:0 0 0 rgba(52,255,154,0),inset 0 0 0 rgba(52,255,154,0)}50%{box-shadow:0 0 16px rgba(52,255,154,.34),inset 0 0 12px rgba(52,255,154,.09)}}
 .photo-preview-modal-box{width:min(920px,calc(100vw - (var(--hym-page-gutter) * 2)))!important}
 .photo-preview-modal-body{display:grid;gap:10px;overflow:auto;max-height:calc(92vh - 55px);padding:12px;background:#05090a}
 .photo-preview-stage{display:grid;place-items:center;min-height:220px;border:1px solid #1c2a2f;background:#020405;overflow:auto}
 #preview{display:block;max-width:100%;max-height:72vh;width:auto;height:auto;object-fit:contain}
 .photo-preview-modal-actions{display:flex;justify-content:flex-end;gap:7px;flex-wrap:wrap}
 .photo-delete-btn{min-height:36px;padding:8px 10px;font-size:10px}
-@media(max-width:700px){.photo-preview-modal-body{max-height:calc(94vh - 52px);padding:9px}.photo-preview-stage{min-height:180px}#preview{max-height:68vh}.photo-delete-btn{width:100%;min-height:38px}}
+@media(max-width:700px){.photo-control-row{grid-template-columns:minmax(0,1fr) 76px}.photo-preview-modal-body{max-height:calc(94vh - 52px);padding:9px}.photo-preview-stage{min-height:180px}#preview{max-height:68vh}.photo-delete-btn{width:100%;min-height:38px}}
 
 /* v129: fitted Stripe Express Checkout + selectable resize handle */
 .stripe-card,#section-stripe,.stripe-checkout-only,#stripeExpressCheckout{min-width:0;max-width:100%;box-sizing:border-box}
@@ -763,7 +766,7 @@ body.dashboard-focus-open{overflow:hidden}
 <button class="btn" id="telegramLogout" style="margin-top:10px" type="button">Вийти з Telegram</button>
 </div>
 <p class="info" id="telegramStatus">Checking Telegram session…</p>
-</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><input accept="image/*" id="photo" type="file"/><div class="photo-file-row" id="photoFileRow"><button aria-label="Відкрити вибране фото" class="photo-file-open" id="photoFileOpen" type="button"><span class="photo-file-name" id="photoFileName"></span></button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" src="https://www.youtube.com/embed/PxmjpQmguNM"></iframe><div style="height:10px"></div><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
+</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><div style="height:10px"></div><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
 <div aria-hidden="true" class="temp-mail-modal ua-info-modal" id="uaInfoModal"><div aria-modal="true" class="temp-mail-modal-box ua-info-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong>Device Info</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Device Info" class="temp-mail-modal-close" id="uaInfoClose" type="button">×</button></div></div><div class="ua-info-modal-body"><div class="ua-capability-grid" id="uaCapabilityGrid"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal event-log-modal" id="eventLogModal"><div aria-modal="true" aria-labelledby="eventLogTitle" class="temp-mail-modal-box event-log-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="eventLogTitle">EVENT LOG</strong><span class="event-log-modal-head-meta" id="eventLogCount">0 events</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Event Log" class="temp-mail-modal-close" id="eventLogClose" type="button">×</button></div></div><div class="event-log-modal-body"><div class="event-log-list" id="eventLogList"></div><div class="event-log-actions"><button class="btn" id="eventLogCopy" type="button">COPY</button><button class="btn" id="eventLogExport" type="button">EXPORT</button><button class="btn red event-log-clear" id="eventLogClear" type="button">CLEAR</button></div><div class="event-log-status" id="eventLogStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal photo-preview-modal" id="photoPreviewModal"><div aria-modal="true" aria-labelledby="photoPreviewTitle" class="temp-mail-modal-box photo-preview-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong id="photoPreviewTitle">Перегляд фото</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити фото" class="temp-mail-modal-close" id="photoPreviewClose" type="button">×</button></div></div><div class="photo-preview-modal-body"><div class="photo-preview-stage"><img alt="Selected preview" id="preview"/></div><div class="photo-preview-modal-actions"><button class="btn red photo-delete-btn" id="photoDelete" type="button">Видалити фото</button></div></div></div></div><div aria-hidden="true" class="dashboard-focus-backdrop" id="dashboardFocusBackdrop"></div>
 <div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
@@ -865,8 +868,7 @@ function initEventLogger(){
   el("eventLogCopy")?.addEventListener("click",eventLogCopy);
   el("eventLogExport")?.addEventListener("click",eventLogExport);
   el("eventLogClear")?.addEventListener("click",eventLogClear);
-  document.addEventListener("visibilitychange",()=>logEvent("INFO","visibilitychange",document.visibilityState));
-  window.addEventListener("pageshow",event=>logEvent("INFO",event.persisted?"page restored":"page ready",""));
+  window.addEventListener("pageshow",event=>{if(event.persisted)logEvent("INFO","page restored","")});
   document.addEventListener("keydown",event=>{if(event.key==="Escape"&&el("eventLogModal")?.classList.contains("on")){eventLogModalClose();event.stopImmediatePropagation()}});
 }
 initEventLogger();
@@ -921,15 +923,15 @@ const baseRequest={apiVersion:2,apiVersionMinor:0};
 const allowedCardNetworks=["AMEX","DISCOVER","INTERAC","JCB","MASTERCARD","VISA"];
 const allowedCardAuthMethods=["PAN_ONLY","CRYPTOGRAM_3DS"];
 const tokenizationSpecification={type:"PAYMENT_GATEWAY",parameters:{gateway:"example",gatewayMerchantId:"exampleGatewayMerchantId"}};
-function setGPayStatus(t){el("gpayStatus").textContent=t;logEvent("INFO","Google Pay",t)}
+function setGPayStatus(t,writeToEventLog=true){el("gpayStatus").textContent=t;if(writeToEventLog)logEvent("INFO","Google Pay",t)}
 function getGooglePaymentsClient(){if(!paymentsClient){paymentsClient=new google.payments.api.PaymentsClient({environment:"TEST",paymentDataCallbacks:{onPaymentAuthorized:function(pd){return new Promise(function(resolve){const token=pd?.paymentMethodData?.tokenizationData?.token||"";setGPayStatus("Google Pay authorized. TEST token: "+String(token).slice(0,120)+"...");logEvent("SUCCESS","Google Pay","TEST authorization callback completed");resolve({transactionState:"SUCCESS"})})}}})}return paymentsClient}
 function getPaymentDataRequest(){return {...baseRequest,allowedPaymentMethods:[{type:"CARD",parameters:{allowedAuthMethods:allowedCardAuthMethods,allowedCardNetworks:allowedCardNetworks},tokenizationSpecification}],transactionInfo:{countryCode:"US",currencyCode:"USD",totalPriceStatus:"FINAL",totalPrice:"12.00"},merchantInfo:{merchantName:"WWG QA Team Test Merchant"},callbackIntents:["PAYMENT_AUTHORIZATION"]}}
 function onGooglePayClick(){if(!(window.google&&google.payments&&google.payments.api)){setGPayStatus("Google Pay SDK not loaded yet.");return}getGooglePaymentsClient().loadPaymentData(getPaymentDataRequest()).catch(e=>{const m=e?.statusMessage||JSON.stringify(e);setGPayStatus("Google Pay error: "+m);logEvent("ERROR","Google Pay",m)})}
-function initGooglePay(){let tries=0;const wait=setInterval(function(){tries++;if(window.google&&google.payments&&google.payments.api){clearInterval(wait);const client=getGooglePaymentsClient();const btn=client.createButton({onClick:onGooglePayClick,buttonColor:"black",buttonType:"pay"});el("googlePayBox").innerHTML="";el("googlePayBox").appendChild(btn);setGPayStatus("Google Pay ready.")}if(tries>80){clearInterval(wait);setGPayStatus("Google Pay SDK timeout.")}},100)}
+function initGooglePay(){let tries=0;const wait=setInterval(function(){tries++;if(window.google&&google.payments&&google.payments.api){clearInterval(wait);const client=getGooglePaymentsClient();const btn=client.createButton({onClick:onGooglePayClick,buttonColor:"black",buttonType:"pay"});el("googlePayBox").innerHTML="";el("googlePayBox").appendChild(btn);setGPayStatus("Google Pay ready.",false)}if(tries>80){clearInterval(wait);setGPayStatus("Google Pay SDK timeout.")}},100)}
 
 function decodeJwtPayload(token){try{const base64=token.split(".")[1].replace(/-/g,"+").replace(/_/g,"/");const json=decodeURIComponent(atob(base64).split("").map(c=>"%"+("00"+c.charCodeAt(0).toString(16)).slice(-2)).join(""));return JSON.parse(json)}catch(e){return null}}
 window.handleCredentialResponse=function(response){const user=decodeJwtPayload(response?.credential||"");if(!user){el("signinStatus").textContent="Sign-in returned token, but profile decode failed.";logEvent("ERROR","Google Sign-In","profile decode failed");return}googleAccountSubject=user.sub||"";el("userName").textContent=user.name||"Google user";el("userEmail").textContent=user.email||"";if(user.picture)el("avatar").src=user.picture;el("profile").classList.add("on");el("signinStatus").textContent="Logged in successfully.";logEvent("SUCCESS","Google Sign-In",(user.email||user.name||"profile received")+(googleAccountSubject?"; account subject decoded locally":""))};
-function initGoogleSignIn(){if(!GOOGLE_CLIENT_ID||!GOOGLE_CLIENT_ID.includes(".apps.googleusercontent.com")){el("signinStatus").textContent="GOOGLE_CLIENT_ID не заданий.";return}let tries=0;const wait=setInterval(function(){tries++;if(window.google&&google.accounts&&google.accounts.id){clearInterval(wait);google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:window.handleCredentialResponse,auto_select:false,cancel_on_tap_outside:true});google.accounts.id.renderButton(el("signinBox"),{theme:"outline",size:"large",text:"signin_with",shape:"rectangular",width:280});el("signinStatus").textContent="Google Sign-In ready.";logEvent("INFO","Google Sign-In","ready")}if(tries>80){clearInterval(wait);el("signinStatus").textContent="Google Identity SDK timeout.";logEvent("ERROR","Google Sign-In","SDK timeout")}},100)}
+function initGoogleSignIn(){if(!GOOGLE_CLIENT_ID||!GOOGLE_CLIENT_ID.includes(".apps.googleusercontent.com")){el("signinStatus").textContent="GOOGLE_CLIENT_ID не заданий.";return}let tries=0;const wait=setInterval(function(){tries++;if(window.google&&google.accounts&&google.accounts.id){clearInterval(wait);google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:window.handleCredentialResponse,auto_select:false,cancel_on_tap_outside:true});google.accounts.id.renderButton(el("signinBox"),{theme:"outline",size:"large",text:"signin_with",shape:"rectangular",width:280});el("signinStatus").textContent="Google Sign-In ready."}if(tries>80){clearInterval(wait);el("signinStatus").textContent="Google Identity SDK timeout.";logEvent("ERROR","Google Sign-In","SDK timeout")}},100)}
 
 const params=new URLSearchParams(location.search);
 if(params.get("telegram_login")==="success"){history.replaceState({},document.title,"/")}
@@ -980,10 +982,13 @@ function photoPreviewModalOpen(){
 function photoPreviewModalClose(){
   const modal=el("photoPreviewModal");modal?.classList.remove("on");modal?.setAttribute("aria-hidden","true");
 }
-function photoRenderFileRow(){
-  const row=el("photoFileRow"),name=el("photoFileName");
-  if(name)name.textContent=photoPreviewName;
-  row?.classList.toggle("on",!!photoPreviewUrl);
+function photoRenderButton(){
+  const button=el("photoOpen"),hasPhoto=!!photoPreviewUrl;
+  if(!button)return;
+  button.disabled=!hasPhoto;
+  button.classList.toggle("has-photo",hasPhoto);
+  button.title=hasPhoto?("Відкрити фото: "+photoPreviewName):"Фото ще не додано";
+  button.setAttribute("aria-label",hasPhoto?("Відкрити додане фото "+photoPreviewName):"Фото ще не додано");
 }
 function photoClearPreview(){
   const input=el("photo"),preview=el("preview");
@@ -992,18 +997,19 @@ function photoClearPreview(){
   photoPreviewName="";
   if(input)input.value="";
   if(preview){preview.removeAttribute("src");preview.removeAttribute("title")}
-  photoRenderFileRow();
+  photoRenderButton();
   logEvent("INFO","Photo upload","preview cleared");
 }
 el("photo").onchange=e=>{
   const f=e.target.files?.[0];
-  if(!f){photoClearPreview();return}
+  if(!f)return;
   if(photoPreviewUrl){try{URL.revokeObjectURL(photoPreviewUrl)}catch{}}
   photoPreviewUrl=URL.createObjectURL(f);photoPreviewName=f.name;
-  photoRenderFileRow();photoPreviewModalOpen();
+  photoRenderButton();
   logEvent("SUCCESS","Photo upload","selected "+f.name+" ("+f.size+" bytes)");
 };
-el("photoFileOpen")?.addEventListener("click",photoPreviewModalOpen);
+el("photoOpen")?.addEventListener("click",photoPreviewModalOpen);
+photoRenderButton();
 el("photoPreviewClose")?.addEventListener("click",photoPreviewModalClose);
 el("photoPreviewModal")?.addEventListener("click",event=>{if(event.target===el("photoPreviewModal"))photoPreviewModalClose()});
 el("photoDelete")?.addEventListener("click",photoClearPreview);
@@ -1879,7 +1885,7 @@ function cookieRenderSingle(name){
   const output=document.getElementById("cookieOutput");if(!output)return;output.value=name||"Тестових cookie HYM не знайдено.";output.scrollTop=0
 }
 function cookieCreateRandom(){
-  const name="hym_test_"+cookieRandomToken(5);const value=cookieRandomToken(12);const secure=location.protocol==="https:"?"; Secure":"";document.cookie=name+"="+value+"; Max-Age=86400; Path=/; SameSite=Lax"+secure;cookieWriteOrder([name,...cookieReadOrder()]);cookieRenderSingle(name)
+  const name="hym_test_"+cookieRandomToken(5);const value=cookieRandomToken(12);const secure=location.protocol==="https:"?"; Secure":"";document.cookie=name+"="+value+"; Max-Age=86400; Path=/; SameSite=Lax"+secure;cookieWriteOrder([name,...cookieReadOrder()]);cookieRenderSingle(name);logEvent("SUCCESS","Cookie QA","created "+name)
 }
 function cookiePathCandidates(){
   const parts=location.pathname.split("/").filter(Boolean),paths=["/"];let current="";for(const part of parts){current+="/"+part;paths.push(current,current+"/")}return [...new Set(paths)].sort((a,b)=>b.length-a.length)
@@ -1892,10 +1898,10 @@ function cookieExpire(name){
   const expires="Thu, 01 Jan 1970 00:00:00 GMT";for(const path of cookiePathCandidates()){document.cookie=name+"=; Max-Age=0; Expires="+expires+"; Path="+path;for(const domain of cookieDomainCandidates())document.cookie=name+"=; Max-Age=0; Expires="+expires+"; Path="+path+"; Domain="+domain}
 }
 function cookieDeleteVisible(){
-  const items=cookieManagedItems();for(const item of items)cookieExpire(item.name);cookieWriteOrder([]);cookieRenderList()
+  const items=cookieManagedItems();for(const item of items)cookieExpire(item.name);cookieWriteOrder([]);cookieRenderList();logEvent("INFO","Cookie QA","deleted "+items.length+" test cookie"+(items.length===1?"":"s"))
 }
 function initCookieSandbox(){
-  const random=document.getElementById("cookieRandom"),list=document.getElementById("cookieList"),del=document.getElementById("cookieDelete");if(!random||!list||!del)return;random.addEventListener("click",cookieCreateRandom);list.addEventListener("click",cookieRenderList);del.addEventListener("click",cookieDeleteVisible);cookieRenderList()
+  const random=document.getElementById("cookieRandom"),list=document.getElementById("cookieList"),del=document.getElementById("cookieDelete"),panel=document.getElementById("section-cookies");if(!random||!list||!del)return;random.addEventListener("click",cookieCreateRandom);list.addEventListener("click",()=>{cookieRenderList();const count=cookieManagedItems().length;logEvent("INFO","Cookie QA","listed "+count+" test cookie"+(count===1?"":"s"))});del.addEventListener("click",cookieDeleteVisible);panel?.addEventListener("toggle",()=>logEvent("INFO","Cookie QA",panel.open?"panel opened":"panel closed"));cookieRenderList()
 }
 initCookieSandbox();
 // --- /v115 local cookie QA sandbox ---
@@ -1921,6 +1927,36 @@ window.visualViewport?.addEventListener("resize",hymUpdateViewportProfile,{passi
 // --- /v123 viewport-adaptive main page ---
 
 
+// --- v157 mobile keyboard EVENT LOG ---
+const hymKeyboardState={open:false,baseline:0,timer:0,orientation:String(screen.orientation?.type||window.orientation||"")};
+function hymKeyboardViewportHeight(){return Math.max(1,Math.round(window.visualViewport?.height||window.innerHeight||document.documentElement.clientHeight||1))}
+function hymKeyboardEditable(element){return Boolean(element&&element.matches?.('input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]),textarea,[contenteditable="true"],[contenteditable=""]'))}
+function hymKeyboardEvaluate(){
+  clearTimeout(hymKeyboardState.timer);
+  hymKeyboardState.timer=setTimeout(()=>{
+    const viewport=window.visualViewport;if(!viewport)return;
+    const height=hymKeyboardViewportHeight(),editable=hymKeyboardEditable(document.activeElement);
+    if(!hymKeyboardState.baseline||(!hymKeyboardState.open&&!editable&&height>hymKeyboardState.baseline))hymKeyboardState.baseline=height;
+    const drop=Math.max(0,hymKeyboardState.baseline-height),threshold=Math.max(120,Math.round(hymKeyboardState.baseline*.18));
+    const shouldOpen=editable&&drop>=threshold;
+    if(shouldOpen&&!hymKeyboardState.open){hymKeyboardState.open=true;logEvent("INFO","Keyboard","opened");return}
+    if(hymKeyboardState.open&&drop<Math.max(70,Math.round(threshold*.55))){hymKeyboardState.open=false;hymKeyboardState.baseline=Math.max(hymKeyboardState.baseline,height);logEvent("INFO","Keyboard","closed");return}
+    if(!hymKeyboardState.open&&!editable)hymKeyboardState.baseline=Math.max(hymKeyboardState.baseline,height);
+  },180)
+}
+function hymKeyboardResetBaseline(){
+  hymKeyboardState.open=false;hymKeyboardState.baseline=0;clearTimeout(hymKeyboardState.timer);setTimeout(()=>{hymKeyboardState.baseline=hymKeyboardViewportHeight()},260)
+}
+if(window.visualViewport){
+  hymKeyboardState.baseline=hymKeyboardViewportHeight();
+  window.visualViewport.addEventListener("resize",hymKeyboardEvaluate,{passive:true});
+  document.addEventListener("focusin",event=>{if(hymKeyboardEditable(event.target))hymKeyboardEvaluate()});
+  document.addEventListener("focusout",event=>{if(hymKeyboardEditable(event.target))setTimeout(hymKeyboardEvaluate,80)});
+  window.addEventListener("orientationchange",hymKeyboardResetBaseline,{passive:true});
+}
+// --- /v157 mobile keyboard EVENT LOG ---
+
+
 // --- v131 external webqr.com redirect launcher ---
 const qrScannerOpen=document.getElementById("qrScannerOpen");
 if(qrScannerOpen)qrScannerOpen.addEventListener("click",()=>{logEvent("INFO","QR Scanner","external");location.href="https://webqr.com/"});
@@ -1933,7 +1969,21 @@ if(wildBeachPartyOpen)wildBeachPartyOpen.addEventListener("click",()=>{logEvent(
 // --- /v132 Wild Beach Party official demo launcher ---
 
 const audio=document.querySelector("audio");
-if(audio){audio.addEventListener("play",()=>logEvent("SUCCESS","Audio","play"));audio.addEventListener("pause",()=>logEvent("INFO","Audio","pause"));audio.addEventListener("error",()=>logEvent("ERROR","Audio","load or playback error"))}
+if(audio){audio.addEventListener("play",()=>logEvent("SUCCESS","Audio","play"));audio.addEventListener("pause",()=>logEvent("INFO","Audio","pause"));audio.addEventListener("ended",()=>logEvent("INFO","Audio","ended"));audio.addEventListener("error",()=>logEvent("ERROR","Audio","load or playback error"))}
+
+// --- v155 YouTube playback EVENT LOG ---
+let hymYoutubePlayer=null,hymYoutubeLastState=null,hymYoutubeFocusAt=0;
+function hymYoutubeStateLabel(state){if(state===1)return ["SUCCESS","play"];if(state===2)return ["INFO","pause"];if(state===0)return ["INFO","ended"];return null}
+function hymYoutubeBind(){if(hymYoutubePlayer||!(window.YT&&YT.Player)||!document.getElementById("youtubePlayer"))return;try{hymYoutubePlayer=new YT.Player("youtubePlayer",{events:{onStateChange:event=>{if(event.data===hymYoutubeLastState)return;hymYoutubeLastState=event.data;const item=hymYoutubeStateLabel(event.data);if(item)logEvent(item[0],"YouTube video",item[1])},onError:event=>logEvent("ERROR","YouTube video","player error "+String(event.data??"unknown"))}})}catch{}}
+function initYoutubeEventLogger(){
+  const existing=window.onYouTubeIframeAPIReady;
+  window.onYouTubeIframeAPIReady=function(){try{if(typeof existing==="function")existing()}catch{}hymYoutubeBind()};
+  if(window.YT&&YT.Player)hymYoutubeBind();else if(!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')){const script=document.createElement("script");script.src="https://www.youtube.com/iframe_api";script.async=true;document.head.append(script)}
+  window.addEventListener("blur",()=>setTimeout(()=>{const frame=document.getElementById("youtubePlayer"),now=Date.now();if(frame&&document.activeElement===frame&&now-hymYoutubeFocusAt>1800){hymYoutubeFocusAt=now;logEvent("INFO","YouTube video","player focused")}},0));
+}
+initYoutubeEventLogger();
+// --- /v155 YouTube playback EVENT LOG ---
+
 dashboardInitExpandablePanels();initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
 </script>
 </body></html>
