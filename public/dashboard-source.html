@@ -309,6 +309,24 @@ html[data-hym-device="tablet"] .temp-mail-message-modal-box{
 .qr-open-btn{width:100%;min-height:42px}
 @media(max-width:1000px){#section-qr{grid-column:auto}}
 
+
+/* v132: Wild Beach Party official demo launcher */
+#section-wild-beach-party{grid-column:span 3;padding:1px;overflow:hidden;background:linear-gradient(120deg,#06251e,#0b1826,#2a102a,#06251e);background-size:260% 260%;animation:wildPartyShell 6s ease-in-out infinite}
+.wild-party-launch{position:relative;isolation:isolate;display:grid;place-items:center;align-content:center;gap:7px;width:100%;min-height:146px;padding:14px 10px;overflow:hidden;border:1px solid rgba(130,255,205,.34);background:radial-gradient(circle at 16% 18%,rgba(52,255,154,.22),transparent 30%),radial-gradient(circle at 84% 80%,rgba(66,216,255,.2),transparent 32%),linear-gradient(135deg,rgba(4,21,20,.98),rgba(15,12,32,.98) 50%,rgba(21,9,20,.98));color:#eafff8;text-align:center;cursor:pointer}
+.wild-party-launch::before{content:"";position:absolute;inset:-65%;z-index:-1;background:conic-gradient(from 0deg,transparent 0 16%,rgba(52,255,154,.7) 22%,rgba(66,216,255,.65) 31%,rgba(255,91,190,.58) 40%,transparent 48% 100%);animation:wildPartySpin 5.8s linear infinite}
+.wild-party-launch::after{content:"";position:absolute;inset:1px;z-index:-1;background:linear-gradient(135deg,rgba(4,21,20,.96),rgba(15,12,32,.96) 52%,rgba(21,9,20,.96));border:1px solid rgba(255,255,255,.035)}
+.wild-party-glow{position:absolute;inset:-30%;z-index:-1;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.16) 44%,rgba(52,255,154,.24) 50%,rgba(255,255,255,.14) 56%,transparent 74%);transform:translateX(-45%) rotate(-8deg);animation:wildPartySweep 3.4s ease-in-out infinite}
+.wild-party-fruits{font-size:clamp(19px,2.25vw,27px);filter:drop-shadow(0 0 10px rgba(52,255,154,.25))}
+.wild-party-name{display:block;font-weight:1000;font-size:clamp(16px,1.65vw,22px);letter-spacing:.08em;text-transform:uppercase;text-shadow:0 0 10px rgba(52,255,154,.55),0 0 19px rgba(66,216,255,.3)}
+.wild-party-demo{display:block;color:#9affca;font-size:9px;font-weight:900;letter-spacing:.2em;text-shadow:0 0 8px rgba(52,255,154,.5)}
+.wild-party-launch:hover,.wild-party-launch:focus-visible{border-color:rgba(52,255,154,.95);outline:none;box-shadow:inset 0 0 0 1px rgba(52,255,154,.18),0 0 22px rgba(52,255,154,.2)}
+@keyframes wildPartyShell{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes wildPartySpin{to{transform:rotate(360deg)}}
+@keyframes wildPartySweep{0%,18%{transform:translateX(-58%) rotate(-8deg);opacity:.22}52%{opacity:.9}82%,100%{transform:translateX(58%) rotate(-8deg);opacity:.18}}
+@media(max-width:1000px){#section-wild-beach-party{grid-column:auto}.wild-party-launch{min-height:132px}}
+@media(max-width:700px){.wild-party-launch{min-height:118px}.wild-party-name{font-size:16px}.wild-party-fruits{font-size:20px}}
+@media(prefers-reduced-motion:reduce){#section-wild-beach-party,.wild-party-launch::before,.wild-party-glow{animation:none}}
+
 </style>
 </head>
 <body>
@@ -323,6 +341,7 @@ html[data-hym-device="tablet"] .temp-mail-message-modal-box{
 <a href="#section-telegram">Telegram</a>
 <a href="#section-media">Медіа</a>
 <a href="#section-qr">QR scanner</a>
+<a href="#section-wild-beach-party">Wild Beach</a>
 <a href="#section-cookies">Cookies🍪</a>
 </nav>
 <div class="grid">
@@ -374,7 +393,7 @@ html[data-hym-device="tablet"] .temp-mail-message-modal-box{
 <button class="btn" id="telegramLogout" style="margin-top:10px" type="button">Вийти з Telegram</button>
 </div>
 <p class="info" id="telegramStatus">Checking Telegram session…</p>
-</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><input accept="image/*" id="photo" type="file"/><img id="preview" style="display:none;max-height:160px;max-width:100%;border:1px solid #222;margin-top:8px"/></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" src="https://www.youtube.com/embed/PxmjpQmguNM"></iframe><div style="height:10px"></div><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
+</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><input accept="image/*" id="photo" type="file"/><img id="preview" style="display:none;max-height:160px;max-width:100%;border:1px solid #222;margin-top:8px"/></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" src="https://www.youtube.com/embed/PxmjpQmguNM"></iframe><div style="height:10px"></div><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
 <div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
 <div aria-modal="true" class="temp-mail-modal-box temp-mail-inbox-modal-box" role="dialog">
@@ -1302,6 +1321,12 @@ window.visualViewport?.addEventListener("resize",hymUpdateViewportProfile,{passi
 const qrScannerOpen=document.getElementById("qrScannerOpen");
 if(qrScannerOpen)qrScannerOpen.addEventListener("click",()=>{location.href="https://webqr.com/"});
 // --- /v131 external webqr.com redirect launcher ---
+
+
+// --- v132 Wild Beach Party official demo launcher ---
+const wildBeachPartyOpen=document.getElementById("wildBeachPartyOpen");
+if(wildBeachPartyOpen)wildBeachPartyOpen.addEventListener("click",()=>{location.href="https://www.pragmaticplay.com/en/games/wild-beach-party/"});
+// --- /v132 Wild Beach Party official demo launcher ---
 
 const audio=document.querySelector("audio");
 if(audio){audio.addEventListener("play",()=>logEvent("SUCCESS","Audio","play"));audio.addEventListener("pause",()=>logEvent("INFO","Audio","pause"));audio.addEventListener("error",()=>logEvent("ERROR","Audio","load or playback error"))}

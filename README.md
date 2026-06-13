@@ -415,3 +415,14 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - This preserves the QA scenario where the page leaves the Worker origin and loads an external main page, allowing stuck-page or substitution bugs to be reproduced.
 - Removes the local `/qr-scanner` Worker route and the local scanner source file.
 - External `webqr.com` content cannot be stripped or restyled by this Worker because it is served from another origin.
+
+
+## v132 Wild Beach Party official demo launcher
+
+- Adds a movable HYM dashboard card for `Wild Beach Party™`.
+- The visible card is intentionally minimal: only a shimmering slot-style tile with fruit visuals, the slot name, and a small `DEMO · 18+` marker.
+- Clicking the tile navigates the current browser tab to the official Pragmatic Play Wild Beach Party page.
+- Uses a true external-domain redirect so redirect, stuck-page, and main-page substitution QA scenarios remain reproducible.
+- Does not embed, proxy, copy, or strip the provider page.
+- The tile participates in phone, tablet, and desktop HYM presets like the other dashboard cards.
+- Includes a reduced-motion fallback.
