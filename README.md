@@ -541,3 +541,24 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Records `Keyboard · opened` and `Keyboard · closed` once per real open/close transition.
 - Requires an active editable field plus a keyboard-sized viewport height reduction before logging an open event.
 - Ignores ordinary scrolling, tab visibility changes, desktop resizes, and small browser-toolbar viewport shifts.
+
+
+## v158 useful-only EVENT LOG and MEDIA STATE
+
+- Resets the browser-local event journal to a useful-only v2 format so older noisy startup entries disappear.
+- Keeps only meaningful QA transitions: Wild Beach open/close, external redirects, return to dashboard, keyboard, media, fullscreen, photo, cookie, Google login result, and screen rotation.
+- Adds a compact MEDIA STATE panel for audio, YouTube video, fullscreen, and autoplay status.
+- Adds a second compact AUDIO STATE panel with paused/started state, muted flag, volume, and loop flag.
+- Tracks Wild Beach return through sessionStorage and records `Wild Beach closed` followed by `returned to dashboard`.
+- Simplifies Google Sign-In events to `logined · account` or `canceled login`.
+
+
+## v159 safe mobile landscape mode
+
+- Adds a dedicated phone-landscape responsive layer without modifying desktop or portrait presentation.
+- Uses a compact two-column standard grid in phone landscape.
+- Makes AUTO PACK use two columns in phone landscape when the viewport is at least 560 px wide.
+- Keeps Payments, Stripe, temporary mail, and an expanded cookie panel full-width for stability.
+- Tightens the header, navigation, controls, media card, offer buttons, and Wild Beach launcher only in landscape.
+- Keeps focus overlays and dialogs within the visible landscape viewport.
+- Leaves FREE manual layouts intact instead of rewriting user-saved coordinates.
