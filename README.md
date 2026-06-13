@@ -483,3 +483,11 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Keeps the existing Offers functionality and buttons intact.
 - Restyles offer buttons inside the block with a dark glossy surface, subtle sweep highlight, and stronger neon hover state.
 - Does not change HYM layout logic, presets, or linked targets.
+
+
+## v151 Text + Photo focus preview modal
+- Removed the inline photo preview from the Text + Photo card so uploaded images no longer resize or overlap dashboard blocks.
+- After selecting a photo, a focus modal opens above the dashboard.
+- The collapsed card keeps only a compact clickable filename row.
+- Clicking the filename reopens the photo preview.
+- The delete action now lives inside the photo preview modal.
