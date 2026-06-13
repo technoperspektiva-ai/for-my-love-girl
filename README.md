@@ -582,9 +582,16 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - This is an orientation aid for QA: browsers do not expose an authoritative OS callback confirming which external app handled a custom URL scheme.
 
 
-## v162 hidden media state and edge-volume log
+## v164 centered portrait canvas in mobile landscape
 
-- Removes the visible `MEDIA STATE` and `AUDIO STATE` boxes from the media card without removing internal media tracking.
-- Keeps useful EVENT LOG entries for audio start/pause, video start/pause and fullscreen enter/exit.
-- Adds `audio volume · 100%` and `audio volume · 0%` only when the effective audio volume changes to an edge value.
-- Treats mute as effective 0% and unmute at maximum volume as 100%. Intermediate volume changes are intentionally not logged.
+- Replaces the experimental two-column phone landscape presentation with a safe centered portrait-style canvas.
+- Keeps the familiar single-column phone composition after rotation instead of rebuilding card placement across the wider viewport.
+- Centers the phone dashboard at up to 430 px wide with calm side gutters in landscape.
+- Forces phone AUTO PACK to remain one column in every orientation, while leaving tablet, desktop and saved FREE layouts untouched.
+- Keeps focus overlays constrained to the centered phone canvas so dialogs remain usable in horizontal orientation.
+
+## v165 OS badge region
+- Adds the Cloudflare request country code next to the detected runtime OS in the header.
+- Header format: `ANDROID | UA`, `IOS | PL`, `WINDOWS | DE`; fallback is `--` when the region is unavailable.
+- Country code is injected by the Worker from Cloudflare request metadata without delaying page rendering.
+

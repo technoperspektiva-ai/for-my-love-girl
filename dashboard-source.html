@@ -702,53 +702,66 @@ body.dashboard-focus-open{overflow:hidden}
 
 
 
-/* v162: MEDIA STATE boxes removed; tracking remains internal */
+/* v158: compact MEDIA STATE + useful-only EVENT LOG */
+.media-state-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:9px}
+.media-state-box{min-width:0;padding:8px 9px;border:1px solid #1c2a2f;background:linear-gradient(180deg,#05090a,#071013);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.media-state-title{margin-bottom:6px;color:var(--green);font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.media-state-line{display:flex;justify-content:space-between;gap:8px;padding:2px 0;color:#7c9994;font-size:10px;line-height:1.35}
+.media-state-line b{min-width:0;color:#dffdf2;font-weight:900;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:430px){.media-state-grid{grid-template-columns:1fr}}
 
 
 
-/* v159: safe mobile landscape presentation layer
-   Portrait and desktop remain untouched. Phone landscape gains a compact
-   two-column canvas while sensitive sections keep full width. */
+/* v164: centered portrait canvas in mobile landscape
+   Do not rebuild the dashboard when a phone rotates. Keep the familiar
+   one-column portrait composition centered inside the wider viewport. */
 @media (orientation:landscape) and (max-height:620px) and (pointer:coarse){
   html[data-hym-device="phone"]{--hym-page-gutter:7px;--hym-grid-gap:7px;--hym-card-pad:9px;--hym-control-gap:6px}
-  html[data-hym-device="phone"] .wrap{width:calc(100vw - 14px)!important;max-width:calc(100vw - 14px)!important;padding:6px 0 14px!important}
-  html[data-hym-device="phone"] .top{gap:6px;padding:7px 8px;align-items:center}
-  html[data-hym-device="phone"] .logo{font-size:11px;gap:6px;flex:1 1 auto}
-  html[data-hym-device="phone"] .logo img{width:29px;height:29px}
-  html[data-hym-device="phone"] .event-log-quick{width:auto;max-width:min(360px,52vw);padding-left:0;margin-top:0;gap:5px}
-  html[data-hym-device="phone"] .event-log-trigger{width:24px;height:24px;font-size:13px}
+  html[data-hym-device="phone"] .wrap{
+    width:min(430px,calc(100vw - 14px))!important;
+    max-width:min(430px,calc(100vw - 14px))!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    padding:7px 0 18px!important;
+  }
+  html[data-hym-device="phone"] .top{display:flex;flex-wrap:wrap;align-items:flex-start;gap:7px;padding:8px}
+  html[data-hym-device="phone"] .logo{min-width:0;font-size:12px;gap:7px}
+  html[data-hym-device="phone"] .logo img{width:32px;height:32px}
+  html[data-hym-device="phone"] .event-log-quick{width:100%;max-width:calc(100% - 39px);gap:6px;padding-left:39px;margin-top:-4px}
+  html[data-hym-device="phone"] .event-log-trigger{width:25px;height:25px;font-size:14px}
   html[data-hym-device="phone"] .event-log-last{font-size:8px}
-  html[data-hym-device="phone"] .top-right{width:auto;max-width:100%;margin-left:auto;gap:5px}
-  html[data-hym-device="phone"] .v{max-width:none;font-size:7px;gap:3px;justify-content:flex-end}
-  html[data-hym-device="phone"] .ops-nav{gap:4px;padding:6px 0 7px}
-  html[data-hym-device="phone"] .ops-nav a{font-size:8px;padding:6px 7px}
-  html[data-hym-device="phone"] .grid:not(.hym-free-layout){grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+  html[data-hym-device="phone"] .top-right{width:100%;display:flex;align-items:center;justify-content:space-between;gap:7px;margin-left:0}
+  html[data-hym-device="phone"] .v{min-width:0;max-width:calc(100% - 36px);font-size:8px;gap:4px;justify-content:flex-start;overflow-wrap:anywhere}
+  html[data-hym-device="phone"] .ops-nav{gap:5px;padding:7px 0 8px}
+  html[data-hym-device="phone"] .ops-nav a{white-space:nowrap;font-size:9px;padding:7px}
+  html[data-hym-device="phone"] .grid:not(.hym-free-layout){grid-template-columns:minmax(0,1fr)!important;gap:7px!important}
   html[data-hym-device="phone"] .grid:not(.hym-free-layout)>.card,
   html[data-hym-device="phone"] .grid:not(.hym-free-layout)>.cookie-card,
-  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>.stripe-card{grid-column:auto!important;width:auto!important;max-width:100%!important;min-width:0!important;justify-self:stretch!important}
+  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>.stripe-card,
   html[data-hym-device="phone"] .grid:not(.hym-free-layout)>#section-temp-mail,
-  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>.temp-mail-card,
-  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>#section-stripe,
-  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>#section-payments,
-  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>#section-cookies[open]{grid-column:1/-1!important}
-  html[data-hym-device="phone"] .card{padding:8px}
+  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>.temp-mail-card{
+    grid-column:1/-1!important;
+    width:auto!important;
+    max-width:100%!important;
+    min-width:0!important;
+    justify-self:stretch!important;
+  }
+  html[data-hym-device="phone"] .card{padding:9px}
   html[data-hym-device="phone"] h2,
   html[data-hym-device="phone"] .cookie-card>summary,
-  html[data-hym-device="phone"] .temp-mail-card>summary{font-size:12px}
-  html[data-hym-device="phone"] .btn{padding:9px 7px;font-size:9px}
+  html[data-hym-device="phone"] .temp-mail-card>summary{font-size:13px}
+  html[data-hym-device="phone"] .btn{width:100%;padding:10px 8px;font-size:10px;white-space:normal;overflow-wrap:anywhere}
+  html[data-hym-device="phone"] .btns,
+  html[data-hym-device="phone"] .cookie-actions,
+  html[data-hym-device="phone"] .temp-mail-toolbar,
+  html[data-hym-device="phone"] .temp-mail-actions{grid-template-columns:minmax(0,1fr)!important}
   html[data-hym-device="phone"] input,
-  html[data-hym-device="phone"] textarea{padding:8px;font-size:10px}
-  html[data-hym-device="phone"] textarea{min-height:72px}
-  html[data-hym-device="phone"] .wild-party-launch{min-height:104px;padding:10px 8px}
-  html[data-hym-device="phone"] .wild-party-fruits{font-size:18px}
-  html[data-hym-device="phone"] .wild-party-name{font-size:14px}
-  html[data-hym-device="phone"] .offer-btn{min-height:54px!important;padding:8px 9px!important}
-  html[data-hym-device="phone"] .offer-label{font-size:12px!important}
-  html[data-hym-device="phone"] .media-state-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  html[data-hym-device="phone"] textarea{font-size:11px;padding:9px}
+  html[data-hym-device="phone"] textarea{min-height:92px}
   html[data-hym-device="phone"] .focus-panel[open],
-  html[data-hym-device="phone"] .grid>details.card[open]{width:calc(100vw - 14px)!important;max-height:92dvh!important}
+  html[data-hym-device="phone"] .grid>details.card[open]{width:min(430px,calc(100vw - 14px))!important;max-height:92dvh!important}
   html[data-hym-device="phone"] .temp-mail-modal-box,
-  html[data-hym-device="phone"] .temp-mail-message-modal-box{width:calc(100vw - 14px)!important;max-height:92dvh!important}
+  html[data-hym-device="phone"] .temp-mail-message-modal-box{width:min(430px,calc(100vw - 14px))!important;max-height:92dvh!important}
   html[data-hym-device="phone"] .event-log-modal-body{max-height:calc(92dvh - 48px)}
   html[data-hym-device="phone"] .event-log-list{max-height:58dvh}
 }
@@ -819,7 +832,7 @@ body.dashboard-focus-open{overflow:hidden}
 <button class="btn" id="telegramLogout" style="margin-top:10px" type="button">Вийти з Telegram</button>
 </div>
 <p class="info" id="telegramStatus">Checking Telegram session…</p>
-</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
+</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><div class="media-state-grid"><div class="media-state-box"><div class="media-state-title">MEDIA STATE</div><div class="media-state-line"><span>audio:</span><b id="mediaAudioState">paused</b></div><div class="media-state-line"><span>video:</span><b id="mediaVideoState">closed</b></div><div class="media-state-line"><span>fullscreen:</span><b id="mediaFullscreenState">off</b></div><div class="media-state-line"><span>autoplay:</span><b id="mediaAutoplayState">blocked</b></div></div><div class="media-state-box"><div class="media-state-title">AUDIO STATE</div><div class="media-state-line"><span>State:</span><b id="audioDetailState">paused</b></div><div class="media-state-line"><span>Muted:</span><b id="audioMutedState">no</b></div><div class="media-state-line"><span>Volume:</span><b id="audioVolumeState">100%</b></div><div class="media-state-line"><span>Loop:</span><b id="audioLoopState">off</b></div></div></div><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
 <div aria-hidden="true" class="temp-mail-modal ua-info-modal" id="uaInfoModal"><div aria-modal="true" class="temp-mail-modal-box ua-info-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong>Device Info</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Device Info" class="temp-mail-modal-close" id="uaInfoClose" type="button">×</button></div></div><div class="ua-info-modal-body"><div class="ua-capability-grid" id="uaCapabilityGrid"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal event-log-modal" id="eventLogModal"><div aria-modal="true" aria-labelledby="eventLogTitle" class="temp-mail-modal-box event-log-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="eventLogTitle">EVENT LOG</strong><span class="event-log-modal-head-meta" id="eventLogCount">0 events</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Event Log" class="temp-mail-modal-close" id="eventLogClose" type="button">×</button></div></div><div class="event-log-modal-body"><div class="event-log-list" id="eventLogList"></div><div class="event-log-actions"><button class="btn" id="eventLogCopy" type="button">COPY</button><button class="btn" id="eventLogExport" type="button">EXPORT</button><button class="btn red event-log-clear" id="eventLogClear" type="button">CLEAR</button></div><div class="event-log-status" id="eventLogStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal photo-preview-modal" id="photoPreviewModal"><div aria-modal="true" aria-labelledby="photoPreviewTitle" class="temp-mail-modal-box photo-preview-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong id="photoPreviewTitle">Перегляд фото</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити фото" class="temp-mail-modal-close" id="photoPreviewClose" type="button">×</button></div></div><div class="photo-preview-modal-body"><div class="photo-preview-stage"><img alt="Selected preview" id="preview"/></div><div class="photo-preview-modal-actions"><button class="btn red photo-delete-btn" id="photoDelete" type="button">Видалити фото</button></div></div></div></div><div aria-hidden="true" class="dashboard-focus-backdrop" id="dashboardFocusBackdrop"></div>
 <div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
@@ -881,7 +894,6 @@ const EVENT_LOG_ALLOWED=[
   /^Wild Beach opened$/,/^Wild Beach closed$/,/^external redirect opened(?: · .+)?$/,/^returned to dashboard(?: · from .+)?$/,
   /^app likely opened(?: · .+)?$/,/^market fallback opened(?: · .+)?$/,
   /^keyboard opened$/,/^keyboard closed$/,/^video started$/,/^video paused$/,/^audio started$/,/^audio paused$/,
-  /^audio volume · (?:0|100)%$/,
   /^fullscreen entered$/,/^fullscreen exited$/,/^photo attached$/,/^photo removed$/,/^cookie created$/,/^cookie deleted$/,
   /^logined(?: · .+)?$/,/^canceled login$/,/^Google logout$/,
   /^Telegram logined(?: · .+)?$/,/^Telegram logout$/,/^screen rotated(?: · .+)?$/
@@ -1853,7 +1865,7 @@ function hymClearFreeCard(card){if(!card)return;card.style.position="";card.styl
 function hymSyncFreeCanvas(){const grid=hymFreeGrid();if(!grid||(!hymFreeEnabled&&!hymAutoEnabled))return;let bottom=180;hymCards().forEach(card=>{if(card.hidden)return;const pos=hymFreePosition(card),height=Math.max(1,card.offsetHeight||card.getBoundingClientRect().height||0);bottom=Math.max(bottom,pos.y+height+HYM_PACK_GAP+16)});grid.style.minHeight=Math.max(320,Math.ceil(bottom))+"px"}
 function hymApplyFreeLayout(){const grid=hymFreeGrid();if(!grid)return;hymAutoEnabled=false;hymFreeEnabled=true;grid.classList.remove("hym-auto-layout");grid.classList.add("hym-free-layout");hymCards().forEach(card=>{card.style.removeProperty("--hym-auto-width");const pos=hymFreePosition(card);hymSetFreePosition(card,pos.x,pos.y)});hymSyncFreeCanvas()}
 function hymDisableFreeLayout(){const grid=hymFreeGrid();hymFreeEnabled=false;hymAutoEnabled=false;hymFreePositions={};if(grid){grid.classList.remove("hym-free-layout","hym-auto-layout");grid.style.minHeight=""}hymCards().forEach(hymClearFreeCard)}
-function hymAutoColumns(width){const device=hymDeviceClass();if(device==="phone")return window.matchMedia("(orientation: landscape)").matches&&width>=560?2:1;if(device==="tablet")return width>=980?3:2;return width>=1380?4:width>=980?3:2}
+function hymAutoColumns(width){const device=hymDeviceClass();if(device==="phone")return 1;if(device==="tablet")return width>=980?3:2;return width>=1380?4:width>=980?3:2}
 function hymAutoSpan(card,columns){if(columns<=1)return 1;if(card.id==="section-temp-mail")return columns;if(card.id==="section-cookies"&&card.open)return columns;if(card.id==="section-stripe")return Math.min(columns,2);if(card.id==="section-payments")return Math.min(columns,2);return 1}
 function hymAutoPack({save=false}={}){const grid=hymFreeGrid();if(!grid)return;hymFreeEnabled=false;hymAutoEnabled=true;grid.classList.add("hym-free-layout","hym-auto-layout");const width=Math.max(1,grid.clientWidth),columns=hymAutoColumns(width),gap=HYM_PACK_GAP,col=Math.max(72,(width-gap*(columns-1))/columns),levels=Array(columns).fill(0);hymFreePositions={};for(const card of hymCards()){card.style.removeProperty("--hym-auto-width");if(card.hidden)continue;const span=Math.max(1,Math.min(columns,hymAutoSpan(card,columns)));let bestStart=0,bestY=Infinity;for(let start=0;start<=columns-span;start++){const y=Math.max(...levels.slice(start,start+span));if(y<bestY){bestY=y;bestStart=start}}const cardWidth=Math.round(col*span+gap*(span-1)),x=Math.round(bestStart*(col+gap)),y=Math.round(bestY);card.style.gridColumn="";card.style.justifySelf="";card.style.minHeight="";card.style.setProperty("--hym-auto-width",cardWidth+"px");hymSetFreePosition(card,x,y);const height=Math.ceil(card.getBoundingClientRect().height||card.offsetHeight||44),next=y+height+gap;for(let index=bestStart;index<bestStart+span;index++)levels[index]=next}hymSyncFreeCanvas();requestAnimationFrame(()=>{hymSyncFreeCanvas();hymSyncOverlay()});if(save)hymSavePersonal()}
 function hymEnableFreeLayout(){const grid=hymFreeGrid();if(!grid)return;if(hymFreeEnabled){hymApplyFreeLayout();return}const gridBox=grid.getBoundingClientRect(),snapshot=hymCards().map(card=>({card,box:card.getBoundingClientRect()}));hymAutoEnabled=false;hymFreeEnabled=true;grid.classList.remove("hym-auto-layout");grid.classList.add("hym-free-layout");snapshot.forEach(({card,box})=>{const existing=hymFreePositions[card.id];const x=existing?.x??Math.round(box.left-gridBox.left),y=existing?.y??Math.round(box.top-gridBox.top);card.style.removeProperty("--hym-auto-width");card.style.width=Math.max(72,Math.round(box.width))+"px";if(!card.style.minHeight)card.style.minHeight=Math.max(44,Math.round(box.height))+"px";hymMarkCardSized(card,true);hymSetFreePosition(card,x,y,{snap:true})});hymSyncFreeCanvas()}
@@ -1989,11 +2001,13 @@ function initUaCopy(){const copy=el("uaCopy"),detailsOpen=el("uaDetailsOpen"),mo
 initUaCopy();
 // --- /v149 device info modal details ---
 
-// --- runtime OS neon badge ---
+// --- v165 runtime OS + Cloudflare region neon badge ---
+const HYM_RUNTIME_REGION="__RUNTIME_REGION__";
 function detectRuntimeOs(){const ua=navigator.userAgent||"";const platform=(navigator.userAgentData&&navigator.userAgentData.platform)||navigator.platform||"";const maxTouch=navigator.maxTouchPoints||0;const source=(ua+" "+platform).toLowerCase();if(/android/.test(source))return {name:"Android",cls:"os-android"};if(/iphone|ipad|ipod/.test(source)||(/mac/.test(source)&&maxTouch>1))return {name:"iOS",cls:"os-ios"};if(/win/.test(source))return {name:"Windows",cls:"os-windows"};if(/mac/.test(source))return {name:"Mac OS",cls:"os-macos"};return {name:"Unknown",cls:"os-unknown"}}
-function initRuntimeOsBadge(){const node=document.getElementById("osBadge");if(!node)return;const detected=detectRuntimeOs();node.textContent=detected.name;node.className="os-neon "+detected.cls;node.setAttribute("data-os",detected.name.toLowerCase())}
+function runtimeRegionCode(){const code=String(HYM_RUNTIME_REGION||"").trim().toUpperCase();return /^[A-Z]{2}$/.test(code)?code:"--"}
+function initRuntimeOsBadge(){const node=document.getElementById("osBadge");if(!node)return;const detected=detectRuntimeOs(),region=runtimeRegionCode();node.textContent=detected.name+" | "+region;node.className="os-neon "+detected.cls;node.setAttribute("data-os",detected.name.toLowerCase());node.setAttribute("data-region",region.toLowerCase())}
 initRuntimeOsBadge();
-// --- /runtime OS neon badge ---
+// --- /v165 runtime OS + Cloudflare region neon badge ---
 
 
 // --- v111 anonymous traffic heartbeat + admin-selected public HYM template ---
@@ -2125,16 +2139,13 @@ function hymMediaRender(){
 function hymMediaSetAudio(state,writeLog=true){if(hymMediaState.audio===state){hymMediaRender();return}hymMediaState.audio=state;hymMediaRender();if(writeLog)logUsefulEvent(state==="started"?"audio started":"audio paused",state==="started"?"SUCCESS":"INFO")}
 function hymMediaSetVideo(state,writeLog=true){if(hymMediaState.video===state){hymMediaRender();return}hymMediaState.video=state;hymMediaRender();if(writeLog)logUsefulEvent(state==="started"?"video started":"video paused",state==="started"?"SUCCESS":"INFO")}
 const audio=document.querySelector("audio");
-function hymAudioEffectiveVolume(){if(!audio)return 0;return audio.muted?0:Math.round(Number(audio.volume||0)*100)}
-let hymAudioPreviousEffectiveVolume=audio?hymAudioEffectiveVolume():null;
 function hymAudioRenderDetails(){if(!audio)return;hymMediaText("audioDetailState",audio.paused?"paused":"started");hymMediaText("audioMutedState",audio.muted?"yes":"no");hymMediaText("audioVolumeState",Math.round(Number(audio.volume||0)*100)+"%");hymMediaText("audioLoopState",audio.loop?"on":"off")}
-function hymAudioTrackExtremeVolume(){if(!audio)return;const volume=hymAudioEffectiveVolume();if(volume===hymAudioPreviousEffectiveVolume)return;hymAudioPreviousEffectiveVolume=volume;if(volume===0||volume===100)logUsefulEvent("audio volume · "+volume+"%")}
 if(audio){
   hymMediaState.audio=audio.paused?"paused":"started";hymAudioRenderDetails();hymMediaRender();
   audio.addEventListener("play",()=>{hymMediaSetAudio("started");hymAudioRenderDetails()});
   audio.addEventListener("pause",()=>{hymMediaSetAudio("paused");hymAudioRenderDetails()});
   audio.addEventListener("ended",()=>{hymMediaSetAudio("paused");hymAudioRenderDetails()});
-  audio.addEventListener("volumechange",()=>{hymAudioRenderDetails();hymAudioTrackExtremeVolume()});
+  audio.addEventListener("volumechange",hymAudioRenderDetails);
   audio.addEventListener("loadedmetadata",hymAudioRenderDetails);
 }
 
