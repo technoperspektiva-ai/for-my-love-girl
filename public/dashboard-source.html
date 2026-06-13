@@ -327,6 +327,157 @@ html[data-hym-device="tablet"] .temp-mail-message-modal-box{
 @media(max-width:700px){.wild-party-launch{min-height:118px}.wild-party-name{font-size:16px}.wild-party-fruits{font-size:20px}}
 @media(prefers-reduced-motion:reduce){#section-wild-beach-party,.wild-party-launch::before,.wild-party-glow{animation:none}}
 
+
+/* v133: unrestricted free-position HYM dashboard canvas */
+.grid.hym-free-layout{
+  display:block!important;
+  position:relative!important;
+  width:100%!important;
+  min-height:320px;
+  overflow:visible!important;
+  isolation:isolate;
+}
+.grid.hym-free-layout>.card{
+  position:absolute!important;
+  margin:0!important;
+  grid-column:auto!important;
+  max-width:none;
+  min-width:80px;
+}
+body.hym-editing .grid.hym-free-layout{
+  outline:1px dashed rgba(52,255,154,.24);
+  outline-offset:4px;
+  background-image:linear-gradient(rgba(52,255,154,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(52,255,154,.035) 1px,transparent 1px);
+  background-size:20px 20px;
+}
+body.hym-editing .hym-selection-label{pointer-events:auto;cursor:move;touch-action:none}
+@media(max-width:700px){
+  .grid.hym-free-layout>.card{
+    max-width:none!important;
+    min-width:72px!important;
+  }
+}
+
+
+/* v134: editable Android / tablet top navigation list */
+body.hym-editing .ops-nav a{
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+  cursor:grab;
+  outline:1px dashed rgba(52,255,154,.28);
+  outline-offset:-2px;
+}
+body.hym-editing .ops-nav a:active{cursor:grabbing}
+.hym-nav-editor{display:grid;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid #1c2a2f}
+.hym-nav-editor-title{color:var(--green);font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.hym-nav-editor-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto auto;gap:5px;align-items:center;padding:5px;border:1px solid #1c2a2f;background:#060a0b}
+.hym-nav-editor-row input{width:auto;margin:0}
+.hym-nav-editor-name{min-width:0;color:#bdd8d3;font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hym-nav-editor-row .btn{padding:6px 7px;font-size:9px}
+@media(max-width:700px){.hym-nav-editor-row{grid-template-columns:auto minmax(0,1fr) auto auto}.hym-nav-editor-rename{grid-column:2/-1}}
+
+
+/* v135: smart adaptive AUTO PACK + precise FREE snap */
+.grid.hym-auto-layout>.card{
+  width:var(--hym-auto-width)!important;
+  max-width:none!important;
+  min-width:72px!important;
+  justify-self:start!important;
+}
+body.hym-editing .grid.hym-free-layout::before{
+  content:"FREE · SNAP 4PX · GAP 8PX";
+  position:absolute;
+  right:0;
+  top:-20px;
+  color:#587b76;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.1em;
+  pointer-events:none;
+}
+body.hym-editing .grid.hym-auto-layout::before{
+  content:"AUTO PACK · ADAPTIVE";
+  color:var(--green);
+}
+
+
+/* v136: premium neon Offers block */
+#section-offers{
+  position:relative;
+  isolation:isolate;
+  padding:1px;
+  overflow:hidden;
+  background:linear-gradient(120deg,#06251e,#0b1826,#2a102a,#06251e);
+  background-size:260% 260%;
+  animation:offersShell 6s ease-in-out infinite;
+}
+#section-offers::before{
+  content:"";
+  position:absolute;
+  inset:-68%;
+  z-index:0;
+  background:conic-gradient(from 0deg,transparent 0 16%,rgba(52,255,154,.72) 23%,rgba(66,216,255,.62) 31%,rgba(255,91,190,.54) 39%,transparent 48% 100%);
+  animation:offersSpin 6.2s linear infinite;
+}
+#section-offers::after{
+  content:"";
+  position:absolute;
+  inset:1px;
+  z-index:0;
+  background:radial-gradient(circle at 18% 18%,rgba(52,255,154,.14),transparent 31%),radial-gradient(circle at 84% 78%,rgba(66,216,255,.12),transparent 32%),linear-gradient(135deg,rgba(4,21,20,.97),rgba(15,12,32,.97) 54%,rgba(21,9,20,.97));
+}
+#section-offers>*{position:relative;z-index:1}
+#section-offers h2{
+  margin:0 0 12px;
+  color:#f0fff9;
+  text-shadow:0 0 10px rgba(52,255,154,.35),0 0 18px rgba(66,216,255,.18);
+}
+#section-offers h2::before{content:"offer redirects"}
+#section-offers .btns{gap:8px}
+#section-offers .btn{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(120,255,211,.24);
+  background:linear-gradient(135deg,rgba(7,19,20,.92),rgba(12,18,31,.92) 52%,rgba(17,10,19,.92));
+  color:#e9fff7;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 0 0 1px rgba(255,255,255,.015);
+}
+#section-offers .btn::before{
+  content:"";
+  position:absolute;
+  inset:-35% auto -35% -65%;
+  width:58%;
+  background:linear-gradient(110deg,transparent 18%,rgba(255,255,255,.11) 44%,rgba(52,255,154,.18) 50%,rgba(255,255,255,.09) 56%,transparent 74%);
+  transform:translateX(0) rotate(-10deg);
+  transition:transform .55s ease,opacity .3s ease;
+  opacity:.55;
+  pointer-events:none;
+}
+#section-offers .btn:hover,
+#section-offers .btn:focus-visible{
+  border-color:rgba(52,255,154,.9);
+  color:#fff;
+  box-shadow:inset 0 0 0 1px rgba(52,255,154,.1),0 0 16px rgba(52,255,154,.16),0 0 24px rgba(66,216,255,.08);
+  outline:none;
+}
+#section-offers .btn:hover::before,
+#section-offers .btn:focus-visible::before{transform:translateX(240%) rotate(-10deg);opacity:.9}
+#section-offers .btn.red,
+#section-offers .btn.green,
+#section-offers .btn.paytm,
+#section-offers .btn.phonepe,
+#section-offers .btn.kbc,
+#section-offers .btn.amazon,
+#section-offers .btn.gpay{
+  background:linear-gradient(135deg,rgba(7,19,20,.92),rgba(12,18,31,.92) 52%,rgba(17,10,19,.92));
+  color:#e9fff7;
+}
+@keyframes offersShell{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes offersSpin{to{transform:rotate(360deg)}}
+@media(max-width:700px){#section-offers .btn{font-size:11px;padding:10px 9px}}
+@media(prefers-reduced-motion:reduce){#section-offers,#section-offers::before{animation:none}#section-offers .btn::before{transition:none}}
+
 </style>
 </head>
 <body>
@@ -1044,6 +1195,7 @@ let hymApplying=false;
 let hymTriggerClicks=0;
 let hymTriggerTimer=null;
 let hymDefaultOrder=[];
+let hymDefaultNavOrder=[];
 let hymStandardProfile=null;
 let hymSelectedNode=null;
 let hymOverlay=null;
@@ -1054,6 +1206,13 @@ let hymMobileTitle=null;
 let hymMobileKind=null;
 let hymStateCardLayouts={};
 let hymSharedOrder=[];
+let hymFreePositions={};
+let hymFreeEnabled=false;
+let hymAutoEnabled=false;
+let hymResponsiveTimer=0;
+const HYM_SNAP_STEP=4;
+const HYM_PACK_GAP=8;
+const HYM_SNAP_THRESHOLD=6;
 function hymDeviceClass(){
   const ua=(navigator.userAgent||"").toLowerCase();
   const platform=(navigator.platform||"").toLowerCase();
@@ -1081,6 +1240,16 @@ function hymIsMobileEditor(){return hymDeviceClass()!=="desktop"||window.matchMe
 function hymJsonRead(key,fallback){try{return JSON.parse(localStorage.getItem(key)||"")||fallback}catch{return fallback}}
 function hymJsonWrite(key,value){localStorage.setItem(key,JSON.stringify(value))}
 function hymCards(){return [...document.querySelectorAll(".grid > .card")].filter(card=>card.id)}
+function hymNav(){return document.querySelector(".ops-nav")}
+function hymNavItems(){return [...document.querySelectorAll(".ops-nav > a")]}
+function hymNavKey(item){if(!item)return "";return item.dataset.hymNavKey||(item.dataset.hymNavKey=item.getAttribute("href")||("nav-"+hymNavItems().indexOf(item)))}
+function hymCaptureNav(){return {order:hymNavItems().map(hymNavKey),hidden:hymNavItems().filter(item=>item.hidden).map(hymNavKey)}}
+function hymResetNav(){const nav=hymNav();if(!nav)return;const items=new Map(hymNavItems().map(item=>[hymNavKey(item),item]));hymDefaultNavOrder.forEach(key=>{const item=items.get(key);if(item)nav.append(item)});hymNavItems().forEach(item=>item.hidden=false)}
+function hymApplyNav(saved={}){const nav=hymNav();if(!nav)return;const items=new Map(hymNavItems().map(item=>[hymNavKey(item),item])),order=Array.isArray(saved.order)&&saved.order.length?saved.order:hymDefaultNavOrder;order.forEach(key=>{const item=items.get(key);if(item)nav.append(item)});const hidden=new Set(saved.hidden||[]);hymNavItems().forEach(item=>item.hidden=hidden.has(hymNavKey(item)))}
+function hymMoveNav(item,delta){const nav=hymNav(),items=hymNavItems(),index=items.indexOf(item),target=items[index+delta];if(!nav||index<0||!target)return;if(delta<0)nav.insertBefore(item,target);else nav.insertBefore(target,item);hymSavePersonal();hymSyncOverlay()}
+function hymHideNav(item){if(!item)return;item.hidden=true;hymSavePersonal();hymSelect(null)}
+function hymResetNavItem(item){if(!item)return;item.hidden=false;if(typeof item.dataset.hymDefaultCaption==="string")hymCaptionWrite(item,item.dataset.hymDefaultCaption);const labels=hymLabelsRead();delete labels[hymCaptionKey(item)];hymLabelsWrite(labels);hymSavePersonal();hymSyncOverlay()}
+function hymMoveNavPointer(event,item){let active=false;const startX=event.clientX,startY=event.clientY;hymPointerTrack(event.target,event,ev=>{const dx=ev.clientX-startX,dy=ev.clientY-startY;if(!active&&Math.hypot(dx,dy)<6)return;active=true;ev.preventDefault();ev.stopPropagation();const target=document.elementFromPoint(ev.clientX,ev.clientY)?.closest?.(".ops-nav > a");if(!target||target===item||target.parentElement!==item.parentElement)return;const box=target.getBoundingClientRect();target.parentElement.insertBefore(item,ev.clientX<box.left+box.width/2?target:target.nextSibling);hymSyncOverlay()},()=>{if(active)hymSavePersonal()})}
 function hymHeader(card){return card.matches("details")?card.querySelector(":scope > summary"):card.querySelector(":scope > h2")}
 function hymInnerSelector(){return "button,input,textarea,iframe,audio,.btns,.profile,.telegram-box,.temp-mail-toolbar,.temp-mail-actions,.temp-mail-inbox,.temp-mail-saved,.temp-mail-list,.temp-mail-viewer,.stripe-checkout-only,img"}
 function hymInnerKey(node,card){
@@ -1108,42 +1277,62 @@ function hymCardHasCustomSize(saved={}){return Boolean(saved.span||saved.height|
 function hymMarkCardSized(card,enabled=true){if(!card)return;if(enabled)card.dataset.hymSized="1";else delete card.dataset.hymSized}
 function hymClearCardLayout(card){card.style.gridColumn="";card.style.minHeight="";card.style.width="";card.style.justifySelf="";delete card.dataset.hymSpan;delete card.dataset.hymHeight;hymMarkCardSized(card,false)}
 function hymApplyCardLayout(card,saved={}){hymClearCardLayout(card);if(saved.span){card.dataset.hymSpan=String(saved.span);card.style.gridColumn="span "+saved.span}if(saved.height){card.dataset.hymHeight=String(saved.height);card.style.minHeight=String(saved.height)+"px"}if(saved.width)card.style.width=saved.width;if(saved.justifySelf)card.style.justifySelf=saved.justifySelf;hymMarkCardSized(card,hymCardHasCustomSize(saved))}
+function hymFreeGrid(){return document.querySelector(".grid")}
+function hymFreePosition(card){return hymFreePositions[card.id]||{x:0,y:0}}
+function hymRoundSnap(value,step=HYM_SNAP_STEP){return Math.round((Number(value)||0)/step)*step}
+function hymNearestSnap(value,targets,threshold=HYM_SNAP_THRESHOLD){let best=value,distance=threshold+1;for(const target of targets){const next=Math.abs(value-target);if(next<distance){distance=next;best=target}}return distance<=threshold?best:value}
+function hymCardPixelBox(card){const rect=card.getBoundingClientRect(),pos=hymFreePosition(card);return {x:Number(pos.x)||0,y:Number(pos.y)||0,width:Math.max(1,rect.width||card.offsetWidth||1),height:Math.max(1,rect.height||card.offsetHeight||1)}}
+function hymSnapCardPosition(card,x,y){const grid=hymFreeGrid(),box=hymCardPixelBox(card),others=hymCards().filter(item=>item!==card&&!item.hidden),xTargets=[0],yTargets=[0];if(grid)xTargets.push(Math.max(0,grid.clientWidth-box.width));for(const other of others){const next=hymCardPixelBox(other);xTargets.push(next.x,next.x+next.width+HYM_PACK_GAP,next.x-box.width-HYM_PACK_GAP,next.x+next.width-box.width);yTargets.push(next.y,next.y+next.height+HYM_PACK_GAP,next.y-box.height-HYM_PACK_GAP,next.y+next.height-box.height)}let px=hymNearestSnap(hymRoundSnap(x),xTargets),py=hymNearestSnap(hymRoundSnap(y),yTargets);px=Math.max(0,px);py=Math.max(0,py);if(grid)px=Math.min(px,Math.max(0,grid.clientWidth-Math.min(box.width,grid.clientWidth)));return {x:hymRoundSnap(px),y:hymRoundSnap(py)}}
+function hymSnapCardSize(card,width,height){const grid=hymFreeGrid(),pos=hymFreePosition(card),others=hymCards().filter(item=>item!==card&&!item.hidden),wTargets=[],hTargets=[];if(grid)wTargets.push(Math.max(72,grid.clientWidth-pos.x));for(const other of others){const next=hymCardPixelBox(other);wTargets.push(next.width,next.x-pos.x-HYM_PACK_GAP,next.x+next.width-pos.x);hTargets.push(next.height,next.y-pos.y-HYM_PACK_GAP,next.y+next.height-pos.y)}let w=hymNearestSnap(hymRoundSnap(width),wTargets),h=hymNearestSnap(hymRoundSnap(height),hTargets);w=Math.max(72,w);h=Math.max(44,h);if(grid)w=Math.min(w,Math.max(72,grid.clientWidth-pos.x));return {width:hymRoundSnap(w),height:hymRoundSnap(h)}}
+function hymSetFreePosition(card,x,y,{snap=false}={}){if(!card)return;const next=snap?hymSnapCardPosition(card,x,y):{x:Math.round(Number(x)||0),y:Math.round(Number(y)||0)},px=next.x,py=next.y;hymFreePositions[card.id]={x:px,y:py};card.dataset.hymFreeX=String(px);card.dataset.hymFreeY=String(py);card.style.left=px+"px";card.style.top=py+"px"}
+function hymClearFreeCard(card){if(!card)return;card.style.position="";card.style.left="";card.style.top="";card.style.zIndex="";card.style.removeProperty("--hym-auto-width");delete card.dataset.hymFreeX;delete card.dataset.hymFreeY}
+function hymSyncFreeCanvas(){const grid=hymFreeGrid();if(!grid||(!hymFreeEnabled&&!hymAutoEnabled))return;let bottom=180;hymCards().forEach(card=>{if(card.hidden)return;const pos=hymFreePosition(card),height=Math.max(1,card.offsetHeight||card.getBoundingClientRect().height||0);bottom=Math.max(bottom,pos.y+height+HYM_PACK_GAP+16)});grid.style.minHeight=Math.max(320,Math.ceil(bottom))+"px"}
+function hymApplyFreeLayout(){const grid=hymFreeGrid();if(!grid)return;hymAutoEnabled=false;hymFreeEnabled=true;grid.classList.remove("hym-auto-layout");grid.classList.add("hym-free-layout");hymCards().forEach(card=>{card.style.removeProperty("--hym-auto-width");const pos=hymFreePosition(card);hymSetFreePosition(card,pos.x,pos.y)});hymSyncFreeCanvas()}
+function hymDisableFreeLayout(){const grid=hymFreeGrid();hymFreeEnabled=false;hymAutoEnabled=false;hymFreePositions={};if(grid){grid.classList.remove("hym-free-layout","hym-auto-layout");grid.style.minHeight=""}hymCards().forEach(hymClearFreeCard)}
+function hymAutoColumns(width){const device=hymDeviceClass();if(device==="phone")return 1;if(device==="tablet")return width>=980?3:2;return width>=1380?4:width>=980?3:2}
+function hymAutoSpan(card,columns){if(columns<=1)return 1;if(card.id==="section-temp-mail")return columns;if(card.id==="section-cookies"&&card.open)return columns;if(card.id==="section-stripe")return Math.min(columns,2);if(card.id==="section-payments")return Math.min(columns,2);return 1}
+function hymAutoPack({save=false}={}){const grid=hymFreeGrid();if(!grid)return;hymFreeEnabled=false;hymAutoEnabled=true;grid.classList.add("hym-free-layout","hym-auto-layout");const width=Math.max(1,grid.clientWidth),columns=hymAutoColumns(width),gap=HYM_PACK_GAP,col=Math.max(72,(width-gap*(columns-1))/columns),levels=Array(columns).fill(0);hymFreePositions={};for(const card of hymCards()){card.style.removeProperty("--hym-auto-width");if(card.hidden)continue;const span=Math.max(1,Math.min(columns,hymAutoSpan(card,columns)));let bestStart=0,bestY=Infinity;for(let start=0;start<=columns-span;start++){const y=Math.max(...levels.slice(start,start+span));if(y<bestY){bestY=y;bestStart=start}}const cardWidth=Math.round(col*span+gap*(span-1)),x=Math.round(bestStart*(col+gap)),y=Math.round(bestY);card.style.gridColumn="";card.style.justifySelf="";card.style.minHeight="";card.style.setProperty("--hym-auto-width",cardWidth+"px");hymSetFreePosition(card,x,y);const height=Math.ceil(card.getBoundingClientRect().height||card.offsetHeight||44),next=y+height+gap;for(let index=bestStart;index<bestStart+span;index++)levels[index]=next}hymSyncFreeCanvas();requestAnimationFrame(()=>{hymSyncFreeCanvas();hymSyncOverlay()});if(save)hymSavePersonal()}
+function hymEnableFreeLayout(){const grid=hymFreeGrid();if(!grid)return;if(hymFreeEnabled){hymApplyFreeLayout();return}const gridBox=grid.getBoundingClientRect(),snapshot=hymCards().map(card=>({card,box:card.getBoundingClientRect()}));hymAutoEnabled=false;hymFreeEnabled=true;grid.classList.remove("hym-auto-layout");grid.classList.add("hym-free-layout");snapshot.forEach(({card,box})=>{const existing=hymFreePositions[card.id];const x=existing?.x??Math.round(box.left-gridBox.left),y=existing?.y??Math.round(box.top-gridBox.top);card.style.removeProperty("--hym-auto-width");card.style.width=Math.max(72,Math.round(box.width))+"px";if(!card.style.minHeight)card.style.minHeight=Math.max(44,Math.round(box.height))+"px";hymMarkCardSized(card,true);hymSetFreePosition(card,x,y,{snap:true})});hymSyncFreeCanvas()}
+function hymClampFreeCards(){const grid=hymFreeGrid();if(!grid||!hymFreeEnabled)return;for(const card of hymCards()){if(card.hidden)continue;const box=hymCardPixelBox(card),width=Math.min(box.width,Math.max(72,grid.clientWidth)),x=Math.min(Math.max(0,box.x),Math.max(0,grid.clientWidth-width));card.style.width=hymRoundSnap(width)+"px";hymSetFreePosition(card,x,Math.max(0,box.y),{snap:true})}hymSyncFreeCanvas()}
+function hymHandleResponsiveLayout(){clearTimeout(hymResponsiveTimer);hymResponsiveTimer=setTimeout(()=>{if(hymAutoEnabled)hymAutoPack();else{hymClampFreeCards();hymSyncFreeCanvas()}hymSyncOverlay();hymSyncMobileToolbar()},90)}
+function hymCaptureFreePositions(){const result={};hymCards().forEach(card=>{const pos=hymFreePosition(card);result[card.id]={x:Number(pos.x)||0,y:Number(pos.y)||0}});return result}
+
 function hymRememberCardLayout(card,openState=card?.open){if(!card)return;hymStateCardLayouts[hymCardStateKey(card,openState)]=hymCaptureCardLayout(card)}
 function hymRememberCurrentLayouts(){hymSharedOrder=hymCards().map(card=>card.id);hymCards().forEach(card=>hymRememberCardLayout(card))}
 function hymApplySharedOrder(){const grid=document.querySelector(".grid");if(Array.isArray(hymSharedOrder))hymSharedOrder.forEach(id=>{const card=document.getElementById(id);if(card&&card.parentElement===grid)grid.appendChild(card)})}
 function hymApplyCurrentCardLayouts(){hymCards().forEach(card=>{const exact=hymStateCardLayouts[hymCardStateKey(card)],legacy=hymStateCardLayouts[card.id];hymApplyCardLayout(card,exact||legacy||{})})}
-function hymInitStatefulLayouts(){const card=document.getElementById("section-cookies");if(!card||card.dataset.hymStateReady)return;card.dataset.hymStateReady="1";card.dataset.hymPreviousOpen=card.open?"1":"0";card.addEventListener("toggle",()=>{const previous=card.dataset.hymPreviousOpen==="1";hymRememberCardLayout(card,previous);card.dataset.hymPreviousOpen=card.open?"1":"0";const saved=hymStateCardLayouts[hymCardStateKey(card)]||hymStateCardLayouts[card.id]||{};hymApplyCardLayout(card,saved);if(hymEditMode)hymSavePersonal();requestAnimationFrame(hymSyncOverlay)})}
+function hymInitStatefulLayouts(){const card=document.getElementById("section-cookies");if(!card||card.dataset.hymStateReady)return;card.dataset.hymStateReady="1";card.dataset.hymPreviousOpen=card.open?"1":"0";card.addEventListener("toggle",()=>{const previous=card.dataset.hymPreviousOpen==="1";hymRememberCardLayout(card,previous);card.dataset.hymPreviousOpen=card.open?"1":"0";const saved=hymStateCardLayouts[hymCardStateKey(card)]||hymStateCardLayouts[card.id]||{};hymApplyCardLayout(card,saved);if(hymAutoEnabled)hymAutoPack();if(hymEditMode)hymSavePersonal();requestAnimationFrame(()=>{hymSyncFreeCanvas();hymSyncOverlay()})})}
 function hymCaptureLayout(){
-  hymPrepareInner();hymRememberCurrentLayouts();const result={order:[...hymSharedOrder],cards:{...hymStateCardLayouts},inner:{}};
+  hymPrepareInner();if(!hymAutoEnabled)hymRememberCurrentLayouts();const result={order:[...hymSharedOrder],cards:{...hymStateCardLayouts},mode:hymFreeEnabled?"free":"auto",free:Boolean(hymFreeEnabled),canvasWidth:hymFreeGrid()?.clientWidth||0,positions:hymFreeEnabled?hymCaptureFreePositions():{},inner:{}};
   document.querySelectorAll("[data-hym-layout-key]").forEach(node=>{result.inner[node.dataset.hymLayoutKey]={width:node.style.width||"",height:node.style.minHeight||"",x:node.dataset.hymX||"",y:node.dataset.hymY||""}});
   return result
 }
-function hymCaptureProfile(){return {version:5,layout:hymCaptureLayout(),labels:hymLabelsRead(),hidden:hymCards().filter(card=>card.hidden).map(card=>card.id),savedAt:Date.now()}}
+function hymCaptureProfile(){return {version:8,layout:hymCaptureLayout(),labels:hymLabelsRead(),hidden:hymCards().filter(card=>card.hidden).map(card=>card.id),nav:hymCaptureNav(),savedAt:Date.now()}}
 function hymResetInline(){
-  const grid=document.querySelector(".grid");hymStateCardLayouts={};hymSharedOrder=[];hymCards().forEach(card=>{card.hidden=false;hymClearCardLayout(card)});
+  const grid=document.querySelector(".grid");hymDisableFreeLayout();hymStateCardLayouts={};hymSharedOrder=[];hymCards().forEach(card=>{card.hidden=false;hymClearCardLayout(card)});
   hymDefaultOrder.forEach(id=>{const card=document.getElementById(id);if(card&&card.parentElement===grid)grid.appendChild(card)});
   document.querySelectorAll("[data-hym-layout-key]").forEach(node=>{node.style.width="";node.style.minHeight="";node.style.transform="";delete node.dataset.hymX;delete node.dataset.hymY})
 }
-function hymApplyLayout(layout){if(!layout||hymApplying)return;hymApplying=true;try{hymPrepareInner();hymStateCardLayouts={...(layout.cards||{})};const legacyOrder=Array.isArray(layout.order)?layout.order:(Array.isArray(layout.orders?.["cookies-open"])?layout.orders["cookies-open"]:(Array.isArray(layout.orders?.["cookies-closed"])?layout.orders["cookies-closed"]:[]));hymSharedOrder=[...legacyOrder];hymApplySharedOrder();hymApplyCurrentCardLayouts();document.querySelectorAll("[data-hym-layout-key]").forEach(node=>{const saved=layout.inner?.[node.dataset.hymLayoutKey]||{};if(saved.width)node.style.width=saved.width;if(saved.height)node.style.minHeight=saved.height;if(saved.x||saved.y){node.dataset.hymX=String(saved.x||0);node.dataset.hymY=String(saved.y||0);node.style.transform=`translate3d(${Number(saved.x)||0}px,${Number(saved.y)||0}px,0)`}})}finally{hymApplying=false;requestAnimationFrame(hymSyncOverlay)}}
-function hymApplyProfile(profile){hymResetInline();hymRestoreDefaultCaptions();hymLabelsWrite(profile?.labels||{});hymApplyCaptions();hymApplyLayout(profile?.layout||{});const hidden=new Set(profile?.hidden||[]);hymCards().forEach(card=>card.hidden=hidden.has(card.id));requestAnimationFrame(hymSyncOverlay)}
+function hymApplyLayout(layout){if(!layout||hymApplying)return;hymApplying=true;try{hymPrepareInner();hymStateCardLayouts={...(layout.cards||{})};const legacyOrder=Array.isArray(layout.order)?layout.order:(Array.isArray(layout.orders?.["cookies-open"])?layout.orders["cookies-open"]:(Array.isArray(layout.orders?.["cookies-closed"])?layout.orders["cookies-closed"]:[]));hymSharedOrder=[...legacyOrder];hymApplySharedOrder();hymApplyCurrentCardLayouts();hymFreePositions={...(layout.positions||{})};const mode=layout.mode||(layout.free?"free":"auto");if(mode==="free")hymApplyFreeLayout();else hymAutoPack();document.querySelectorAll("[data-hym-layout-key]").forEach(node=>{const saved=layout.inner?.[node.dataset.hymLayoutKey]||{};if(saved.width)node.style.width=saved.width;if(saved.height)node.style.minHeight=saved.height;if(saved.x||saved.y){node.dataset.hymX=String(saved.x||0);node.dataset.hymY=String(saved.y||0);node.style.transform=`translate3d(${Number(saved.x)||0}px,${Number(saved.y)||0}px,0)`}})}finally{hymApplying=false;requestAnimationFrame(()=>{hymSyncFreeCanvas();hymSyncOverlay()})}}
+function hymApplyProfile(profile){hymResetInline();hymResetNav();hymRestoreDefaultCaptions();hymLabelsWrite(profile?.labels||{});hymApplyCaptions();hymApplyNav(profile?.nav||{});const hidden=new Set(profile?.hidden||[]);hymCards().forEach(card=>card.hidden=hidden.has(card.id));hymApplyLayout(profile?.layout||{});requestAnimationFrame(hymSyncOverlay)}
 function hymApplyStandard(){localStorage.removeItem(hymActiveProfileKey());localStorage.removeItem(HYM_LABELS_KEY);hymApplyProfile(hymStandardProfile||{layout:{},labels:{},hidden:[]})}
 function hymActiveProfileKey(){const mode=hymDeviceClass();return mode==="tablet"?HYM_TABLET_PROFILE_KEY:mode==="phone"?HYM_MOBILE_PROFILE_KEY:HYM_PROFILE_KEY}
 function hymSavePersonal(){const profile=hymCaptureProfile();hymJsonWrite(hymActiveProfileKey(),profile);return profile}
 function hymPersonal(){return hymJsonRead(hymActiveProfileKey(),null)}
 function hymPresets(){return hymJsonRead(HYM_PRESETS_KEY,[])}
 function hymWritePresets(items){hymJsonWrite(HYM_PRESETS_KEY,items||[])}
-function hymSelectionType(node){return node?.matches?.(".grid > .card")?"card":"inner"}
-function hymSelectionName(node){if(!node)return "";if(hymSelectionType(node)==="card")return hymHeader(node)?.textContent?.trim()||node.id;return node.id||node.getAttribute?.("placeholder")||node.textContent?.trim()?.slice(0,30)||node.tagName.toLowerCase()}
+function hymSelectionType(node){if(node?.matches?.(".ops-nav > a"))return "nav";return node?.matches?.(".grid > .card")?"card":"inner"}
+function hymSelectionName(node){if(!node)return "";const type=hymSelectionType(node);if(type==="card")return hymHeader(node)?.textContent?.trim()||node.id;if(type==="nav")return "NAV · "+(node.textContent?.trim()||hymNavKey(node));return node.id||node.getAttribute?.("placeholder")||node.textContent?.trim()?.slice(0,30)||node.tagName.toLowerCase()}
 
 function hymMobileSwapCard(card,delta){const cards=hymCards().filter(node=>!node.hidden),index=cards.indexOf(card),target=cards[index+delta];if(index<0||!target)return;const parent=card.parentElement;if(delta<0)parent.insertBefore(card,target);else parent.insertBefore(target,card);hymSavePersonal();hymSyncOverlay()}
 function hymMobileClamp(value,min,max){return Math.max(min,Math.min(max,value))}
 function hymMobileAdjustInner(node,action){const box=node.getBoundingClientRect();let x=Number(node.dataset.hymX)||0,y=Number(node.dataset.hymY)||0;if(action==="left")x-=8;if(action==="right")x+=8;if(action==="up")y-=8;if(action==="down")y+=8;if(action==="wminus")node.style.width=hymMobileClamp(Math.round(box.width)-12,44,760)+"px";if(action==="wplus")node.style.width=hymMobileClamp(Math.round(box.width)+12,44,760)+"px";if(action==="hminus")node.style.minHeight=hymMobileClamp(Math.round(box.height)-12,24,1000)+"px";if(action==="hplus")node.style.minHeight=hymMobileClamp(Math.round(box.height)+12,24,1000)+"px";node.dataset.hymX=String(x);node.dataset.hymY=String(y);node.style.transform=`translate3d(${x}px,${y}px,0)`;hymSavePersonal();hymSyncOverlay()}
-function hymMobileAdjustCard(card,action){const parent=card.parentElement,box=card.getBoundingClientRect(),parentBox=parent.getBoundingClientRect();if(action==="up")return hymMobileSwapCard(card,-1);if(action==="down")return hymMobileSwapCard(card,1);let width=parseFloat(card.style.width)||Math.round(box.width/Math.max(parentBox.width,1)*100);if(action==="wminus")width=hymMobileClamp(width-10,40,100);if(action==="wplus")width=hymMobileClamp(width+10,40,100);if(action==="left")card.style.justifySelf="start";if(action==="right")card.style.justifySelf="end";if(action==="center")card.style.justifySelf="center";if(action==="hminus")card.style.minHeight=hymMobileClamp(Math.round(box.height)-32,90,1600)+"px";if(action==="hplus")card.style.minHeight=hymMobileClamp(Math.round(box.height)+32,90,1600)+"px";card.style.width=width+"%";hymMarkCardSized(card,true);hymSavePersonal();hymSyncOverlay()}
-function hymResetSelectedNode(){const node=hymSelectedNode;if(!node)return;if(hymSelectionType(node)==="card"){hymClearCardLayout(node)}else{node.style.width="";node.style.minHeight="";node.style.transform="";delete node.dataset.hymX;delete node.dataset.hymY}hymSavePersonal();hymSyncOverlay()}
+function hymMobileAdjustCard(card,action){hymEnableFreeLayout();const box=card.getBoundingClientRect(),grid=hymFreeGrid(),pos=hymFreePosition(card);let x=pos.x,y=pos.y,width=Math.round(box.width),height=Math.round(box.height);if(action==="up")y-=8;if(action==="down")y+=8;if(action==="left")x-=8;if(action==="right")x+=8;if(action==="center")x=Math.round(((grid?.clientWidth||width)-width)/2);if(action==="wminus")width-=16;if(action==="wplus")width+=16;if(action==="hminus")height-=16;if(action==="hplus")height+=16;const size=hymSnapCardSize(card,width,height);card.style.width=size.width+"px";card.style.minHeight=size.height+"px";delete card.dataset.hymSpan;card.style.gridColumn="";card.dataset.hymHeight=String(size.height);hymMarkCardSized(card,true);hymSetFreePosition(card,x,y,{snap:true});hymSavePersonal();hymSyncFreeCanvas();hymSyncOverlay()}
+function hymResetSelectedNode(){const node=hymSelectedNode;if(!node)return;const type=hymSelectionType(node);if(type==="nav"){hymResetNavItem(node);return}if(type==="card"){hymClearCardLayout(node);delete hymFreePositions[node.id];hymClearFreeCard(node);hymEnableFreeLayout()}else{node.style.width="";node.style.minHeight="";node.style.transform="";delete node.dataset.hymX;delete node.dataset.hymY}hymSavePersonal();hymSyncFreeCanvas();hymSyncOverlay()}
 function hymRenameSelected(){if(!hymSelectedNode)return;const node=hymCaptionTarget(hymSelectedNode)||hymSelectedNode.querySelector?.("h2,summary,button,input,textarea,.badge");if(node)hymEditCaption(node)}
-function hymMobileCommand(action){const node=hymSelectedNode;if(action==="done")return hymSetMode(false);if(action==="standard"){hymApplyStandard();hymSelect(null);return}if(!node)return;if(action==="parent"){const card=node.closest?.(".grid > .card");if(card)hymSelect(card);return}if(action==="rename")return hymRenameSelected();if(action==="reset")return hymResetSelectedNode();if(action==="hide"&&hymSelectionType(node)==="card"){node.hidden=true;hymSavePersonal();hymSelect(null);return}if(hymSelectionType(node)==="card")hymMobileAdjustCard(node,action);else hymMobileAdjustInner(node,action)}
-function hymEnsureMobileToolbar(){if(hymMobileToolbar)return;const bar=document.createElement("div");bar.className="hym-mobile-toolbar hym-system-control";const head=document.createElement("div");head.className="hym-mobile-toolbar-head";hymMobileTitle=document.createElement("span");hymMobileKind=document.createElement("span");hymMobileKind.className="hym-mobile-toolbar-kind";head.append(hymMobileTitle,hymMobileKind);const grid=document.createElement("div");grid.className="hym-mobile-toolbar-grid";const defs=[["↑","up"],["↓","down"],["←","left"],["•","center"],["→","right"],["W−","wminus"],["W+","wplus"],["H−","hminus"],["H+","hplus"],["Блок","parent"],["Назва","rename"],["Скинути","reset"],["Сховати","hide"],["Стандарт","standard"],["Готово","done"]];defs.forEach(([text,action])=>{const button=document.createElement("button");button.type="button";button.className="btn"+(action==="hide"?" danger":"");button.textContent=text;button.dataset.hymMobileAction=action;button.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();hymMobileCommand(action)});grid.append(button)});bar.append(head,grid);document.body.append(bar);hymMobileToolbar=bar}
-function hymSyncMobileToolbar(){hymEnsureMobileToolbar();const visible=hymEditMode&&hymIsMobileEditor()&&hymSelectedNode&&document.contains(hymSelectedNode)&&!hymSelectedNode.hidden;hymMobileToolbar.classList.toggle("on",Boolean(visible));if(!visible)return;hymMobileTitle.textContent=hymSelectionName(hymSelectedNode)||"selected";hymMobileKind.textContent=hymSelectionType(hymSelectedNode)==="card"?"BLOCK":"INNER"}
+function hymMobileCommand(action){const node=hymSelectedNode;if(action==="done")return hymSetMode(false);if(action==="standard"){hymApplyStandard();hymSelect(null);return}if(action==="auto"){hymAutoPack({save:true});hymSelect(null);return}if(!node)return;const type=hymSelectionType(node);if(type==="nav"){if(action==="parent"){const card=document.querySelector(node.getAttribute("href")||"");if(card)hymSelect(card);return}if(action==="rename")return hymRenameSelected();if(action==="reset")return hymResetSelectedNode();if(action==="hide")return hymHideNav(node);if(action==="left"||action==="up")return hymMoveNav(node,-1);if(action==="right"||action==="down")return hymMoveNav(node,1);return}if(action==="parent"){const card=node.closest?.(".grid > .card");if(card)hymSelect(card);return}if(action==="rename")return hymRenameSelected();if(action==="reset")return hymResetSelectedNode();if(action==="hide"&&type==="card"){node.hidden=true;hymSavePersonal();hymSelect(null);return}if(type==="card")hymMobileAdjustCard(node,action);else hymMobileAdjustInner(node,action)}
+function hymEnsureMobileToolbar(){if(hymMobileToolbar)return;const bar=document.createElement("div");bar.className="hym-mobile-toolbar hym-system-control";const head=document.createElement("div");head.className="hym-mobile-toolbar-head";hymMobileTitle=document.createElement("span");hymMobileKind=document.createElement("span");hymMobileKind.className="hym-mobile-toolbar-kind";head.append(hymMobileTitle,hymMobileKind);const grid=document.createElement("div");grid.className="hym-mobile-toolbar-grid";const defs=[["↑","up"],["↓","down"],["←","left"],["•","center"],["→","right"],["W−","wminus"],["W+","wplus"],["H−","hminus"],["H+","hplus"],["AUTO","auto"],["Блок","parent"],["Назва","rename"],["Скинути","reset"],["Сховати","hide"],["Стандарт","standard"],["Готово","done"]];defs.forEach(([text,action])=>{const button=document.createElement("button");button.type="button";button.className="btn"+(action==="hide"?" danger":"");button.textContent=text;button.dataset.hymMobileAction=action;button.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();hymMobileCommand(action)});grid.append(button)});bar.append(head,grid);document.body.append(bar);hymMobileToolbar=bar}
+function hymSyncMobileToolbar(){hymEnsureMobileToolbar();const visible=hymEditMode&&hymIsMobileEditor()&&hymSelectedNode&&document.contains(hymSelectedNode)&&!hymSelectedNode.hidden;hymMobileToolbar.classList.toggle("on",Boolean(visible));if(!visible)return;hymMobileTitle.textContent=hymSelectionName(hymSelectedNode)||"selected";hymMobileKind.textContent=hymSelectionType(hymSelectedNode)==="card"?"BLOCK":hymSelectionType(hymSelectedNode)==="nav"?"NAV":"INNER"}
 
 function hymEnsureOverlay(){
   if(hymOverlay)return;
@@ -1151,11 +1340,12 @@ function hymEnsureOverlay(){
   hymOverlayLabel=document.createElement("div");hymOverlayLabel.className="hym-selection-label";
   hymOverlayHandle=document.createElement("button");hymOverlayHandle.type="button";hymOverlayHandle.className="hym-selection-resize";hymOverlayHandle.setAttribute("aria-label","Змінити розмір");hymOverlayHandle.textContent="↘";
   hymOverlay.append(hymOverlayLabel,hymOverlayHandle);document.body.append(hymOverlay);
-  hymOverlayHandle.addEventListener("pointerdown",hymStartOverlayResize,{passive:false})
+  hymOverlayHandle.addEventListener("pointerdown",hymStartOverlayResize,{passive:false});
+  hymOverlayLabel.addEventListener("pointerdown",event=>{if(!hymEditMode||!hymSelectedNode)return;event.preventDefault();event.stopPropagation();const type=hymSelectionType(hymSelectedNode);if(type==="card")hymMoveCard(event,hymSelectedNode);else if(type==="nav")hymMoveNavPointer(event,hymSelectedNode);else hymMoveInner(event,hymSelectedNode)},{passive:false})
 }
 function hymSelect(node){hymSelectedNode=node&&document.contains(node)?node:null;hymSyncOverlay();hymSyncMobileToolbar()}
 function hymSyncOverlay(){hymEnsureOverlay();hymSyncMobileToolbar();if(!hymEditMode||!hymSelectedNode||!document.contains(hymSelectedNode)||hymSelectedNode.hidden){hymOverlay.classList.remove("on");return}const box=hymSelectedNode.getBoundingClientRect();if(box.width<1||box.height<1){hymOverlay.classList.remove("on");return}hymOverlay.style.left=box.left+"px";hymOverlay.style.top=box.top+"px";hymOverlay.style.width=box.width+"px";hymOverlay.style.height=box.height+"px";hymOverlayLabel.textContent=hymSelectionName(hymSelectedNode);hymOverlay.classList.add("on")}
-function hymSetMode(value){hymEditMode=Boolean(value);document.body.classList.toggle("hym-editing",hymEditMode);const icon=document.getElementById("hymEditToggle");if(icon)icon.setAttribute("aria-pressed",hymEditMode?"true":"false");if(!hymEditMode){document.getElementById("hymPresetsModal")?.classList.remove("on");hymSavePersonal();hymSelect(null)}else{hymPrepareInner();hymPrepareCaptions();requestAnimationFrame(()=>{hymSyncOverlay();hymSyncMobileToolbar()})}}
+function hymSetMode(value){hymEditMode=Boolean(value);document.body.classList.toggle("hym-editing",hymEditMode);const icon=document.getElementById("hymEditToggle");if(icon)icon.setAttribute("aria-pressed",hymEditMode?"true":"false");if(!hymEditMode){document.getElementById("hymPresetsModal")?.classList.remove("on");hymSavePersonal();hymSelect(null)}else{hymPrepareInner();hymPrepareCaptions();if(!hymFreeEnabled&&!hymAutoEnabled)hymAutoPack();requestAnimationFrame(()=>{hymSyncFreeCanvas();hymSyncOverlay();hymSyncMobileToolbar()})}}
 function hymCaptionTarget(target){const node=target.closest?.("button,h2,.ops-nav a,summary,input,textarea,.badge");if(!node||node.closest(".hym-presets-modal,#uaSavedList,.hym-system-control"))return null;if(node.matches("input,textarea")&&node.readOnly)return null;return node}
 function hymBlockActions(event){if(!hymEditMode||event.target.closest?.(".hym-presets-modal,.hym-system-control"))return;const action=event.target.closest?.("button,a,input,textarea,select,summary,iframe,audio");if(action){event.preventDefault();event.stopImmediatePropagation();event.stopPropagation()}}
 function hymInnerNode(target,card){const node=target.closest?.("[data-hym-layout-key]");return node&&card.contains(node)?node:null}
@@ -1166,10 +1356,10 @@ function hymPointerTrack(handle,event,onMove,onEnd){
   handle.addEventListener("pointermove",move,{passive:false});handle.addEventListener("pointerup",end);handle.addEventListener("pointercancel",end)
 }
 function hymMoveInner(event,node){const startX=event.clientX,startY=event.clientY,baseX=Number(node.dataset.hymX)||0,baseY=Number(node.dataset.hymY)||0;let active=false;hymPointerTrack(event.target,event,ev=>{const dx=ev.clientX-startX,dy=ev.clientY-startY;if(!active&&Math.hypot(dx,dy)<6)return;active=true;ev.preventDefault();ev.stopPropagation();node.dataset.hymX=String(Math.round(baseX+dx));node.dataset.hymY=String(Math.round(baseY+dy));node.style.transform=`translate3d(${Number(node.dataset.hymX)}px,${Number(node.dataset.hymY)}px,0)`;hymSyncOverlay()},()=>{if(active)hymSavePersonal()})}
-function hymMoveCard(event,card){let active=false;const startX=event.clientX,startY=event.clientY;hymPointerTrack(event.target,event,ev=>{const dx=ev.clientX-startX,dy=ev.clientY-startY;if(!active&&Math.hypot(dx,dy)<6)return;active=true;ev.preventDefault();ev.stopPropagation();const target=document.elementFromPoint(ev.clientX,ev.clientY)?.closest?.(".grid > .card");if(!target||target===card||target.parentElement!==card.parentElement)return;const box=target.getBoundingClientRect();target.parentElement.insertBefore(card,ev.clientY<box.top+box.height/2?target:target.nextSibling);hymSyncOverlay()},()=>{if(active)hymSavePersonal()})}
+function hymMoveCard(event,card){hymEnableFreeLayout();let active=false;const startX=event.clientX,startY=event.clientY,start=hymFreePosition(card);card.style.zIndex="20";hymPointerTrack(event.target,event,ev=>{const dx=ev.clientX-startX,dy=ev.clientY-startY;if(!active&&Math.hypot(dx,dy)<4)return;active=true;ev.preventDefault();ev.stopPropagation();hymSetFreePosition(card,start.x+dx,start.y+dy,{snap:true});hymSyncFreeCanvas();hymSyncOverlay()},()=>{card.style.zIndex="";if(active)hymSavePersonal();hymSyncFreeCanvas()})}
 function hymStartOverlayResize(event){
-  if(!hymEditMode||!hymSelectedNode)return;event.preventDefault();event.stopPropagation();const node=hymSelectedNode,start=node.getBoundingClientRect(),startX=event.clientX,startY=event.clientY,isCard=hymSelectionType(node)==="card";
-  hymPointerTrack(hymOverlayHandle,event,ev=>{ev.preventDefault();ev.stopPropagation();if(isCard){const grid=document.querySelector(".grid"),style=getComputedStyle(grid),gap=parseFloat(style.columnGap)||10,cols=12,col=(grid.clientWidth-gap*(cols-1))/cols,width=Math.max(120,start.width+ev.clientX-startX),span=Math.max(1,Math.min(12,Math.round((width+gap)/(col+gap))));node.dataset.hymSpan=String(span);node.style.gridColumn="span "+span;const height=Math.max(56,start.height+ev.clientY-startY);node.dataset.hymHeight=String(Math.round(height));node.style.minHeight=Math.round(height)+"px";hymMarkCardSized(node,true)}else{node.style.width=Math.max(44,start.width+ev.clientX-startX)+"px";node.style.minHeight=Math.max(28,start.height+ev.clientY-startY)+"px"}hymSyncOverlay()},()=>hymSavePersonal())
+  if(!hymEditMode||!hymSelectedNode||hymSelectionType(hymSelectedNode)==="nav")return;event.preventDefault();event.stopPropagation();const node=hymSelectedNode,start=node.getBoundingClientRect(),startX=event.clientX,startY=event.clientY,isCard=hymSelectionType(node)==="card";
+  hymPointerTrack(hymOverlayHandle,event,ev=>{ev.preventDefault();ev.stopPropagation();if(isCard){hymEnableFreeLayout();const next=hymSnapCardSize(node,start.width+ev.clientX-startX,start.height+ev.clientY-startY);node.style.width=next.width+"px";node.style.minHeight=next.height+"px";delete node.dataset.hymSpan;node.style.gridColumn="";node.dataset.hymHeight=String(next.height);hymMarkCardSized(node,true);hymSyncFreeCanvas()}else{node.style.width=Math.max(44,hymRoundSnap(start.width+ev.clientX-startX))+"px";node.style.minHeight=Math.max(28,hymRoundSnap(start.height+ev.clientY-startY))+"px"}hymSyncOverlay()},()=>{hymSavePersonal();hymSyncFreeCanvas()})
 }
 async function hymFetchServerPresets(){try{const response=await fetch("/api/layout-presets",{credentials:"include",cache:"no-store"});const data=await response.json().catch(()=>({}));return {response,data}}catch(error){return {response:null,data:{ok:false,configured:false,error:error.message}}}}
 async function hymSaveServerPreset(){const name=prompt("Назва серверного пресета");if(!name?.trim())return;const response=await fetch("/api/layout-presets",{method:"POST",credentials:"include",headers:{"content-type":"application/json"},body:JSON.stringify({name:name.trim(),profile:hymSavePersonal()})});const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||"Не вдалося зберегти серверний preset");return data}
@@ -1184,25 +1374,27 @@ function hymOpenPresets(){
   hymPresets().forEach((preset,index)=>addPresetRow(preset.name||("Preset "+(index+1)),()=>{hymJsonWrite(hymActiveProfileKey(),preset.profile);hymApplyProfile(preset.profile);modal.classList.remove("on")},()=>{const items=hymPresets();items.splice(index,1);hymWritePresets(items);hymOpenPresets()},"local"));
   const serverTitle=document.createElement("div");serverTitle.className="hym-server-title";serverTitle.textContent="server presets";list.append(serverTitle);const serverList=document.createElement("div");serverList.className="hym-server-list";serverList.textContent="завантаження…";list.append(serverList);
   hymFetchServerPresets().then(({response,data})=>{serverList.replaceChildren();if(!response||!response.ok||!data.configured){serverList.textContent=data.error||"PRESETS_KV не підключений";return}(data.presets||[]).forEach(preset=>addPresetRow(preset.name||preset.id,()=>{hymJsonWrite(hymActiveProfileKey(),preset.profile);hymApplyProfile(preset.profile);modal.classList.remove("on")},async()=>{if(!confirm("Видалити серверний preset?"))return;try{await hymDeleteServerPreset(preset.id);hymOpenPresets()}catch(error){alert(error.message)}},"server"));if(!(data.presets||[]).length)serverList.textContent="серверних пресетів поки немає"});
-  const toggles=document.createElement("div");toggles.className="hym-card-visibility";hymCards().forEach(card=>{const row=document.createElement("label");row.className="hym-card-toggle";const check=document.createElement("input");check.type="checkbox";check.checked=!card.hidden;check.onchange=()=>{card.hidden=!check.checked;hymSavePersonal();hymSyncOverlay()};const label=document.createElement("span");label.textContent=hymHeader(card)?.textContent.trim()||card.id;row.append(check,label);toggles.append(row)});right.append(toggles);
-  const actions=document.createElement("div");actions.className="hym-presets-actions";const saveLocal=document.createElement("button");saveLocal.className="btn";saveLocal.type="button";saveLocal.textContent="Зберегти локально";saveLocal.onclick=()=>{const name=prompt("Назва локального пресета");if(!name?.trim())return;const items=hymPresets();items.unshift({name:name.trim(),profile:hymSavePersonal(),savedAt:Date.now()});hymWritePresets(items.slice(0,20));hymOpenPresets()};const personal=document.createElement("button");personal.className="btn";personal.type="button";personal.textContent="Оновити особистий";personal.onclick=()=>{hymSavePersonal();modal.classList.remove("on")};const saveServer=document.createElement("button");saveServer.className="btn green";saveServer.type="button";saveServer.textContent="Закріпити на сервері";saveServer.onclick=async()=>{try{await hymSaveServerPreset();hymOpenPresets()}catch(error){alert(error.message)}};actions.append(saveLocal,personal,saveServer);box.append(grid,actions);const note=document.createElement("div");note.className="hym-presets-note";note.textContent="Редагування: три кліки по HYM. Профілі desktop, tablet і phone зберігаються окремо. На комп’ютері доступний drag-and-resize. На телефоні та планшеті торкнись об’єкта й використовуй нижню панель зі стрілками та кнопками W/H.";box.append(note);grid.append(left,right);modal.append(box);modal.classList.add("on");modal.onclick=event=>{if(event.target===modal)modal.classList.remove("on")}
+  const toggles=document.createElement("div");toggles.className="hym-card-visibility";hymCards().forEach(card=>{const row=document.createElement("label");row.className="hym-card-toggle";const check=document.createElement("input");check.type="checkbox";check.checked=!card.hidden;check.onchange=()=>{card.hidden=!check.checked;hymSavePersonal();hymSyncFreeCanvas();hymSyncOverlay()};const label=document.createElement("span");label.textContent=hymHeader(card)?.textContent.trim()||card.id;row.append(check,label);toggles.append(row)});right.append(toggles);
+  const navEditor=document.createElement("div");navEditor.className="hym-nav-editor";const navTitle=document.createElement("div");navTitle.className="hym-nav-editor-title";navTitle.textContent="Android top menu";navEditor.append(navTitle);hymNavItems().forEach(item=>{const row=document.createElement("div");row.className="hym-nav-editor-row";const check=document.createElement("input");check.type="checkbox";check.checked=!item.hidden;check.onchange=()=>{item.hidden=!check.checked;hymSavePersonal();if(item.hidden&&hymSelectedNode===item)hymSelect(null)};const name=document.createElement("span");name.className="hym-nav-editor-name";name.textContent=item.textContent.trim()||hymNavKey(item);const left=document.createElement("button");left.type="button";left.className="btn";left.textContent="←";left.onclick=()=>{hymMoveNav(item,-1);hymOpenPresets()};const rightButton=document.createElement("button");rightButton.type="button";rightButton.className="btn";rightButton.textContent="→";rightButton.onclick=()=>{hymMoveNav(item,1);hymOpenPresets()};const rename=document.createElement("button");rename.type="button";rename.className="btn hym-nav-editor-rename";rename.textContent="Назва";rename.onclick=()=>{hymEditCaption(item);hymOpenPresets()};row.append(check,name,left,rightButton,rename);navEditor.append(row)});right.append(navEditor);
+  const actions=document.createElement("div");actions.className="hym-presets-actions";const autoPack=document.createElement("button");autoPack.className="btn green";autoPack.type="button";autoPack.textContent="AUTO PACK";autoPack.onclick=()=>{hymAutoPack({save:true});modal.classList.remove("on")};const saveLocal=document.createElement("button");saveLocal.className="btn";saveLocal.type="button";saveLocal.textContent="Зберегти локально";saveLocal.onclick=()=>{const name=prompt("Назва локального пресета");if(!name?.trim())return;const items=hymPresets();items.unshift({name:name.trim(),profile:hymSavePersonal(),savedAt:Date.now()});hymWritePresets(items.slice(0,20));hymOpenPresets()};const personal=document.createElement("button");personal.className="btn";personal.type="button";personal.textContent="Оновити особистий";personal.onclick=()=>{hymSavePersonal();modal.classList.remove("on")};const saveServer=document.createElement("button");saveServer.className="btn green";saveServer.type="button";saveServer.textContent="Закріпити на сервері";saveServer.onclick=async()=>{try{await hymSaveServerPreset();hymOpenPresets()}catch(error){alert(error.message)}};actions.append(autoPack,saveLocal,personal,saveServer);box.append(grid,actions);const note=document.createElement("div");note.className="hym-presets-note";note.textContent="AUTO PACK сам щільно заповнює екран і адаптується при зміні ширини. Ручне переміщення автоматично перемикає розкладку у FREE: координати та розміри прилипають до сітки 4 px і до країв сусідніх блоків із рівним зазором 8 px. Профілі desktop, tablet і phone зберігаються окремо.";box.append(note);grid.append(left,right);modal.append(box);modal.classList.add("on");modal.onclick=event=>{if(event.target===modal)modal.classList.remove("on")}
 }
 function hymStartGesture(event){
   if(!hymEditMode||event.target.closest?.(".hym-presets-modal,.hym-system-control"))return;
   if(event.pointerType==="mouse"&&event.button!==0)return;
+  const navItem=event.target.closest?.(".ops-nav > a");if(navItem){event.preventDefault();event.stopPropagation();hymSelect(navItem);hymMoveNavPointer(event,navItem);return}
   hymPrepareInner();const card=event.target.closest?.(".grid > .card");if(!card)return;
   const head=hymHeader(card),inner=hymInnerNode(event.target,card),caption=hymCaptionTarget(event.target);
-  if(hymIsMobileEditor()){event.preventDefault();event.stopPropagation();hymSelect(inner||card);return}
+  if(hymIsMobileEditor()){event.preventDefault();event.stopPropagation();hymSelect(inner||card);if(!inner&&head&&(event.target===head||head.contains(event.target)))hymMoveCard(event,card);return}
   if(inner){hymSelect(inner);const timer=caption?setTimeout(()=>hymEditCaption(caption),700):null;const originalMove=hymMoveInner;let moved=false;const startX=event.clientX,startY=event.clientY,baseX=Number(inner.dataset.hymX)||0,baseY=Number(inner.dataset.hymY)||0;hymPointerTrack(event.target,event,ev=>{const dx=ev.clientX-startX,dy=ev.clientY-startY;if(!moved&&Math.hypot(dx,dy)<6)return;moved=true;clearTimeout(timer);ev.preventDefault();ev.stopPropagation();inner.dataset.hymX=String(Math.round(baseX+dx));inner.dataset.hymY=String(Math.round(baseY+dy));inner.style.transform=`translate3d(${Number(inner.dataset.hymX)}px,${Number(inner.dataset.hymY)}px,0)`;hymSyncOverlay()},()=>{clearTimeout(timer);if(moved)hymSavePersonal()});return}
   if(head&&(event.target===head||head.contains(event.target))){hymSelect(card);hymMoveCard(event,card);return}
   hymSelect(card)
 }
 function initHymEditor(){
-  hymInitStatefulLayouts();hymDefaultOrder=hymCards().map(card=>card.id);hymPrepareInner();hymPrepareCaptions();hymStandardProfile={version:5,layout:hymCaptureLayout(),labels:{},hidden:[]};const profile=hymPersonal();if(profile)hymApplyProfile(profile);else hymApplyStandard();hymEnsureOverlay();
+  hymInitStatefulLayouts();hymDefaultOrder=hymCards().map(card=>card.id);hymDefaultNavOrder=hymNavItems().map(hymNavKey);hymPrepareInner();hymPrepareCaptions();hymStandardProfile={version:8,layout:hymCaptureLayout(),labels:{},hidden:[],nav:hymCaptureNav()};const profile=hymPersonal();if(profile)hymApplyProfile(profile);else hymApplyStandard();hymEnsureOverlay();
   document.addEventListener("click",hymBlockActions,true);
   document.addEventListener("pointerdown",hymStartGesture,true);
   document.addEventListener("dblclick",event=>{if(!hymEditMode||event.target.closest?.(".hym-presets-modal,.hym-system-control"))return;const node=hymCaptionTarget(event.target);if(!node)return;event.preventDefault();event.stopImmediatePropagation();event.stopPropagation();hymEditCaption(node)},true);
-  window.addEventListener("scroll",hymSyncOverlay,{passive:true});window.addEventListener("resize",()=>{hymSyncOverlay();hymSyncMobileToolbar()});hymEnsureMobileToolbar();
+  window.addEventListener("scroll",hymSyncOverlay,{passive:true});window.addEventListener("resize",hymHandleResponsiveLayout);window.addEventListener("orientationchange",hymHandleResponsiveLayout,{passive:true});window.visualViewport?.addEventListener("resize",hymHandleResponsiveLayout,{passive:true});hymEnsureMobileToolbar();
   const trigger=document.getElementById("hymPresetTrigger");if(trigger)trigger.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();hymTriggerClicks++;clearTimeout(hymTriggerTimer);hymTriggerTimer=setTimeout(()=>hymTriggerClicks=0,1000);if(hymTriggerClicks>=3){hymTriggerClicks=0;clearTimeout(hymTriggerTimer);hymSetMode(!hymEditMode)}});
   const presets=document.getElementById("hymEditToggle");if(presets)presets.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();hymOpenPresets()});
 }

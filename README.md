@@ -426,3 +426,60 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Does not embed, proxy, copy, or strip the provider page.
 - The tile participates in phone, tablet, and desktop HYM presets like the other dashboard cards.
 - Includes a reduced-motion fallback.
+
+
+## v133 Free-position HYM canvas editor
+
+- Replaces grid-only block rearrangement with an unrestricted absolute-position canvas after HYM edit mode is enabled.
+- Triple-tap `HYM` to convert the current visible layout into free coordinates without visually rearranging the cards.
+- Cards can be dragged into any empty area, overlapped, or packed tightly without reserving grid rows below neighboring cards.
+- Desktop: drag a card header or the selected overlay label. Resize with the overlay `↘` handle.
+- Phone / tablet: select a card, use the lower arrows for pixel movement and W/H controls for independent dimensions. Card headers also support direct drag.
+- Saves absolute `x/y` coordinates plus each card's width and height in local and server HYM presets.
+- Keeps phone, tablet, and desktop profiles independent.
+- Older grid presets remain compatible: their current rendered arrangement is converted into free coordinates the first time edit mode is opened.
+- Cookie collapsed / expanded dimensions remain independent while the cookie block position remains shared.
+
+
+## v134 Editable Android top navigation list
+
+- Adds HYM editing support for the horizontal quick-navigation list displayed above the dashboard on Android / phone layouts.
+- Triple-tap `HYM`, then tap a top-menu item to select it.
+- Phone / tablet lower-toolbar controls:
+  - `←` or `↑`: move the selected item one position left;
+  - `→` or `↓`: move it one position right;
+  - `Назва`: rename the visible label;
+  - `Сховати`: hide the selected item;
+  - `Скинути`: restore that item's default label and visibility;
+  - `Блок`: select the linked dashboard card.
+- Supports direct drag-reordering of top-menu items while edit mode is active.
+- Adds an `Android top menu` section inside `HYM presets` with visibility toggles, reorder arrows, and rename buttons. Hidden items can be restored there.
+- Saves top-menu order, hidden state, and captions inside each phone / tablet / desktop HYM preset independently.
+- Does not change the linked anchor targets, so quick-navigation functionality remains intact.
+
+
+## v135 Smart AUTO PACK + precise FREE snap
+
+- Adds an adaptive `AUTO PACK` mode that tightly fills the dashboard canvas using a masonry-style skyline algorithm.
+- `AUTO PACK` adapts automatically when the viewport width changes or the device rotates.
+- Uses device-aware column counts:
+  - phone: 1 column;
+  - tablet: 2 or 3 columns depending on available width;
+  - desktop: 2, 3, or 4 columns.
+- Keeps wide functional sections sensible: temporary mail spans the full canvas; expanded cookies span full width; Stripe and Cashier Desk use wider spans where space allows.
+- Adds an `AUTO PACK` button inside `HYM presets` and an `AUTO` button to the phone / tablet lower editor toolbar.
+- Manual movement or resize switches the active layout to `FREE`.
+- FREE mode snaps card coordinates and dimensions to a 4 px precision grid.
+- Cards also snap to neighboring card edges with a consistent 8 px gap, removing visually irritating 2–3 px inaccuracies.
+- FREE layouts remain independent for phone, tablet, and desktop profiles.
+- Existing v134 manual presets stay compatible: saved `free:true` layouts continue loading as FREE; older grid profiles now default to adaptive AUTO PACK.
+- Hidden cards are excluded before AUTO PACK runs, so they no longer leave empty holes.
+
+
+## v136 Premium Offers glow
+
+- Upgrades the `Оффери` card with a premium neon animated shell inspired by the Wild Beach Party launcher.
+- Removes the plain static appearance and gives the whole Offers block a clean shimmering glow without extra clumsy framing.
+- Keeps the existing Offers functionality and buttons intact.
+- Restyles offer buttons inside the block with a dark glossy surface, subtle sweep highlight, and stronger neon hover state.
+- Does not change HYM layout logic, presets, or linked targets.
