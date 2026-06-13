@@ -478,6 +478,51 @@ body.hym-editing .grid.hym-auto-layout::before{
 @media(max-width:700px){#section-offers .btn{font-size:11px;padding:10px 9px}}
 @media(prefers-reduced-motion:reduce){#section-offers,#section-offers::before{animation:none}#section-offers .btn::before{transition:none}}
 
+
+
+/* v137: offer banners + focused temp-mail overlay */
+#section-offers{padding:12px}
+#section-offers h2{margin:0 0 12px;display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+#section-offers .btns{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:stretch}
+.offer-btn{position:relative;appearance:none;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:74px;padding:14px 16px;border-radius:10px;border:1px solid var(--offer-line,#2c4446);background:
+  radial-gradient(circle at 100% 50%,rgba(var(--offer-rgb,52,255,154),.16),transparent 34%),
+  linear-gradient(180deg,rgba(11,16,18,.98),rgba(6,10,12,.98));
+  color:#f6fffd;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 0 0 1px rgba(var(--offer-rgb,52,255,154),.06),0 12px 24px rgba(0,0,0,.28);overflow:hidden;text-align:left}
+.offer-btn::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(120deg,rgba(var(--offer-rgb,52,255,154),.9),rgba(var(--offer-rgb,52,255,154),.16) 45%,rgba(255,255,255,.02));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.95;pointer-events:none}
+.offer-btn::after{content:"";position:absolute;left:15px;right:15px;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(var(--offer-rgb,52,255,154),.65),transparent);opacity:.9}
+.offer-btn:hover{transform:translateY(-1px);border-color:rgba(var(--offer-rgb,52,255,154),.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.03),0 0 0 1px rgba(var(--offer-rgb,52,255,154),.12),0 16px 30px rgba(0,0,0,.38),0 0 20px rgba(var(--offer-rgb,52,255,154),.14)}
+.offer-btn:focus-visible{outline:none;box-shadow:0 0 0 2px rgba(var(--offer-rgb,52,255,154),.24),0 0 0 4px rgba(var(--offer-rgb,52,255,154),.12),0 16px 30px rgba(0,0,0,.38)}
+.offer-copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;min-width:0;flex:1}
+.offer-kicker{font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:rgba(237,255,250,.54);line-height:1.1}
+.offer-label{font-size:22px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;line-height:1.04;color:#fbfffe;text-shadow:0 0 12px rgba(var(--offer-rgb,52,255,154),.08);word-break:break-word}
+.offer-side{position:relative;z-index:1;display:flex;align-items:center;gap:12px;flex-shrink:0;margin-left:auto;color:rgba(255,255,255,.96)}
+.offer-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;border:1px solid rgba(var(--offer-rgb,52,255,154),.44);background:radial-gradient(circle at 30% 30%,rgba(var(--offer-rgb,52,255,154),.38),rgba(7,11,13,.14) 72%);box-shadow:inset 0 0 18px rgba(var(--offer-rgb,52,255,154),.14),0 0 18px rgba(var(--offer-rgb,52,255,154),.08);font-size:22px;line-height:1}
+.offer-arrow{font-size:26px;font-weight:700;line-height:1;color:rgba(var(--offer-rgb,52,255,154),.95);text-shadow:0 0 12px rgba(var(--offer-rgb,52,255,154),.34)}
+.offer-theme-gold{--offer-rgb:255,180,62;--offer-line:#6d5324}
+.offer-theme-violet{--offer-rgb:193,90,255;--offer-line:#5a327a}
+.offer-theme-lime{--offer-rgb:156,255,91;--offer-line:#436d2a}
+.offer-theme-red{--offer-rgb:255,101,94;--offer-line:#794141}
+.offer-theme-blue{--offer-rgb:79,212,255;--offer-line:#2c5770}
+.offer-theme-magenta{--offer-rgb:255,86,220;--offer-line:#6b3370}
+.offer-theme-cyan{--offer-rgb:78,226,255;--offer-line:#27616d}
+.offer-theme-green{--offer-rgb:79,255,170;--offer-line:#27604a}
+.offer-theme-amber{--offer-rgb:255,155,61;--offer-line:#6c4520}
+.offer-theme-sky{--offer-rgb:96,175,255;--offer-line:#35558a}
+.dashboard-focus-backdrop{position:fixed;inset:0;display:none;background:rgba(0,0,0,.76);backdrop-filter:blur(3px);z-index:470}
+.dashboard-focus-backdrop.on{display:block}
+body.temp-mail-focus{overflow:hidden}
+#section-temp-mail{transition:box-shadow .18s ease,transform .18s ease}
+#section-temp-mail>summary{position:relative;z-index:1}
+#section-temp-mail[open]{position:fixed!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:min(1180px,calc(100vw - (var(--hym-page-gutter) * 2)))!important;max-height:92vh;display:flex;flex-direction:column;z-index:480!important;border-color:#2b4b50;box-shadow:0 24px 60px rgba(0,0,0,.68),0 0 0 1px rgba(52,255,154,.09)}
+#section-temp-mail[open]>summary{padding:14px 16px;border-bottom:1px solid var(--line);background:#081214}
+#section-temp-mail[open]>summary::after{content:"[×]";font-size:13px}
+#section-temp-mail[open] .temp-mail-content{display:block;overflow:auto;max-height:calc(92vh - 78px);padding:14px 16px}
+#section-temp-mail[open] .temp-mail-toolbar{position:sticky;top:0;z-index:2;padding-bottom:10px;margin-bottom:10px;background:linear-gradient(180deg,#081214 0%,#081214 78%,rgba(8,18,20,0) 100%)}
+#section-temp-mail[open] .temp-mail-address{margin:0}
+#section-temp-mail[open] .temp-mail-status{margin-top:8px}
+@media(max-width:1000px){#section-offers .btns{grid-template-columns:1fr 1fr}#section-temp-mail[open]{width:min(980px,calc(100vw - (var(--hym-page-gutter) * 2)))!important}.offer-label{font-size:20px}}
+@media(max-width:700px){#section-offers .btns{grid-template-columns:1fr}.offer-btn{min-height:68px;padding:12px 13px}.offer-label{font-size:18px}.offer-kicker{font-size:9px;letter-spacing:.16em}.offer-icon{width:38px;height:38px;font-size:20px}.offer-arrow{font-size:22px}#section-temp-mail[open]{width:calc(100vw - (var(--hym-page-gutter) * 2))!important;max-height:94vh}#section-temp-mail[open]>summary{padding:12px 13px}#section-temp-mail[open] .temp-mail-content{max-height:calc(94vh - 72px);padding:12px 13px}#section-temp-mail[open] .temp-mail-toolbar{grid-template-columns:1fr;top:0}.temp-mail-actions{display:grid;grid-template-columns:1fr 1fr}.temp-mail-actions .btn{width:100%}}
+
 </style>
 </head>
 <body>
@@ -546,6 +591,7 @@ body.hym-editing .grid.hym-auto-layout::before{
 <p class="info" id="telegramStatus">Checking Telegram session…</p>
 </section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><input accept="image/*" id="photo" type="file"/><img id="preview" style="display:none;max-height:160px;max-width:100%;border:1px solid #222;margin-top:8px"/></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" src="https://www.youtube.com/embed/PxmjpQmguNM"></iframe><div style="height:10px"></div><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
+<div aria-hidden="true" class="dashboard-focus-backdrop" id="tempMailBackdrop"></div>
 <div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
 <div aria-modal="true" class="temp-mail-modal-box temp-mail-inbox-modal-box" role="dialog">
 <div class="temp-mail-modal-head">
@@ -583,16 +629,16 @@ const upiApps=[
 ];
 const apps=[["Telegram","tg://resolve?domain=nsqmarket"],["Viber","viber://"],["WhatsApp","whatsapp://send?text=hello"],["Instagram","instagram://app"],["TikTok","snssdk1233://"],["Facebook","fb://profile"],["Дія","diia://"]];
 const offers=[
-["BetKing","https://betking.com.ua/?gclid=CjwKCAjwxITRBhBYEiwA6mZm7ScusNx2vV5sg_8mnTtpT4G7XJEF4JGIMOImJ0Y0J5_W2ofKp39wphoCP5UQAvD_BwE"],
-["VBET","https://www.vbet.ua/uk/?utm_campaign=UA_competitor_ggl_search_16.09.2025&utm_medium=cpc&utm_source=google&utm_adgroup=189196595687&gad_source=1&gad_campaignid=23018234049&gbraid=0AAAABAi2veBFIazlc_67i9fKbpYIZ1OqP&gclid=CjwKCAjwxITRBhBYEiwA6mZm7VSDjuCtVLQq1F_TRQTOhQ1qThbDHKaHfmO8DpQSPTDvhdSyfwj2cRoCSTsQAvD_BwE"],
-["Gorilla","https://gorilla.ua/uk/"],
-["Beton","https://beton.ua/"],
-["Poker-bet","https://trustclicker.com?stream_key=77Nb16rm7M"],
-["Vulkan","https://trustmeplz.com/?stream_key=oCj1j9RXHk"],
-["FirstCasino","https://trustmeplz.com/?stream_key=MuSMMEYEK1"],
-["Betify","https://betify6.sh/fr"],
-["RajaBets","https://rajabets5.com/"],
-["Posido","https://posido158.com/be/"]
+{label:"BetKing",url:"https://betking.com.ua/?gclid=CjwKCAjwxITRBhBYEiwA6mZm7ScusNx2vV5sg_8mnTtpT4G7XJEF4JGIMOImJ0Y0J5_W2ofKp39wphoCP5UQAvD_BwE",theme:"gold",kicker:"Premium offer",icon:"♛"},
+{label:"VBET",url:"https://www.vbet.ua/uk/?utm_campaign=UA_competitor_ggl_search_16.09.2025&utm_medium=cpc&utm_source=google&utm_adgroup=189196595687&gad_source=1&gad_campaignid=23018234049&gbraid=0AAAABAi2veBFIazlc_67i9fKbpYIZ1OqP&gclid=CjwKCAjwxITRBhBYEiwA6mZm7VSDjuCtVLQq1F_TRQTOhQ1qThbDHKaHfmO8DpQSPTDvhdSyfwj2cRoCSTsQAvD_BwE",theme:"violet",kicker:"Feel the rush",icon:"♠"},
+{label:"Gorilla",url:"https://gorilla.ua/uk/",theme:"lime",kicker:"Play your way",icon:"◎"},
+{label:"Beton",url:"https://beton.ua/",theme:"red",kicker:"Next level",icon:"✦"},
+{label:"Poker-bet",url:"https://trustclicker.com?stream_key=77Nb16rm7M",theme:"blue",kicker:"Card action",icon:"♣"},
+{label:"Vulkan",url:"https://trustmeplz.com/?stream_key=oCj1j9RXHk",theme:"magenta",kicker:"Lucky mode",icon:"✿"},
+{label:"FirstCasino",url:"https://trustmeplz.com/?stream_key=MuSMMEYEK1",theme:"cyan",kicker:"First choice",icon:"★"},
+{label:"Betify",url:"https://betify6.sh/fr",theme:"green",kicker:"Daily bonus",icon:"✚"},
+{label:"RajaBets",url:"https://rajabets5.com/",theme:"amber",kicker:"Royal entry",icon:"👑"},
+{label:"Posido",url:"https://posido158.com/be/",theme:"sky",kicker:"Ready to play",icon:"◆"}
 ];
 
 function el(x){return document.getElementById(x)}
@@ -615,8 +661,18 @@ function openUrl(label,u){
 }
 function openOffer(label,u){
   if(!u){logEvent("ERROR",label,"offer URL missing");return}
-  const ok=confirm("Open external offer?\n\n"+label+"\n"+u);
-  if(ok)openUrl(label,u);else logEvent("INFO",label,"offer opening cancelled");
+  openUrl(label,u);
+}
+function buildOfferButton(offer){
+  const button=document.createElement("button");
+  button.type="button";
+  button.className="offer-btn offer-theme-"+(offer.theme||"green");
+  button.setAttribute("aria-label",offer.label+" offer redirect");
+  const kicker=offer.kicker||"Offer redirect";
+  const icon=offer.icon||"✦";
+  button.innerHTML=`<span class="offer-copy"><span class="offer-kicker">${kicker}</span><span class="offer-label">${offer.label}</span></span><span class="offer-side"><span class="offer-arrow">»</span><span class="offer-icon" aria-hidden="true">${icon}</span></span>`;
+  button.onclick=()=>openOffer(offer.label,offer.url);
+  return button;
 }
 
 payments.forEach(p=>{
@@ -628,7 +684,7 @@ payments.forEach(p=>{
 });
 upiApps.forEach(a=>{const b=document.createElement("button");b.className="btn green";b.textContent=a[0];b.onclick=()=>app(a[0],a[1]);el("payments").appendChild(b)});
 apps.forEach(a=>{const b=document.createElement("button");b.className="btn red";b.textContent=a[0];b.onclick=()=>app(a[0],a[1]);el("apps").appendChild(b)});
-offers.forEach(o=>{const b=document.createElement("button");b.className="btn";b.textContent=o[0];b.onclick=()=>openOffer(o[0],o[1]);el("offers").appendChild(b)});
+offers.forEach(offer=>el("offers").appendChild(buildOfferButton(offer)));
 
 let paymentsClient=null;
 const baseRequest={apiVersion:2,apiVersionMinor:0};
@@ -1130,6 +1186,20 @@ async function tempMailCopy(){
   if(!address){tempMailSetStatus("Спочатку створи адресу.");return}
   try{await navigator.clipboard.writeText(address);tempMailSetStatus("Адресу скопійовано: "+address)}catch(error){el("tempMailAddress").select();document.execCommand("copy");tempMailSetStatus("Адресу скопійовано: "+address)}
 }
+function tempMailBackdrop(){return el("tempMailBackdrop")}
+function tempMailPanel(){return el("section-temp-mail")}
+function tempMailSyncFocusState(){
+  const panel=tempMailPanel(),backdrop=tempMailBackdrop();
+  const focused=!!panel?.open;
+  document.body.classList.toggle("temp-mail-focus",focused);
+  if(backdrop){backdrop.classList.toggle("on",focused);backdrop.setAttribute("aria-hidden",focused?"false":"true")}
+}
+function tempMailClosePanel(){
+  const panel=tempMailPanel();
+  if(!panel?.open)return;
+  panel.open=false;
+  tempMailSyncFocusState();
+}
 let beta20ClickCount=0;
 let beta20ClickTimer=null;
 async function tempMailToggleFixedByBeta(){
@@ -1170,9 +1240,17 @@ function initTempMail(){
   el("tempMailSaveAccount").onclick=tempMailSaveCurrent;
   el("tempMailInboxModal").addEventListener("click",event=>{if(event.target===el("tempMailInboxModal"))tempMailCloseInboxModal()});
   el("tempMailMessageModal").addEventListener("click",event=>{if(event.target===el("tempMailMessageModal"))tempMailClearViewer()});
-  document.addEventListener("keydown",event=>{if(event.key!=="Escape")return;if(el("tempMailMessageModal")?.classList.contains("on")){tempMailClearViewer();return}if(el("tempMailInboxModal")?.classList.contains("on"))tempMailCloseInboxModal()});
+  tempMailPanel()?.addEventListener("toggle",tempMailSyncFocusState);
+  tempMailBackdrop()?.addEventListener("click",tempMailClosePanel);
+  document.addEventListener("keydown",event=>{
+    if(event.key!=="Escape")return;
+    if(el("tempMailMessageModal")?.classList.contains("on")){tempMailClearViewer();return}
+    if(el("tempMailInboxModal")?.classList.contains("on")){tempMailCloseInboxModal();return}
+    if(tempMailPanel()?.open){tempMailClosePanel()}
+  });
   initBeta20FixedMailToggle();
   tempMailRenderSaved();
+  tempMailSyncFocusState();
   if(tempMailState?.fixed){tempMailSetStatus("");tempMailRefresh({silent:true})}
   else if(tempMailState?.address&&tempMailState?.password){tempMailSetStatus("");tempMailTokenFor(tempMailState,{force:true}).then(()=>tempMailRefresh({silent:true})).catch(error=>{tempMailSetInboxMeta("потрібно створити нову адресу");tempMailSetStatus("Не вдалося відновити доступ до пошти: "+error.message)})}
   else{tempMailSetStatus("Створи тимчасову адресу.")}
