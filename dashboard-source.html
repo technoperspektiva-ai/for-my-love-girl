@@ -112,21 +112,24 @@ body.hym-editing .grid>.card>h2,body.hym-editing .grid>.card>summary{cursor:move
 @media(max-width:1000px){#section-ua{grid-column:auto!important}.ua-capability-line{font-size:9.5px}.ua-capability-row{grid-template-columns:84px minmax(0,1fr) auto}.ua-capability-value{font-size:9.5px}.ua-code{max-height:118px;font-size:9.5px;line-height:1.42}.ua-copy-btn{min-height:40px}}
 @media(max-width:700px){.ua-capability-box{padding:8px 9px}.ua-capability-line{font-size:9px;line-height:1.4}.ua-details-toggle{width:100%;min-height:36px;padding:8px 9px;font-size:9px}.ua-info-modal-body{padding:9px}.ua-capability-row{grid-template-columns:1fr;gap:5px;padding:7px 8px;align-items:flex-start}.ua-capability-key{font-size:8px}.ua-capability-value{font-size:9px;line-height:1.38}.ua-capability-copy{width:100%;min-height:32px}.ua-code{min-height:68px;max-height:104px;padding:8px 9px;font-size:9px}.ua-copy-btn{min-height:38px;padding:8px 9px;font-size:10px}}
 
-/* v151: Text + Photo compact filename + focus preview modal */
+/* v153: Text + Photo fixed compact controls + pulsing photo button */
 #section-text{min-width:0}
-.photo-file-row{display:none;min-width:0;margin-top:7px}
-.photo-file-row.on{display:block}
-.photo-file-open{appearance:none;display:flex;align-items:center;gap:8px;width:100%;min-width:0;padding:9px 10px;border:1px solid #294146;background:#071013;color:#bff6dc;text-align:left;font-size:10px;font-weight:900;letter-spacing:.04em;transition:.15s ease}
-.photo-file-open:hover,.photo-file-open:focus-visible{border-color:var(--green);background:#0b1718;color:#fff;outline:none}
-.photo-file-open::before{content:"↗";flex:0 0 auto;color:var(--green);font-size:13px;line-height:1}
-.photo-file-name{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.photo-control-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:stretch;margin-top:7px;min-width:0}
+.photo-native-input{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.photo-select-btn,.photo-open-btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-width:0;min-height:38px;padding:9px 10px;border:1px solid #294146;background:#071013;color:#bff6dc;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;transition:.15s ease}
+.photo-select-btn:hover,.photo-select-btn:focus-visible,.photo-open-btn:hover,.photo-open-btn:focus-visible{border-color:var(--green);background:#0b1718;color:#fff;outline:none}
+.photo-select-btn{cursor:pointer}
+.photo-open-btn{min-width:76px;color:#587b76;border-color:#1c2a2f;background:#060a0b;cursor:not-allowed;opacity:.64}
+.photo-open-btn.has-photo{cursor:pointer;opacity:1;color:#baffd8;border-color:#0e9151;background:#06381f;animation:photoButtonPulse 1.45s ease-in-out infinite}
+.photo-open-btn.has-photo:hover,.photo-open-btn.has-photo:focus-visible{background:#08542e;border-color:var(--green);box-shadow:0 0 16px rgba(52,255,154,.2)}
+@keyframes photoButtonPulse{0%,100%{box-shadow:0 0 0 rgba(52,255,154,0),inset 0 0 0 rgba(52,255,154,0)}50%{box-shadow:0 0 16px rgba(52,255,154,.34),inset 0 0 12px rgba(52,255,154,.09)}}
 .photo-preview-modal-box{width:min(920px,calc(100vw - (var(--hym-page-gutter) * 2)))!important}
 .photo-preview-modal-body{display:grid;gap:10px;overflow:auto;max-height:calc(92vh - 55px);padding:12px;background:#05090a}
 .photo-preview-stage{display:grid;place-items:center;min-height:220px;border:1px solid #1c2a2f;background:#020405;overflow:auto}
 #preview{display:block;max-width:100%;max-height:72vh;width:auto;height:auto;object-fit:contain}
 .photo-preview-modal-actions{display:flex;justify-content:flex-end;gap:7px;flex-wrap:wrap}
 .photo-delete-btn{min-height:36px;padding:8px 10px;font-size:10px}
-@media(max-width:700px){.photo-preview-modal-body{max-height:calc(94vh - 52px);padding:9px}.photo-preview-stage{min-height:180px}#preview{max-height:68vh}.photo-delete-btn{width:100%;min-height:38px}}
+@media(max-width:700px){.photo-control-row{grid-template-columns:minmax(0,1fr) 76px}.photo-preview-modal-body{max-height:calc(94vh - 52px);padding:9px}.photo-preview-stage{min-height:180px}#preview{max-height:68vh}.photo-delete-btn{width:100%;min-height:38px}}
 
 /* v129: fitted Stripe Express Checkout + selectable resize handle */
 .stripe-card,#section-stripe,.stripe-checkout-only,#stripeExpressCheckout{min-width:0;max-width:100%;box-sizing:border-box}
@@ -697,6 +700,65 @@ body.dashboard-focus-open{overflow:hidden}
 @media(max-width:900px){.event-log-quick{max-width:min(330px,48vw)}}
 @media(max-width:700px){.top{align-items:flex-start}.logo{gap:7px}.event-log-quick{width:100%;max-width:calc(100vw - 82px);gap:6px;padding-left:43px;margin-top:-4px}.event-log-trigger{width:25px;height:25px;font-size:14px}.event-log-last{font-size:8px}.event-log-modal-body{padding:9px;max-height:calc(94vh - 52px)}.event-log-list{max-height:66vh}.event-log-row{grid-template-columns:58px minmax(0,1fr);gap:7px;padding:7px;font-size:10px}.event-log-actions{display:grid;grid-template-columns:1fr 1fr 1fr}.event-log-actions .event-log-clear{margin-left:0}}
 
+
+
+/* v158: compact MEDIA STATE + useful-only EVENT LOG */
+.media-state-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:9px}
+.media-state-box{min-width:0;padding:8px 9px;border:1px solid #1c2a2f;background:linear-gradient(180deg,#05090a,#071013);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.media-state-title{margin-bottom:6px;color:var(--green);font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.media-state-line{display:flex;justify-content:space-between;gap:8px;padding:2px 0;color:#7c9994;font-size:10px;line-height:1.35}
+.media-state-line b{min-width:0;color:#dffdf2;font-weight:900;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:430px){.media-state-grid{grid-template-columns:1fr}}
+
+
+
+/* v159: safe mobile landscape presentation layer
+   Portrait and desktop remain untouched. Phone landscape gains a compact
+   two-column canvas while sensitive sections keep full width. */
+@media (orientation:landscape) and (max-height:620px) and (pointer:coarse){
+  html[data-hym-device="phone"]{--hym-page-gutter:7px;--hym-grid-gap:7px;--hym-card-pad:9px;--hym-control-gap:6px}
+  html[data-hym-device="phone"] .wrap{width:calc(100vw - 14px)!important;max-width:calc(100vw - 14px)!important;padding:6px 0 14px!important}
+  html[data-hym-device="phone"] .top{gap:6px;padding:7px 8px;align-items:center}
+  html[data-hym-device="phone"] .logo{font-size:11px;gap:6px;flex:1 1 auto}
+  html[data-hym-device="phone"] .logo img{width:29px;height:29px}
+  html[data-hym-device="phone"] .event-log-quick{width:auto;max-width:min(360px,52vw);padding-left:0;margin-top:0;gap:5px}
+  html[data-hym-device="phone"] .event-log-trigger{width:24px;height:24px;font-size:13px}
+  html[data-hym-device="phone"] .event-log-last{font-size:8px}
+  html[data-hym-device="phone"] .top-right{width:auto;max-width:100%;margin-left:auto;gap:5px}
+  html[data-hym-device="phone"] .v{max-width:none;font-size:7px;gap:3px;justify-content:flex-end}
+  html[data-hym-device="phone"] .ops-nav{gap:4px;padding:6px 0 7px}
+  html[data-hym-device="phone"] .ops-nav a{font-size:8px;padding:6px 7px}
+  html[data-hym-device="phone"] .grid:not(.hym-free-layout){grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>.card,
+  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>.cookie-card,
+  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>.stripe-card{grid-column:auto!important;width:auto!important;max-width:100%!important;min-width:0!important;justify-self:stretch!important}
+  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>#section-temp-mail,
+  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>.temp-mail-card,
+  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>#section-stripe,
+  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>#section-payments,
+  html[data-hym-device="phone"] .grid:not(.hym-free-layout)>#section-cookies[open]{grid-column:1/-1!important}
+  html[data-hym-device="phone"] .card{padding:8px}
+  html[data-hym-device="phone"] h2,
+  html[data-hym-device="phone"] .cookie-card>summary,
+  html[data-hym-device="phone"] .temp-mail-card>summary{font-size:12px}
+  html[data-hym-device="phone"] .btn{padding:9px 7px;font-size:9px}
+  html[data-hym-device="phone"] input,
+  html[data-hym-device="phone"] textarea{padding:8px;font-size:10px}
+  html[data-hym-device="phone"] textarea{min-height:72px}
+  html[data-hym-device="phone"] .wild-party-launch{min-height:104px;padding:10px 8px}
+  html[data-hym-device="phone"] .wild-party-fruits{font-size:18px}
+  html[data-hym-device="phone"] .wild-party-name{font-size:14px}
+  html[data-hym-device="phone"] .offer-btn{min-height:54px!important;padding:8px 9px!important}
+  html[data-hym-device="phone"] .offer-label{font-size:12px!important}
+  html[data-hym-device="phone"] .media-state-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  html[data-hym-device="phone"] .focus-panel[open],
+  html[data-hym-device="phone"] .grid>details.card[open]{width:calc(100vw - 14px)!important;max-height:92dvh!important}
+  html[data-hym-device="phone"] .temp-mail-modal-box,
+  html[data-hym-device="phone"] .temp-mail-message-modal-box{width:calc(100vw - 14px)!important;max-height:92dvh!important}
+  html[data-hym-device="phone"] .event-log-modal-body{max-height:calc(92dvh - 48px)}
+  html[data-hym-device="phone"] .event-log-list{max-height:58dvh}
+}
+
 </style>
 </head>
 <body>
@@ -763,7 +825,7 @@ body.dashboard-focus-open{overflow:hidden}
 <button class="btn" id="telegramLogout" style="margin-top:10px" type="button">Вийти з Telegram</button>
 </div>
 <p class="info" id="telegramStatus">Checking Telegram session…</p>
-</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><input accept="image/*" id="photo" type="file"/><div class="photo-file-row" id="photoFileRow"><button aria-label="Відкрити вибране фото" class="photo-file-open" id="photoFileOpen" type="button"><span class="photo-file-name" id="photoFileName"></span></button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" src="https://www.youtube.com/embed/PxmjpQmguNM"></iframe><div style="height:10px"></div><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
+</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><div class="media-state-grid"><div class="media-state-box"><div class="media-state-title">MEDIA STATE</div><div class="media-state-line"><span>audio:</span><b id="mediaAudioState">paused</b></div><div class="media-state-line"><span>video:</span><b id="mediaVideoState">closed</b></div><div class="media-state-line"><span>fullscreen:</span><b id="mediaFullscreenState">off</b></div><div class="media-state-line"><span>autoplay:</span><b id="mediaAutoplayState">blocked</b></div></div><div class="media-state-box"><div class="media-state-title">AUDIO STATE</div><div class="media-state-line"><span>State:</span><b id="audioDetailState">paused</b></div><div class="media-state-line"><span>Muted:</span><b id="audioMutedState">no</b></div><div class="media-state-line"><span>Volume:</span><b id="audioVolumeState">100%</b></div><div class="media-state-line"><span>Loop:</span><b id="audioLoopState">off</b></div></div></div><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
 <div aria-hidden="true" class="temp-mail-modal ua-info-modal" id="uaInfoModal"><div aria-modal="true" class="temp-mail-modal-box ua-info-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong>Device Info</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Device Info" class="temp-mail-modal-close" id="uaInfoClose" type="button">×</button></div></div><div class="ua-info-modal-body"><div class="ua-capability-grid" id="uaCapabilityGrid"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal event-log-modal" id="eventLogModal"><div aria-modal="true" aria-labelledby="eventLogTitle" class="temp-mail-modal-box event-log-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="eventLogTitle">EVENT LOG</strong><span class="event-log-modal-head-meta" id="eventLogCount">0 events</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Event Log" class="temp-mail-modal-close" id="eventLogClose" type="button">×</button></div></div><div class="event-log-modal-body"><div class="event-log-list" id="eventLogList"></div><div class="event-log-actions"><button class="btn" id="eventLogCopy" type="button">COPY</button><button class="btn" id="eventLogExport" type="button">EXPORT</button><button class="btn red event-log-clear" id="eventLogClear" type="button">CLEAR</button></div><div class="event-log-status" id="eventLogStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal photo-preview-modal" id="photoPreviewModal"><div aria-modal="true" aria-labelledby="photoPreviewTitle" class="temp-mail-modal-box photo-preview-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong id="photoPreviewTitle">Перегляд фото</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити фото" class="temp-mail-modal-close" id="photoPreviewClose" type="button">×</button></div></div><div class="photo-preview-modal-body"><div class="photo-preview-stage"><img alt="Selected preview" id="preview"/></div><div class="photo-preview-modal-actions"><button class="btn red photo-delete-btn" id="photoDelete" type="button">Видалити фото</button></div></div></div></div><div aria-hidden="true" class="dashboard-focus-backdrop" id="dashboardFocusBackdrop"></div>
 <div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
@@ -818,22 +880,22 @@ const offers=[
 function el(x){return document.getElementById(x)}
 function setCashierStatus(t){const x=el("cashierStatus");if(x)x.textContent=t}
 
-// --- v152 local event logger ---
-const EVENT_LOG_STORAGE_KEY="hym_event_log_v1";
+// --- v158 useful-only local event logger ---
+const EVENT_LOG_STORAGE_KEY="hym_event_log_v2_useful";
 const EVENT_LOG_LIMIT=180;
+const EVENT_LOG_ALLOWED=[
+  /^Wild Beach opened$/,/^Wild Beach closed$/,/^external redirect opened(?: · .+)?$/,/^returned to dashboard$/,
+  /^keyboard opened$/,/^keyboard closed$/,/^video started$/,/^video paused$/,/^audio started$/,/^audio paused$/,
+  /^fullscreen entered$/,/^fullscreen exited$/,/^photo attached$/,/^photo removed$/,/^cookie created$/,/^cookie deleted$/,
+  /^logined(?: · .+)?$/,/^canceled login$/,/^screen rotated(?: · .+)?$/
+];
+const EXTERNAL_RETURN_KEY="hym_external_return_v1";
 let eventLogItems=[];
-function eventLogLoad(){try{const parsed=JSON.parse(sessionStorage.getItem(EVENT_LOG_STORAGE_KEY)||"[]");eventLogItems=Array.isArray(parsed)?parsed.filter(item=>item&&typeof item.time==="string"&&typeof item.message==="string").slice(-EVENT_LOG_LIMIT):[]}catch{eventLogItems=[]}}
+function eventLogSafe(value){return String(value??"").replace(/\s+/g," ").trim()}
+function eventLogAllowed(message){return EVENT_LOG_ALLOWED.some(pattern=>pattern.test(eventLogSafe(message)))}
+function eventLogLoad(){try{const parsed=JSON.parse(sessionStorage.getItem(EVENT_LOG_STORAGE_KEY)||"[]");eventLogItems=Array.isArray(parsed)?parsed.filter(item=>item&&typeof item.time==="string"&&typeof item.message==="string"&&eventLogAllowed(item.message)).slice(-EVENT_LOG_LIMIT):[]}catch{eventLogItems=[]}}
 function eventLogSave(){try{sessionStorage.setItem(EVENT_LOG_STORAGE_KEY,JSON.stringify(eventLogItems.slice(-EVENT_LOG_LIMIT)))}catch{}}
 function eventLogTime(date=new Date()){return date.toLocaleTimeString("uk-UA",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false})}
-function eventLogSafe(value){return String(value??"").replace(/\s+/g," ").trim()}
-function eventLogMessage(level,label,message){
-  const safeLabel=eventLogSafe(label)||"Event",safeMessage=eventLogSafe(message);
-  if(safeMessage==="clicked")return safeLabel+" clicked";
-  if(safeMessage.startsWith("new tab requested:"))return safeLabel+" opened · external";
-  if(safeMessage.startsWith("popup may have been blocked:"))return safeLabel+" attempted · popup blocked";
-  if(safeMessage==="external")return safeLabel+" opened · external";
-  return safeMessage?safeLabel+" · "+safeMessage:safeLabel;
-}
 function eventLogText(){return eventLogItems.map(item=>item.time+"  "+item.message).join("\n")}
 function eventLogRender(){
   const count=el("eventLogCount"),list=el("eventLogList"),last=el("eventLogLast");
@@ -846,10 +908,27 @@ function eventLogRender(){
   for(const item of eventLogItems){const row=document.createElement("div");row.className="event-log-row";row.dataset.level=item.level||"INFO";const time=document.createElement("span");time.className="event-log-time";time.textContent=item.time;const message=document.createElement("span");message.className="event-log-message";message.textContent=item.message;row.append(time,message);list.append(row)}
   list.scrollTop=list.scrollHeight;
 }
-function logEvent(level="INFO",label="Event",message=""){
-  eventLogItems.push({time:eventLogTime(),level:eventLogSafe(level).toUpperCase()||"INFO",message:eventLogMessage(level,label,message)});
+function logUsefulEvent(message,level="INFO"){
+  const clean=eventLogSafe(message);if(!eventLogAllowed(clean))return;
+  const now=Date.now(),last=eventLogItems[eventLogItems.length-1];if(last&&last.message===clean&&now-Number(last.ts||0)<450)return;
+  eventLogItems.push({time:eventLogTime(),ts:now,level:eventLogSafe(level).toUpperCase()||"INFO",message:clean});
   if(eventLogItems.length>EVENT_LOG_LIMIT)eventLogItems=eventLogItems.slice(-EVENT_LOG_LIMIT);
   eventLogSave();eventLogRender();
+}
+function logEvent(level="INFO",label="Event",message=""){
+  const safeLabel=eventLogSafe(label),safeMessage=eventLogSafe(message);
+  if(safeLabel==="Keyboard"&&(safeMessage==="opened"||safeMessage==="closed"))return logUsefulEvent("keyboard "+safeMessage,level);
+  if(safeLabel==="Photo upload"&&safeMessage.startsWith("selected "))return logUsefulEvent("photo attached",level);
+  if(safeLabel==="Photo upload"&&safeMessage==="preview cleared")return logUsefulEvent("photo removed",level);
+  if(safeLabel==="Cookie QA"&&safeMessage.startsWith("created "))return logUsefulEvent("cookie created",level);
+  if(safeLabel==="Cookie QA"&&safeMessage.startsWith("deleted "))return logUsefulEvent("cookie deleted",level);
+  if(safeLabel==="Audio"&&safeMessage==="play")return logUsefulEvent("audio started",level);
+  if(safeLabel==="Audio"&&(safeMessage==="pause"||safeMessage==="ended"))return logUsefulEvent("audio paused",level);
+  if(safeLabel==="YouTube video"&&safeMessage==="play")return logUsefulEvent("video started",level);
+  if(safeLabel==="YouTube video"&&(safeMessage==="pause"||safeMessage==="ended"))return logUsefulEvent("video paused",level);
+  if(safeLabel==="page restored")return logUsefulEvent("returned to dashboard",level);
+  if(safeLabel==="Wild Beach"&&safeMessage==="external")return logUsefulEvent("Wild Beach opened",level);
+  if(safeMessage==="external"||safeMessage.startsWith("new tab requested:"))return logUsefulEvent("external redirect opened"+(safeLabel?" · "+safeLabel:""),level);
 }
 function eventLogModalOpen(){const modal=el("eventLogModal");eventLogRender();modal?.classList.add("on");modal?.setAttribute("aria-hidden","false")}
 function eventLogModalClose(){const modal=el("eventLogModal");modal?.classList.remove("on");modal?.setAttribute("aria-hidden","true")}
@@ -857,6 +936,16 @@ function eventLogStatus(text=""){const node=el("eventLogStatus");if(!node)return
 async function eventLogCopy(){const text=eventLogText();if(!text){eventLogStatus("Журнал порожній.");return}try{await navigator.clipboard.writeText(text)}catch{const area=document.createElement("textarea");area.value=text;area.style.position="fixed";area.style.opacity="0";document.body.append(area);area.select();document.execCommand("copy");area.remove()}eventLogStatus("Скопійовано.")}
 function eventLogExport(){const text=eventLogText();if(!text){eventLogStatus("Журнал порожній.");return}const blob=new Blob([text+"\n"],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download="wwg-event-log-"+new Date().toISOString().replace(/[:.]/g,"-")+".txt";document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),0);eventLogStatus("Експортовано.")}
 function eventLogClear(){eventLogItems=[];eventLogSave();eventLogRender();eventLogStatus("Журнал очищено.")}
+function eventLogMarkExternal(kind="external",label=""){
+  try{sessionStorage.setItem(EXTERNAL_RETURN_KEY,JSON.stringify({kind,label:eventLogSafe(label),at:Date.now()}))}catch{}
+  if(kind==="wild-beach")logUsefulEvent("Wild Beach opened");else logUsefulEvent("external redirect opened"+(label?" · "+eventLogSafe(label):""));
+}
+function eventLogConsumeExternalReturn(){
+  let pending=null;try{pending=JSON.parse(sessionStorage.getItem(EXTERNAL_RETURN_KEY)||"null");sessionStorage.removeItem(EXTERNAL_RETURN_KEY)}catch{}
+  if(!pending)return;
+  if(pending.kind==="wild-beach")logUsefulEvent("Wild Beach closed");
+  logUsefulEvent("returned to dashboard");
+}
 function initEventLogger(){
   eventLogLoad();eventLogRender();
   el("eventLogOpen")?.addEventListener("click",eventLogModalOpen);
@@ -865,27 +954,26 @@ function initEventLogger(){
   el("eventLogCopy")?.addEventListener("click",eventLogCopy);
   el("eventLogExport")?.addEventListener("click",eventLogExport);
   el("eventLogClear")?.addEventListener("click",eventLogClear);
-  document.addEventListener("visibilitychange",()=>logEvent("INFO","visibilitychange",document.visibilityState));
-  window.addEventListener("pageshow",event=>logEvent("INFO",event.persisted?"page restored":"page ready",""));
+  window.addEventListener("pageshow",event=>{if(event.persisted)eventLogConsumeExternalReturn()});
+  setTimeout(eventLogConsumeExternalReturn,0);
   document.addEventListener("keydown",event=>{if(event.key==="Escape"&&el("eventLogModal")?.classList.contains("on")){eventLogModalClose();event.stopImmediatePropagation()}});
 }
 initEventLogger();
-// --- /v152 local event logger ---
+// --- /v158 useful-only local event logger ---
 
 
 let googleAccountSubject="";
 
 function app(label,u){
   if(!u)return;
-  logEvent("INFO",label,"clicked");
+  eventLogMarkExternal("external",label);
   setCashierStatus(label+": opening checkout...");
   location.href=u;
 }
 function openUrl(label,u){
-  if(!u){logEvent("ERROR",label,"URL missing");return}
-  const w=window.open(u,"_blank","noopener,noreferrer");
-  if(w)logEvent("SUCCESS",label,"new tab requested: "+u);
-  else logEvent("UNCONFIRMED",label,"popup may have been blocked: "+u);
+  if(!u)return;
+  window.open(u,"_blank","noopener,noreferrer");
+  logUsefulEvent("external redirect opened"+(label?" · "+eventLogSafe(label):""));
 }
 function openOffer(label,u){
   if(!u){logEvent("ERROR",label,"offer URL missing");return}
@@ -921,15 +1009,20 @@ const baseRequest={apiVersion:2,apiVersionMinor:0};
 const allowedCardNetworks=["AMEX","DISCOVER","INTERAC","JCB","MASTERCARD","VISA"];
 const allowedCardAuthMethods=["PAN_ONLY","CRYPTOGRAM_3DS"];
 const tokenizationSpecification={type:"PAYMENT_GATEWAY",parameters:{gateway:"example",gatewayMerchantId:"exampleGatewayMerchantId"}};
-function setGPayStatus(t){el("gpayStatus").textContent=t;logEvent("INFO","Google Pay",t)}
+function setGPayStatus(t,writeToEventLog=true){el("gpayStatus").textContent=t;if(writeToEventLog)logEvent("INFO","Google Pay",t)}
 function getGooglePaymentsClient(){if(!paymentsClient){paymentsClient=new google.payments.api.PaymentsClient({environment:"TEST",paymentDataCallbacks:{onPaymentAuthorized:function(pd){return new Promise(function(resolve){const token=pd?.paymentMethodData?.tokenizationData?.token||"";setGPayStatus("Google Pay authorized. TEST token: "+String(token).slice(0,120)+"...");logEvent("SUCCESS","Google Pay","TEST authorization callback completed");resolve({transactionState:"SUCCESS"})})}}})}return paymentsClient}
 function getPaymentDataRequest(){return {...baseRequest,allowedPaymentMethods:[{type:"CARD",parameters:{allowedAuthMethods:allowedCardAuthMethods,allowedCardNetworks:allowedCardNetworks},tokenizationSpecification}],transactionInfo:{countryCode:"US",currencyCode:"USD",totalPriceStatus:"FINAL",totalPrice:"12.00"},merchantInfo:{merchantName:"WWG QA Team Test Merchant"},callbackIntents:["PAYMENT_AUTHORIZATION"]}}
 function onGooglePayClick(){if(!(window.google&&google.payments&&google.payments.api)){setGPayStatus("Google Pay SDK not loaded yet.");return}getGooglePaymentsClient().loadPaymentData(getPaymentDataRequest()).catch(e=>{const m=e?.statusMessage||JSON.stringify(e);setGPayStatus("Google Pay error: "+m);logEvent("ERROR","Google Pay",m)})}
-function initGooglePay(){let tries=0;const wait=setInterval(function(){tries++;if(window.google&&google.payments&&google.payments.api){clearInterval(wait);const client=getGooglePaymentsClient();const btn=client.createButton({onClick:onGooglePayClick,buttonColor:"black",buttonType:"pay"});el("googlePayBox").innerHTML="";el("googlePayBox").appendChild(btn);setGPayStatus("Google Pay ready.")}if(tries>80){clearInterval(wait);setGPayStatus("Google Pay SDK timeout.")}},100)}
+function initGooglePay(){let tries=0;const wait=setInterval(function(){tries++;if(window.google&&google.payments&&google.payments.api){clearInterval(wait);const client=getGooglePaymentsClient();const btn=client.createButton({onClick:onGooglePayClick,buttonColor:"black",buttonType:"pay"});el("googlePayBox").innerHTML="";el("googlePayBox").appendChild(btn);setGPayStatus("Google Pay ready.",false)}if(tries>80){clearInterval(wait);setGPayStatus("Google Pay SDK timeout.")}},100)}
 
 function decodeJwtPayload(token){try{const base64=token.split(".")[1].replace(/-/g,"+").replace(/_/g,"/");const json=decodeURIComponent(atob(base64).split("").map(c=>"%"+("00"+c.charCodeAt(0).toString(16)).slice(-2)).join(""));return JSON.parse(json)}catch(e){return null}}
-window.handleCredentialResponse=function(response){const user=decodeJwtPayload(response?.credential||"");if(!user){el("signinStatus").textContent="Sign-in returned token, but profile decode failed.";logEvent("ERROR","Google Sign-In","profile decode failed");return}googleAccountSubject=user.sub||"";el("userName").textContent=user.name||"Google user";el("userEmail").textContent=user.email||"";if(user.picture)el("avatar").src=user.picture;el("profile").classList.add("on");el("signinStatus").textContent="Logged in successfully.";logEvent("SUCCESS","Google Sign-In",(user.email||user.name||"profile received")+(googleAccountSubject?"; account subject decoded locally":""))};
-function initGoogleSignIn(){if(!GOOGLE_CLIENT_ID||!GOOGLE_CLIENT_ID.includes(".apps.googleusercontent.com")){el("signinStatus").textContent="GOOGLE_CLIENT_ID не заданий.";return}let tries=0;const wait=setInterval(function(){tries++;if(window.google&&google.accounts&&google.accounts.id){clearInterval(wait);google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:window.handleCredentialResponse,auto_select:false,cancel_on_tap_outside:true});google.accounts.id.renderButton(el("signinBox"),{theme:"outline",size:"large",text:"signin_with",shape:"rectangular",width:280});el("signinStatus").textContent="Google Sign-In ready.";logEvent("INFO","Google Sign-In","ready")}if(tries>80){clearInterval(wait);el("signinStatus").textContent="Google Identity SDK timeout.";logEvent("ERROR","Google Sign-In","SDK timeout")}},100)}
+let hymGoogleLoginPending=false,hymGoogleLoginBlurAt=0;
+window.handleCredentialResponse=function(response){const user=decodeJwtPayload(response?.credential||"");if(!user){el("signinStatus").textContent="Sign-in returned token, but profile decode failed.";return}hymGoogleLoginPending=false;googleAccountSubject=user.sub||"";el("userName").textContent=user.name||"Google user";el("userEmail").textContent=user.email||"";if(user.picture)el("avatar").src=user.picture;el("profile").classList.add("on");el("signinStatus").textContent="Logged in successfully.";logUsefulEvent("logined · "+eventLogSafe(user.email||user.name||"Google account"),"SUCCESS")};
+function initGoogleLoginCancelTracking(){
+  window.addEventListener("blur",()=>setTimeout(()=>{const box=el("signinBox"),active=document.activeElement;if(box&&active&&box.contains(active)){hymGoogleLoginPending=true;hymGoogleLoginBlurAt=Date.now()}},0));
+  window.addEventListener("focus",()=>{if(!hymGoogleLoginPending)return;const started=hymGoogleLoginBlurAt;setTimeout(()=>{if(hymGoogleLoginPending&&started===hymGoogleLoginBlurAt){hymGoogleLoginPending=false;logUsefulEvent("canceled login")}},750)});
+}
+function initGoogleSignIn(){if(!GOOGLE_CLIENT_ID||!GOOGLE_CLIENT_ID.includes(".apps.googleusercontent.com")){el("signinStatus").textContent="GOOGLE_CLIENT_ID не заданий.";return}let tries=0;const wait=setInterval(function(){tries++;if(window.google&&google.accounts&&google.accounts.id){clearInterval(wait);google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:window.handleCredentialResponse,auto_select:false,cancel_on_tap_outside:true});google.accounts.id.renderButton(el("signinBox"),{theme:"outline",size:"large",text:"signin_with",shape:"rectangular",width:280});el("signinStatus").textContent="Google Sign-In ready."}if(tries>80){clearInterval(wait);el("signinStatus").textContent="Google Identity SDK timeout.";logEvent("ERROR","Google Sign-In","SDK timeout")}},100)}
 
 const params=new URLSearchParams(location.search);
 if(params.get("telegram_login")==="success"){history.replaceState({},document.title,"/")}
@@ -980,10 +1073,13 @@ function photoPreviewModalOpen(){
 function photoPreviewModalClose(){
   const modal=el("photoPreviewModal");modal?.classList.remove("on");modal?.setAttribute("aria-hidden","true");
 }
-function photoRenderFileRow(){
-  const row=el("photoFileRow"),name=el("photoFileName");
-  if(name)name.textContent=photoPreviewName;
-  row?.classList.toggle("on",!!photoPreviewUrl);
+function photoRenderButton(){
+  const button=el("photoOpen"),hasPhoto=!!photoPreviewUrl;
+  if(!button)return;
+  button.disabled=!hasPhoto;
+  button.classList.toggle("has-photo",hasPhoto);
+  button.title=hasPhoto?("Відкрити фото: "+photoPreviewName):"Фото ще не додано";
+  button.setAttribute("aria-label",hasPhoto?("Відкрити додане фото "+photoPreviewName):"Фото ще не додано");
 }
 function photoClearPreview(){
   const input=el("photo"),preview=el("preview");
@@ -992,18 +1088,19 @@ function photoClearPreview(){
   photoPreviewName="";
   if(input)input.value="";
   if(preview){preview.removeAttribute("src");preview.removeAttribute("title")}
-  photoRenderFileRow();
+  photoRenderButton();
   logEvent("INFO","Photo upload","preview cleared");
 }
 el("photo").onchange=e=>{
   const f=e.target.files?.[0];
-  if(!f){photoClearPreview();return}
+  if(!f)return;
   if(photoPreviewUrl){try{URL.revokeObjectURL(photoPreviewUrl)}catch{}}
   photoPreviewUrl=URL.createObjectURL(f);photoPreviewName=f.name;
-  photoRenderFileRow();photoPreviewModalOpen();
+  photoRenderButton();
   logEvent("SUCCESS","Photo upload","selected "+f.name+" ("+f.size+" bytes)");
 };
-el("photoFileOpen")?.addEventListener("click",photoPreviewModalOpen);
+el("photoOpen")?.addEventListener("click",photoPreviewModalOpen);
+photoRenderButton();
 el("photoPreviewClose")?.addEventListener("click",photoPreviewModalClose);
 el("photoPreviewModal")?.addEventListener("click",event=>{if(event.target===el("photoPreviewModal"))photoPreviewModalClose()});
 el("photoDelete")?.addEventListener("click",photoClearPreview);
@@ -1697,7 +1794,7 @@ function hymClearFreeCard(card){if(!card)return;card.style.position="";card.styl
 function hymSyncFreeCanvas(){const grid=hymFreeGrid();if(!grid||(!hymFreeEnabled&&!hymAutoEnabled))return;let bottom=180;hymCards().forEach(card=>{if(card.hidden)return;const pos=hymFreePosition(card),height=Math.max(1,card.offsetHeight||card.getBoundingClientRect().height||0);bottom=Math.max(bottom,pos.y+height+HYM_PACK_GAP+16)});grid.style.minHeight=Math.max(320,Math.ceil(bottom))+"px"}
 function hymApplyFreeLayout(){const grid=hymFreeGrid();if(!grid)return;hymAutoEnabled=false;hymFreeEnabled=true;grid.classList.remove("hym-auto-layout");grid.classList.add("hym-free-layout");hymCards().forEach(card=>{card.style.removeProperty("--hym-auto-width");const pos=hymFreePosition(card);hymSetFreePosition(card,pos.x,pos.y)});hymSyncFreeCanvas()}
 function hymDisableFreeLayout(){const grid=hymFreeGrid();hymFreeEnabled=false;hymAutoEnabled=false;hymFreePositions={};if(grid){grid.classList.remove("hym-free-layout","hym-auto-layout");grid.style.minHeight=""}hymCards().forEach(hymClearFreeCard)}
-function hymAutoColumns(width){const device=hymDeviceClass();if(device==="phone")return 1;if(device==="tablet")return width>=980?3:2;return width>=1380?4:width>=980?3:2}
+function hymAutoColumns(width){const device=hymDeviceClass();if(device==="phone")return window.matchMedia("(orientation: landscape)").matches&&width>=560?2:1;if(device==="tablet")return width>=980?3:2;return width>=1380?4:width>=980?3:2}
 function hymAutoSpan(card,columns){if(columns<=1)return 1;if(card.id==="section-temp-mail")return columns;if(card.id==="section-cookies"&&card.open)return columns;if(card.id==="section-stripe")return Math.min(columns,2);if(card.id==="section-payments")return Math.min(columns,2);return 1}
 function hymAutoPack({save=false}={}){const grid=hymFreeGrid();if(!grid)return;hymFreeEnabled=false;hymAutoEnabled=true;grid.classList.add("hym-free-layout","hym-auto-layout");const width=Math.max(1,grid.clientWidth),columns=hymAutoColumns(width),gap=HYM_PACK_GAP,col=Math.max(72,(width-gap*(columns-1))/columns),levels=Array(columns).fill(0);hymFreePositions={};for(const card of hymCards()){card.style.removeProperty("--hym-auto-width");if(card.hidden)continue;const span=Math.max(1,Math.min(columns,hymAutoSpan(card,columns)));let bestStart=0,bestY=Infinity;for(let start=0;start<=columns-span;start++){const y=Math.max(...levels.slice(start,start+span));if(y<bestY){bestY=y;bestStart=start}}const cardWidth=Math.round(col*span+gap*(span-1)),x=Math.round(bestStart*(col+gap)),y=Math.round(bestY);card.style.gridColumn="";card.style.justifySelf="";card.style.minHeight="";card.style.setProperty("--hym-auto-width",cardWidth+"px");hymSetFreePosition(card,x,y);const height=Math.ceil(card.getBoundingClientRect().height||card.offsetHeight||44),next=y+height+gap;for(let index=bestStart;index<bestStart+span;index++)levels[index]=next}hymSyncFreeCanvas();requestAnimationFrame(()=>{hymSyncFreeCanvas();hymSyncOverlay()});if(save)hymSavePersonal()}
 function hymEnableFreeLayout(){const grid=hymFreeGrid();if(!grid)return;if(hymFreeEnabled){hymApplyFreeLayout();return}const gridBox=grid.getBoundingClientRect(),snapshot=hymCards().map(card=>({card,box:card.getBoundingClientRect()}));hymAutoEnabled=false;hymFreeEnabled=true;grid.classList.remove("hym-auto-layout");grid.classList.add("hym-free-layout");snapshot.forEach(({card,box})=>{const existing=hymFreePositions[card.id];const x=existing?.x??Math.round(box.left-gridBox.left),y=existing?.y??Math.round(box.top-gridBox.top);card.style.removeProperty("--hym-auto-width");card.style.width=Math.max(72,Math.round(box.width))+"px";if(!card.style.minHeight)card.style.minHeight=Math.max(44,Math.round(box.height))+"px";hymMarkCardSized(card,true);hymSetFreePosition(card,x,y,{snap:true})});hymSyncFreeCanvas()}
@@ -1879,7 +1976,7 @@ function cookieRenderSingle(name){
   const output=document.getElementById("cookieOutput");if(!output)return;output.value=name||"Тестових cookie HYM не знайдено.";output.scrollTop=0
 }
 function cookieCreateRandom(){
-  const name="hym_test_"+cookieRandomToken(5);const value=cookieRandomToken(12);const secure=location.protocol==="https:"?"; Secure":"";document.cookie=name+"="+value+"; Max-Age=86400; Path=/; SameSite=Lax"+secure;cookieWriteOrder([name,...cookieReadOrder()]);cookieRenderSingle(name)
+  const name="hym_test_"+cookieRandomToken(5);const value=cookieRandomToken(12);const secure=location.protocol==="https:"?"; Secure":"";document.cookie=name+"="+value+"; Max-Age=86400; Path=/; SameSite=Lax"+secure;cookieWriteOrder([name,...cookieReadOrder()]);cookieRenderSingle(name);logEvent("SUCCESS","Cookie QA","created "+name)
 }
 function cookiePathCandidates(){
   const parts=location.pathname.split("/").filter(Boolean),paths=["/"];let current="";for(const part of parts){current+="/"+part;paths.push(current,current+"/")}return [...new Set(paths)].sort((a,b)=>b.length-a.length)
@@ -1892,7 +1989,7 @@ function cookieExpire(name){
   const expires="Thu, 01 Jan 1970 00:00:00 GMT";for(const path of cookiePathCandidates()){document.cookie=name+"=; Max-Age=0; Expires="+expires+"; Path="+path;for(const domain of cookieDomainCandidates())document.cookie=name+"=; Max-Age=0; Expires="+expires+"; Path="+path+"; Domain="+domain}
 }
 function cookieDeleteVisible(){
-  const items=cookieManagedItems();for(const item of items)cookieExpire(item.name);cookieWriteOrder([]);cookieRenderList()
+  const items=cookieManagedItems();for(const item of items)cookieExpire(item.name);cookieWriteOrder([]);cookieRenderList();logEvent("INFO","Cookie QA","deleted "+items.length+" test cookie"+(items.length===1?"":"s"))
 }
 function initCookieSandbox(){
   const random=document.getElementById("cookieRandom"),list=document.getElementById("cookieList"),del=document.getElementById("cookieDelete");if(!random||!list||!del)return;random.addEventListener("click",cookieCreateRandom);list.addEventListener("click",cookieRenderList);del.addEventListener("click",cookieDeleteVisible);cookieRenderList()
@@ -1921,19 +2018,88 @@ window.visualViewport?.addEventListener("resize",hymUpdateViewportProfile,{passi
 // --- /v123 viewport-adaptive main page ---
 
 
-// --- v131 external webqr.com redirect launcher ---
+// --- v157 mobile keyboard EVENT LOG ---
+const hymKeyboardState={open:false,baseline:0,timer:0,orientation:String(screen.orientation?.type||window.orientation||"")};
+function hymKeyboardViewportHeight(){return Math.max(1,Math.round(window.visualViewport?.height||window.innerHeight||document.documentElement.clientHeight||1))}
+function hymKeyboardEditable(element){return Boolean(element&&element.matches?.('input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]),textarea,[contenteditable="true"],[contenteditable=""]'))}
+function hymKeyboardEvaluate(){
+  clearTimeout(hymKeyboardState.timer);
+  hymKeyboardState.timer=setTimeout(()=>{
+    const viewport=window.visualViewport;if(!viewport)return;
+    const height=hymKeyboardViewportHeight(),editable=hymKeyboardEditable(document.activeElement);
+    if(!hymKeyboardState.baseline||(!hymKeyboardState.open&&!editable&&height>hymKeyboardState.baseline))hymKeyboardState.baseline=height;
+    const drop=Math.max(0,hymKeyboardState.baseline-height),threshold=Math.max(120,Math.round(hymKeyboardState.baseline*.18));
+    const shouldOpen=editable&&drop>=threshold;
+    if(shouldOpen&&!hymKeyboardState.open){hymKeyboardState.open=true;logEvent("INFO","Keyboard","opened");return}
+    if(hymKeyboardState.open&&drop<Math.max(70,Math.round(threshold*.55))){hymKeyboardState.open=false;hymKeyboardState.baseline=Math.max(hymKeyboardState.baseline,height);logEvent("INFO","Keyboard","closed");return}
+    if(!hymKeyboardState.open&&!editable)hymKeyboardState.baseline=Math.max(hymKeyboardState.baseline,height);
+  },180)
+}
+function hymKeyboardResetBaseline(){
+  hymKeyboardState.open=false;hymKeyboardState.baseline=0;clearTimeout(hymKeyboardState.timer);setTimeout(()=>{hymKeyboardState.baseline=hymKeyboardViewportHeight()},260)
+}
+if(window.visualViewport){
+  hymKeyboardState.baseline=hymKeyboardViewportHeight();
+  window.visualViewport.addEventListener("resize",hymKeyboardEvaluate,{passive:true});
+  document.addEventListener("focusin",event=>{if(hymKeyboardEditable(event.target))hymKeyboardEvaluate()});
+  document.addEventListener("focusout",event=>{if(hymKeyboardEditable(event.target))setTimeout(hymKeyboardEvaluate,80)});
+  window.addEventListener("orientationchange",hymKeyboardResetBaseline,{passive:true});
+}
+// --- /v157 mobile keyboard EVENT LOG ---
+
+
+// --- v158 useful redirect + MEDIA STATE engine ---
 const qrScannerOpen=document.getElementById("qrScannerOpen");
-if(qrScannerOpen)qrScannerOpen.addEventListener("click",()=>{logEvent("INFO","QR Scanner","external");location.href="https://webqr.com/"});
-// --- /v131 external webqr.com redirect launcher ---
+if(qrScannerOpen)qrScannerOpen.addEventListener("click",()=>{eventLogMarkExternal("external","QR Scanner");location.href="https://webqr.com/"});
 
-
-// --- v132 Wild Beach Party official demo launcher ---
 const wildBeachPartyOpen=document.getElementById("wildBeachPartyOpen");
-if(wildBeachPartyOpen)wildBeachPartyOpen.addEventListener("click",()=>{logEvent("INFO","Wild Beach","external");location.href="https://www.pragmaticplay.com/en/games/wild-beach-party/"});
-// --- /v132 Wild Beach Party official demo launcher ---
+if(wildBeachPartyOpen)wildBeachPartyOpen.addEventListener("click",()=>{eventLogMarkExternal("wild-beach","Wild Beach");location.href="https://www.pragmaticplay.com/en/games/wild-beach-party/"});
 
+const hymMediaState={audio:"paused",video:"closed",fullscreen:false,autoplay:"blocked"};
+function hymMediaText(id,value){const node=document.getElementById(id);if(node)node.textContent=String(value)}
+function hymMediaRender(){
+  hymMediaText("mediaAudioState",hymMediaState.audio);
+  hymMediaText("mediaVideoState",hymMediaState.video);
+  hymMediaText("mediaFullscreenState",hymMediaState.fullscreen?"on":"off");
+  hymMediaText("mediaAutoplayState",hymMediaState.autoplay);
+}
+function hymMediaSetAudio(state,writeLog=true){if(hymMediaState.audio===state){hymMediaRender();return}hymMediaState.audio=state;hymMediaRender();if(writeLog)logUsefulEvent(state==="started"?"audio started":"audio paused",state==="started"?"SUCCESS":"INFO")}
+function hymMediaSetVideo(state,writeLog=true){if(hymMediaState.video===state){hymMediaRender();return}hymMediaState.video=state;hymMediaRender();if(writeLog)logUsefulEvent(state==="started"?"video started":"video paused",state==="started"?"SUCCESS":"INFO")}
 const audio=document.querySelector("audio");
-if(audio){audio.addEventListener("play",()=>logEvent("SUCCESS","Audio","play"));audio.addEventListener("pause",()=>logEvent("INFO","Audio","pause"));audio.addEventListener("error",()=>logEvent("ERROR","Audio","load or playback error"))}
+function hymAudioRenderDetails(){if(!audio)return;hymMediaText("audioDetailState",audio.paused?"paused":"started");hymMediaText("audioMutedState",audio.muted?"yes":"no");hymMediaText("audioVolumeState",Math.round(Number(audio.volume||0)*100)+"%");hymMediaText("audioLoopState",audio.loop?"on":"off")}
+if(audio){
+  hymMediaState.audio=audio.paused?"paused":"started";hymAudioRenderDetails();hymMediaRender();
+  audio.addEventListener("play",()=>{hymMediaSetAudio("started");hymAudioRenderDetails()});
+  audio.addEventListener("pause",()=>{hymMediaSetAudio("paused");hymAudioRenderDetails()});
+  audio.addEventListener("ended",()=>{hymMediaSetAudio("paused");hymAudioRenderDetails()});
+  audio.addEventListener("volumechange",hymAudioRenderDetails);
+  audio.addEventListener("loadedmetadata",hymAudioRenderDetails);
+}
+
+let hymYoutubePlayer=null,hymYoutubeLastState=null;
+function hymYoutubeBind(){
+  if(hymYoutubePlayer||!(window.YT&&YT.Player)||!document.getElementById("youtubePlayer"))return;
+  try{hymYoutubePlayer=new YT.Player("youtubePlayer",{events:{
+    onReady:event=>{const state=event.target?.getPlayerState?.();hymMediaSetVideo(state===1?"started":"paused",false)},
+    onStateChange:event=>{if(event.data===hymYoutubeLastState)return;hymYoutubeLastState=event.data;if(event.data===1)hymMediaSetVideo("started");else if(event.data===2||event.data===0)hymMediaSetVideo("paused")}
+  }})}catch{}
+}
+function initYoutubeEventLogger(){
+  const existing=window.onYouTubeIframeAPIReady;
+  window.onYouTubeIframeAPIReady=function(){try{if(typeof existing==="function")existing()}catch{}hymYoutubeBind()};
+  if(window.YT&&YT.Player)hymYoutubeBind();else if(!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')){const script=document.createElement("script");script.src="https://www.youtube.com/iframe_api";script.async=true;document.head.append(script)}
+}
+function hymFullscreenActive(){return Boolean(document.fullscreenElement||document.webkitFullscreenElement)}
+function hymFullscreenChanged(){const active=hymFullscreenActive();if(active===hymMediaState.fullscreen){hymMediaRender();return}hymMediaState.fullscreen=active;hymMediaRender();logUsefulEvent(active?"fullscreen entered":"fullscreen exited")}
+document.addEventListener("fullscreenchange",hymFullscreenChanged);
+document.addEventListener("webkitfullscreenchange",hymFullscreenChanged);
+
+function hymOrientationLabel(){const type=String(screen.orientation?.type||"");if(type.startsWith("portrait"))return "portrait";if(type.startsWith("landscape"))return "landscape";return window.innerWidth>window.innerHeight?"landscape":"portrait"}
+let hymLastOrientation=hymOrientationLabel();
+window.addEventListener("orientationchange",()=>setTimeout(()=>{const next=hymOrientationLabel();hymLastOrientation=next;logUsefulEvent("screen rotated · "+next)},160),{passive:true});
+
+hymMediaRender();initYoutubeEventLogger();initGoogleLoginCancelTracking();
 dashboardInitExpandablePanels();initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
+// --- /v158 useful redirect + MEDIA STATE engine ---
 </script>
 </body></html>
