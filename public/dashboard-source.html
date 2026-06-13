@@ -610,6 +610,18 @@ body.dashboard-focus-open{overflow:hidden}
 }
 @media(prefers-reduced-motion:reduce){#section-offers .offer-btn,#section-offers .offer-btn::after{animation:none}}
 
+
+
+/* v142: mail inbox and message viewer stay inside the expanded mail panel */
+#section-temp-mail[open]{position:fixed!important;overflow:hidden}
+#section-temp-mail .temp-mail-modal{position:absolute;inset:72px 12px 12px;display:none;place-items:stretch;padding:0;background:rgba(3,8,9,.965);z-index:34;border:1px solid #294146;box-shadow:0 14px 34px rgba(0,0,0,.44)}
+#section-temp-mail .temp-mail-modal.on{display:grid}
+#section-temp-mail .temp-mail-message-modal{z-index:44;background:rgba(3,8,9,.985)}
+#section-temp-mail .temp-mail-modal-box{width:100%;max-width:none;height:100%;max-height:100%;border:0;box-shadow:none;background:#071013}
+#section-temp-mail .temp-mail-modal-list{max-height:none;height:100%;min-height:0}
+#section-temp-mail .temp-mail-modal-viewer{max-height:none;height:100%;min-height:0}
+@media(max-width:700px){#section-temp-mail .temp-mail-modal{inset:64px 6px 6px}}
+
 </style>
 </head>
 <body>
@@ -1060,8 +1072,13 @@ async function tempMailConnectFixed(){
 }
 function tempMailModalOpen(node){if(!node)return;node.classList.add("on");node.setAttribute("aria-hidden","false")}
 function tempMailModalClose(node){if(!node)return;node.classList.remove("on");node.setAttribute("aria-hidden","true")}
+function tempMailAttachInnerOverlays(){
+  const panel=el("section-temp-mail");
+  if(!panel)return;
+  [el("tempMailInboxModal"),el("tempMailMessageModal")].forEach(node=>{if(node&&node.parentNode!==panel)panel.appendChild(node)});
+}
 function tempMailClearViewer(){tempMailOpenedMessageId="";tempMailReleaseViewerUrls();const viewer=el("tempMailViewer");viewer?.classList.remove("on");viewer?.replaceChildren();tempMailModalClose(el("tempMailMessageModal"))}
-function tempMailOpenInboxModal(){tempMailModalOpen(el("tempMailInboxModal"));if(tempMailState?.token)tempMailRefresh({silent:true})}
+function tempMailOpenInboxModal(){tempMailAttachInnerOverlays();tempMailModalOpen(el("tempMailInboxModal"));if(tempMailState?.token)tempMailRefresh({silent:true})}
 function tempMailCloseInboxModal(){tempMailClearViewer();tempMailModalClose(el("tempMailInboxModal"))}
 function tempMailFormatTime(value){
   if(!value)return "";
@@ -1200,7 +1217,7 @@ async function tempMailOpenMessage(id){
     await tempMailRenderRichBody(viewer,message);
     tempMailOpenedMessageId=id;
     viewer.classList.add("on");
-    tempMailModalOpen(el("tempMailMessageModal"));
+    tempMailAttachInnerOverlays();tempMailModalOpen(el("tempMailMessageModal"));
     tempMailSetStatus(`Відкрито лист: ${message.subject||"Без теми"}`);
   }catch(error){tempMailSetStatus("Не вдалося відкрити лист: "+error.message)}
   finally{tempMailBusy=false}
@@ -1364,6 +1381,7 @@ function initBeta20FixedMailToggle(){
   });
 }
 function initTempMail(){
+  tempMailAttachInnerOverlays();
   tempMailRestore();
   el("tempMailCreate").onclick=()=>tempMailCreate();
   el("tempMailReplace").onclick=()=>tempMailCreate({replace:true});
