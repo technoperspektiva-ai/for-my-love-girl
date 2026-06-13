@@ -562,3 +562,29 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Tightens the header, navigation, controls, media card, offer buttons, and Wild Beach launcher only in landscape.
 - Keeps focus overlays and dialogs within the visible landscape viewport.
 - Leaves FREE manual layouts intact instead of rewriting user-saved coordinates.
+
+
+## v160 Telegram EVENT LOG + Google logout
+
+- Logs a successful Telegram callback as `Telegram logined · <account>`.
+- Logs the Telegram logout action as `Telegram logout`.
+- Adds a `Вийти з Google` button inside the signed-in Google profile.
+- Google logout clears the local profile UI, disables Google auto-select for the browser session and records `Google logout` without revoking account consent.
+
+
+## v161 app versus market fallback orientation
+
+- Adds a best-effort mobile deep-link probe for PhonePe UPI, Paytm UPI and app redirect buttons.
+- Records `app likely opened · <label>` when the page is backgrounded before the fallback timer fires.
+- Records `market fallback opened · <label>` when the site opens a Play Store or App Store search fallback after 1450 ms.
+- Records `returned to dashboard · from <label>` after returning from the opened app or market.
+- Keeps direct cashier checkout redirects unchanged.
+- This is an orientation aid for QA: browsers do not expose an authoritative OS callback confirming which external app handled a custom URL scheme.
+
+
+## v162 hidden media state and edge-volume log
+
+- Removes the visible `MEDIA STATE` and `AUDIO STATE` boxes from the media card without removing internal media tracking.
+- Keeps useful EVENT LOG entries for audio start/pause, video start/pause and fullscreen enter/exit.
+- Adds `audio volume · 100%` and `audio volume · 0%` only when the effective audio volume changes to an edge value.
+- Treats mute as effective 0% and unmute at maximum volume as 100%. Intermediate volume changes are intentionally not logged.
