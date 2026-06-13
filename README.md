@@ -491,3 +491,13 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - The collapsed card keeps only a compact clickable filename row.
 - Clicking the filename reopens the photo preview.
 - The delete action now lives inside the photo preview modal.
+
+
+## v152 Header EVENT LOG focus modal
+
+- Adds a compact EVENT LOG icon directly after `HYM // WWG QA Team` in the header.
+- Shows the latest recorded event as one compact inline status after the icon.
+- Opens the full local session event journal in a focus modal.
+- Includes `COPY`, `EXPORT`, and `CLEAR` controls inside the modal.
+- Records page restore/ready state, visibility changes, payment redirect clicks, external offer launches, photo actions, media actions, and existing QA callbacks.
+- Stores the journal only in browser `sessionStorage`; the list is capped to the most recent 180 events.
