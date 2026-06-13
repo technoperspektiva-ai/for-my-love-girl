@@ -595,3 +595,9 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Header format: `ANDROID | UA`, `IOS | PL`, `WINDOWS | DE`; fallback is `--` when the region is unavailable.
 - Country code is injected by the Worker from Cloudflare request metadata without delaying page rendering.
 
+## v166 remove regressed visible media state
+- Removes the accidentally restored visible `MEDIA STATE` and `AUDIO STATE` boxes from the media card.
+- Keeps internal audio, YouTube and fullscreen EVENT LOG tracking.
+- Keeps the requested edge-volume EVENT LOG entries: `audio volume · 0%` and `audio volume · 100%`.
+- Preserves the v165 Cloudflare region badge in the header.
+
