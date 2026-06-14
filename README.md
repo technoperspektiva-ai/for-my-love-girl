@@ -661,3 +661,19 @@ Use this ZIP as the safe deployment baseline. Live chat should be re-added later
 - Використовується той самий Cloudflare KV binding `PRESETS_KV`.
 - Server/Important записи зберігаються в KV ключі `hym:notice-board:server:v1`.
 - Local notes зберігаються тільки в `localStorage` конкретного браузера.
+
+
+## v177 Notice Board containment + admin template loader
+
+- Notice Board тепер жорстко затиснутий всередині картки, без вильоту corkboard за межі блоку.
+- Додано декоративні червоні нитки між нотатками на дошці.
+- На mobile нитки вимикаються, щоб не ламати вузьку верстку.
+- В адмін-панель додано кнопку `LOAD TEMPLATES`, яка окремо підгружає KV-шаблони для вибору.
+- Автооновлення адмінки більше не повинно перебивати вибір шаблонів у select.
+
+
+## v178 Admin board preview
+
+- В адмін-панелі Important info тепер показується тим самим corkboard preview, як на сайті.
+- Адмін бачить достовірний вигляд нотаток: прикріплені листки, pin-ефект і червоні нитки між документами.
+- Це лише візуальний preview у hidden admin panel; логіка KV і Local notes не змінена.

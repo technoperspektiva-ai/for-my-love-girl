@@ -783,6 +783,61 @@ body.dashboard-focus-open{overflow:hidden}
 @keyframes hymBtnAlarm{0%,100%{filter:brightness(1.08)}50%{filter:brightness(1.28);box-shadow:0 0 0 2px rgba(255,77,87,.45),0 0 28px rgba(255,77,87,.28),0 0 20px rgba(52,255,154,.16)}}
 @media(prefers-reduced-motion:reduce){.btn.hym-hover-fx,.btn.hym-hover-fx:hover,.btn.hym-hover-fx::before,.btn.hym-hover-fx::after{animation:none!important;transition:none!important;transform:none!important}}
 
+
+/* v177: contained notice board + red evidence threads */
+#section-board.notice-board-card{
+  overflow:hidden!important;
+  contain:layout paint;
+}
+#section-board .notice-board-shell{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  overflow:hidden!important;
+  border-radius:2px;
+}
+#section-board .notice-board-stage{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  overflow:hidden!important;
+  position:relative!important;
+  isolation:isolate;
+}
+#section-board .notice-thread-svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:1;
+  overflow:visible;
+}
+#section-board .notice-thread-line{
+  fill:none;
+  stroke:#ff2532;
+  stroke-width:2.1;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:.76;
+  filter:drop-shadow(0 1px 1px rgba(40,0,0,.45));
+}
+#section-board .notice-thread-pin{
+  fill:#ff2532;
+  stroke:#8a0d14;
+  stroke-width:1.2;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.32));
+}
+#section-board .notice-note{
+  z-index:2;
+  min-width:0;
+}
+@media(max-width:700px){
+  #section-board .notice-board-shell{padding:10px!important}
+  #section-board .notice-board-stage{grid-template-columns:minmax(0,1fr)!important;gap:10px!important}
+  #section-board .notice-thread-svg{display:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -1240,7 +1295,49 @@ function noticeTime(ts){if(!ts)return"—";try{return new Date(ts).toLocaleStrin
 function noticeSetStatus(message="",kind=""){const node=el("noticePersonalStatus");if(!node)return;node.textContent=message;node.className="notice-board-status"+(kind?" "+kind:"")}
 function noticeMeta(text){const node=el("noticeBoardMeta");if(node)node.textContent=text}
 function noticeBuildCard(note,type,index){const card=document.createElement("article");card.className="notice-note";card.dataset.type=type;card.style.setProperty("--note-rotate",(["-2deg","1.2deg","-1.1deg","2deg","-0.4deg","1.6deg"])[index%6]);const pin=document.createElement("span");pin.className="notice-pin";const title=document.createElement("div");title.className="notice-note-title";title.textContent=note.title||"Без назви";const body=document.createElement("div");body.className="notice-note-body";body.textContent=note.body||"";const footer=document.createElement("div");footer.className="notice-note-footer";const time=document.createElement("span");time.textContent=noticeTime(note.updatedAt||note.createdAt||0);footer.append(time);if(type==="personal"){const del=document.createElement("button");del.type="button";del.className="notice-note-delete";del.textContent="delete";del.onclick=()=>{noticePersonalData=noticePersonalData.filter(item=>item.id!==note.id);noticeWritePersonal();noticeRender()};footer.append(del)}card.append(pin,title,body,footer);return card}
-function noticeRenderStage(node,notes,type){if(!node)return;node.replaceChildren();if(!Array.isArray(notes)||!notes.length){const empty=document.createElement("div");empty.className="notice-note-empty";empty.textContent=type==="server"?"Адмін ще не додав важливу інформацію":"Порожньо · додай локальну нотатку";node.append(empty);return}notes.forEach((note,index)=>node.append(noticeBuildCard(note,type,index)))}
+function noticeRenderStage(node,notes,type){if(!node)return;node.replaceChildren();if(!Array.isArray(notes)||!notes.length){const empty=document.createElement("div");empty.className="notice-note-empty";empty.textContent=type==="server"?"Адмін ще не додав важливу інформацію":"Порожньо · додай локальну нотатку";node.append(empty);return}notes.forEach((note,index)=>node.append(noticeBuildCard(note,type,index)));requestAnimationFrame(()=>noticeDrawThreads(node,type))}
+
+function noticeDrawThreads(stage,type){
+  if(!stage||stage.hidden)return;
+  stage.querySelectorAll(".notice-thread-svg").forEach(svg=>svg.remove());
+  const notes=[...stage.querySelectorAll(".notice-note")];
+  if(notes.length<2)return;
+  const box=stage.getBoundingClientRect();
+  if(box.width<220||box.height<120)return;
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.classList.add("notice-thread-svg");
+  svg.setAttribute("viewBox","0 0 "+Math.max(1,Math.round(box.width))+" "+Math.max(1,Math.round(box.height)));
+  svg.setAttribute("preserveAspectRatio","none");
+  const limit=Math.min(notes.length-1,7);
+  for(let i=0;i<limit;i++){
+    const a=notes[i].getBoundingClientRect(),b=notes[i+1].getBoundingClientRect();
+    const x1=a.left+a.width*.5-box.left,y1=a.top+12-box.top;
+    const x2=b.left+b.width*.5-box.left,y2=b.top+12-box.top;
+    const sag=Math.max(18,Math.min(52,Math.abs(x2-x1)*.12+18));
+    const cx=(x1+x2)/2,cy=Math.max(y1,y2)+sag;
+    const path=document.createElementNS("http://www.w3.org/2000/svg","path");
+    path.classList.add("notice-thread-line");
+    path.setAttribute("d","M "+x1.toFixed(1)+" "+y1.toFixed(1)+" Q "+cx.toFixed(1)+" "+cy.toFixed(1)+" "+x2.toFixed(1)+" "+y2.toFixed(1));
+    svg.append(path);
+    [ [x1,y1], [x2,y2] ].forEach(([x,y])=>{
+      const c=document.createElementNS("http://www.w3.org/2000/svg","circle");
+      c.classList.add("notice-thread-pin");
+      c.setAttribute("cx",x.toFixed(1));
+      c.setAttribute("cy",y.toFixed(1));
+      c.setAttribute("r","4.4");
+      svg.append(c);
+    });
+  }
+  stage.prepend(svg);
+}
+let noticeThreadRedrawTimer=0;
+function noticeScheduleThreadRedraw(){
+  clearTimeout(noticeThreadRedrawTimer);
+  noticeThreadRedrawTimer=setTimeout(()=>noticeRender(),120);
+}
+window.addEventListener("resize",noticeScheduleThreadRedraw,{passive:true});
+window.addEventListener("orientationchange",noticeScheduleThreadRedraw,{passive:true});
+
 function noticeRefreshMeta(){if(noticeMode==="server"){const count=Array.isArray(noticeServerData.notes)?noticeServerData.notes.length:0;const suffix=noticeServerData.updatedAt?" · updated "+noticeTime(noticeServerData.updatedAt):noticeServerData.error?" · offline cache":"";noticeMeta("Important info · "+count+suffix)}else{noticeMeta("Local notes · "+noticePersonalData.length+" local")}}
 function noticeRender(){const serverStage=el("noticeServerStage"),personalStage=el("noticePersonalStage"),editor=el("noticePersonalEditor"),tabServer=el("noticeTabServer"),tabPersonal=el("noticeTabPersonal"),refresh=el("noticeBoardRefresh");noticeRenderStage(serverStage,noticeServerData.notes,"server");noticeRenderStage(personalStage,noticePersonalData,"personal");const serverOn=noticeMode!=="personal";serverStage.hidden=!serverOn;personalStage.hidden=serverOn;editor.hidden=serverOn;tabServer?.classList.toggle("green",serverOn);tabServer?.classList.toggle("notice-tab-active",serverOn);tabPersonal?.classList.toggle("green",!serverOn);tabPersonal?.classList.toggle("notice-tab-active",!serverOn);if(refresh)refresh.style.display=serverOn?"":"none";noticeRefreshMeta();window.hymRefreshButtonFx?.()}
 function noticeSetMode(mode){noticeMode=mode==="personal"?"personal":"server";noticeRender()}
