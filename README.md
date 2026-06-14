@@ -741,3 +741,20 @@ Use this ZIP as the safe deployment baseline. Live chat should be re-added later
 
 - Прибрано описовий текст з компактної картки Notice Board.
 - У картці лишилась тільки кнопка `OPEN BOARD`.
+
+
+## v188 Admin selects force load
+
+- Додано `/api/hym-admin/presets` для прямого читання server presets із `hym:presets:index:v2`.
+- В адмін-панель додано кнопку `FORCE LOAD PRESETS`.
+- Select-и phone/tablet/windows тепер примусово заповнюються з direct endpoint.
+- Додано статус, який показує скільки presets реально підгрузилось.
+
+
+## v189 Free move all cards
+
+- Додано fallback free-move для всіх top-level dashboard cards.
+- Проблемні блоки `Wild Beach / casino`, `Media`, `QR`, `Cookies`, `Notice Board`, `Stripe`, details-card тепер примусово сумісні з free-layout.
+- Додано move-handle `↘` у free-layout, якщо стандартна система не зачепила блок.
+- Позиції fallback move зберігаються в `localStorage` ключі `hym_free_move_positions_v189`.
+- Під час перетягування iframe/audio/buttons тимчасово не блокують drag.
