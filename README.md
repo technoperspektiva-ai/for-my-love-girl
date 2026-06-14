@@ -633,3 +633,19 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Effects are intentionally not applied to every button to keep the UI clean.
 - Variants include subtle scan, pulse, glitch and lift motion.
 - Touch devices and reduced-motion users do not get noisy hover animation.
+
+
+## v171 visible button hover/tap FX
+- Reworked selective random button effects so they are clearly visible.
+- Fixed the v170 effect initializer placement so it runs on the main dashboard, not inside temp-mail iframe preview HTML.
+- Added tap feedback for touch devices while keeping effects selective, not on every button.
+
+
+## v172 in-memory admin live chat
+
+- Added memory-only admin live chat without KV writes.
+- Admin panel shows online users with IP / region / OS and can start a text-only dialog.
+- User sees a blinking ATTENTION modal and chooses a display name before replying.
+- If the user closes the dialog, it stays hidden until the next admin message.
+- If admin closes the chat, the dialog disappears and history is removed from memory.
+- No GIF/image attachments and no persistence; data is lost when Worker memory is recycled.
