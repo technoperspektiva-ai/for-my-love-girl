@@ -762,6 +762,22 @@ body.dashboard-focus-open{overflow:hidden}
   html[data-hym-device="phone"] .event-log-list{max-height:58dvh}
 }
 
+
+
+/* v170: selective random hover animations for buttons */
+.btn.hym-hover-fx{position:relative;overflow:hidden;will-change:transform,box-shadow}
+.btn.hym-hover-fx::after{content:"";position:absolute;inset:-1px;pointer-events:none;opacity:0;background:linear-gradient(90deg,transparent,rgba(52,255,154,.18),transparent);transform:translateX(-115%)}
+.btn.hym-hover-fx:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(52,255,154,.18),0 0 16px rgba(52,255,154,.12)}
+.btn.hym-hover-fx:hover::after{opacity:1;animation:hymBtnScan .62s ease-out 1}
+.btn.hym-hover-fx[data-hym-hover-fx="pulse"]:hover{animation:hymBtnPulse .95s ease-in-out infinite}
+.btn.hym-hover-fx[data-hym-hover-fx="glitch"]:hover{animation:hymBtnGlitch .55s steps(2,end) 1}
+.btn.hym-hover-fx[data-hym-hover-fx="lift"]:hover{transform:translateY(-2px) scale(1.015)}
+@keyframes hymBtnScan{0%{transform:translateX(-115%)}100%{transform:translateX(115%)}}
+@keyframes hymBtnPulse{0%,100%{box-shadow:0 0 0 1px rgba(52,255,154,.12),0 0 10px rgba(52,255,154,.08)}50%{box-shadow:0 0 0 1px rgba(52,255,154,.32),0 0 20px rgba(52,255,154,.20)}}
+@keyframes hymBtnGlitch{0%{transform:translate(0,0)}20%{transform:translate(1px,-1px)}40%{transform:translate(-1px,1px)}60%{transform:translate(1px,0)}80%{transform:translate(-1px,0)}100%{transform:translate(0,0)}}
+@media(hover:none),(pointer:coarse){.btn.hym-hover-fx:hover{transform:none;animation:none;box-shadow:none}.btn.hym-hover-fx:hover::after{animation:none;opacity:0}}
+@media(prefers-reduced-motion:reduce){.btn.hym-hover-fx,.btn.hym-hover-fx:hover,.btn.hym-hover-fx::after{animation:none!important;transition:none!important;transform:none!important}}
+
 </style>
 </head>
 <body>
@@ -1497,7 +1513,31 @@ async function tempMailRenderRichBody(viewer,message){
   let safeHtml=htmlValue?tempMailSanitizeHtml(htmlValue):"";safeHtml=tempMailHydrateInlineImages(safeHtml,assets);
   const rich=tempMailMake("div","temp-mail-rich");
   if(safeHtml.trim()){
-    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'</body></html>';rich.append(frame)
+    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'
+<script>
+(function(){
+  const fx=["scan","pulse","glitch","lift"];
+  function hashText(value){
+    let h=2166136261;
+    for(let i=0;i<value.length;i++){h^=value.charCodeAt(i);h=Math.imul(h,16777619)}
+    return h>>>0;
+  }
+  function initRandomButtonHoverFx(){
+    const buttons=[...document.querySelectorAll(".btn")].filter(btn=>!btn.closest(".hym-mobile-toolbar,.layout-toolbar"));
+    buttons.forEach((btn,index)=>{
+      if(btn.classList.contains("hym-hover-fx"))return;
+      const seed=(btn.id||btn.dataset.action||btn.textContent||"btn")+"#"+index;
+      const h=hashText(seed);
+      if(h%100>=43)return;
+      btn.classList.add("hym-hover-fx");
+      btn.dataset.hymHoverFx=fx[h%fx.length];
+    });
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initRandomButtonHoverFx,{once:true});
+  else initRandomButtonHoverFx();
+})();
+</script>
+</body></html>';rich.append(frame)
   }else{rich.append(tempMailMake("div","temp-mail-body",tempMailSafeText(message)||"Текст листа відсутній."))}
   const imageAssets=assets.filter(asset=>asset.isImage);
   if(imageAssets.length){const gallery=tempMailMake("div","temp-mail-image-gallery");imageAssets.forEach(asset=>{const link=document.createElement("a");link.className="temp-mail-image-card";link.href=asset.blobUrl;link.target="_blank";link.rel="noopener noreferrer";link.title=asset.filename;const img=document.createElement("img");img.src=asset.inlineUrl;img.alt=asset.filename;img.loading="lazy";const label=tempMailMake("span","",asset.filename);link.append(img,label);gallery.append(link)});rich.append(gallery)}

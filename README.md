@@ -625,3 +625,11 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Added a 90 second server-save cooldown to protect the daily KV write limit.
 - Added a small KV saver status in the presets dialog: LOCAL-FIRST, cooldown, saved writes counter, last server save and cache time.
 - Server storage for layout presets now uses a single KV index key (`hym:presets:index:v2`) instead of one KV key per preset. Legacy `hym:preset:*` records can still be read as a fallback.
+
+
+## v170 Selective random button hover FX
+
+- Added selective hover animations to a stable subset of dashboard buttons.
+- Effects are intentionally not applied to every button to keep the UI clean.
+- Variants include subtle scan, pulse, glitch and lift motion.
+- Touch devices and reduced-motion users do not get noisy hover animation.
