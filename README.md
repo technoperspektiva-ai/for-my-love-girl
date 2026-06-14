@@ -651,3 +651,13 @@ This package returns to the last stable build before the live-chat injection:
 - removes the memory-only admin/user live chat experiment completely.
 
 Use this ZIP as the safe deployment baseline. Live chat should be re-added later as a separate isolated module behind a disabled-by-default flag.
+
+
+## v176 Important Board Admin
+
+- Додано поділ дошки на два стани:
+  - `Important` — дошка для всіх користувачів, керується тільки з `/hym-admin/<ADMIN_SECRET_KEY>`.
+  - `Local notes` — особиста локальна дошка користувача прямо в блоці сайту.
+- Використовується той самий Cloudflare KV binding `PRESETS_KV`.
+- Server/Important записи зберігаються в KV ключі `hym:notice-board:server:v1`.
+- Local notes зберігаються тільки в `localStorage` конкретного браузера.
