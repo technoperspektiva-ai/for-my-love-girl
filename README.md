@@ -677,3 +677,11 @@ Use this ZIP as the safe deployment baseline. Live chat should be re-added later
 - В адмін-панелі Important info тепер показується тим самим corkboard preview, як на сайті.
 - Адмін бачить достовірний вигляд нотаток: прикріплені листки, pin-ефект і червоні нитки між документами.
 - Це лише візуальний preview у hidden admin panel; логіка KV і Local notes не змінена.
+
+
+## v179 Contained Notice Board
+
+- Notice Board переведено в закритий/розкривний `details`-блок.
+- Corkboard більше не може вилітати фоном під сусідні картки.
+- Додано жорсткий stacking/isolation/contain для дошки.
+- Червоні нитки залишаються тільки всередині відкритого тіла дошки.
