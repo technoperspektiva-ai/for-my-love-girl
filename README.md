@@ -710,3 +710,10 @@ Use this ZIP as the safe deployment baseline. Live chat should be re-added later
 - Local notes можна додавати прямо в модальному вікні.
 - Після додавання локальної нотатки модалка лишається відкритою.
 - Коричневий corkboard замінено на системний HYM-стиль: темний фон, neon grid, зелені/сині pins, темні клаптики.
+
+
+## v190 User-provided v182 clean base
+
+- База взята з ZIP, який користувач завантажив у чат.
+- Без додаткових експериментальних правок.
+- Логіка проєкту не змінювалась, окрім version marker.

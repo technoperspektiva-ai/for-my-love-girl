@@ -115,7 +115,7 @@ export default {
     }
 
     if (url.pathname === "/api/health") {
-      return Response.json({ ok: true, version: "v182-system-notes-modal-fix" });
+      return Response.json({ ok: true, version: "v190-user-v182-clean-base" });
     }
 
     return new Response(
