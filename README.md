@@ -640,12 +640,14 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Fixed the v170 effect initializer placement so it runs on the main dashboard, not inside temp-mail iframe preview HTML.
 - Added tap feedback for touch devices while keeping effects selective, not on every button.
 
+## v173 Safe rollback — live chat disabled
 
-## v172 in-memory admin live chat
+Emergency rollback from v172 because the memory-only live chat experiment caused instability on deploy/runtime.
 
-- Added memory-only admin live chat without KV writes.
-- Admin panel shows online users with IP / region / OS and can start a text-only dialog.
-- User sees a blinking ATTENTION modal and chooses a display name before replying.
-- If the user closes the dialog, it stays hidden until the next admin message.
-- If admin closes the chat, the dialog disappears and history is removed from memory.
-- No GIF/image attachments and no persistence; data is lost when Worker memory is recycled.
+This package returns to the last stable build before the live-chat injection:
+- keeps visible button hover/tap FX from v171;
+- keeps KV-saver/local-first changes from v169;
+- keeps Capability Snapshot IP, region badge, photo share, clean Media block, centered mobile landscape, useful Event Log and previous stable dashboard behavior;
+- removes the memory-only admin/user live chat experiment completely.
+
+Use this ZIP as the safe deployment baseline. Live chat should be re-added later as a separate isolated module behind a disabled-by-default flag.
