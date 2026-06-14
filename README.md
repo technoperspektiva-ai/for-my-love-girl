@@ -710,3 +710,34 @@ Use this ZIP as the safe deployment baseline. Live chat should be re-added later
 - Local notes можна додавати прямо в модальному вікні.
 - Після додавання локальної нотатки модалка лишається відкритою.
 - Коричневий corkboard замінено на системний HYM-стиль: темний фон, neon grid, зелені/сині pins, темні клаптики.
+
+
+## v184 Safe rollback
+
+- Відкат до стабільнішої бази v182.
+- Проблемний v183 notes hardfix повністю прибраний.
+- Important/Local Notice Board лишається у стані до hardfix.
+- Admin LOAD TEMPLATES fix з v181 збережений.
+
+
+## v185 Unglue media sections
+
+- Виправлено склеювання `section-media`, `section-qr`, `section-wild-beach-party` і `section-cookies`.
+- Перебудовано HTML-boundaries цих карток, щоб Media більше не ковтав наступні секції.
+- Додано CSS-захист для окремого відображення Media / QR / Wild Beach / Cookies.
+
+
+## v186 Admin notepad fix
+
+- Переписано Important info notepad в hidden admin panel на простішу і стабільнішу логіку.
+- `ADD IMPORTANT` напряму пише в `/api/hym-admin/notice-board`.
+- `DELETE` видаляє конкретний important-клаптик.
+- `RELOAD BOARD` перечитує important-дошку з KV.
+- Preview-дошка в адмінці лишається в системному HYM-стилі з нитками.
+- Media/QR/Wild/Cookies фікс з v185 збережений.
+
+
+## v187 Clean Notice Board card
+
+- Прибрано описовий текст з компактної картки Notice Board.
+- У картці лишилась тільки кнопка `OPEN BOARD`.
