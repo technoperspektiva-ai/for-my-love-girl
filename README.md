@@ -685,3 +685,37 @@ Use this ZIP as the safe deployment baseline. Live chat should be re-added later
 - Corkboard більше не може вилітати фоном під сусідні картки.
 - Додано жорсткий stacking/isolation/contain для дошки.
 - Червоні нитки залишаються тільки всередині відкритого тіла дошки.
+
+
+## v180 Notice Board focus overlay
+
+- Notice Board більше не відкривається внизу сторінки.
+- Картка лишається компактною в dashboard, а дошка відкривається як focus-overlay/modal поверх dashboard.
+- Відкриття/закриття: `OPEN BOARD`, `×`, клік по фону, `Escape`.
+- Червоні нитки й corkboard залишаються всередині модального вікна.
+
+
+## v181 Admin LOAD TEMPLATES fix
+
+- Hidden admin panel тепер читає шаблони з того самого single-index KV, що і HYM presets:
+  `hym:presets:index:v2`.
+- `LOAD TEMPLATES` підтягує актуальні server presets у select-и phone/tablet/windows.
+- Встановлення стандартного шаблону тепер перевіряє preset у single-index, а не тільки в legacy `hym:preset:*`.
+- Public active template також шукає profile у single-index.
+
+
+## v182 System-style notes modal fix
+
+- Notice Board modal більше не має закриватися/викидати при кліках усередині.
+- Local notes можна додавати прямо в модальному вікні.
+- Після додавання локальної нотатки модалка лишається відкритою.
+- Коричневий corkboard замінено на системний HYM-стиль: темний фон, neon grid, зелені/сині pins, темні клаптики.
+
+
+## v183 Notes add/delete hardfix
+
+- Local note editor тепер завжди видимий у Notice Board modal.
+- ADD NOTE додає клаптик незалежно від активної вкладки і автоматично перемикає на Local notes.
+- DELETE на кожному локальному клаптику видаляє конкретну нотатку.
+- CLEAR LOCAL очищає всі локальні клаптики.
+- Події кнопок зупиняють bubbling, щоб модалка не закривалась і не викидала з вікна.
