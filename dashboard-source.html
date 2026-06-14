@@ -781,31 +781,6 @@ body.dashboard-focus-open{overflow:hidden}
 @keyframes hymBtnAlarm{0%,100%{filter:brightness(1.08)}50%{filter:brightness(1.28);box-shadow:0 0 0 2px rgba(255,77,87,.45),0 0 28px rgba(255,77,87,.28),0 0 20px rgba(52,255,154,.16)}}
 @media(prefers-reduced-motion:reduce){.btn.hym-hover-fx,.btn.hym-hover-fx:hover,.btn.hym-hover-fx::before,.btn.hym-hover-fx::after{animation:none!important;transition:none!important;transform:none!important}}
 
-
-
-/* v174 safe direct live chat overlay (no KV) */
-.hym-live-chat-overlay{position:fixed;inset:0;z-index:760;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(0,0,0,.74);backdrop-filter:blur(2px)}
-.hym-live-chat-overlay.on{display:flex}
-.hym-live-chat-box{width:min(430px,calc(100vw - 24px));max-height:min(680px,calc(100vh - 28px));display:flex;flex-direction:column;background:linear-gradient(180deg,#0b1012,#050708);border:1px solid #7c2a30;box-shadow:0 0 0 1px rgba(255,77,87,.2),0 24px 70px rgba(0,0,0,.72),0 0 36px rgba(255,77,87,.16);overflow:hidden}
-.hym-live-chat-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 11px;border-bottom:1px solid #3a181c;background:linear-gradient(90deg,rgba(255,77,87,.18),rgba(52,255,154,.04));animation:hymAttentionPulse 1.35s ease-in-out infinite}
-.hym-live-chat-alert{display:flex;align-items:center;gap:8px;color:#ffdce0;font-weight:900;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
-.hym-live-chat-triangle{color:#ff4d57;text-shadow:0 0 12px rgba(255,77,87,.7);font-size:16px;line-height:1}
-.hym-live-chat-close{appearance:none;border:1px solid #4b2025;background:#14080a;color:#ffb9bf;padding:7px 8px;font-size:10px;font-weight:900;text-transform:uppercase}
-.hym-live-chat-sub{padding:8px 11px;border-bottom:1px solid #1c2a2f;color:#7c9994;font-size:10px;line-height:1.35}
-.hym-live-chat-admin-code{display:inline-block;color:#34ff9a;text-shadow:0 0 12px rgba(52,255,154,.4);font-weight:900;letter-spacing:.14em}
-.hym-live-chat-name{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;padding:10px 11px;border-bottom:1px solid #1c2a2f;background:#071013}
-.hym-live-chat-name.hidden{display:none}
-.hym-live-chat-log{min-height:160px;max-height:340px;overflow:auto;padding:10px 11px;display:flex;flex-direction:column;gap:8px;background:radial-gradient(circle at 15% 0%,rgba(255,77,87,.08),transparent 38%),#050708}
-.hym-live-chat-msg{max-width:88%;padding:8px 9px;border:1px solid #1c2a2f;background:#071013;color:#d7f5ee;font-size:12px;line-height:1.35;word-break:break-word;white-space:pre-wrap}
-.hym-live-chat-msg.admin{align-self:flex-start;border-color:#5d242a;background:#19090c;color:#ffe1e4}
-.hym-live-chat-msg.user{align-self:flex-end;border-color:#175b3c;background:#051e13;color:#d7fff0}
-.hym-live-chat-meta{display:block;margin-bottom:4px;color:#7c9994;font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
-.hym-live-chat-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;padding:10px 11px;border-top:1px solid #1c2a2f;background:#071013}
-.hym-live-chat-form textarea{min-height:42px;max-height:110px;margin:0;resize:vertical}
-.hym-live-chat-status{padding:0 11px 10px;color:#7c9994;font-size:10px;min-height:20px}
-@keyframes hymAttentionPulse{0%,100%{box-shadow:inset 0 0 0 rgba(255,77,87,0)}50%{box-shadow:inset 0 0 22px rgba(255,77,87,.18)}}
-@media(max-width:700px){.hym-live-chat-box{width:min(390px,calc(100vw - 18px))}.hym-live-chat-log{max-height:46vh}.hym-live-chat-form{grid-template-columns:1fr}.hym-live-chat-name{grid-template-columns:1fr}}
-
 </style>
 </head>
 <body>
@@ -1541,90 +1516,7 @@ async function tempMailRenderRichBody(viewer,message){
   let safeHtml=htmlValue?tempMailSanitizeHtml(htmlValue):"";safeHtml=tempMailHydrateInlineImages(safeHtml,assets);
   const rich=tempMailMake("div","temp-mail-rich");
   if(safeHtml.trim()){
-    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}
-
-/* v174 safe direct live chat overlay (no KV) */
-.hym-live-chat-overlay{position:fixed;inset:0;z-index:760;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(0,0,0,.74);backdrop-filter:blur(2px)}
-.hym-live-chat-overlay.on{display:flex}
-.hym-live-chat-box{width:min(430px,calc(100vw - 24px));max-height:min(680px,calc(100vh - 28px));display:flex;flex-direction:column;background:linear-gradient(180deg,#0b1012,#050708);border:1px solid #7c2a30;box-shadow:0 0 0 1px rgba(255,77,87,.2),0 24px 70px rgba(0,0,0,.72),0 0 36px rgba(255,77,87,.16);overflow:hidden}
-.hym-live-chat-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 11px;border-bottom:1px solid #3a181c;background:linear-gradient(90deg,rgba(255,77,87,.18),rgba(52,255,154,.04));animation:hymAttentionPulse 1.35s ease-in-out infinite}
-.hym-live-chat-alert{display:flex;align-items:center;gap:8px;color:#ffdce0;font-weight:900;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
-.hym-live-chat-triangle{color:#ff4d57;text-shadow:0 0 12px rgba(255,77,87,.7);font-size:16px;line-height:1}
-.hym-live-chat-close{appearance:none;border:1px solid #4b2025;background:#14080a;color:#ffb9bf;padding:7px 8px;font-size:10px;font-weight:900;text-transform:uppercase}
-.hym-live-chat-sub{padding:8px 11px;border-bottom:1px solid #1c2a2f;color:#7c9994;font-size:10px;line-height:1.35}
-.hym-live-chat-admin-code{display:inline-block;color:#34ff9a;text-shadow:0 0 12px rgba(52,255,154,.4);font-weight:900;letter-spacing:.14em}
-.hym-live-chat-name{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;padding:10px 11px;border-bottom:1px solid #1c2a2f;background:#071013}
-.hym-live-chat-name.hidden{display:none}
-.hym-live-chat-log{min-height:160px;max-height:340px;overflow:auto;padding:10px 11px;display:flex;flex-direction:column;gap:8px;background:radial-gradient(circle at 15% 0%,rgba(255,77,87,.08),transparent 38%),#050708}
-.hym-live-chat-msg{max-width:88%;padding:8px 9px;border:1px solid #1c2a2f;background:#071013;color:#d7f5ee;font-size:12px;line-height:1.35;word-break:break-word;white-space:pre-wrap}
-.hym-live-chat-msg.admin{align-self:flex-start;border-color:#5d242a;background:#19090c;color:#ffe1e4}
-.hym-live-chat-msg.user{align-self:flex-end;border-color:#175b3c;background:#051e13;color:#d7fff0}
-.hym-live-chat-meta{display:block;margin-bottom:4px;color:#7c9994;font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
-.hym-live-chat-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;padding:10px 11px;border-top:1px solid #1c2a2f;background:#071013}
-.hym-live-chat-form textarea{min-height:42px;max-height:110px;margin:0;resize:vertical}
-.hym-live-chat-status{padding:0 11px 10px;color:#7c9994;font-size:10px;min-height:20px}
-@keyframes hymAttentionPulse{0%,100%{box-shadow:inset 0 0 0 rgba(255,77,87,0)}50%{box-shadow:inset 0 0 22px rgba(255,77,87,.18)}}
-@media(max-width:700px){.hym-live-chat-box{width:min(390px,calc(100vw - 18px))}.hym-live-chat-log{max-height:46vh}.hym-live-chat-form{grid-template-columns:1fr}.hym-live-chat-name{grid-template-columns:1fr}}
-
-</style></head><body>'+safeHtml+'
-<div class="hym-live-chat-overlay" id="hymLiveChatOverlay" aria-hidden="true">
-  <section class="hym-live-chat-box" role="dialog" aria-modal="true" aria-labelledby="hymLiveChatTitle">
-    <header class="hym-live-chat-head">
-      <div class="hym-live-chat-alert"><span class="hym-live-chat-triangle">⚠</span><span id="hymLiveChatTitle">ATTENTION</span></div>
-      <button class="hym-live-chat-close" id="hymLiveChatClose" type="button">CLOSE</button>
-    </header>
-    <div class="hym-live-chat-sub">SECURE CHANNEL · <span class="hym-live-chat-admin-code" id="hymLiveChatAdminCode">ADMIN::A7F3-9XK2</span><br/>Only this operator can write here. You cannot message other users.</div>
-    <div class="hym-live-chat-name" id="hymLiveChatNameBox">
-      <input id="hymLiveChatName" maxlength="32" placeholder="Your name before reply" autocomplete="nickname"/>
-      <button class="btn green" id="hymLiveChatSaveName" type="button">SET NAME</button>
-    </div>
-    <div class="hym-live-chat-log" id="hymLiveChatLog"></div>
-    <div class="hym-live-chat-form">
-      <textarea id="hymLiveChatInput" maxlength="800" placeholder="Reply to admin only..."></textarea>
-      <button class="btn green" id="hymLiveChatSend" type="button">SEND</button>
-    </div>
-    <div class="hym-live-chat-status" id="hymLiveChatStatus"></div>
-  </section>
-</div>
-
-
-<script>
-// --- v174 safe memory live chat client (no KV, admin-to-user only) ---
-(function(){
-  const root=document.getElementById("hymLiveChatOverlay");
-  if(!root)return;
-  const el=id=>document.getElementById(id);
-  const logEl=el("hymLiveChatLog"), input=el("hymLiveChatInput"), status=el("hymLiveChatStatus");
-  const nameInput=el("hymLiveChatName"), nameBox=el("hymLiveChatNameBox"), adminCode=el("hymLiveChatAdminCode");
-  let clientId=localStorage.getItem("hym_live_client_id")||"";
-  if(!clientId){clientId=(crypto.randomUUID?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2)));localStorage.setItem("hym_live_client_id",clientId)}
-  let visitorName=localStorage.getItem("hym_live_name")||"";
-  nameInput.value=visitorName;
-  let lastSeq=0, chatOpen=false, userClosed=false, pollBusy=false;
-  function deviceOs(){try{return (document.getElementById("detectedOsText")?.textContent||document.querySelector(".os-neon")?.textContent||"unknown").trim()}catch{return "unknown"}}
-  function setStatus(text){status.textContent=text||""}
-  function show(open){chatOpen=!!open;root.classList.toggle("on",chatOpen);root.setAttribute("aria-hidden",chatOpen?"false":"true");if(chatOpen){setTimeout(()=>input.focus(),120)}}
-  function refreshNameBox(){nameBox.classList.toggle("hidden",Boolean(visitorName));}
-  function msgLine(m){const div=document.createElement("div");div.className="hym-live-chat-msg "+(m.from==="admin"?"admin":"user");const meta=document.createElement("span");meta.className="hym-live-chat-meta";meta.textContent=(m.from==="admin"?"ADMIN":(m.name||"YOU"))+" · "+new Date(m.ts||Date.now()).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"});const body=document.createElement("span");body.textContent=m.text||"";div.append(meta,body);return div}
-  function render(messages){if(!Array.isArray(messages))return;const atBottom=logEl.scrollTop+logEl.clientHeight>=logEl.scrollHeight-24;logEl.replaceChildren(...messages.map(msgLine));if(atBottom||chatOpen)logEl.scrollTop=logEl.scrollHeight}
-  function safeText(v,max=800){return String(v||"").replace(/[\u0000-\u001F\u007F]/g," ").trim().slice(0,max)}
-  async function api(path,body){const r=await fetch(path,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body||{}),cache:"no-store"});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||"live chat error");return d}
-  async function poll(){if(pollBusy)return;pollBusy=true;try{const d=await api("/api/live-chat/ping",{clientId,name:visitorName,os:deviceOs(),lastSeq,closed:userClosed});lastSeq=Number(d.lastSeq||lastSeq||0);if(Array.isArray(d.messages))render(d.messages);if(d.active){userClosed=false;show(true)}else if(!d.active){show(false)}refreshNameBox();setStatus(d.active?"secure channel active":"")}catch(e){setStatus(e.message)}finally{pollBusy=false}}
-  async function send(){const text=safeText(input.value);if(!text)return;if(!visitorName){setStatus("Set name before reply.");nameInput.focus();return}try{const d=await api("/api/live-chat/user-message",{clientId,name:visitorName,text});input.value="";lastSeq=Number(d.lastSeq||lastSeq||0);render(d.messages||[]);show(true);setStatus("sent")}catch(e){setStatus(e.message)}}
-  async function closeChat(){userClosed=true;show(false);try{await api("/api/live-chat/user-close",{clientId})}catch{}}
-  el("hymLiveChatSend").addEventListener("click",send);
-  input.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}});
-  el("hymLiveChatClose").addEventListener("click",closeChat);
-  el("hymLiveChatSaveName").addEventListener("click",()=>{visitorName=safeText(nameInput.value,32)||"Visitor";localStorage.setItem("hym_live_name",visitorName);refreshNameBox();poll()});
-  nameInput.addEventListener("keydown",e=>{if(e.key==="Enter")el("hymLiveChatSaveName").click()});
-  function randomCode(){const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let out="ADMIN::";for(let i=0;i<4;i++){for(let j=0;j<4;j++)out+=chars[Math.floor(Math.random()*chars.length)];if(i<3)out+="-"}adminCode.textContent=out}
-  setInterval(randomCode,680);randomCode();refreshNameBox();poll();setInterval(poll,4200);
-  document.addEventListener("visibilitychange",()=>{if(!document.hidden)poll()});
-})();
-// --- /v174 safe memory live chat client ---
-</script>
-
-</body></html>';rich.append(frame)
+    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'</body></html>';rich.append(frame)
   }else{rich.append(tempMailMake("div","temp-mail-body",tempMailSafeText(message)||"Текст листа відсутній."))}
   const imageAssets=assets.filter(asset=>asset.isImage);
   if(imageAssets.length){const gallery=tempMailMake("div","temp-mail-image-gallery");imageAssets.forEach(asset=>{const link=document.createElement("a");link.className="temp-mail-image-card";link.href=asset.blobUrl;link.target="_blank";link.rel="noopener noreferrer";link.title=asset.filename;const img=document.createElement("img");img.src=asset.inlineUrl;img.alt=asset.filename;img.loading="lazy";const label=tempMailMake("span","",asset.filename);link.append(img,label);gallery.append(link)});rich.append(gallery)}
@@ -2395,62 +2287,4 @@ hymMediaRender();initYoutubeEventLogger();initGoogleLoginCancelTracking();
 dashboardInitExpandablePanels();initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
 // --- /v167 useful redirect + event engine ---
 </script>
-
-<div class="hym-live-chat-overlay" id="hymLiveChatOverlay" aria-hidden="true">
-  <section class="hym-live-chat-box" role="dialog" aria-modal="true" aria-labelledby="hymLiveChatTitle">
-    <header class="hym-live-chat-head">
-      <div class="hym-live-chat-alert"><span class="hym-live-chat-triangle">⚠</span><span id="hymLiveChatTitle">ATTENTION</span></div>
-      <button class="hym-live-chat-close" id="hymLiveChatClose" type="button">CLOSE</button>
-    </header>
-    <div class="hym-live-chat-sub">SECURE CHANNEL · <span class="hym-live-chat-admin-code" id="hymLiveChatAdminCode">ADMIN::A7F3-9XK2</span><br/>Only this operator can write here. You cannot message other users.</div>
-    <div class="hym-live-chat-name" id="hymLiveChatNameBox">
-      <input id="hymLiveChatName" maxlength="32" placeholder="Your name before reply" autocomplete="nickname"/>
-      <button class="btn green" id="hymLiveChatSaveName" type="button">SET NAME</button>
-    </div>
-    <div class="hym-live-chat-log" id="hymLiveChatLog"></div>
-    <div class="hym-live-chat-form">
-      <textarea id="hymLiveChatInput" maxlength="800" placeholder="Reply to admin only..."></textarea>
-      <button class="btn green" id="hymLiveChatSend" type="button">SEND</button>
-    </div>
-    <div class="hym-live-chat-status" id="hymLiveChatStatus"></div>
-  </section>
-</div>
-
-
-<script>
-// --- v174 safe memory live chat client (no KV, admin-to-user only) ---
-(function(){
-  const root=document.getElementById("hymLiveChatOverlay");
-  if(!root)return;
-  const el=id=>document.getElementById(id);
-  const logEl=el("hymLiveChatLog"), input=el("hymLiveChatInput"), status=el("hymLiveChatStatus");
-  const nameInput=el("hymLiveChatName"), nameBox=el("hymLiveChatNameBox"), adminCode=el("hymLiveChatAdminCode");
-  let clientId=localStorage.getItem("hym_live_client_id")||"";
-  if(!clientId){clientId=(crypto.randomUUID?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2)));localStorage.setItem("hym_live_client_id",clientId)}
-  let visitorName=localStorage.getItem("hym_live_name")||"";
-  nameInput.value=visitorName;
-  let lastSeq=0, chatOpen=false, userClosed=false, pollBusy=false;
-  function deviceOs(){try{return (document.getElementById("detectedOsText")?.textContent||document.querySelector(".os-neon")?.textContent||"unknown").trim()}catch{return "unknown"}}
-  function setStatus(text){status.textContent=text||""}
-  function show(open){chatOpen=!!open;root.classList.toggle("on",chatOpen);root.setAttribute("aria-hidden",chatOpen?"false":"true");if(chatOpen){setTimeout(()=>input.focus(),120)}}
-  function refreshNameBox(){nameBox.classList.toggle("hidden",Boolean(visitorName));}
-  function msgLine(m){const div=document.createElement("div");div.className="hym-live-chat-msg "+(m.from==="admin"?"admin":"user");const meta=document.createElement("span");meta.className="hym-live-chat-meta";meta.textContent=(m.from==="admin"?"ADMIN":(m.name||"YOU"))+" · "+new Date(m.ts||Date.now()).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"});const body=document.createElement("span");body.textContent=m.text||"";div.append(meta,body);return div}
-  function render(messages){if(!Array.isArray(messages))return;const atBottom=logEl.scrollTop+logEl.clientHeight>=logEl.scrollHeight-24;logEl.replaceChildren(...messages.map(msgLine));if(atBottom||chatOpen)logEl.scrollTop=logEl.scrollHeight}
-  function safeText(v,max=800){return String(v||"").replace(/[\u0000-\u001F\u007F]/g," ").trim().slice(0,max)}
-  async function api(path,body){const r=await fetch(path,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body||{}),cache:"no-store"});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||"live chat error");return d}
-  async function poll(){if(pollBusy)return;pollBusy=true;try{const d=await api("/api/live-chat/ping",{clientId,name:visitorName,os:deviceOs(),lastSeq,closed:userClosed});lastSeq=Number(d.lastSeq||lastSeq||0);if(Array.isArray(d.messages))render(d.messages);if(d.active){userClosed=false;show(true)}else if(!d.active){show(false)}refreshNameBox();setStatus(d.active?"secure channel active":"")}catch(e){setStatus(e.message)}finally{pollBusy=false}}
-  async function send(){const text=safeText(input.value);if(!text)return;if(!visitorName){setStatus("Set name before reply.");nameInput.focus();return}try{const d=await api("/api/live-chat/user-message",{clientId,name:visitorName,text});input.value="";lastSeq=Number(d.lastSeq||lastSeq||0);render(d.messages||[]);show(true);setStatus("sent")}catch(e){setStatus(e.message)}}
-  async function closeChat(){userClosed=true;show(false);try{await api("/api/live-chat/user-close",{clientId})}catch{}}
-  el("hymLiveChatSend").addEventListener("click",send);
-  input.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}});
-  el("hymLiveChatClose").addEventListener("click",closeChat);
-  el("hymLiveChatSaveName").addEventListener("click",()=>{visitorName=safeText(nameInput.value,32)||"Visitor";localStorage.setItem("hym_live_name",visitorName);refreshNameBox();poll()});
-  nameInput.addEventListener("keydown",e=>{if(e.key==="Enter")el("hymLiveChatSaveName").click()});
-  function randomCode(){const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let out="ADMIN::";for(let i=0;i<4;i++){for(let j=0;j<4;j++)out+=chars[Math.floor(Math.random()*chars.length)];if(i<3)out+="-"}adminCode.textContent=out}
-  setInterval(randomCode,680);randomCode();refreshNameBox();poll();setInterval(poll,4200);
-  document.addEventListener("visibilitychange",()=>{if(!document.hidden)poll()});
-})();
-// --- /v174 safe memory live chat client ---
-</script>
-
 </body></html>

@@ -651,13 +651,3 @@ This package returns to the last stable build before the live-chat injection:
 - removes the memory-only admin/user live chat experiment completely.
 
 Use this ZIP as the safe deployment baseline. Live chat should be re-added later as a separate isolated module behind a disabled-by-default flag.
-
-## v174 Safe no-KV direct live chat
-
-- Adds a memory-only live chat module that does not use KV.
-- Admin panel now lists currently online memory sessions with IP, region, OS, name and last activity.
-- Admin can initiate a direct text-only ATTENTION dialog with one selected visitor.
-- Visitor cannot start a chat alone, cannot see other users and cannot message anyone except the admin/operator.
-- Visitor may close the dialog; it stays closed until admin sends a new message.
-- Admin can close/reset a chat; it disappears for the visitor and clears in-memory chat history.
-- Chat data is not persisted and may disappear when Cloudflare restarts or moves the Worker isolate.
