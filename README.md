@@ -1,3 +1,10 @@
+# v167 Photo share restored
+
+- Restores the `Поширити фото` button inside the photo focus modal on top of v166.
+- Keeps visible `MEDIA STATE / AUDIO STATE` removed from the Media block.
+- Keeps OS region badge and useful EVENT LOG tracking.
+- Adds `photo shared` and `photo downloaded` to the useful event whitelist.
+
 # v63 Telegram Unicode session fix
 
 Fixes Telegram Login callback crashes for names containing Cyrillic or other Unicode characters.
