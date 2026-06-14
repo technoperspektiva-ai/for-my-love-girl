@@ -838,6 +838,95 @@ body.dashboard-focus-open{overflow:hidden}
   #section-board .notice-thread-svg{display:none!important}
 }
 
+
+/* v179: hard-contained notice board, no corkboard bleed behind other cards */
+#section-board.notice-board-card{
+  position:relative!important;
+  z-index:3!important;
+  isolation:isolate!important;
+  contain:layout paint!important;
+  overflow:hidden!important;
+  padding:0!important;
+  background:linear-gradient(180deg,rgba(14,20,22,.98),rgba(8,12,14,.98))!important;
+}
+#section-board.notice-board-card>summary{
+  list-style:none;
+  cursor:pointer;
+  padding:12px;
+  font-size:15px;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  text-transform:uppercase;
+  color:#e6fff8;
+}
+#section-board.notice-board-card>summary::-webkit-details-marker{display:none}
+#section-board.notice-board-card>summary::before{
+  content:"notice board";
+  display:block;
+  margin-right:auto;
+  color:var(--green);
+  font-size:9px;
+  letter-spacing:.15em;
+  font-weight:900;
+  text-transform:uppercase;
+  order:-1;
+}
+#section-board.notice-board-card>summary::after{
+  content:"[+]";
+  color:var(--green);
+  font-size:12px;
+  margin-left:auto;
+}
+#section-board.notice-board-card[open]>summary{
+  border-bottom:1px solid var(--line);
+}
+#section-board.notice-board-card[open]>summary::after{content:"[-]"}
+#section-board .notice-board-inner{
+  position:relative;
+  z-index:2;
+  padding:12px;
+  overflow:hidden;
+  background:linear-gradient(180deg,rgba(14,20,22,.98),rgba(8,12,14,.98));
+}
+#section-board .notice-board-shell{
+  position:relative!important;
+  z-index:2!important;
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  overflow:hidden!important;
+  contain:layout paint!important;
+  transform:translateZ(0);
+}
+#section-board .notice-board-stage{
+  position:relative!important;
+  z-index:1!important;
+  overflow:hidden!important;
+  contain:layout paint!important;
+}
+#section-board .notice-thread-svg{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+}
+#section-board .notice-note{
+  position:relative!important;
+  z-index:2!important;
+}
+#section-board:not([open]) .notice-board-inner{display:none!important}
+.grid>#section-board.notice-board-card{
+  grid-column:1/-1!important;
+  align-self:start!important;
+}
+html[data-hym-device="phone"] #section-board.notice-board-card,
+html[data-hym-device="tablet"] #section-board.notice-board-card{
+  grid-column:1/-1!important;
+}
+
 </style>
 </head>
 <body>
@@ -905,7 +994,7 @@ body.dashboard-focus-open{overflow:hidden}
 <button class="btn" id="telegramLogout" style="margin-top:10px" type="button">Вийти з Telegram</button>
 </div>
 <p class="info" id="telegramStatus">Checking Telegram session…</p>
-</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><section class="card notice-board-card" id="section-board"><h2>Notice Board</h2><div class="notice-board-toolbar"><button class="btn green notice-tab-active" id="noticeTabServer" type="button">Important</button><button class="btn" id="noticeTabPersonal" type="button">Local notes</button><button class="btn notice-board-refresh-inline" id="noticeBoardRefresh" type="button">Refresh</button><div class="notice-board-meta" id="noticeBoardMeta">Important info · loading…</div></div><div class="notice-board-shell"><div class="notice-board-stage" id="noticeServerStage"></div><div class="notice-board-stage" hidden="" id="noticePersonalStage"></div></div><div class="notice-board-editor" hidden="" id="noticePersonalEditor"><input id="noticePersonalTitle" maxlength="80" placeholder="Назва локальної нотатки" type="text"/><textarea id="noticePersonalBody" maxlength="900" placeholder="Текст локальної нотатки"></textarea><div class="notice-board-editor-actions"><button class="btn green" id="noticePersonalAdd" type="button">Додати локально</button><button class="btn red" id="noticePersonalClear" type="button">Очистити всі</button></div><div class="notice-board-status" id="noticePersonalStatus">Local notes зберігаються тільки в цьому браузері.</div></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
+</section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><details class="card notice-board-card" id="section-board"><summary>Notice Board</summary><div class="notice-board-inner"><div class="notice-board-toolbar"><button class="btn green notice-tab-active" id="noticeTabServer" type="button">Important</button><button class="btn" id="noticeTabPersonal" type="button">Local notes</button><button class="btn notice-board-refresh-inline" id="noticeBoardRefresh" type="button">Refresh</button><div class="notice-board-meta" id="noticeBoardMeta">Important info · loading…</div></div><div class="notice-board-shell"><div class="notice-board-stage" id="noticeServerStage"></div><div class="notice-board-stage" hidden="" id="noticePersonalStage"></div></div><div class="notice-board-editor" hidden="" id="noticePersonalEditor"><input id="noticePersonalTitle" maxlength="80" placeholder="Назва локальної нотатки" type="text"/><textarea id="noticePersonalBody" maxlength="900" placeholder="Текст локальної нотатки"></textarea><div class="notice-board-editor-actions"><button class="btn green" id="noticePersonalAdd" type="button">Додати локально</button><button class="btn red" id="noticePersonalClear" type="button">Очистити всі</button></div><div class="notice-board-status" id="noticePersonalStatus">Local notes зберігаються тільки в цьому браузері.</div></div></div></details><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
 <div aria-hidden="true" class="temp-mail-modal ua-info-modal" id="uaInfoModal"><div aria-modal="true" class="temp-mail-modal-box ua-info-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong>Device Info</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Device Info" class="temp-mail-modal-close" id="uaInfoClose" type="button">×</button></div></div><div class="ua-info-modal-body"><div class="ua-capability-grid" id="uaCapabilityGrid"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal event-log-modal" id="eventLogModal"><div aria-modal="true" aria-labelledby="eventLogTitle" class="temp-mail-modal-box event-log-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="eventLogTitle">EVENT LOG</strong><span class="event-log-modal-head-meta" id="eventLogCount">0 events</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Event Log" class="temp-mail-modal-close" id="eventLogClose" type="button">×</button></div></div><div class="event-log-modal-body"><div class="event-log-list" id="eventLogList"></div><div class="event-log-actions"><button class="btn" id="eventLogCopy" type="button">COPY</button><button class="btn" id="eventLogExport" type="button">EXPORT</button><button class="btn red event-log-clear" id="eventLogClear" type="button">CLEAR</button></div><div class="event-log-status" id="eventLogStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal photo-preview-modal" id="photoPreviewModal"><div aria-modal="true" aria-labelledby="photoPreviewTitle" class="temp-mail-modal-box photo-preview-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong id="photoPreviewTitle">Перегляд фото</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити фото" class="temp-mail-modal-close" id="photoPreviewClose" type="button">×</button></div></div><div class="photo-preview-modal-body"><div class="photo-preview-stage"><img alt="Selected preview" id="preview"/></div><div class="photo-preview-modal-actions"><button class="btn green photo-share-btn" id="photoShare" type="button">Поширити фото</button><button class="btn red photo-delete-btn" id="photoDelete" type="button">Видалити фото</button></div><div aria-live="polite" class="photo-share-status" id="photoShareStatus"></div></div></div></div><div aria-hidden="true" class="dashboard-focus-backdrop" id="dashboardFocusBackdrop"></div>
 <div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
@@ -1349,6 +1438,7 @@ el("noticeTabPersonal")?.addEventListener("click",()=>noticeSetMode("personal"))
 el("noticeBoardRefresh")?.addEventListener("click",()=>noticeFetchServer(true));
 el("noticePersonalAdd")?.addEventListener("click",noticeAddPersonal);
 el("noticePersonalClear")?.addEventListener("click",noticeClearPersonal);
+el("section-board")?.addEventListener("toggle",()=>{if(el("section-board")?.open)requestAnimationFrame(()=>noticeRender())});
 noticeReadServerCache();noticeRender();noticeFetchServer(false);
 
 let stripeQaClient=null;
