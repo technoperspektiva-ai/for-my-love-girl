@@ -608,3 +608,20 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Keeps the requested edge-volume EVENT LOG entries: `audio volume · 0%` and `audio volume · 100%`.
 - Preserves the v165 Cloudflare region badge in the header.
 
+
+
+## v168 Capability Snapshot IP
+
+- Adds Cloudflare client IP to the top Capability Snapshot line inside Device Info.
+- Adds the same IP as a copyable row inside Device Info details.
+- Keeps media status blocks hidden and keeps photo share restored.
+
+## v169 KV saver for layout presets
+
+- Preset editor now works local-first: moving blocks, AUTO PACK, personal profile updates and local presets write only to browser localStorage.
+- Server presets are no longer loaded automatically every time the presets dialog opens. Use `LOAD SERVER` when you need to read from KV.
+- `SAVE TO SERVER` is the only path that writes layout data to PRESETS_KV.
+- Added duplicate-profile protection: if the captured layout hash is unchanged, server save is skipped and KV write is not used.
+- Added a 90 second server-save cooldown to protect the daily KV write limit.
+- Added a small KV saver status in the presets dialog: LOCAL-FIRST, cooldown, saved writes counter, last server save and cache time.
+- Server storage for layout presets now uses a single KV index key (`hym:presets:index:v2`) instead of one KV key per preset. Legacy `hym:preset:*` records can still be read as a fallback.
