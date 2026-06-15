@@ -1533,23 +1533,7 @@ async function tempMailRenderRichBody(viewer,message){
   let safeHtml=htmlValue?tempMailSanitizeHtml(htmlValue):"";safeHtml=tempMailHydrateInlineImages(safeHtml,assets);
   const rich=tempMailMake("div","temp-mail-rich");
   if(safeHtml.trim()){
-    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}
-/* v131: emergency tiny mood block - lightweight, no overlays, no timers */
-#section-mood{grid-column:span 2;min-width:0;padding:10px;background:linear-gradient(180deg,rgba(12,18,20,.98),rgba(7,10,11,.98));border-color:#1c2a2f}
-#section-mood h2{font-size:12px;margin:0 0 7px;white-space:nowrap}
-#section-mood h2::before{content:"mood"}
-.mood-mini{display:grid;grid-template-columns:42px minmax(0,1fr);gap:8px;align-items:center}
-.mood-face{display:grid;place-items:center;width:42px;height:42px;border:1px solid #24353a;background:#05090a;font-size:25px;line-height:1}
-#moodSelect{height:42px;margin:0;padding:8px 9px;font-size:11px;font-weight:900;text-transform:uppercase;min-width:0}
-#section-mood[data-mood="green"]{border-color:#26e88d;box-shadow:0 0 18px rgba(38,232,141,.12)}
-#section-mood[data-mood="cyan"]{border-color:#42d8ff;box-shadow:0 0 18px rgba(66,216,255,.12)}
-#section-mood[data-mood="orange"]{border-color:#ffa321;box-shadow:0 0 18px rgba(255,163,33,.13)}
-#section-mood[data-mood="red"]{border-color:#ff4d57;box-shadow:0 0 18px rgba(255,77,87,.13)}
-#section-mood[data-mood="violet"]{border-color:#a974ff;box-shadow:0 0 18px rgba(169,116,255,.13)}
-@media(max-width:1000px){#section-mood{grid-column:auto!important}}
-@media(max-width:700px){#section-mood{grid-column:1/-1!important}.mood-mini{grid-template-columns:38px minmax(0,1fr)}.mood-face{width:38px;height:38px;font-size:23px}#moodSelect{height:38px}}
-
-</style></head><body>'+safeHtml+'</body></html>';rich.append(frame)
+    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'</body></html>';rich.append(frame)
   }else{rich.append(tempMailMake("div","temp-mail-body",tempMailSafeText(message)||"Текст листа відсутній."))}
   const imageAssets=assets.filter(asset=>asset.isImage);
   if(imageAssets.length){const gallery=tempMailMake("div","temp-mail-image-gallery");imageAssets.forEach(asset=>{const link=document.createElement("a");link.className="temp-mail-image-card";link.href=asset.blobUrl;link.target="_blank";link.rel="noopener noreferrer";link.title=asset.filename;const img=document.createElement("img");img.src=asset.inlineUrl;img.alt=asset.filename;img.loading="lazy";const label=tempMailMake("span","",asset.filename);link.append(img,label);gallery.append(link)});rich.append(gallery)}
