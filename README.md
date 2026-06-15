@@ -662,3 +662,8 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 ## v142 ADMIN_CONFIG_KV
 
 Added a second KV namespace binding `ADMIN_CONFIG_KV` for admin server settings. `PRESETS_KV` remains for saved designs/layout presets. Active mobile/tablet/windows template selection now writes to `ADMIN_CONFIG_KV` when available and falls back to `PRESETS_KV` only if the new binding is missing.
+
+
+## v143 DESIGNS_KV
+
+Added a third KV namespace binding `DESIGNS_KV` for future separate design storage. `PRESETS_KV` stays for existing presets/layouts; `ADMIN_CONFIG_KV` stays for admin settings.

@@ -35,3 +35,16 @@ This build adds a separate admin settings KV:
 ```
 
 Namespace name provided by user: `for-my-love-girl_v2`.
+
+## v143 third KV
+
+Added separate design KV namespace:
+
+```json
+{
+  "binding": "DESIGNS_KV",
+  "id": "4fb55f3e69fd4740b18aeece572cbf37"
+}
+```
+
+Namespace name provided by user: `for-my-love-girl_v3`.
