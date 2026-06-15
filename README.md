@@ -639,3 +639,8 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Reworked selective random button effects so they are clearly visible.
 - Fixed the v170 effect initializer placement so it runs on the main dashboard, not inside temp-mail iframe preview HTML.
 - Added tap feedback for touch devices while keeping effects selective, not on every button.
+
+
+## v128 Restore support chat card
+- Returned the public `Чат супортів` card and its one-button endpoint.
+- Kept admin asset selector fixes and tidy admin UI from v126/v127.

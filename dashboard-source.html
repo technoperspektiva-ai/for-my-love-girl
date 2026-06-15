@@ -57,7 +57,7 @@ body.layout-editing .grid>.card.layout-dragging,body.layout-editing .grid>.card.
 @media(min-width:1001px){
   .ops-nav{display:none}
   #section-redirects{grid-column:span 4}#section-payments{grid-column:span 5}#section-offers{grid-column:span 3}
-  #section-stripe{grid-column:span 4}#section-gpay{grid-column:span 3}#section-chat{grid-column:span 2}#section-ua{grid-column:span 3}
+  #section-stripe{grid-column:span 4}#section-gpay{grid-column:span 3}#section-ua{grid-column:span 3}
   #section-temp-mail{grid-column:1/-1}
   #section-signin{grid-column:span 3}#section-telegram{grid-column:span 4}#section-text{grid-column:span 2}#section-media{grid-column:span 3}
 }
@@ -1146,7 +1146,8 @@ el("telegramLogout").onclick=async()=>{
   location.href="/";
 };
 el("fakeGPay").onclick=onGooglePayClick;
-el("chatSupports").onclick=()=>openUrl("Чат супортів","https://ninja-chat-a6f8f.web.app/");
+const chatSupportsButton=el("chatSupports");
+if(chatSupportsButton)chatSupportsButton.onclick=()=>openUrl("Чат супортів","https://ninja-chat-a6f8f.web.app/");
 el("ua").textContent=navigator.userAgent;uaRenderCapabilitySnapshot();
 let photoPreviewUrl="";
 let photoPreviewName="";
