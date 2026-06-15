@@ -802,6 +802,16 @@ body.dashboard-focus-open{overflow:hidden}
 #section-mood select{background:#f7fbff;color:#020607;border-color:#dbe6ea}
 
 
+
+/* v137: HTTP redirect modal */
+.redirect-modal-box{width:min(980px,calc(100vw - 24px));max-height:92vh}
+.redirect-modal-body{display:grid;gap:10px;padding:12px}
+.redirect-modal-url{padding:10px;border:1px solid #1c2a2f;background:#060a0b;color:#a8ffd1;font-size:12px;word-break:break-all}
+.redirect-modal-frame{width:100%;height:min(62vh,620px);aspect-ratio:auto;border:1px solid #24353a;background:#fff}
+.redirect-modal-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.redirect-modal-note{font-size:11px;color:var(--muted);line-height:1.45}
+@media(max-width:700px){.redirect-modal-box{width:calc(100vw - 18px);max-height:94vh}.redirect-modal-frame{height:58vh}.redirect-modal-actions{display:grid;grid-template-columns:1fr}.redirect-modal-actions .btn{width:100%}}
+
 </style>
 </head>
 <body>
@@ -871,6 +881,7 @@ body.dashboard-focus-open{overflow:hidden}
 </section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
 <div aria-hidden="true" class="temp-mail-modal ua-info-modal" id="uaInfoModal"><div aria-modal="true" class="temp-mail-modal-box ua-info-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong>Device Info</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Device Info" class="temp-mail-modal-close" id="uaInfoClose" type="button">×</button></div></div><div class="ua-info-modal-body"><div class="ua-capability-grid" id="uaCapabilityGrid"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal event-log-modal" id="eventLogModal"><div aria-modal="true" aria-labelledby="eventLogTitle" class="temp-mail-modal-box event-log-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="eventLogTitle">EVENT LOG</strong><span class="event-log-modal-head-meta" id="eventLogCount">0 events</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Event Log" class="temp-mail-modal-close" id="eventLogClose" type="button">×</button></div></div><div class="event-log-modal-body"><div class="event-log-list" id="eventLogList"></div><div class="event-log-actions"><button class="btn" id="eventLogCopy" type="button">COPY</button><button class="btn" id="eventLogExport" type="button">EXPORT</button><button class="btn red event-log-clear" id="eventLogClear" type="button">CLEAR</button></div><div class="event-log-status" id="eventLogStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal photo-preview-modal" id="photoPreviewModal"><div aria-modal="true" aria-labelledby="photoPreviewTitle" class="temp-mail-modal-box photo-preview-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong id="photoPreviewTitle">Перегляд фото</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити фото" class="temp-mail-modal-close" id="photoPreviewClose" type="button">×</button></div></div><div class="photo-preview-modal-body"><div class="photo-preview-stage"><img alt="Selected preview" id="preview"/></div><div class="photo-preview-modal-actions"><button class="btn green photo-share-btn" id="photoShare" type="button">Поширити фото</button><button class="btn red photo-delete-btn" id="photoDelete" type="button">Видалити фото</button></div><div aria-live="polite" class="photo-share-status" id="photoShareStatus"></div></div></div></div><div aria-hidden="true" class="dashboard-focus-backdrop" id="dashboardFocusBackdrop"></div>
+<div aria-hidden="true" class="temp-mail-modal redirect-modal" id="redirectModal"><div aria-modal="true" aria-labelledby="redirectModalTitle" class="temp-mail-modal-box redirect-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="redirectModalTitle">HTTP REDIRECT</strong><span class="event-log-modal-head-meta" id="redirectModalLabel">ready</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити HTTP redirect" class="temp-mail-modal-close" id="redirectModalClose" type="button">×</button></div></div><div class="redirect-modal-body"><div class="redirect-modal-url" id="redirectModalUrl">—</div><iframe class="redirect-modal-frame" id="redirectModalFrame" referrerpolicy="no-referrer" sandbox="allow-forms allow-scripts allow-popups allow-popups-to-escape-sandbox allow-same-origin"></iframe><div class="redirect-modal-note">Якщо сайт блокує iframe або показує пусто — натисни OPEN FULL.</div><div class="redirect-modal-actions"><button class="btn green" id="redirectModalOpen" type="button">OPEN FULL</button><button class="btn" id="redirectModalReload" type="button">RELOAD FRAME</button><button class="btn red" id="redirectModalClose2" type="button">CLOSE</button></div></div></div></div>
 <div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
 <div aria-modal="true" class="temp-mail-modal-box temp-mail-inbox-modal-box" role="dialog">
 <div class="temp-mail-modal-head">
@@ -1063,6 +1074,38 @@ function openUrl(label,u){
   window.open(u,"_blank","noopener,noreferrer");
   logUsefulEvent("external redirect opened"+(label?" · "+eventLogSafe(label):""));
 }
+let redirectModalCurrentUrl="";
+function redirectModalSetFrame(url){
+  const frame=el("redirectModalFrame");
+  if(frame)frame.src=url||"about:blank";
+}
+function closeRedirectModal(){
+  const modal=el("redirectModal");
+  if(!modal)return;
+  modal.classList.remove("on");
+  modal.setAttribute("aria-hidden","true");
+  redirectModalSetFrame("about:blank");
+}
+function openRedirectModal(label,u){
+  if(!u)return;
+  redirectModalCurrentUrl=u;
+  const modal=el("redirectModal"),title=el("redirectModalTitle"),meta=el("redirectModalLabel"),urlBox=el("redirectModalUrl");
+  if(title)title.textContent=(label||"HTTP")+" REDIRECT";
+  if(meta)meta.textContent="modal preview";
+  if(urlBox)urlBox.textContent=u;
+  redirectModalSetFrame(u);
+  if(modal){modal.classList.add("on");modal.setAttribute("aria-hidden","false")}
+  logUsefulEvent("external redirect opened"+(label?" · "+eventLogSafe(label):""));
+}
+function initRedirectModal(){
+  const close=()=>closeRedirectModal();
+  el("redirectModalClose")?.addEventListener("click",close);
+  el("redirectModalClose2")?.addEventListener("click",close);
+  el("redirectModal")?.addEventListener("click",event=>{if(event.target===el("redirectModal"))close()});
+  el("redirectModalReload")?.addEventListener("click",()=>redirectModalSetFrame(redirectModalCurrentUrl));
+  el("redirectModalOpen")?.addEventListener("click",()=>{if(redirectModalCurrentUrl)openUrl("HTTP",redirectModalCurrentUrl)});
+  document.addEventListener("keydown",event=>{if(event.key==="Escape"&&el("redirectModal")?.classList.contains("on")){close();event.stopImmediatePropagation()}});
+}
 function openOffer(label,u){
   if(!u){logEvent("ERROR",label,"offer URL missing");return}
   openUrl(label,u);
@@ -1089,7 +1132,7 @@ payments.forEach(p=>{
   el("payments").appendChild(b);
 });
 upiApps.forEach(a=>{const b=document.createElement("button");b.className="btn green";b.textContent=a[0];b.onclick=()=>hymSmartAppOpen(a[0],a[1]);el("payments").appendChild(b)});
-apps.forEach(a=>{const b=document.createElement("button");b.className="btn red";b.textContent=a[0];b.onclick=()=>hymSmartAppOpen(a[0],a[1]);el("apps").appendChild(b)});
+apps.forEach(a=>{const b=document.createElement("button");b.className="btn red";b.textContent=a[0];b.onclick=()=>{if(a[0]==="HTTP")openRedirectModal(a[0],a[1]);else hymSmartAppOpen(a[0],a[1])};el("apps").appendChild(b)});
 offers.forEach(offer=>el("offers").appendChild(buildOfferButton(offer)));
 
 let paymentsClient=null;
@@ -2380,7 +2423,7 @@ function initMoodTiny(options={}){
 // --- /v134 tiny mood status ---
 
 hymMediaRender();initYoutubeEventLogger();initGoogleLoginCancelTracking();
-dashboardInitExpandablePanels();initMoodTiny({forceVisible:true,repairPosition:true});initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
+dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:true,repairPosition:true});initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
 // --- /v167 useful redirect + event engine ---
 </script>
 </body></html>
