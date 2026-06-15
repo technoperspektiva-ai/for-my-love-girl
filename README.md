@@ -646,3 +646,9 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 ## v131 Restore support chat card
 - Returned the public `Чат супортів` card and its one-button endpoint.
 - Kept admin asset selector fixes and tidy admin UI from v126/v127.
+
+
+## v132 module deploy fix
+- Restored the Worker ES Modules `export default { fetch() }` handler.
+- Fixes Cloudflare `wrangler versions upload` error 10216: Service Worker syntax script is not supported by Versions API.
+- Keeps v131 tiny Mood status and restored Support Chat block.
