@@ -803,7 +803,7 @@ body.dashboard-focus-open{overflow:hidden}
 
 
 
-/* v138: HTTP redirect modal with paste link input */
+/* v139: HTTP redirect modal with paste link input */
 .redirect-modal-box{width:min(980px,calc(100vw - 24px));max-height:92vh}
 .redirect-modal-body{display:grid;gap:10px;padding:12px}
 .redirect-modal-url{padding:10px;border:1px solid #1c2a2f;background:#060a0b;color:#a8ffd1;font-size:12px;word-break:break-all}
@@ -815,6 +815,14 @@ body.dashboard-focus-open{overflow:hidden}
 .redirect-modal-note{font-size:11px;color:var(--muted);line-height:1.45}
 @media(max-width:700px){.redirect-modal-box{width:calc(100vw - 18px);max-height:94vh}.redirect-modal-link-row{grid-template-columns:1fr}.redirect-modal-frame{height:58vh}.redirect-modal-actions{display:grid;grid-template-columns:1fr}.redirect-modal-actions .btn,.redirect-modal-link-row .btn{width:100%}}
 
+
+#section-redirects>h2{cursor:pointer;user-select:none}
+#section-redirects>h2:hover{color:var(--green);text-shadow:0 0 12px rgba(52,255,154,.25)}
+.redirect-input-only{display:block}
+.redirect-modal-column{display:grid;grid-template-columns:1fr;gap:9px}
+.redirect-modal-field-label{font-size:10px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.12em}
+.redirect-modal-column input{margin:0}
+.redirect-modal-url{margin-top:9px;font-size:11px;color:var(--muted);word-break:break-all}
 </style>
 </head>
 <body>
@@ -884,7 +892,7 @@ body.dashboard-focus-open{overflow:hidden}
 </section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
 <div aria-hidden="true" class="temp-mail-modal ua-info-modal" id="uaInfoModal"><div aria-modal="true" class="temp-mail-modal-box ua-info-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong>Device Info</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Device Info" class="temp-mail-modal-close" id="uaInfoClose" type="button">×</button></div></div><div class="ua-info-modal-body"><div class="ua-capability-grid" id="uaCapabilityGrid"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal event-log-modal" id="eventLogModal"><div aria-modal="true" aria-labelledby="eventLogTitle" class="temp-mail-modal-box event-log-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="eventLogTitle">EVENT LOG</strong><span class="event-log-modal-head-meta" id="eventLogCount">0 events</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Event Log" class="temp-mail-modal-close" id="eventLogClose" type="button">×</button></div></div><div class="event-log-modal-body"><div class="event-log-list" id="eventLogList"></div><div class="event-log-actions"><button class="btn" id="eventLogCopy" type="button">COPY</button><button class="btn" id="eventLogExport" type="button">EXPORT</button><button class="btn red event-log-clear" id="eventLogClear" type="button">CLEAR</button></div><div class="event-log-status" id="eventLogStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal photo-preview-modal" id="photoPreviewModal"><div aria-modal="true" aria-labelledby="photoPreviewTitle" class="temp-mail-modal-box photo-preview-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong id="photoPreviewTitle">Перегляд фото</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити фото" class="temp-mail-modal-close" id="photoPreviewClose" type="button">×</button></div></div><div class="photo-preview-modal-body"><div class="photo-preview-stage"><img alt="Selected preview" id="preview"/></div><div class="photo-preview-modal-actions"><button class="btn green photo-share-btn" id="photoShare" type="button">Поширити фото</button><button class="btn red photo-delete-btn" id="photoDelete" type="button">Видалити фото</button></div><div aria-live="polite" class="photo-share-status" id="photoShareStatus"></div></div></div></div><div aria-hidden="true" class="dashboard-focus-backdrop" id="dashboardFocusBackdrop"></div>
-<div aria-hidden="true" class="temp-mail-modal redirect-modal" id="redirectModal"><div aria-modal="true" aria-labelledby="redirectModalTitle" class="temp-mail-modal-box redirect-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="redirectModalTitle">HTTP REDIRECT</strong><span class="event-log-modal-head-meta" id="redirectModalLabel">ready</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити HTTP redirect" class="temp-mail-modal-close" id="redirectModalClose" type="button">×</button></div></div><div class="redirect-modal-body"><div class="redirect-modal-link-row"><input id="redirectModalInput" inputmode="url" autocomplete="off" spellcheck="false" placeholder="Встав HTTP/HTTPS лінку"/><button class="btn green" id="redirectModalApply" type="button">LOAD LINK</button></div><div class="redirect-modal-url" id="redirectModalUrl">—</div><iframe class="redirect-modal-frame" id="redirectModalFrame" referrerpolicy="no-referrer" sandbox="allow-forms allow-scripts allow-popups allow-popups-to-escape-sandbox allow-same-origin"></iframe><div class="redirect-modal-note">Встав лінку, натисни LOAD LINK. Якщо сайт блокує iframe або показує пусто — натисни OPEN FULL.</div><div class="redirect-modal-actions"><button class="btn green" id="redirectModalOpen" type="button">OPEN FULL</button><button class="btn" id="redirectModalReload" type="button">RELOAD FRAME</button><button class="btn red" id="redirectModalClose2" type="button">CLOSE</button></div></div></div></div>
+<div aria-hidden="true" class="temp-mail-modal redirect-modal" id="redirectModal"><div aria-modal="true" aria-labelledby="redirectModalTitle" class="temp-mail-modal-box redirect-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="redirectModalTitle">REDIRECT LINK</strong><span class="event-log-modal-head-meta" id="redirectModalLabel">paste destination</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити redirect dialog" class="temp-mail-modal-close" id="redirectModalClose" type="button">×</button></div></div><div class="redirect-modal-body redirect-input-only"><div class="redirect-modal-column"><label class="redirect-modal-field-label" for="redirectModalInput">Куди напрямок</label><input id="redirectModalInput" inputmode="url" autocomplete="off" spellcheck="false" placeholder="http:// або https://"/><button class="btn green" id="redirectModalSend" type="button">ВІДПРАВИТИ</button><button class="btn red" id="redirectModalClose2" type="button">CLOSE</button></div><div class="redirect-modal-url" id="redirectModalUrl">—</div></div></div></div>
 <div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
 <div aria-modal="true" class="temp-mail-modal-box temp-mail-inbox-modal-box" role="dialog">
 <div class="temp-mail-modal-head">
@@ -1085,20 +1093,15 @@ function redirectModalNormalizeUrl(value){
   if(/^https?:\/\//i.test(raw))return raw;
   return "http://"+raw.replace(/^\/+/g,"");
 }
-function redirectModalSetFrame(url){
-  const frame=el("redirectModalFrame");
-  if(frame)frame.src=url||"about:blank";
-}
 function redirectModalApplyUrl(value,{log=false}={}){
   const u=redirectModalNormalizeUrl(value);
   redirectModalCurrentUrl=u;
   const input=el("redirectModalInput"),urlBox=el("redirectModalUrl"),meta=el("redirectModalLabel");
   if(input)input.value=u;
   if(urlBox)urlBox.textContent=u;
-  if(meta)meta.textContent="paste link · preview";
-  redirectModalSetFrame(u);
-  try{localStorage.setItem("hymHttpRedirectUrl",u)}catch{}
-  if(log)logUsefulEvent("http modal link loaded · "+eventLogSafe(u));
+  if(meta)meta.textContent="ready to send";
+  try{localStorage.setItem("hymRedirectDialogUrl",u)}catch{}
+  if(log)logUsefulEvent("redirect dialog link prepared · "+eventLogSafe(u));
   return u;
 }
 function closeRedirectModal(){
@@ -1106,28 +1109,29 @@ function closeRedirectModal(){
   if(!modal)return;
   modal.classList.remove("on");
   modal.setAttribute("aria-hidden","true");
-  redirectModalSetFrame("about:blank");
 }
 function openRedirectModal(label,u){
-  const saved=(()=>{try{return localStorage.getItem("hymHttpRedirectUrl")||""}catch{return ""}})();
+  const saved=(()=>{try{return localStorage.getItem("hymRedirectDialogUrl")||""}catch{return ""}})();
   const initial=u||saved||REDIRECT_MODAL_DEFAULT_URL;
   const modal=el("redirectModal"),title=el("redirectModalTitle");
-  if(title)title.textContent=(label||"HTTP")+" REDIRECT";
+  if(title)title.textContent=(label||"REDIRECT")+" LINK";
   redirectModalApplyUrl(initial);
   if(modal){modal.classList.add("on");modal.setAttribute("aria-hidden","false")}
   setTimeout(()=>el("redirectModalInput")?.focus(),30);
-  logUsefulEvent("external redirect modal opened"+(label?" · "+eventLogSafe(label):""));
+  logUsefulEvent("redirect dialog opened"+(label?" · "+eventLogSafe(label):""));
+}
+function redirectModalSend(){
+  const u=redirectModalApplyUrl(el("redirectModalInput")?.value||redirectModalCurrentUrl,{log:true});
+  if(u)openUrl("Redirect dialog",u);
 }
 function initRedirectModal(){
   const close=()=>closeRedirectModal();
-  const apply=()=>redirectModalApplyUrl(el("redirectModalInput")?.value||redirectModalCurrentUrl,{log:true});
   el("redirectModalClose")?.addEventListener("click",close);
   el("redirectModalClose2")?.addEventListener("click",close);
   el("redirectModal")?.addEventListener("click",event=>{if(event.target===el("redirectModal"))close()});
-  el("redirectModalApply")?.addEventListener("click",apply);
-  el("redirectModalInput")?.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();apply()}});
-  el("redirectModalReload")?.addEventListener("click",()=>redirectModalSetFrame(redirectModalCurrentUrl));
-  el("redirectModalOpen")?.addEventListener("click",()=>{const u=redirectModalApplyUrl(el("redirectModalInput")?.value||redirectModalCurrentUrl);if(u)openUrl("HTTP",u)});
+  el("redirectModalSend")?.addEventListener("click",redirectModalSend);
+  el("redirectModalInput")?.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();redirectModalSend()}});
+  document.querySelector("#section-redirects > h2")?.addEventListener("click",event=>{if(hymEditMode)return;event.preventDefault();event.stopPropagation();openRedirectModal("REDIRECT")});
   document.addEventListener("keydown",event=>{if(event.key==="Escape"&&el("redirectModal")?.classList.contains("on")){close();event.stopImmediatePropagation()}});
 }
 function openOffer(label,u){
@@ -1156,7 +1160,7 @@ payments.forEach(p=>{
   el("payments").appendChild(b);
 });
 upiApps.forEach(a=>{const b=document.createElement("button");b.className="btn green";b.textContent=a[0];b.onclick=()=>hymSmartAppOpen(a[0],a[1]);el("payments").appendChild(b)});
-apps.forEach(a=>{const b=document.createElement("button");b.className="btn red";b.textContent=a[0];b.onclick=()=>{if(a[0]==="HTTP")openRedirectModal(a[0],a[1]);else hymSmartAppOpen(a[0],a[1])};el("apps").appendChild(b)});
+apps.forEach(a=>{const b=document.createElement("button");b.className="btn red";b.textContent=a[0];b.onclick=()=>{if(a[0]==="HTTP")openUrl(a[0],a[1]);else hymSmartAppOpen(a[0],a[1])};el("apps").appendChild(b)});
 offers.forEach(offer=>el("offers").appendChild(buildOfferButton(offer)));
 
 let paymentsClient=null;
