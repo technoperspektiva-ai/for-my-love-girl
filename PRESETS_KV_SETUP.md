@@ -21,3 +21,17 @@ npx wrangler deploy
 ```
 
 Server preset creation and deletion still require an active Telegram login on the site.
+
+
+## v142 second KV
+
+This build adds a separate admin settings KV:
+
+```json
+{
+  "binding": "ADMIN_CONFIG_KV",
+  "id": "a8e571e7d52e48939bd30b9780839dda"
+}
+```
+
+Namespace name provided by user: `for-my-love-girl_v2`.

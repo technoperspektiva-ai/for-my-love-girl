@@ -106,7 +106,7 @@ export default {
     }
 
     if (url.pathname === "/api/health") {
-      return Response.json({ ok: true, version: "v134-mood-visible-repair" });
+      return Response.json({ ok: true, version: "v142-admin-config-kv" });
     }
 
     return new Response(
@@ -833,6 +833,14 @@ function hymAdminKv(env) {
   return env.PRESETS_KV && typeof env.PRESETS_KV.get === "function" ? env.PRESETS_KV : null;
 }
 
+function hymAdminSettingsKv(env) {
+  return env.ADMIN_CONFIG_KV && typeof env.ADMIN_CONFIG_KV.get === "function" ? env.ADMIN_CONFIG_KV : hymAdminKv(env);
+}
+
+function hymAdminSettingsStorage(env) {
+  return env.ADMIN_CONFIG_KV && typeof env.ADMIN_CONFIG_KV.get === "function" ? "ADMIN_CONFIG_KV" : "PRESETS_KV";
+}
+
 function hymAdminSecret(env) {
   return String(env.ADMIN_SECRET_KEY || env.ADMIN_KEY || env.HYM_ADMIN_KEY || env.ADMIN_SECRET || "").trim();
 }
@@ -908,13 +916,15 @@ async function hymPresetFindById(kv, id) {
 }
 
 async function handlePublicActiveTemplate(url, env) {
-  const kv = hymAdminKv(env);
+  const presetsKv = hymAdminKv(env);
+  const settingsKv = hymAdminSettingsKv(env);
   const platform = hymAdminPlatform(url.searchParams.get("platform"));
-  if (!kv || !platform) return hymAdminJson({ ok: true, platform, presetId: "", profile: null });
-  const presetId = String(await kv.get(HYM_ACTIVE_TEMPLATE_PREFIX + platform) || "");
-  if (!presetId) return hymAdminJson({ ok: true, platform, presetId: "", profile: null });
-  const preset = await hymPresetFindById(kv, presetId);
-  return hymAdminJson({ ok: true, platform, presetId, presetName: preset?.name || presetId, profile: preset?.profile || null });
+  if (!presetsKv || !settingsKv || !platform) return hymAdminJson({ ok: true, platform, presetId: "", profile: null, storage: hymAdminSettingsStorage(env) });
+  let presetId = String(await settingsKv.get(HYM_ACTIVE_TEMPLATE_PREFIX + platform) || "");
+  if (!presetId && settingsKv !== presetsKv) presetId = String(await presetsKv.get(HYM_ACTIVE_TEMPLATE_PREFIX + platform) || "");
+  if (!presetId) return hymAdminJson({ ok: true, platform, presetId: "", profile: null, storage: hymAdminSettingsStorage(env) });
+  const preset = await hymPresetFindById(presetsKv, presetId);
+  return hymAdminJson({ ok: true, platform, presetId, presetName: preset?.name || presetId, profile: preset?.profile || null, storage: hymAdminSettingsStorage(env) });
 }
 
 async function hymReadAdminStats(env) {
@@ -930,13 +940,24 @@ async function hymReadAdminStats(env) {
 }
 
 async function hymReadActiveTemplates(env) {
-  const kv = hymAdminKv(env);
-  if (!kv) throw Object.assign(new Error("PRESETS_KV binding is not configured."), { status: 503 });
-  const [mobile, tablet, windows] = await Promise.all([
-    kv.get(HYM_ACTIVE_TEMPLATE_PREFIX + "mobile"),
-    kv.get(HYM_ACTIVE_TEMPLATE_PREFIX + "tablet"),
-    kv.get(HYM_ACTIVE_TEMPLATE_PREFIX + "windows")
+  const presetsKv = hymAdminKv(env);
+  const settingsKv = hymAdminSettingsKv(env);
+  if (!presetsKv || !settingsKv) throw Object.assign(new Error("PRESETS_KV / ADMIN_CONFIG_KV binding is not configured."), { status: 503 });
+  let [mobile, tablet, windows] = await Promise.all([
+    settingsKv.get(HYM_ACTIVE_TEMPLATE_PREFIX + "mobile"),
+    settingsKv.get(HYM_ACTIVE_TEMPLATE_PREFIX + "tablet"),
+    settingsKv.get(HYM_ACTIVE_TEMPLATE_PREFIX + "windows")
   ]);
+  if (settingsKv !== presetsKv && (!mobile || !tablet || !windows)) {
+    const [legacyMobile, legacyTablet, legacyWindows] = await Promise.all([
+      presetsKv.get(HYM_ACTIVE_TEMPLATE_PREFIX + "mobile"),
+      presetsKv.get(HYM_ACTIVE_TEMPLATE_PREFIX + "tablet"),
+      presetsKv.get(HYM_ACTIVE_TEMPLATE_PREFIX + "windows")
+    ]);
+    mobile = mobile || legacyMobile;
+    tablet = tablet || legacyTablet;
+    windows = windows || legacyWindows;
+  }
   return { mobile: mobile || "", tablet: tablet || "", windows: windows || "" };
 }
 
@@ -963,27 +984,39 @@ async function handleAdminConfig(request, env) {
   try {
     hymRequireAdmin(request, env);
     const [stats, active, presets] = await Promise.all([hymReadAdminStats(env), hymReadActiveTemplates(env), hymReadPresetSummaries(env)]);
-    return hymAdminJson({ ok: true, stats, active, presets });
+    return hymAdminJson({
+      ok: true,
+      stats,
+      active,
+      presets,
+      bindings: {
+        presetsKv: Boolean(hymAdminKv(env)),
+        adminConfigKv: Boolean(env.ADMIN_CONFIG_KV && typeof env.ADMIN_CONFIG_KV.get === "function"),
+        settingsStorage: hymAdminSettingsStorage(env)
+      }
+    });
   } catch (error) { return hymAdminJson({ ok: false, error: error.message }, Number(error.status) || 500); }
 }
 
 async function handleAdminActiveTemplate(request, env) {
   try {
     hymRequireAdmin(request, env);
-    const kv = hymAdminKv(env);
+    const presetsKv = hymAdminKv(env);
+    const settingsKv = hymAdminSettingsKv(env);
     const body = await request.json();
     const platform = hymAdminPlatform(body.platform);
     const presetId = body.presetId ? hymPresetId(body.presetId) : "";
+    if (!presetsKv || !settingsKv) return hymAdminJson({ ok: false, error: "PRESETS_KV / ADMIN_CONFIG_KV binding is not configured." }, 503);
     if (!platform) return hymAdminJson({ ok: false, error: "Invalid platform." }, 400);
     if (body.presetId && !presetId) return hymAdminJson({ ok: false, error: "Invalid preset id." }, 400);
     if (presetId) {
-      const preset = await hymPresetFindById(kv, presetId);
+      const preset = await hymPresetFindById(presetsKv, presetId);
       if (!preset) return hymAdminJson({ ok: false, error: "Preset not found." }, 404);
-      await kv.put(HYM_ACTIVE_TEMPLATE_PREFIX + platform, presetId);
+      await settingsKv.put(HYM_ACTIVE_TEMPLATE_PREFIX + platform, presetId);
     } else {
-      await kv.delete(HYM_ACTIVE_TEMPLATE_PREFIX + platform);
+      await settingsKv.delete(HYM_ACTIVE_TEMPLATE_PREFIX + platform);
     }
-    return hymAdminJson({ ok: true, active: await hymReadActiveTemplates(env) });
+    return hymAdminJson({ ok: true, active: await hymReadActiveTemplates(env), storage: hymAdminSettingsStorage(env) });
   } catch (error) { return hymAdminJson({ ok: false, error: error.message }, Number(error.status) || 500); }
 }
 
@@ -993,7 +1026,7 @@ const HYM_ADMIN_HTML = `<!doctype html>
 <body><main class="wrap"><header class="top"><div><div class="brand">HYM // ADMIN PANEL <span class="build">v139</span></div><div class="muted">traffic monitor + public templates · phone / tablet / windows · assets fixed · chat restored · module deploy fixed · client js repaired · mood visible · mood resizable · http redirect</div></div><button id="refresh">Оновити</button></header>
 <section class="grid"><article class="card stats"><div class="label">Зараз онлайн</div><div class="n" id="online">—</div><div class="muted">активність за останні 150 секунд</div></article><article class="card stats"><div class="label">Сьогодні на сайті</div><div class="n" id="today">—</div><div class="muted" id="day">Europe/Kyiv</div></article><article class="card stats"><div class="label">Доступні шаблони</div><div class="n" id="count">—</div><div class="muted">серверні HYM presets</div></article>
 <article class="card"><h2>Стандартний шаблон телефону</h2><div class="row"><span class="muted">Phone / iOS / Android</span><select id="mobile"></select></div></article><article class="card tablet-template"><h2>Стандартний шаблон планшета <span class="new-badge">TABLET</span></h2><div class="row"><span class="muted">Tablet / Android / iPad</span><select id="tablet"></select></div></article><article class="card"><h2>Стандартний шаблон Windows</h2><div class="row"><span class="muted">Desktop Windows</span><select id="windows"></select></div></article></section><div class="status" id="status"></div></main>
-<script>(()=>{const initial=decodeURIComponent(location.pathname.replace(/^\\/hym-admin\\/?/,"").split("/")[0]||"");const key=initial||sessionStorage.getItem("hym_admin_key")||"";if(initial){sessionStorage.setItem("hym_admin_key",initial);history.replaceState({},"","/hym-admin")}const headers={"x-hym-admin-key":key,"content-type":"application/json"};const el=id=>document.getElementById(id);const setStatus=(text,type="")=>{el("status").textContent=text||"";el("status").className="status "+type};function fill(select,presets,active){select.replaceChildren();const none=document.createElement("option");none.value="";none.textContent="— вбудований стандартний шаблон —";select.append(none);presets.forEach(p=>{const option=document.createElement("option");option.value=p.id;option.textContent=(p.name||p.id)+" ["+p.id+"]";option.title=option.textContent;select.append(option)});if(active&&![...select.options].some(o=>o.value===active)){const missing=document.createElement("option");missing.value=active;missing.textContent="⚠ активний asset не знайдено ["+active+"]";select.append(missing)}select.value=active||"";select.title=select.options[select.selectedIndex]?.textContent||""}async function load(){try{setStatus("Оновлення...");const r=await fetch("/api/hym-admin/config",{headers,cache:"no-store"});const d=await r.json();if(!r.ok)throw new Error(d.error||"Помилка доступу");el("online").textContent=d.stats.online;el("today").textContent=d.stats.today;el("day").textContent=d.stats.day+" · Europe/Kyiv";el("count").textContent=d.presets.length;fill(el("mobile"),d.presets,d.active.mobile);fill(el("tablet"),d.presets,d.active.tablet);fill(el("windows"),d.presets,d.active.windows);setStatus("Дані оновлено", "ok")}catch(e){setStatus(e.message,"err")}}async function save(platform,presetId){try{setStatus("Збереження...");const r=await fetch("/api/hym-admin/active-template",{method:"POST",headers,body:JSON.stringify({platform,presetId})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Не вдалося зберегти");setStatus("Стандартний шаблон для "+platform+" оновлено", "ok")}catch(e){setStatus(e.message,"err");load()}}el("refresh").onclick=load;el("mobile").onchange=e=>{e.target.title=e.target.options[e.target.selectedIndex]?.textContent||"";save("mobile",e.target.value)};el("tablet").onchange=e=>{e.target.title=e.target.options[e.target.selectedIndex]?.textContent||"";save("tablet",e.target.value)};el("windows").onchange=e=>{e.target.title=e.target.options[e.target.selectedIndex]?.textContent||"";save("windows",e.target.value)};load();setInterval(load,30000)})();</script></body></html>`;
+<script>(()=>{const initial=decodeURIComponent(location.pathname.replace(/^\\/hym-admin\\/?/,"").split("/")[0]||"");const key=initial||sessionStorage.getItem("hym_admin_key")||"";if(initial){sessionStorage.setItem("hym_admin_key",initial);history.replaceState({},"","/hym-admin")}const headers={"x-hym-admin-key":key,"content-type":"application/json"};const el=id=>document.getElementById(id);const setStatus=(text,type="")=>{el("status").textContent=text||"";el("status").className="status "+type};function fill(select,presets,active){select.replaceChildren();const none=document.createElement("option");none.value="";none.textContent="— вбудований стандартний шаблон —";select.append(none);presets.forEach(p=>{const option=document.createElement("option");option.value=p.id;option.textContent=(p.name||p.id)+" ["+p.id+"]";option.title=option.textContent;select.append(option)});if(active&&![...select.options].some(o=>o.value===active)){const missing=document.createElement("option");missing.value=active;missing.textContent="⚠ активний asset не знайдено ["+active+"]";select.append(missing)}select.value=active||"";select.title=select.options[select.selectedIndex]?.textContent||""}async function load(){try{setStatus("Оновлення...");const r=await fetch("/api/hym-admin/config",{headers,cache:"no-store"});const d=await r.json();if(!r.ok)throw new Error(d.error||"Помилка доступу");el("online").textContent=d.stats.online;el("today").textContent=d.stats.today;el("day").textContent=d.stats.day+" · Europe/Kyiv";el("count").textContent=d.presets.length;setStatus("Дані оновлено · settings: "+(d.bindings?.settingsStorage||"PRESETS_KV"), "ok");fill(el("mobile"),d.presets,d.active.mobile);fill(el("tablet"),d.presets,d.active.tablet);fill(el("windows"),d.presets,d.active.windows);if(!d.bindings?.adminConfigKv)setStatus("Дані оновлено · ADMIN_CONFIG_KV не підключений, fallback PRESETS_KV", "ok");}catch(e){setStatus(e.message,"err")}}async function save(platform,presetId){try{setStatus("Збереження...");const r=await fetch("/api/hym-admin/active-template",{method:"POST",headers,body:JSON.stringify({platform,presetId})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Не вдалося зберегти");setStatus("Стандартний шаблон для "+platform+" оновлено", "ok")}catch(e){setStatus(e.message,"err");load()}}el("refresh").onclick=load;el("mobile").onchange=e=>{e.target.title=e.target.options[e.target.selectedIndex]?.textContent||"";save("mobile",e.target.value)};el("tablet").onchange=e=>{e.target.title=e.target.options[e.target.selectedIndex]?.textContent||"";save("tablet",e.target.value)};el("windows").onchange=e=>{e.target.title=e.target.options[e.target.selectedIndex]?.textContent||"";save("windows",e.target.value)};load();setInterval(load,30000)})();</script></body></html>`;
 
 function renderAdminPanel(request, url, env) {
   try {
