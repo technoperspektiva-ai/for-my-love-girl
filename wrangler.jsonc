@@ -24,6 +24,10 @@
     {
       "binding": "ADMIN_CONFIG_KV",
       "id": "a8e571e7d52e48939bd30b9780839dda"
+    },
+    {
+      "binding": "DESIGNS_KV",
+      "id": "4fb55f3e69fd4740b18aeece572cbf37"
     }
   ]
 }
