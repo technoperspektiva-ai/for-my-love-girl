@@ -48,3 +48,8 @@ Added separate design KV namespace:
 ```
 
 Namespace name provided by user: `for-my-love-girl_v3`.
+
+
+## v144 note
+
+`DESIGNS_KV` was removed from `wrangler.jsonc` because the provided namespace id was not found in the Cloudflare account during deploy. Add it back only after copying the real Namespace ID from the same Cloudflare account.

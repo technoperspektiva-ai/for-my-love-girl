@@ -667,3 +667,8 @@ Added a second KV namespace binding `ADMIN_CONFIG_KV` for admin server settings.
 ## v143 DESIGNS_KV
 
 Added a third KV namespace binding `DESIGNS_KV` for future separate design storage. `PRESETS_KV` stays for existing presets/layouts; `ADMIN_CONFIG_KV` stays for admin settings.
+
+
+## v144 safe deploy
+
+Removed the invalid `DESIGNS_KV` binding because Cloudflare returned code 10041: namespace not found. `ADMIN_CONFIG_KV` remains connected and is used for admin server settings.
