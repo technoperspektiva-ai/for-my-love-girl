@@ -652,3 +652,8 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Restored the Worker ES Modules `export default { fetch() }` handler.
 - Fixes Cloudflare `wrangler versions upload` error 10216: Service Worker syntax script is not supported by Versions API.
 - Keeps v131 tiny Mood status and restored Support Chat block.
+
+
+## v133 client-js-repair
+- Fixed broken client JS caused by accidental Mood CSS injection inside temp-mail iframe srcdoc.
+- Keeps ES Module Worker deploy fix, tiny Mood block and support chat restored.
