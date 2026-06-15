@@ -657,3 +657,8 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 ## v133 client-js-repair
 - Fixed broken client JS caused by accidental Mood CSS injection inside temp-mail iframe srcdoc.
 - Keeps ES Module Worker deploy fix, tiny Mood block and support chat restored.
+
+
+## v142 ADMIN_CONFIG_KV
+
+Added a second KV namespace binding `ADMIN_CONFIG_KV` for admin server settings. `PRESETS_KV` remains for saved designs/layout presets. Active mobile/tablet/windows template selection now writes to `ADMIN_CONFIG_KV` when available and falls back to `PRESETS_KV` only if the new binding is missing.
