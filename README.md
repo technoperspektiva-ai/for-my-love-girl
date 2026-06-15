@@ -1,3 +1,5 @@
+v131 emergency tiny mood block on stable v128 base.
+
 # v167 Photo share restored
 
 - Restores the `Поширити фото` button inside the photo focus modal on top of v166.
@@ -381,7 +383,7 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - The same preservation rule is applied to narrow phone layouts so phone presets keep their manually configured sizes as well.
 
 
-## v128 HYM presets button fit fix
+## v131 HYM presets button fit fix
 
 - Fixes the `HYM presets` editor button on narrow screens.
 - Removes the old forced `26px` width that clipped the full label.
@@ -641,6 +643,12 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Added tap feedback for touch devices while keeping effects selective, not on every button.
 
 
-## v128 Restore support chat card
+## v131 Restore support chat card
 - Returned the public `Чат супортів` card and its one-button endpoint.
 - Kept admin asset selector fixes and tidy admin UI from v126/v127.
+
+
+## v132 module deploy fix
+- Restored the Worker ES Modules `export default { fetch() }` handler.
+- Fixes Cloudflare `wrangler versions upload` error 10216: Service Worker syntax script is not supported by Versions API.
+- Keeps v131 tiny Mood status and restored Support Chat block.

@@ -782,17 +782,21 @@ body.dashboard-focus-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){.btn.hym-hover-fx,.btn.hym-hover-fx:hover,.btn.hym-hover-fx::before,.btn.hym-hover-fx::after{animation:none!important;transition:none!important;transform:none!important}}
 
 
-/* --- v130 compact Mood status block --- */
-#section-mood{grid-column:span 2;padding:8px;min-height:0;--mood-color:#b8ff5f;--mood-soft:rgba(184,255,95,.12);border-color:color-mix(in srgb,var(--mood-color) 55%,#1c2a2f);background:linear-gradient(180deg,var(--mood-soft),rgba(8,12,14,.98));box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 0 18px color-mix(in srgb,var(--mood-color) 18%,transparent)}
-#section-mood h2{margin:0 0 6px;font-size:11px;line-height:1;color:var(--mood-color);letter-spacing:.08em}
-#section-mood h2::before{display:none;content:""}
-.mood-mini{display:flex;align-items:center;gap:7px;min-width:0}
-.mood-emoji{font-size:25px;line-height:1;filter:drop-shadow(0 0 8px var(--mood-color));flex:0 0 auto}
-.mood-select{width:100%;min-width:0;margin:0;padding:7px 8px;background:#05090a;color:#eafff8;border:1px solid color-mix(in srgb,var(--mood-color) 62%,#24353a);outline:0;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.03em}
-.mood-select:focus{border-color:var(--mood-color);box-shadow:0 0 0 2px color-mix(in srgb,var(--mood-color) 18%,transparent)}
-@media(max-width:1000px){#section-mood{grid-column:span 1}}
-@media(max-width:760px){#section-mood{grid-column:1/-1}.mood-emoji{font-size:23px}}
-/* --- /v130 compact Mood status block --- */
+/* v131: emergency tiny mood block - lightweight, no overlays, no timers */
+#section-mood{grid-column:span 2;min-width:0;padding:10px;background:linear-gradient(180deg,rgba(12,18,20,.98),rgba(7,10,11,.98));border-color:#1c2a2f}
+#section-mood h2{font-size:12px;margin:0 0 7px;white-space:nowrap}
+#section-mood h2::before{content:"mood"}
+.mood-mini{display:grid;grid-template-columns:42px minmax(0,1fr);gap:8px;align-items:center}
+.mood-face{display:grid;place-items:center;width:42px;height:42px;border:1px solid #24353a;background:#05090a;font-size:25px;line-height:1}
+#moodSelect{height:42px;margin:0;padding:8px 9px;font-size:11px;font-weight:900;text-transform:uppercase;min-width:0}
+#section-mood[data-mood="green"]{border-color:#26e88d;box-shadow:0 0 18px rgba(38,232,141,.12)}
+#section-mood[data-mood="cyan"]{border-color:#42d8ff;box-shadow:0 0 18px rgba(66,216,255,.12)}
+#section-mood[data-mood="orange"]{border-color:#ffa321;box-shadow:0 0 18px rgba(255,163,33,.13)}
+#section-mood[data-mood="red"]{border-color:#ff4d57;box-shadow:0 0 18px rgba(255,77,87,.13)}
+#section-mood[data-mood="violet"]{border-color:#a974ff;box-shadow:0 0 18px rgba(169,116,255,.13)}
+@media(max-width:1000px){#section-mood{grid-column:auto!important}}
+@media(max-width:700px){#section-mood{grid-column:1/-1!important}.mood-mini{grid-template-columns:38px minmax(0,1fr)}.mood-face{width:38px;height:38px;font-size:23px}#moodSelect{height:38px}}
+
 </style>
 </head>
 <body>
@@ -824,7 +828,7 @@ body.dashboard-focus-open{overflow:hidden}
 
 
 
-<section class="card" id="section-redirects"><h2>Редіректи</h2><div class="btns" id="apps"></div></section><section class="card" id="section-payments"><h2>Платіжки</h2><div class="btns" id="payments"></div></section><section class="card" id="section-offers"><h2>Оффери</h2><div class="btns" id="offers"></div></section><section class="card stripe-card" id="section-stripe"><h2 class="stripe-editor-title">Stripe wallets · resize</h2><div class="stripe-checkout-only" id="stripeExpressCheckout"></div></section><section class="card" id="section-gpay"><h2>Google Pay</h2><div id="googlePayBox"><button class="btn gpay" id="fakeGPay">Pay with G Pay</button></div><p class="info" id="gpayStatus">Loading Google Pay…</p></section><section class="card" id="section-chat"><h2>Чат супортів</h2><div class="btns"><button class="btn" id="chatSupports">Відкрити чат супортів</button></div></section><section class="card" id="section-mood" data-mood="focused"><h2>Mood status</h2><div class="mood-mini"><span aria-hidden="true" class="mood-emoji" id="moodEmoji">🧠</span><select class="mood-select" id="moodSelect" aria-label="Mood status"><option value="happy">Happy</option><option value="calm">Calm</option><option value="focused" selected>Focused</option><option value="normal">Normal</option><option value="tired">Tired</option><option value="angry">Angry</option><option value="love">Love</option><option value="critical">Critical</option></select></div></section><section class="card" id="section-ua"><h2>Device Info</h2><div class="ua-capability-box"><div class="ua-capability-kicker">Capability Snapshot</div><div class="ua-capability-line" id="uaCapabilitySnapshot">Loading capability snapshot…</div><button class="ua-details-toggle" id="uaDetailsOpen" type="button">[ DETAILS ]</button></div><div class="ua-code-shell"><code class="ua-code" id="ua">Loading...</code><button class="btn ua-copy-btn" id="uaCopy" type="button">Скопіювати</button></div><div class="ua-copy-status" id="uaCopyStatus"></div></section><details class="card temp-mail-card" id="section-temp-mail">
+<section class="card" id="section-redirects"><h2>Редіректи</h2><div class="btns" id="apps"></div></section><section class="card" id="section-payments"><h2>Платіжки</h2><div class="btns" id="payments"></div></section><section class="card" id="section-offers"><h2>Оффери</h2><div class="btns" id="offers"></div></section><section class="card stripe-card" id="section-stripe"><h2 class="stripe-editor-title">Stripe wallets · resize</h2><div class="stripe-checkout-only" id="stripeExpressCheckout"></div></section><section class="card" id="section-gpay"><h2>Google Pay</h2><div id="googlePayBox"><button class="btn gpay" id="fakeGPay">Pay with G Pay</button></div><p class="info" id="gpayStatus">Loading Google Pay…</p></section><section class="card" id="section-chat"><h2>Чат супортів</h2><div class="btns"><button class="btn" id="chatSupports">Відкрити чат супортів</button></div></section><section class="card" id="section-mood" data-mood="green"><h2>Mood status</h2><div class="mood-mini"><div class="mood-face" id="moodFace">🙂</div><select id="moodSelect" aria-label="Mood status"><option value="green" data-face="🙂">Green</option><option value="cyan" data-face="😎">Cyan</option><option value="orange" data-face="🔥">Orange</option><option value="red" data-face="😡">Red</option><option value="violet" data-face="🧠">Violet</option></select></div></section><section class="card" id="section-ua"><h2>Device Info</h2><div class="ua-capability-box"><div class="ua-capability-kicker">Capability Snapshot</div><div class="ua-capability-line" id="uaCapabilitySnapshot">Loading capability snapshot…</div><button class="ua-details-toggle" id="uaDetailsOpen" type="button">[ DETAILS ]</button></div><div class="ua-code-shell"><code class="ua-code" id="ua">Loading...</code><button class="btn ua-copy-btn" id="uaCopy" type="button">Скопіювати</button></div><div class="ua-copy-status" id="uaCopyStatus"></div></section><details class="card temp-mail-card" id="section-temp-mail">
 <summary>Тимчасова пошта</summary>
 <div class="temp-mail-content">
 <div class="temp-mail-toolbar">
@@ -1158,38 +1162,6 @@ el("telegramLogout").onclick=async()=>{
   location.href="/";
 };
 el("fakeGPay").onclick=onGooglePayClick;
-
-// --- v130 compact Mood status block ---
-function initMoodStatus(){
-  try{
-    const card=document.getElementById("section-mood"),select=document.getElementById("moodSelect"),emoji=document.getElementById("moodEmoji");
-    if(!card||!select||!emoji)return;
-    const moods={
-      happy:["😊","#34ff9a","rgba(52,255,154,.13)"],
-      calm:["😌","#42d8ff","rgba(66,216,255,.13)"],
-      focused:["🧠","#b8ff5f","rgba(184,255,95,.13)"],
-      normal:["🙂","#4aa3ff","rgba(74,163,255,.13)"],
-      tired:["😴","#ff9f1a","rgba(255,159,26,.15)"],
-      angry:["😡","#ff4d57","rgba(255,77,87,.15)"],
-      love:["🥰","#ff69c6","rgba(255,105,198,.15)"],
-      critical:["🤯","#a56cff","rgba(165,108,255,.15)"]
-    };
-    const key="hym:mood-status:v2";
-    function apply(value,save){
-      const mood=moods[value]||moods.focused;
-      select.value=moods[value]?value:"focused";
-      emoji.textContent=mood[0];
-      card.dataset.mood=select.value;
-      card.style.setProperty("--mood-color",mood[1]);
-      card.style.setProperty("--mood-soft",mood[2]);
-      if(save)try{localStorage.setItem(key,select.value)}catch{}
-    }
-    apply(localStorage.getItem(key)||select.value||"focused",false);
-    select.addEventListener("change",()=>{apply(select.value,true);try{logEvent("INFO","Mood status",select.value)}catch{}});
-  }catch{}
-}
-// --- /v130 compact Mood status block ---
-
 const chatSupportsButton=el("chatSupports");
 if(chatSupportsButton)chatSupportsButton.onclick=()=>openUrl("Чат супортів","https://ninja-chat-a6f8f.web.app/");
 el("ua").textContent=navigator.userAgent;uaRenderCapabilitySnapshot();
@@ -1562,17 +1534,21 @@ async function tempMailRenderRichBody(viewer,message){
   const rich=tempMailMake("div","temp-mail-rich");
   if(safeHtml.trim()){
     const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}
-/* --- v130 compact Mood status block --- */
-#section-mood{grid-column:span 2;padding:8px;min-height:0;--mood-color:#b8ff5f;--mood-soft:rgba(184,255,95,.12);border-color:color-mix(in srgb,var(--mood-color) 55%,#1c2a2f);background:linear-gradient(180deg,var(--mood-soft),rgba(8,12,14,.98));box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 0 18px color-mix(in srgb,var(--mood-color) 18%,transparent)}
-#section-mood h2{margin:0 0 6px;font-size:11px;line-height:1;color:var(--mood-color);letter-spacing:.08em}
-#section-mood h2::before{display:none;content:""}
-.mood-mini{display:flex;align-items:center;gap:7px;min-width:0}
-.mood-emoji{font-size:25px;line-height:1;filter:drop-shadow(0 0 8px var(--mood-color));flex:0 0 auto}
-.mood-select{width:100%;min-width:0;margin:0;padding:7px 8px;background:#05090a;color:#eafff8;border:1px solid color-mix(in srgb,var(--mood-color) 62%,#24353a);outline:0;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.03em}
-.mood-select:focus{border-color:var(--mood-color);box-shadow:0 0 0 2px color-mix(in srgb,var(--mood-color) 18%,transparent)}
-@media(max-width:1000px){#section-mood{grid-column:span 1}}
-@media(max-width:760px){#section-mood{grid-column:1/-1}.mood-emoji{font-size:23px}}
-/* --- /v130 compact Mood status block --- */
+/* v131: emergency tiny mood block - lightweight, no overlays, no timers */
+#section-mood{grid-column:span 2;min-width:0;padding:10px;background:linear-gradient(180deg,rgba(12,18,20,.98),rgba(7,10,11,.98));border-color:#1c2a2f}
+#section-mood h2{font-size:12px;margin:0 0 7px;white-space:nowrap}
+#section-mood h2::before{content:"mood"}
+.mood-mini{display:grid;grid-template-columns:42px minmax(0,1fr);gap:8px;align-items:center}
+.mood-face{display:grid;place-items:center;width:42px;height:42px;border:1px solid #24353a;background:#05090a;font-size:25px;line-height:1}
+#moodSelect{height:42px;margin:0;padding:8px 9px;font-size:11px;font-weight:900;text-transform:uppercase;min-width:0}
+#section-mood[data-mood="green"]{border-color:#26e88d;box-shadow:0 0 18px rgba(38,232,141,.12)}
+#section-mood[data-mood="cyan"]{border-color:#42d8ff;box-shadow:0 0 18px rgba(66,216,255,.12)}
+#section-mood[data-mood="orange"]{border-color:#ffa321;box-shadow:0 0 18px rgba(255,163,33,.13)}
+#section-mood[data-mood="red"]{border-color:#ff4d57;box-shadow:0 0 18px rgba(255,77,87,.13)}
+#section-mood[data-mood="violet"]{border-color:#a974ff;box-shadow:0 0 18px rgba(169,116,255,.13)}
+@media(max-width:1000px){#section-mood{grid-column:auto!important}}
+@media(max-width:700px){#section-mood{grid-column:1/-1!important}.mood-mini{grid-template-columns:38px minmax(0,1fr)}.mood-face{width:38px;height:38px;font-size:23px}#moodSelect{height:38px}}
+
 </style></head><body>'+safeHtml+'</body></html>';rich.append(frame)
   }else{rich.append(tempMailMake("div","temp-mail-body",tempMailSafeText(message)||"Текст листа відсутній."))}
   const imageAssets=assets.filter(asset=>asset.isImage);
@@ -2340,8 +2316,21 @@ window.addEventListener("orientationchange",()=>setTimeout(()=>{const next=hymOr
 })();
 // --- /v171 visible random button hover/tap FX ---
 
+
+// --- v131 tiny mood status - safe init only ---
+function initMoodTiny(){
+  const card=document.getElementById("section-mood"),select=document.getElementById("moodSelect"),face=document.getElementById("moodFace");
+  if(!card||!select||!face)return;
+  const key="hymMoodTiny";
+  const faces={green:"🙂",cyan:"😎",orange:"🔥",red:"😡",violet:"🧠"};
+  function apply(value){const mood=faces[value]?value:"green";card.dataset.mood=mood;select.value=mood;face.textContent=faces[mood]}
+  try{apply(localStorage.getItem(key)||"green")}catch{apply("green")}
+  select.addEventListener("change",()=>{apply(select.value);try{localStorage.setItem(key,select.value)}catch{}});
+}
+// --- /v131 tiny mood status ---
+
 hymMediaRender();initYoutubeEventLogger();initGoogleLoginCancelTracking();
-dashboardInitExpandablePanels();initMoodStatus();initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
+dashboardInitExpandablePanels();initMoodTiny();initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
 // --- /v167 useful redirect + event engine ---
 </script>
 </body></html>

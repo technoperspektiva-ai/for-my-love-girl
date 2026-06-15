@@ -1,3 +1,5 @@
+v131 emergency tiny mood block on stable v128 base.
+
 # PRESETS_KV already connected
 
 This build already includes the Workers KV binding:
@@ -19,7 +21,3 @@ npx wrangler deploy
 ```
 
 Server preset creation and deletion still require an active Telegram login on the site.
-
-
-## v130
-- Compact Mood status block: only emoji + select, based on stable v128 with chat support restored.
