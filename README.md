@@ -644,3 +644,10 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 ## v128 Restore support chat card
 - Returned the public `Чат супортів` card and its one-button endpoint.
 - Kept admin asset selector fixes and tidy admin UI from v126/v127.
+
+## v129 Mood status block
+
+- Added a new `Mood status` dashboard card with a dropdown mood/color selector.
+- Changing the mood updates the block accent color, glow and emoji instantly.
+- Added a disable checkbox and saved the selected mood in localStorage.
+- Kept the support chat card restored and the admin asset selector fixes from v128.

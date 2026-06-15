@@ -19,3 +19,7 @@ npx wrangler deploy
 ```
 
 Server preset creation and deletion still require an active Telegram login on the site.
+
+## v129 note
+
+The public dashboard now includes `section-mood` (`Mood status`). New presets can move/resize it like the other cards; old presets will still load and the block will be auto-packed when no saved position exists.
