@@ -781,6 +781,33 @@ body.dashboard-focus-open{overflow:hidden}
 @keyframes hymBtnAlarm{0%,100%{filter:brightness(1.08)}50%{filter:brightness(1.28);box-shadow:0 0 0 2px rgba(255,77,87,.45),0 0 28px rgba(255,77,87,.28),0 0 20px rgba(52,255,154,.16)}}
 @media(prefers-reduced-motion:reduce){.btn.hym-hover-fx,.btn.hym-hover-fx:hover,.btn.hym-hover-fx::before,.btn.hym-hover-fx::after{animation:none!important;transition:none!important;transform:none!important}}
 
+
+
+/* v172 in-memory live admin chat */
+.hym-live-chat-modal{position:fixed;inset:0;display:none;place-items:center;padding:14px;background:rgba(0,0,0,.82);z-index:520}
+.hym-live-chat-modal.on{display:grid}
+.hym-live-chat-box{width:min(430px,calc(100vw - 20px));max-height:min(720px,92vh);display:grid;grid-template-rows:auto minmax(170px,1fr) auto;gap:8px;background:#071013;border:1px solid #5b2a32;box-shadow:0 0 0 1px rgba(255,77,87,.12),0 22px 60px rgba(0,0,0,.66);padding:12px;position:relative;overflow:hidden}
+.hym-live-chat-box::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,77,87,.07),transparent);transform:translateX(-120%);animation:hymLiveScan 2.8s linear infinite}
+@keyframes hymLiveScan{to{transform:translateX(120%)}}
+.hym-live-chat-head{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #2b1a1f;padding-bottom:8px}
+.hym-live-attention{display:inline-flex;align-items:center;gap:7px;color:#ffdfe2;font-size:13px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;text-shadow:0 0 12px rgba(255,77,87,.55);animation:hymLiveAttention 1.05s steps(2,end) infinite}
+.hym-live-triangle{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:15px solid #ff4d57;filter:drop-shadow(0 0 8px rgba(255,77,87,.82))}
+@keyframes hymLiveAttention{50%{opacity:.45;transform:translateX(1px)}}
+.hym-live-admin-cipher{color:#34ff9a;font-size:10px;font-weight:900;letter-spacing:.12em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:178px;text-align:right}
+.hym-live-chat-stream{position:relative;overflow:auto;border:1px solid #1c2a2f;background:#040708;padding:8px;display:grid;align-content:start;gap:7px}
+.hym-live-msg{max-width:88%;padding:8px 9px;border:1px solid #24353a;background:#0b1113;color:#d7f5ee;font-size:12px;line-height:1.35;word-break:break-word}
+.hym-live-msg.admin{justify-self:start;border-color:#5b2a32;background:#16090c;color:#ffdfe2}
+.hym-live-msg.user{justify-self:end;border-color:#1b644e;background:#051b12;color:#cffff0}
+.hym-live-msg small{display:block;margin-bottom:4px;color:#7c9994;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+.hym-live-name-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px}
+.hym-live-compose{position:relative;display:grid;gap:7px}
+.hym-live-compose-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px}
+.hym-live-compose input{margin:0}.hym-live-compose .btn{padding:9px 10px;font-size:10px}
+.hym-live-status{min-height:15px;color:#7c9994;font-size:10px}.hym-live-status.err{color:#ff4d57}.hym-live-status.ok{color:#34ff9a}
+@media(max-width:700px){.hym-live-chat-box{width:min(410px,calc(100vw - 14px));max-height:88vh}.hym-live-compose-row{grid-template-columns:1fr}.hym-live-name-row{grid-template-columns:1fr}.hym-live-admin-cipher{max-width:135px}}
+@media(prefers-reduced-motion:reduce){.hym-live-chat-box::before,.hym-live-attention{animation:none}}
+/* /v172 in-memory live admin chat */
+
 </style>
 </head>
 <body>
@@ -1516,7 +1543,32 @@ async function tempMailRenderRichBody(viewer,message){
   let safeHtml=htmlValue?tempMailSanitizeHtml(htmlValue):"";safeHtml=tempMailHydrateInlineImages(safeHtml,assets);
   const rich=tempMailMake("div","temp-mail-rich");
   if(safeHtml.trim()){
-    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'</body></html>';rich.append(frame)
+    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'
+<!-- v172 in-memory live admin chat -->
+<div class="hym-live-chat-modal" id="hymLiveChatModal" aria-hidden="true">
+  <div class="hym-live-chat-box" role="dialog" aria-modal="true" aria-label="Attention live chat">
+    <div class="hym-live-chat-head">
+      <div class="hym-live-attention"><span class="hym-live-triangle"></span><span>Attention</span></div>
+      <div class="hym-live-admin-cipher" id="hymLiveAdminCipher">0xA7F1::9C2E::FF00</div>
+    </div>
+    <div class="hym-live-chat-stream" id="hymLiveChatStream"></div>
+    <div class="hym-live-compose">
+      <div class="hym-live-name-row" id="hymLiveNameRow">
+        <input id="hymLiveNameInput" maxlength="24" placeholder="Введи імʼя перед розмовою" autocomplete="nickname"/>
+        <button class="btn green" id="hymLiveNameSave" type="button">OK</button>
+      </div>
+      <div class="hym-live-compose-row">
+        <input id="hymLiveText" maxlength="700" placeholder="Напиши відповідь" autocomplete="off"/>
+        <button class="btn green" id="hymLiveSend" type="button">SEND</button>
+        <button class="btn red" id="hymLiveClose" type="button">CLOSE</button>
+      </div>
+      <div class="hym-live-status" id="hymLiveStatus"></div>
+    </div>
+  </div>
+</div>
+<!-- /v172 in-memory live admin chat -->
+
+</body></html>';rich.append(frame)
   }else{rich.append(tempMailMake("div","temp-mail-body",tempMailSafeText(message)||"Текст листа відсутній."))}
   const imageAssets=assets.filter(asset=>asset.isImage);
   if(imageAssets.length){const gallery=tempMailMake("div","temp-mail-image-gallery");imageAssets.forEach(asset=>{const link=document.createElement("a");link.className="temp-mail-image-card";link.href=asset.blobUrl;link.target="_blank";link.rel="noopener noreferrer";link.title=asset.filename;const img=document.createElement("img");img.src=asset.inlineUrl;img.alt=asset.filename;img.loading="lazy";const label=tempMailMake("span","",asset.filename);link.append(img,label);gallery.append(link)});rich.append(gallery)}
@@ -2085,6 +2137,30 @@ function initRuntimeOsBadge(){const node=document.getElementById("osBadge");if(!
 initRuntimeOsBadge();
 // --- /v165 runtime OS + Cloudflare region neon badge ---
 
+
+
+
+// --- v172 in-memory admin live chat, no KV ---
+const HYM_LIVE_NAME_KEY="hym_live_chat_name_v1";
+const hymLiveState={cursor:0,lastAdminId:0,userClosedUntil:0,open:false,name:"",busy:false};
+function hymLiveEl(id){return document.getElementById(id)}
+function hymLiveSetStatus(text,type=""){const node=hymLiveEl("hymLiveStatus");if(!node)return;node.textContent=text||"";node.className="hym-live-status "+type}
+function hymLiveSaveName(value){const name=String(value||"").trim().replace(/[<>]/g,"").slice(0,24);hymLiveState.name=name;try{if(name)localStorage.setItem(HYM_LIVE_NAME_KEY,name)}catch{}return name}
+function hymLiveLoadName(){let name="";try{name=localStorage.getItem(HYM_LIVE_NAME_KEY)||""}catch{}return hymLiveSaveName(name)}
+function hymLiveOpen(){const modal=hymLiveEl("hymLiveChatModal");if(!modal)return;modal.classList.add("on");modal.setAttribute("aria-hidden","false");hymLiveState.open=true;hymLiveRenderName();setTimeout(()=>hymLiveEl(hymLiveState.name?"hymLiveText":"hymLiveNameInput")?.focus(),40)}
+function hymLiveHide(){const modal=hymLiveEl("hymLiveChatModal");if(!modal)return;modal.classList.remove("on");modal.setAttribute("aria-hidden","true");hymLiveState.open=false}
+function hymLiveRenderName(){const row=hymLiveEl("hymLiveNameRow"),input=hymLiveEl("hymLiveNameInput");if(input&&!input.value)input.value=hymLiveState.name||"";if(row)row.style.display=hymLiveState.name?"none":"grid";const text=hymLiveEl("hymLiveText"),send=hymLiveEl("hymLiveSend");if(text)text.disabled=!hymLiveState.name;if(send)send.disabled=!hymLiveState.name}
+function hymLiveRenderMessages(messages){const box=hymLiveEl("hymLiveChatStream");if(!box)return;box.innerHTML="";(messages||[]).forEach(msg=>{const item=document.createElement("div");item.className="hym-live-msg "+(msg.from==="admin"?"admin":"user");const meta=document.createElement("small");meta.textContent=(msg.from==="admin"?"admin":"you")+" · "+new Date(Number(msg.at)||Date.now()).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"});const body=document.createElement("div");body.textContent=String(msg.text||"");item.append(meta,body);box.appendChild(item);if(msg.from==="admin")hymLiveState.lastAdminId=Math.max(hymLiveState.lastAdminId,Number(msg.id)||0);hymLiveState.cursor=Math.max(hymLiveState.cursor,Number(msg.id)||0)});box.scrollTop=box.scrollHeight}
+function hymLiveApplyPayload(data){if(!data||!data.ok)return;if(data.closed){hymLiveHide();return}if(data.name&&!hymLiveState.name){hymLiveSaveName(data.name);hymLiveRenderName()}const chat=data.chat||null;if(chat&&Array.isArray(chat.messages)){const previous=hymLiveState.lastAdminId;hymLiveRenderMessages(chat.messages);const hasNewAdmin=hymLiveState.lastAdminId>previous||hymLiveState.lastAdminId>hymLiveState.userClosedUntil;if(hasNewAdmin&&!hymLiveState.open)hymLiveOpen()}else if(!chat){hymLiveHide()} }
+async function hymLiveApi(path,body={}){const payload=Object.assign({visitorId:hymVisitorId(),name:hymLiveState.name||hymLiveLoadName(),device:hymDeviceSummary?.(),region:runtimeRegionCode?.(),os:detectRuntimeOs?.().name},body);const response=await fetch(path,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(payload),cache:"no-store",keepalive:path.endsWith("heartbeat")});const data=await response.json().catch(()=>({ok:false,error:"Bad response"}));if(!response.ok)throw new Error(data.error||"Live chat error");return data}
+async function hymLivePoll(){try{const data=await hymLiveApi("/api/live-chat/heartbeat",{cursor:hymLiveState.cursor,userClosedUntil:hymLiveState.userClosedUntil});hymLiveApplyPayload(data)}catch{}}
+async function hymLiveSend(){if(hymLiveState.busy)return;const input=hymLiveEl("hymLiveText"),text=String(input?.value||"").trim();if(!text)return;hymLiveState.busy=true;hymLiveSetStatus("Sending...");try{const data=await hymLiveApi("/api/live-chat/message",{text});if(input)input.value="";hymLiveApplyPayload(data);hymLiveSetStatus("Sent","ok")}catch(error){hymLiveSetStatus(error.message||"Send failed","err")}finally{hymLiveState.busy=false}}
+async function hymLiveSetName(){const input=hymLiveEl("hymLiveNameInput"),name=hymLiveSaveName(input?.value||"");if(!name){hymLiveSetStatus("Вкажи імʼя","err");return}try{const data=await hymLiveApi("/api/live-chat/name",{name});hymLiveApplyPayload(data);hymLiveRenderName();hymLiveSetStatus("Name saved","ok")}catch(error){hymLiveSetStatus(error.message||"Name failed","err")}}
+async function hymLiveUserClose(){hymLiveState.userClosedUntil=Math.max(hymLiveState.userClosedUntil,hymLiveState.lastAdminId,hymLiveState.cursor);hymLiveHide();try{await hymLiveApi("/api/live-chat/user-close",{userClosedUntil:hymLiveState.userClosedUntil})}catch{}}
+function hymLiveCipherTick(){const node=hymLiveEl("hymLiveAdminCipher");if(!node)return;const chars="ABCDEF0123456789";let out="0x";for(let i=0;i<4;i++){out+=Array.from({length:4},()=>chars[Math.floor(Math.random()*chars.length)]).join("");if(i<3)out+="::"}node.textContent=out}
+function initHymLiveChat(){hymLiveLoadName();hymLiveRenderName();hymLiveEl("hymLiveSend")?.addEventListener("click",hymLiveSend);hymLiveEl("hymLiveText")?.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();hymLiveSend()}});hymLiveEl("hymLiveNameSave")?.addEventListener("click",hymLiveSetName);hymLiveEl("hymLiveNameInput")?.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();hymLiveSetName()}});hymLiveEl("hymLiveClose")?.addEventListener("click",hymLiveUserClose);hymLiveCipherTick();setInterval(hymLiveCipherTick,640);hymLivePoll();setInterval(hymLivePoll,2500);document.addEventListener("visibilitychange",()=>{if(!document.hidden)hymLivePoll()})}
+initHymLiveChat();
+// --- /v172 in-memory admin live chat ---
 
 // --- v111 anonymous traffic heartbeat + admin-selected public HYM template ---
 const HYM_VISITOR_KEY="hym_visitor_id_v1";
