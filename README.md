@@ -657,9 +657,3 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 ## v133 client-js-repair
 - Fixed broken client JS caused by accidental Mood CSS injection inside temp-mail iframe srcdoc.
 - Keeps ES Module Worker deploy fix, tiny Mood block and support chat restored.
-
-
-## v134 Mood visible repair
-- Keeps v133 stable JS/deploy repair.
-- Forces the tiny Mood status card to stay visible after old local/server presets.
-- Repairs missing/overlapped free-layout position for new cards without touching temp-mail iframe.

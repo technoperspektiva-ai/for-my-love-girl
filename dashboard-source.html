@@ -797,8 +797,8 @@ body.dashboard-focus-open{overflow:hidden}
 @media(max-width:1000px){#section-mood{grid-column:auto!important}}
 @media(max-width:700px){#section-mood{grid-column:1/-1!important}.mood-mini{grid-template-columns:38px minmax(0,1fr)}.mood-face{width:38px;height:38px;font-size:23px}#moodSelect{height:38px}}
 /* v134: mood must stay visible with old admin/server free-layout presets */
-#section-mood{width:min(260px,100%)}
-.grid.hym-free-layout>#section-mood{width:260px!important;min-height:76px!important;z-index:3}
+#section-mood{min-width:160px}
+.grid.hym-free-layout>#section-mood{z-index:3;min-width:160px;min-height:76px}
 #section-mood select{background:#f7fbff;color:#020607;border-color:#dbe6ea}
 
 
@@ -2365,6 +2365,15 @@ function initMoodTiny(options={}){
   function apply(value){const mood=faces[value]?value:"green";card.dataset.mood=mood;select.value=mood;face.textContent=faces[mood]}
   try{apply(localStorage.getItem(key)||"green")}catch{apply("green")}
   if(!select.dataset.hymMoodReady){select.dataset.hymMoodReady="1";select.addEventListener("change",()=>{apply(select.value);try{localStorage.setItem(key,select.value)}catch{}})}
+  if(!select.dataset.hymMoodEditorReady){
+    select.dataset.hymMoodEditorReady="1";
+    select.addEventListener("pointerdown",event=>{
+      if(!hymEditMode)return;
+      event.preventDefault();
+      event.stopPropagation();
+      hymSelect(card);
+    },true);
+  }
   if(options.forceVisible)card.hidden=false;
   if(options.repairPosition)setTimeout(()=>hymRepairMoodPosition(card),40);
 }
