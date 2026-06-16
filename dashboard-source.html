@@ -1568,28 +1568,6 @@ async function tempMailRenderRichBody(viewer,message){
 </div>
 <!-- /v172 in-memory live admin chat -->
 
-
-<script>
-/* v193: remove old inactive Blogspot/test overlay block */
-(function(){
-  function killDeadBlogspotOverlay(){
-    const badText="web-page.blogspot.com";
-    const nodes=[...document.querySelectorAll("div,section,dialog,aside,input,textarea")];
-    nodes.forEach(node=>{
-      const value=("value" in node)?String(node.value||""):"";
-      const text=String(node.textContent||"");
-      const placeholder=("placeholder" in node)?String(node.placeholder||""):"";
-      if(value.includes(badText)||text.includes(badText)||placeholder.includes(badText)){
-        const shell=node.closest(".modal,.overlay,.focus-panel,.temp-mail-modal,.dashboard-focus-panel,.box,section,div")||node;
-        shell.remove();
-      }
-    });
-  }
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",killDeadBlogspotOverlay,{once:true});
-  else killDeadBlogspotOverlay();
-})();
-</script>
-
 </body></html>';rich.append(frame)
   }else{rich.append(tempMailMake("div","temp-mail-body",tempMailSafeText(message)||"Текст листа відсутній."))}
   const imageAssets=assets.filter(asset=>asset.isImage);
