@@ -656,3 +656,11 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - База взята з ZIP, який користувач щойно завантажив у чат.
 - Не використано жодних правок з v182–v190.
 - UI/логіка не змінювались, окрім version marker.
+
+
+## v194 Safe hide dead live-chat remnants
+
+- База: user-provided v191.
+- Без JS route surgery і без агресивного runtime remove.
+- CSS-рівнем приховано порожні мертві card-shells і залишки no-KV live-chat.
+- Видалено тільки текст `web-page.blogspot.com`, без видалення контейнерів.
