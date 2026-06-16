@@ -57,7 +57,7 @@ body.layout-editing .grid>.card.layout-dragging,body.layout-editing .grid>.card.
 @media(min-width:1001px){
   .ops-nav{display:none}
   #section-redirects{grid-column:span 4}#section-payments{grid-column:span 5}#section-offers{grid-column:span 3}
-  #section-stripe{grid-column:span 4}#section-gpay{grid-column:span 3}#section-ua{grid-column:span 3}
+  #section-stripe{grid-column:span 4}#section-gpay{grid-column:span 3}#section-chat{grid-column:span 2}#section-ua{grid-column:span 3}
   #section-temp-mail{grid-column:1/-1}
   #section-signin{grid-column:span 3}#section-telegram{grid-column:span 4}#section-text{grid-column:span 2}#section-media{grid-column:span 3}
 }
@@ -782,47 +782,32 @@ body.dashboard-focus-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){.btn.hym-hover-fx,.btn.hym-hover-fx:hover,.btn.hym-hover-fx::before,.btn.hym-hover-fx::after{animation:none!important;transition:none!important;transform:none!important}}
 
 
-/* v131: emergency tiny mood block - lightweight, no overlays, no timers */
-#section-mood{grid-column:span 2;min-width:0;padding:10px;background:linear-gradient(180deg,rgba(12,18,20,.98),rgba(7,10,11,.98));border-color:#1c2a2f}
-#section-mood h2{font-size:12px;margin:0 0 7px;white-space:nowrap}
-#section-mood h2::before{content:"mood"}
-.mood-mini{display:grid;grid-template-columns:42px minmax(0,1fr);gap:8px;align-items:center}
-.mood-face{display:grid;place-items:center;width:42px;height:42px;border:1px solid #24353a;background:#05090a;font-size:25px;line-height:1}
-#moodSelect{height:42px;margin:0;padding:8px 9px;font-size:11px;font-weight:900;text-transform:uppercase;min-width:0}
-#section-mood[data-mood="green"]{border-color:#26e88d;box-shadow:0 0 18px rgba(38,232,141,.12)}
-#section-mood[data-mood="cyan"]{border-color:#42d8ff;box-shadow:0 0 18px rgba(66,216,255,.12)}
-#section-mood[data-mood="orange"]{border-color:#ffa321;box-shadow:0 0 18px rgba(255,163,33,.13)}
-#section-mood[data-mood="red"]{border-color:#ff4d57;box-shadow:0 0 18px rgba(255,77,87,.13)}
-#section-mood[data-mood="violet"]{border-color:#a974ff;box-shadow:0 0 18px rgba(169,116,255,.13)}
-@media(max-width:1000px){#section-mood{grid-column:auto!important}}
-@media(max-width:700px){#section-mood{grid-column:1/-1!important}.mood-mini{grid-template-columns:38px minmax(0,1fr)}.mood-face{width:38px;height:38px;font-size:23px}#moodSelect{height:38px}}
-/* v134: mood must stay visible with old admin/server free-layout presets */
-#section-mood{min-width:160px}
-.grid.hym-free-layout>#section-mood{z-index:3;min-width:160px;min-height:76px}
-#section-mood select{background:#f7fbff;color:#020607;border-color:#dbe6ea}
 
+/* v172 in-memory live admin chat */
+.hym-live-chat-modal{position:fixed;inset:0;display:none;place-items:center;padding:14px;background:rgba(0,0,0,.82);z-index:520}
+.hym-live-chat-modal.on{display:grid}
+.hym-live-chat-box{width:min(430px,calc(100vw - 20px));max-height:min(720px,92vh);display:grid;grid-template-rows:auto minmax(170px,1fr) auto;gap:8px;background:#071013;border:1px solid #5b2a32;box-shadow:0 0 0 1px rgba(255,77,87,.12),0 22px 60px rgba(0,0,0,.66);padding:12px;position:relative;overflow:hidden}
+.hym-live-chat-box::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,77,87,.07),transparent);transform:translateX(-120%);animation:hymLiveScan 2.8s linear infinite}
+@keyframes hymLiveScan{to{transform:translateX(120%)}}
+.hym-live-chat-head{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #2b1a1f;padding-bottom:8px}
+.hym-live-attention{display:inline-flex;align-items:center;gap:7px;color:#ffdfe2;font-size:13px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;text-shadow:0 0 12px rgba(255,77,87,.55);animation:hymLiveAttention 1.05s steps(2,end) infinite}
+.hym-live-triangle{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:15px solid #ff4d57;filter:drop-shadow(0 0 8px rgba(255,77,87,.82))}
+@keyframes hymLiveAttention{50%{opacity:.45;transform:translateX(1px)}}
+.hym-live-admin-cipher{color:#34ff9a;font-size:10px;font-weight:900;letter-spacing:.12em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:178px;text-align:right}
+.hym-live-chat-stream{position:relative;overflow:auto;border:1px solid #1c2a2f;background:#040708;padding:8px;display:grid;align-content:start;gap:7px}
+.hym-live-msg{max-width:88%;padding:8px 9px;border:1px solid #24353a;background:#0b1113;color:#d7f5ee;font-size:12px;line-height:1.35;word-break:break-word}
+.hym-live-msg.admin{justify-self:start;border-color:#5b2a32;background:#16090c;color:#ffdfe2}
+.hym-live-msg.user{justify-self:end;border-color:#1b644e;background:#051b12;color:#cffff0}
+.hym-live-msg small{display:block;margin-bottom:4px;color:#7c9994;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+.hym-live-name-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px}
+.hym-live-compose{position:relative;display:grid;gap:7px}
+.hym-live-compose-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px}
+.hym-live-compose input{margin:0}.hym-live-compose .btn{padding:9px 10px;font-size:10px}
+.hym-live-status{min-height:15px;color:#7c9994;font-size:10px}.hym-live-status.err{color:#ff4d57}.hym-live-status.ok{color:#34ff9a}
+@media(max-width:700px){.hym-live-chat-box{width:min(410px,calc(100vw - 14px));max-height:88vh}.hym-live-compose-row{grid-template-columns:1fr}.hym-live-name-row{grid-template-columns:1fr}.hym-live-admin-cipher{max-width:135px}}
+@media(prefers-reduced-motion:reduce){.hym-live-chat-box::before,.hym-live-attention{animation:none}}
+/* /v172 in-memory live admin chat */
 
-
-/* v139: HTTP redirect modal with paste link input */
-.redirect-modal-box{width:min(980px,calc(100vw - 24px));max-height:92vh}
-.redirect-modal-body{display:grid;gap:10px;padding:12px}
-.redirect-modal-url{padding:10px;border:1px solid #1c2a2f;background:#060a0b;color:#a8ffd1;font-size:12px;word-break:break-all}
-.redirect-modal-link-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center}
-.redirect-modal-link-row input{margin:0;height:42px;background:#05090a;color:#d7f5ee;border:1px solid #24353a}
-.redirect-modal-link-row input:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(52,255,154,.1)}
-.redirect-modal-frame{width:100%;height:min(62vh,620px);aspect-ratio:auto;border:1px solid #24353a;background:#fff}
-.redirect-modal-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.redirect-modal-note{font-size:11px;color:var(--muted);line-height:1.45}
-@media(max-width:700px){.redirect-modal-box{width:calc(100vw - 18px);max-height:94vh}.redirect-modal-link-row{grid-template-columns:1fr}.redirect-modal-frame{height:58vh}.redirect-modal-actions{display:grid;grid-template-columns:1fr}.redirect-modal-actions .btn,.redirect-modal-link-row .btn{width:100%}}
-
-
-#section-redirects>h2{cursor:pointer;user-select:none}
-#section-redirects>h2:hover{color:var(--green);text-shadow:0 0 12px rgba(52,255,154,.25)}
-.redirect-input-only{display:block}
-.redirect-modal-column{display:grid;grid-template-columns:1fr;gap:9px}
-.redirect-modal-field-label{font-size:10px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.12em}
-.redirect-modal-column input{margin:0}
-.redirect-modal-url{margin-top:9px;font-size:11px;color:var(--muted);word-break:break-all}
 </style>
 </head>
 <body>
@@ -854,7 +839,7 @@ body.dashboard-focus-open{overflow:hidden}
 
 
 
-<section class="card" id="section-redirects"><h2>Редіректи</h2><div class="btns" id="apps"></div></section><section class="card" id="section-payments"><h2>Платіжки</h2><div class="btns" id="payments"></div></section><section class="card" id="section-offers"><h2>Оффери</h2><div class="btns" id="offers"></div></section><section class="card stripe-card" id="section-stripe"><h2 class="stripe-editor-title">Stripe wallets · resize</h2><div class="stripe-checkout-only" id="stripeExpressCheckout"></div></section><section class="card" id="section-gpay"><h2>Google Pay</h2><div id="googlePayBox"><button class="btn gpay" id="fakeGPay">Pay with G Pay</button></div><p class="info" id="gpayStatus">Loading Google Pay…</p></section><section class="card" id="section-chat"><h2>Чат супортів</h2><div class="btns"><button class="btn" id="chatSupports">Відкрити чат супортів</button></div></section><section class="card" id="section-mood" data-mood="green"><h2>Mood status</h2><div class="mood-mini"><div class="mood-face" id="moodFace">🙂</div><select id="moodSelect" aria-label="Mood status"><option value="green" data-face="🙂">Green</option><option value="cyan" data-face="😎">Cyan</option><option value="orange" data-face="🔥">Orange</option><option value="red" data-face="😡">Red</option><option value="violet" data-face="🧠">Violet</option></select></div></section><section class="card" id="section-ua"><h2>Device Info</h2><div class="ua-capability-box"><div class="ua-capability-kicker">Capability Snapshot</div><div class="ua-capability-line" id="uaCapabilitySnapshot">Loading capability snapshot…</div><button class="ua-details-toggle" id="uaDetailsOpen" type="button">[ DETAILS ]</button></div><div class="ua-code-shell"><code class="ua-code" id="ua">Loading...</code><button class="btn ua-copy-btn" id="uaCopy" type="button">Скопіювати</button></div><div class="ua-copy-status" id="uaCopyStatus"></div></section><details class="card temp-mail-card" id="section-temp-mail">
+<section class="card" id="section-redirects"><h2>Редіректи</h2><div class="btns" id="apps"></div></section><section class="card" id="section-payments"><h2>Платіжки</h2><div class="btns" id="payments"></div></section><section class="card" id="section-offers"><h2>Оффери</h2><div class="btns" id="offers"></div></section><section class="card stripe-card" id="section-stripe"><h2 class="stripe-editor-title">Stripe wallets · resize</h2><div class="stripe-checkout-only" id="stripeExpressCheckout"></div></section><section class="card" id="section-gpay"><h2>Google Pay</h2><div id="googlePayBox"><button class="btn gpay" id="fakeGPay">Pay with G Pay</button></div><p class="info" id="gpayStatus">Loading Google Pay…</p></section><section class="card" id="section-chat"><h2>Чат супортів</h2><div class="btns"><button class="btn" id="chatSupports">Відкрити чат супортів</button></div></section><section class="card" id="section-ua"><h2>Device Info</h2><div class="ua-capability-box"><div class="ua-capability-kicker">Capability Snapshot</div><div class="ua-capability-line" id="uaCapabilitySnapshot">Loading capability snapshot…</div><button class="ua-details-toggle" id="uaDetailsOpen" type="button">[ DETAILS ]</button></div><div class="ua-code-shell"><code class="ua-code" id="ua">Loading...</code><button class="btn ua-copy-btn" id="uaCopy" type="button">Скопіювати</button></div><div class="ua-copy-status" id="uaCopyStatus"></div></section><details class="card temp-mail-card" id="section-temp-mail">
 <summary>Тимчасова пошта</summary>
 <div class="temp-mail-content">
 <div class="temp-mail-toolbar">
@@ -892,7 +877,6 @@ body.dashboard-focus-open{overflow:hidden}
 </section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
 <div aria-hidden="true" class="temp-mail-modal ua-info-modal" id="uaInfoModal"><div aria-modal="true" class="temp-mail-modal-box ua-info-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong>Device Info</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Device Info" class="temp-mail-modal-close" id="uaInfoClose" type="button">×</button></div></div><div class="ua-info-modal-body"><div class="ua-capability-grid" id="uaCapabilityGrid"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal event-log-modal" id="eventLogModal"><div aria-modal="true" aria-labelledby="eventLogTitle" class="temp-mail-modal-box event-log-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="eventLogTitle">EVENT LOG</strong><span class="event-log-modal-head-meta" id="eventLogCount">0 events</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Event Log" class="temp-mail-modal-close" id="eventLogClose" type="button">×</button></div></div><div class="event-log-modal-body"><div class="event-log-list" id="eventLogList"></div><div class="event-log-actions"><button class="btn" id="eventLogCopy" type="button">COPY</button><button class="btn" id="eventLogExport" type="button">EXPORT</button><button class="btn red event-log-clear" id="eventLogClear" type="button">CLEAR</button></div><div class="event-log-status" id="eventLogStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal photo-preview-modal" id="photoPreviewModal"><div aria-modal="true" aria-labelledby="photoPreviewTitle" class="temp-mail-modal-box photo-preview-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong id="photoPreviewTitle">Перегляд фото</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити фото" class="temp-mail-modal-close" id="photoPreviewClose" type="button">×</button></div></div><div class="photo-preview-modal-body"><div class="photo-preview-stage"><img alt="Selected preview" id="preview"/></div><div class="photo-preview-modal-actions"><button class="btn green photo-share-btn" id="photoShare" type="button">Поширити фото</button><button class="btn red photo-delete-btn" id="photoDelete" type="button">Видалити фото</button></div><div aria-live="polite" class="photo-share-status" id="photoShareStatus"></div></div></div></div><div aria-hidden="true" class="dashboard-focus-backdrop" id="dashboardFocusBackdrop"></div>
-<div aria-hidden="true" class="temp-mail-modal redirect-modal" id="redirectModal"><div aria-modal="true" aria-labelledby="redirectModalTitle" class="temp-mail-modal-box redirect-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="redirectModalTitle">REDIRECT LINK</strong><span class="event-log-modal-head-meta" id="redirectModalLabel">paste destination</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити redirect dialog" class="temp-mail-modal-close" id="redirectModalClose" type="button">×</button></div></div><div class="redirect-modal-body redirect-input-only"><div class="redirect-modal-column"><label class="redirect-modal-field-label" for="redirectModalInput">Куди напрямок</label><input id="redirectModalInput" inputmode="url" autocomplete="off" spellcheck="false" placeholder="http:// або https://"/><button class="btn green" id="redirectModalSend" type="button">ВІДПРАВИТИ</button><button class="btn red" id="redirectModalClose2" type="button">CLOSE</button></div><div class="redirect-modal-url" id="redirectModalUrl">—</div></div></div></div>
 <div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
 <div aria-modal="true" class="temp-mail-modal-box temp-mail-inbox-modal-box" role="dialog">
 <div class="temp-mail-modal-head">
@@ -928,7 +912,7 @@ const upiApps=[
 ["PhonePe UPI","phonepe://pay?pa=test%40upi&pn=QATest&am=1.00&cu=INR"],
 ["Paytm UPI","paytmmp://pay?pa=test%40upi&pn=QATest&am=1.00&cu=INR"]
 ];
-const apps=[["HTTP","http://veb-page.blogspot.com/"],["Telegram","tg://resolve?domain=nsqmarket"],["Viber","viber://"],["WhatsApp","whatsapp://send?text=hello"],["Instagram","instagram://app"],["TikTok","snssdk1233://"],["Facebook","fb://profile"],["Дія","diia://"]];
+const apps=[["Telegram","tg://resolve?domain=nsqmarket"],["Viber","viber://"],["WhatsApp","whatsapp://send?text=hello"],["Instagram","instagram://app"],["TikTok","snssdk1233://"],["Facebook","fb://profile"],["Дія","diia://"]];
 const offers=[
 {label:"BetKing",url:"https://betking.com.ua/?gclid=CjwKCAjwxITRBhBYEiwA6mZm7ScusNx2vV5sg_8mnTtpT4G7XJEF4JGIMOImJ0Y0J5_W2ofKp39wphoCP5UQAvD_BwE",theme:"gold",kicker:"Premium offer",icon:"♛"},
 {label:"VBET",url:"https://www.vbet.ua/uk/?utm_campaign=UA_competitor_ggl_search_16.09.2025&utm_medium=cpc&utm_source=google&utm_adgroup=189196595687&gad_source=1&gad_campaignid=23018234049&gbraid=0AAAABAi2veBFIazlc_67i9fKbpYIZ1OqP&gclid=CjwKCAjwxITRBhBYEiwA6mZm7VSDjuCtVLQq1F_TRQTOhQ1qThbDHKaHfmO8DpQSPTDvhdSyfwj2cRoCSTsQAvD_BwE",theme:"violet",kicker:"Feel the rush",icon:"♠"},
@@ -1085,55 +1069,6 @@ function openUrl(label,u){
   window.open(u,"_blank","noopener,noreferrer");
   logUsefulEvent("external redirect opened"+(label?" · "+eventLogSafe(label):""));
 }
-let redirectModalCurrentUrl="";
-const REDIRECT_MODAL_DEFAULT_URL="http://veb-page.blogspot.com/";
-function redirectModalNormalizeUrl(value){
-  const raw=String(value||"").trim();
-  if(!raw)return REDIRECT_MODAL_DEFAULT_URL;
-  if(/^https?:\/\//i.test(raw))return raw;
-  return "http://"+raw.replace(/^\/+/g,"");
-}
-function redirectModalApplyUrl(value,{log=false}={}){
-  const u=redirectModalNormalizeUrl(value);
-  redirectModalCurrentUrl=u;
-  const input=el("redirectModalInput"),urlBox=el("redirectModalUrl"),meta=el("redirectModalLabel");
-  if(input)input.value=u;
-  if(urlBox)urlBox.textContent=u;
-  if(meta)meta.textContent="ready to send";
-  try{localStorage.setItem("hymRedirectDialogUrl",u)}catch{}
-  if(log)logUsefulEvent("redirect dialog link prepared · "+eventLogSafe(u));
-  return u;
-}
-function closeRedirectModal(){
-  const modal=el("redirectModal");
-  if(!modal)return;
-  modal.classList.remove("on");
-  modal.setAttribute("aria-hidden","true");
-}
-function openRedirectModal(label,u){
-  const saved=(()=>{try{return localStorage.getItem("hymRedirectDialogUrl")||""}catch{return ""}})();
-  const initial=u||saved||REDIRECT_MODAL_DEFAULT_URL;
-  const modal=el("redirectModal"),title=el("redirectModalTitle");
-  if(title)title.textContent=(label||"REDIRECT")+" LINK";
-  redirectModalApplyUrl(initial);
-  if(modal){modal.classList.add("on");modal.setAttribute("aria-hidden","false")}
-  setTimeout(()=>el("redirectModalInput")?.focus(),30);
-  logUsefulEvent("redirect dialog opened"+(label?" · "+eventLogSafe(label):""));
-}
-function redirectModalSend(){
-  const u=redirectModalApplyUrl(el("redirectModalInput")?.value||redirectModalCurrentUrl,{log:true});
-  if(u)openUrl("Redirect dialog",u);
-}
-function initRedirectModal(){
-  const close=()=>closeRedirectModal();
-  el("redirectModalClose")?.addEventListener("click",close);
-  el("redirectModalClose2")?.addEventListener("click",close);
-  el("redirectModal")?.addEventListener("click",event=>{if(event.target===el("redirectModal"))close()});
-  el("redirectModalSend")?.addEventListener("click",redirectModalSend);
-  el("redirectModalInput")?.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();redirectModalSend()}});
-  document.querySelector("#section-redirects > h2")?.addEventListener("click",event=>{if(hymEditMode)return;event.preventDefault();event.stopPropagation();openRedirectModal("REDIRECT")});
-  document.addEventListener("keydown",event=>{if(event.key==="Escape"&&el("redirectModal")?.classList.contains("on")){close();event.stopImmediatePropagation()}});
-}
 function openOffer(label,u){
   if(!u){logEvent("ERROR",label,"offer URL missing");return}
   openUrl(label,u);
@@ -1160,7 +1095,7 @@ payments.forEach(p=>{
   el("payments").appendChild(b);
 });
 upiApps.forEach(a=>{const b=document.createElement("button");b.className="btn green";b.textContent=a[0];b.onclick=()=>hymSmartAppOpen(a[0],a[1]);el("payments").appendChild(b)});
-apps.forEach(a=>{const b=document.createElement("button");b.className="btn red";b.textContent=a[0];b.onclick=()=>{if(a[0]==="HTTP")openUrl(a[0],a[1]);else hymSmartAppOpen(a[0],a[1])};el("apps").appendChild(b)});
+apps.forEach(a=>{const b=document.createElement("button");b.className="btn red";b.textContent=a[0];b.onclick=()=>hymSmartAppOpen(a[0],a[1]);el("apps").appendChild(b)});
 offers.forEach(offer=>el("offers").appendChild(buildOfferButton(offer)));
 
 let paymentsClient=null;
@@ -1238,8 +1173,7 @@ el("telegramLogout").onclick=async()=>{
   location.href="/";
 };
 el("fakeGPay").onclick=onGooglePayClick;
-const chatSupportsButton=el("chatSupports");
-if(chatSupportsButton)chatSupportsButton.onclick=()=>openUrl("Чат супортів","https://ninja-chat-a6f8f.web.app/");
+el("chatSupports").onclick=()=>openUrl("Чат супортів","https://ninja-chat-a6f8f.web.app/");
 el("ua").textContent=navigator.userAgent;uaRenderCapabilitySnapshot();
 let photoPreviewUrl="";
 let photoPreviewName="";
@@ -1609,7 +1543,54 @@ async function tempMailRenderRichBody(viewer,message){
   let safeHtml=htmlValue?tempMailSanitizeHtml(htmlValue):"";safeHtml=tempMailHydrateInlineImages(safeHtml,assets);
   const rich=tempMailMake("div","temp-mail-rich");
   if(safeHtml.trim()){
-    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'</body></html>';rich.append(frame)
+    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'
+<!-- v172 in-memory live admin chat -->
+<div class="hym-live-chat-modal" id="hymLiveChatModal" aria-hidden="true">
+  <div class="hym-live-chat-box" role="dialog" aria-modal="true" aria-label="Attention live chat">
+    <div class="hym-live-chat-head">
+      <div class="hym-live-attention"><span class="hym-live-triangle"></span><span>Attention</span></div>
+      <div class="hym-live-admin-cipher" id="hymLiveAdminCipher">0xA7F1::9C2E::FF00</div>
+    </div>
+    <div class="hym-live-chat-stream" id="hymLiveChatStream"></div>
+    <div class="hym-live-compose">
+      <div class="hym-live-name-row" id="hymLiveNameRow">
+        <input id="hymLiveNameInput" maxlength="24" placeholder="Введи імʼя перед розмовою" autocomplete="nickname"/>
+        <button class="btn green" id="hymLiveNameSave" type="button">OK</button>
+      </div>
+      <div class="hym-live-compose-row">
+        <input id="hymLiveText" maxlength="700" placeholder="Напиши відповідь" autocomplete="off"/>
+        <button class="btn green" id="hymLiveSend" type="button">SEND</button>
+        <button class="btn red" id="hymLiveClose" type="button">CLOSE</button>
+      </div>
+      <div class="hym-live-status" id="hymLiveStatus"></div>
+    </div>
+  </div>
+</div>
+<!-- /v172 in-memory live admin chat -->
+
+
+<script>
+/* v193: remove old inactive Blogspot/test overlay block */
+(function(){
+  function killDeadBlogspotOverlay(){
+    const badText="web-page.blogspot.com";
+    const nodes=[...document.querySelectorAll("div,section,dialog,aside,input,textarea")];
+    nodes.forEach(node=>{
+      const value=("value" in node)?String(node.value||""):"";
+      const text=String(node.textContent||"");
+      const placeholder=("placeholder" in node)?String(node.placeholder||""):"";
+      if(value.includes(badText)||text.includes(badText)||placeholder.includes(badText)){
+        const shell=node.closest(".modal,.overlay,.focus-panel,.temp-mail-modal,.dashboard-focus-panel,.box,section,div")||node;
+        shell.remove();
+      }
+    });
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",killDeadBlogspotOverlay,{once:true});
+  else killDeadBlogspotOverlay();
+})();
+</script>
+
+</body></html>';rich.append(frame)
   }else{rich.append(tempMailMake("div","temp-mail-body",tempMailSafeText(message)||"Текст листа відсутній."))}
   const imageAssets=assets.filter(asset=>asset.isImage);
   if(imageAssets.length){const gallery=tempMailMake("div","temp-mail-image-gallery");imageAssets.forEach(asset=>{const link=document.createElement("a");link.className="temp-mail-image-card";link.href=asset.blobUrl;link.target="_blank";link.rel="noopener noreferrer";link.title=asset.filename;const img=document.createElement("img");img.src=asset.inlineUrl;img.alt=asset.filename;img.loading="lazy";const label=tempMailMake("span","",asset.filename);link.append(img,label);gallery.append(link)});rich.append(gallery)}
@@ -2179,13 +2160,37 @@ initRuntimeOsBadge();
 // --- /v165 runtime OS + Cloudflare region neon badge ---
 
 
+
+
+// --- v172 in-memory admin live chat, no KV ---
+const HYM_LIVE_NAME_KEY="hym_live_chat_name_v1";
+const hymLiveState={cursor:0,lastAdminId:0,userClosedUntil:0,open:false,name:"",busy:false};
+function hymLiveEl(id){return document.getElementById(id)}
+function hymLiveSetStatus(text,type=""){const node=hymLiveEl("hymLiveStatus");if(!node)return;node.textContent=text||"";node.className="hym-live-status "+type}
+function hymLiveSaveName(value){const name=String(value||"").trim().replace(/[<>]/g,"").slice(0,24);hymLiveState.name=name;try{if(name)localStorage.setItem(HYM_LIVE_NAME_KEY,name)}catch{}return name}
+function hymLiveLoadName(){let name="";try{name=localStorage.getItem(HYM_LIVE_NAME_KEY)||""}catch{}return hymLiveSaveName(name)}
+function hymLiveOpen(){const modal=hymLiveEl("hymLiveChatModal");if(!modal)return;modal.classList.add("on");modal.setAttribute("aria-hidden","false");hymLiveState.open=true;hymLiveRenderName();setTimeout(()=>hymLiveEl(hymLiveState.name?"hymLiveText":"hymLiveNameInput")?.focus(),40)}
+function hymLiveHide(){const modal=hymLiveEl("hymLiveChatModal");if(!modal)return;modal.classList.remove("on");modal.setAttribute("aria-hidden","true");hymLiveState.open=false}
+function hymLiveRenderName(){const row=hymLiveEl("hymLiveNameRow"),input=hymLiveEl("hymLiveNameInput");if(input&&!input.value)input.value=hymLiveState.name||"";if(row)row.style.display=hymLiveState.name?"none":"grid";const text=hymLiveEl("hymLiveText"),send=hymLiveEl("hymLiveSend");if(text)text.disabled=!hymLiveState.name;if(send)send.disabled=!hymLiveState.name}
+function hymLiveRenderMessages(messages){const box=hymLiveEl("hymLiveChatStream");if(!box)return;box.innerHTML="";(messages||[]).forEach(msg=>{const item=document.createElement("div");item.className="hym-live-msg "+(msg.from==="admin"?"admin":"user");const meta=document.createElement("small");meta.textContent=(msg.from==="admin"?"admin":"you")+" · "+new Date(Number(msg.at)||Date.now()).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"});const body=document.createElement("div");body.textContent=String(msg.text||"");item.append(meta,body);box.appendChild(item);if(msg.from==="admin")hymLiveState.lastAdminId=Math.max(hymLiveState.lastAdminId,Number(msg.id)||0);hymLiveState.cursor=Math.max(hymLiveState.cursor,Number(msg.id)||0)});box.scrollTop=box.scrollHeight}
+function hymLiveApplyPayload(data){if(!data||!data.ok)return;if(data.closed){hymLiveHide();return}if(data.name&&!hymLiveState.name){hymLiveSaveName(data.name);hymLiveRenderName()}const chat=data.chat||null;if(chat&&Array.isArray(chat.messages)){const previous=hymLiveState.lastAdminId;hymLiveRenderMessages(chat.messages);const hasNewAdmin=hymLiveState.lastAdminId>previous||hymLiveState.lastAdminId>hymLiveState.userClosedUntil;if(hasNewAdmin&&!hymLiveState.open)hymLiveOpen()}else if(!chat){hymLiveHide()} }
+async function hymLiveApi(path,body={}){const payload=Object.assign({visitorId:hymVisitorId(),name:hymLiveState.name||hymLiveLoadName(),device:hymDeviceSummary?.(),region:runtimeRegionCode?.(),os:detectRuntimeOs?.().name},body);const response=await fetch(path,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(payload),cache:"no-store",keepalive:path.endsWith("heartbeat")});const data=await response.json().catch(()=>({ok:false,error:"Bad response"}));if(!response.ok)throw new Error(data.error||"Live chat error");return data}
+async function hymLivePoll(){try{const data=await hymLiveApi("/api/live-chat/heartbeat",{cursor:hymLiveState.cursor,userClosedUntil:hymLiveState.userClosedUntil});hymLiveApplyPayload(data)}catch{}}
+async function hymLiveSend(){if(hymLiveState.busy)return;const input=hymLiveEl("hymLiveText"),text=String(input?.value||"").trim();if(!text)return;hymLiveState.busy=true;hymLiveSetStatus("Sending...");try{const data=await hymLiveApi("/api/live-chat/message",{text});if(input)input.value="";hymLiveApplyPayload(data);hymLiveSetStatus("Sent","ok")}catch(error){hymLiveSetStatus(error.message||"Send failed","err")}finally{hymLiveState.busy=false}}
+async function hymLiveSetName(){const input=hymLiveEl("hymLiveNameInput"),name=hymLiveSaveName(input?.value||"");if(!name){hymLiveSetStatus("Вкажи імʼя","err");return}try{const data=await hymLiveApi("/api/live-chat/name",{name});hymLiveApplyPayload(data);hymLiveRenderName();hymLiveSetStatus("Name saved","ok")}catch(error){hymLiveSetStatus(error.message||"Name failed","err")}}
+async function hymLiveUserClose(){hymLiveState.userClosedUntil=Math.max(hymLiveState.userClosedUntil,hymLiveState.lastAdminId,hymLiveState.cursor);hymLiveHide();try{await hymLiveApi("/api/live-chat/user-close",{userClosedUntil:hymLiveState.userClosedUntil})}catch{}}
+function hymLiveCipherTick(){const node=hymLiveEl("hymLiveAdminCipher");if(!node)return;const chars="ABCDEF0123456789";let out="0x";for(let i=0;i<4;i++){out+=Array.from({length:4},()=>chars[Math.floor(Math.random()*chars.length)]).join("");if(i<3)out+="::"}node.textContent=out}
+function initHymLiveChat(){hymLiveLoadName();hymLiveRenderName();hymLiveEl("hymLiveSend")?.addEventListener("click",hymLiveSend);hymLiveEl("hymLiveText")?.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();hymLiveSend()}});hymLiveEl("hymLiveNameSave")?.addEventListener("click",hymLiveSetName);hymLiveEl("hymLiveNameInput")?.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();hymLiveSetName()}});hymLiveEl("hymLiveClose")?.addEventListener("click",hymLiveUserClose);hymLiveCipherTick();setInterval(hymLiveCipherTick,640);hymLivePoll();setInterval(hymLivePoll,2500);document.addEventListener("visibilitychange",()=>{if(!document.hidden)hymLivePoll()})}
+initHymLiveChat();
+// --- /v172 in-memory admin live chat ---
+
 // --- v111 anonymous traffic heartbeat + admin-selected public HYM template ---
 const HYM_VISITOR_KEY="hym_visitor_id_v1";
 function hymVisitorId(){let id="";try{id=localStorage.getItem(HYM_VISITOR_KEY)||""}catch{}if(!/^[a-zA-Z0-9_-]{12,96}$/.test(id)){id=(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)+Date.now().toString(36)).replace(/[^a-zA-Z0-9_-]/g,"");try{localStorage.setItem(HYM_VISITOR_KEY,id)}catch{}}return id}
 async function hymHeartbeat(){try{await fetch("/api/analytics/heartbeat",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({visitorId:hymVisitorId()}),keepalive:true})}catch{}}
 function hymDeviceSummary(){return {device:hymDeviceClass(),platform:hymPublicPlatform(),screen:[Number(window.screen?.width)||0,Number(window.screen?.height)||0],viewport:[Math.round(window.visualViewport?.width||innerWidth||0),Math.round(window.visualViewport?.height||innerHeight||0)],touch:Number(navigator.maxTouchPoints)||0,ua:navigator.userAgent||""}}
 function hymPublicPlatform(){const device=hymDeviceClass(),ua=(navigator.userAgent||"").toLowerCase();if(device==="tablet")return "tablet";if(device==="phone")return "mobile";if(/windows|win32|win64/.test(ua))return "windows";return "other"}
-async function hymApplyAdminTemplate(){try{const platform=hymPublicPlatform();if(platform==="other")return;const response=await fetch("/api/hym-active-template?platform="+encodeURIComponent(platform),{cache:"no-store"});const data=await response.json();if(response.ok&&data.profile){hymApplyProfile(data.profile);setTimeout(()=>{try{initMoodTiny({forceVisible:true,repairPosition:true})}catch{}},0)}}catch{}}
+async function hymApplyAdminTemplate(){try{const platform=hymPublicPlatform();if(platform==="other")return;const response=await fetch("/api/hym-active-template?platform="+encodeURIComponent(platform),{cache:"no-store"});const data=await response.json();if(response.ok&&data.profile)hymApplyProfile(data.profile)}catch{}}
 hymHeartbeat();setInterval(hymHeartbeat,30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)hymHeartbeat()});setTimeout(hymApplyAdminTemplate,0);
 // --- /v111 traffic + admin-selected HYM template ---
 
@@ -2376,82 +2381,8 @@ window.addEventListener("orientationchange",()=>setTimeout(()=>{const next=hymOr
 })();
 // --- /v171 visible random button hover/tap FX ---
 
-
-// --- v134 tiny mood status - visible with old presets ---
-function hymEnsureMoodCard(){
-  let card=document.getElementById("section-mood");
-  const grid=document.querySelector(".grid");
-  if(!grid)return null;
-  if(!card){
-    card=document.createElement("section");
-    card.className="card";
-    card.id="section-mood";
-    card.dataset.mood="green";
-    card.innerHTML='<h2>Mood status</h2><div class="mood-mini"><div class="mood-face" id="moodFace">🙂</div><select id="moodSelect" aria-label="Mood status"><option value="green">Green</option><option value="cyan">Cyan</option><option value="orange">Orange</option><option value="red">Red</option><option value="violet">Violet</option></select></div>';
-  }
-  if(card.parentElement!==grid){
-    const anchor=document.getElementById("section-ua")||document.getElementById("section-gpay")||grid.firstElementChild;
-    if(anchor&&anchor.parentElement===grid)grid.insertBefore(card,anchor);else grid.append(card);
-  }
-  card.hidden=false;
-  return card;
-}
-function hymMoodBox(card){const pos=typeof hymFreePosition==="function"?hymFreePosition(card):{x:Number(card.dataset.hymFreeX)||0,y:Number(card.dataset.hymFreeY)||0};const rect=card.getBoundingClientRect();return {x:Number(pos.x)||0,y:Number(pos.y)||0,width:Math.max(80,Math.round(rect.width||card.offsetWidth||260)),height:Math.max(50,Math.round(rect.height||card.offsetHeight||76))}}
-function hymBoxesOverlap(a,b,gap=8){return a.x<b.x+b.width+gap&&a.x+a.width+gap>b.x&&a.y<b.y+b.height+gap&&a.y+a.height+gap>b.y}
-function hymFindMoodSpot(card){
-  const grid=document.querySelector(".grid");
-  const width=Math.min(260,Math.max(80,grid?.clientWidth||260));
-  card.style.width=width+"px";
-  const box=hymMoodBox(card);box.width=width;
-  const others=hymCards().filter(node=>node!==card&&!node.hidden).map(hymMoodBox);
-  const gridWidth=Math.max(width,grid?.clientWidth||width);
-  const maxX=Math.max(0,gridWidth-width);
-  let maxBottom=0;
-  others.forEach(item=>{maxBottom=Math.max(maxBottom,item.y+item.height+HYM_PACK_GAP)});
-  for(let y=0;y<=maxBottom+240;y+=HYM_PACK_GAP){
-    for(let x=0;x<=maxX;x+=HYM_PACK_GAP){
-      const test={x,y,width,height:box.height};
-      if(!others.some(item=>hymBoxesOverlap(test,item,6)))return {x,y};
-    }
-  }
-  return {x:0,y:maxBottom+HYM_PACK_GAP};
-}
-function hymRepairMoodPosition(card){
-  const grid=document.querySelector(".grid");
-  if(!grid||!card)return;
-  if(!(hymFreeEnabled||grid.classList.contains("hym-free-layout")))return;
-  const pos=hymFreePositions?.[card.id];
-  const box=hymMoodBox(card);
-  const others=hymCards().filter(node=>node!==card&&!node.hidden).map(hymMoodBox);
-  const missing=!pos;
-  const overlapped=others.some(item=>hymBoxesOverlap(box,item,6));
-  if(missing||overlapped){const next=hymFindMoodSpot(card);hymSetFreePosition(card,next.x,next.y);hymSyncFreeCanvas();requestAnimationFrame(()=>{hymSyncFreeCanvas();hymSyncOverlay?.()})}
-}
-function initMoodTiny(options={}){
-  const card=hymEnsureMoodCard();
-  const select=document.getElementById("moodSelect"),face=document.getElementById("moodFace");
-  if(!card||!select||!face)return;
-  const key="hymMoodTiny";
-  const faces={green:"🙂",cyan:"😎",orange:"🔥",red:"😡",violet:"🧠"};
-  function apply(value){const mood=faces[value]?value:"green";card.dataset.mood=mood;select.value=mood;face.textContent=faces[mood]}
-  try{apply(localStorage.getItem(key)||"green")}catch{apply("green")}
-  if(!select.dataset.hymMoodReady){select.dataset.hymMoodReady="1";select.addEventListener("change",()=>{apply(select.value);try{localStorage.setItem(key,select.value)}catch{}})}
-  if(!select.dataset.hymMoodEditorReady){
-    select.dataset.hymMoodEditorReady="1";
-    select.addEventListener("pointerdown",event=>{
-      if(!hymEditMode)return;
-      event.preventDefault();
-      event.stopPropagation();
-      hymSelect(card);
-    },true);
-  }
-  if(options.forceVisible)card.hidden=false;
-  if(options.repairPosition)setTimeout(()=>hymRepairMoodPosition(card),40);
-}
-// --- /v134 tiny mood status ---
-
 hymMediaRender();initYoutubeEventLogger();initGoogleLoginCancelTracking();
-dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:true,repairPosition:true});initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
+dashboardInitExpandablePanels();initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
 // --- /v167 useful redirect + event engine ---
 </script>
 </body></html>
