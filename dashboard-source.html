@@ -808,6 +808,25 @@ body.dashboard-focus-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){.hym-live-chat-box::before,.hym-live-attention{animation:none}}
 /* /v172 in-memory live admin chat */
 
+
+/* v194 safe: hide dead no-KV live-chat remnants and empty layout shells */
+.grid > .card:empty,
+.grid > section.card:empty,
+.grid > article.card:empty,
+.grid > div.card:empty{
+  display:none!important;
+}
+[id*="memory-live-chat" i],
+[id*="liveChat" i],
+[id*="live-chat" i],
+[class*="memory-live-chat" i],
+[class*="hym-live-chat" i],
+[class*="live-chat" i],
+[class*="attention-chat" i],
+[class*="admin-chat" i]{
+  display:none!important;
+}
+
 </style>
 </head>
 <body>
