@@ -1,3 +1,5 @@
+v131 emergency tiny mood block on stable v128 base.
+
 # v167 Photo share restored
 
 - Restores the `Поширити фото` button inside the photo focus modal on top of v166.
@@ -381,7 +383,7 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - The same preservation rule is applied to narrow phone layouts so phone presets keep their manually configured sizes as well.
 
 
-## v128 HYM presets button fit fix
+## v131 HYM presets button fit fix
 
 - Fixes the `HYM presets` editor button on narrow screens.
 - Removes the old forced `26px` width that clipped the full label.
@@ -641,26 +643,32 @@ Analytics uses an anonymous random browser identifier. The existing `PRESETS_KV`
 - Added tap feedback for touch devices while keeping effects selective, not on every button.
 
 
-## v172 in-memory admin live chat
-
-- Added memory-only admin live chat without KV writes.
-- Admin panel shows online users with IP / region / OS and can start a text-only dialog.
-- User sees a blinking ATTENTION modal and chooses a display name before replying.
-- If the user closes the dialog, it stays hidden until the next admin message.
-- If admin closes the chat, the dialog disappears and history is removed from memory.
-- No GIF/image attachments and no persistence; data is lost when Worker memory is recycled.
+## v131 Restore support chat card
+- Returned the public `Чат супортів` card and its one-button endpoint.
+- Kept admin asset selector fixes and tidy admin UI from v126/v127.
 
 
-## v191 User-provided v172 current base
+## v132 module deploy fix
+- Restored the Worker ES Modules `export default { fetch() }` handler.
+- Fixes Cloudflare `wrangler versions upload` error 10216: Service Worker syntax script is not supported by Versions API.
+- Keeps v131 tiny Mood status and restored Support Chat block.
 
-- База взята з ZIP, який користувач щойно завантажив у чат.
-- Не використано жодних правок з v182–v190.
-- UI/логіка не змінювались, окрім version marker.
+
+## v133 client-js-repair
+- Fixed broken client JS caused by accidental Mood CSS injection inside temp-mail iframe srcdoc.
+- Keeps ES Module Worker deploy fix, tiny Mood block and support chat restored.
 
 
-## v194 Safe hide dead live-chat remnants
+## v142 ADMIN_CONFIG_KV
 
-- База: user-provided v191.
-- Без JS route surgery і без агресивного runtime remove.
-- CSS-рівнем приховано порожні мертві card-shells і залишки no-KV live-chat.
-- Видалено тільки текст `web-page.blogspot.com`, без видалення контейнерів.
+Added a second KV namespace binding `ADMIN_CONFIG_KV` for admin server settings. `PRESETS_KV` remains for saved designs/layout presets. Active mobile/tablet/windows template selection now writes to `ADMIN_CONFIG_KV` when available and falls back to `PRESETS_KV` only if the new binding is missing.
+
+
+## v143 DESIGNS_KV
+
+Added a third KV namespace binding `DESIGNS_KV` for future separate design storage. `PRESETS_KV` stays for existing presets/layouts; `ADMIN_CONFIG_KV` stays for admin settings.
+
+
+## v144 safe deploy
+
+Removed the invalid `DESIGNS_KV` binding because Cloudflare returned code 10041: namespace not found. `ADMIN_CONFIG_KV` remains connected and is used for admin server settings.
