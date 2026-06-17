@@ -1,1 +1,1 @@
-v188 special mail symbols + toggle panel
+v190 special mail password recover / local-safe delete

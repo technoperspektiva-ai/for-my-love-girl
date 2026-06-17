@@ -902,7 +902,7 @@ body.dashboard-focus-open{overflow:hidden}
 <div class="temp-mail-special-domain">@web-library.net</div>
 <input class="temp-mail-special-input" id="tempMailSpecialName" inputmode="latin" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="48" placeholder="my+name.test" type="text"/>
 <button class="btn green" id="tempMailSpecialCreate" type="button">Створити особливий</button>
-<div class="temp-mail-special-help">Можна латиницю, цифри та символи: . _ - + = ! # $ % &amp; * ? ^ { } ~. Якщо сервіс не прийме рідкісний символ — покаже помилку і можна спробувати іншу назву.</div>
+<div class="temp-mail-special-help">Можна латиницю, цифри та символи: . _ - + = ! # $ % &amp; * ? ^ { } ~. Пароль для особливих мейлів: 2024. Якщо адреса вже існує, кнопка спробує увійти в неї з паролем 2024.</div>
 </div>
 <p class="info temp-mail-status" id="tempMailStatus"></p>
 <div class="temp-mail-saved" id="tempMailSaved"></div>
@@ -1381,6 +1381,7 @@ const TEMP_MAIL_SAVED_KEY="wwg_temp_mail_saved_v1";
 const TEMP_MAIL_API_BASE="https://api.mail.tm";
 const TEMP_MAIL_DOMAIN_CURSOR_KEY="wwg_temp_mail_domain_cursor_v1";
 const TEMP_MAIL_SPECIAL_DOMAIN="web-library.net";
+const TEMP_MAIL_SPECIAL_PASSWORD="2024";
 let tempMailState=null;
 let tempMailBusy=false;
 let tempMailMessagesSignature="";
@@ -1484,18 +1485,21 @@ async function tempMailOpenSaved(accountId){
 async function tempMailDeleteSaved(accountId){
   const saved=tempMailSavedRead().find(item=>item.accountId===accountId);
   if(!saved||tempMailBusy)return;
-  tempMailBusy=true;tempMailSetStatus("Видалення збереженої пошти…");
+  if(saved.special&&!confirm("Особливий мейл краще не видаляти із сервера. Прибрати тільки збереження у цьому браузері?"))return;
+  tempMailBusy=true;tempMailSetStatus(saved.special?"Прибираю особливий мейл локально…":"Видалення збереженої пошти…");
   let remoteDeleted=false;
   let remoteWarning="";
-  try{
-    const token=await tempMailTokenFor(saved,{force:true});
-    const response=await fetch(TEMP_MAIL_API_BASE+"/accounts/"+encodeURIComponent(saved.accountId),{method:"DELETE",headers:{authorization:"Bearer "+token},cache:"no-store"});
-    if(response.ok||response.status===404)remoteDeleted=true;
-    else remoteWarning="Mail.tm HTTP "+response.status;
-  }catch(error){remoteWarning=error.message}
+  if(!saved.special){
+    try{
+      const token=await tempMailTokenFor(saved,{force:true});
+      const response=await fetch(TEMP_MAIL_API_BASE+"/accounts/"+encodeURIComponent(saved.accountId),{method:"DELETE",headers:{authorization:"Bearer "+token},cache:"no-store"});
+      if(response.ok||response.status===404)remoteDeleted=true;
+      else remoteWarning="Mail.tm HTTP "+response.status;
+    }catch(error){remoteWarning=error.message}
+  }
   if(tempMailState?.accountId===saved.accountId){tempMailState=null;tempMailSave();tempMailRestore();tempMailDeletedMessageIds.clear();tempMailRenderMessages([]);tempMailClearViewer();tempMailMessagesSignature="";tempMailSetInboxMeta("ще не перевірено")}
   tempMailSavedRemoveLocal(saved.accountId);
-  tempMailSetStatus(remoteDeleted||!remoteWarning?"Збережену пошту видалено.":"Пошту прибрано локально. Mail.tm не підтвердив видалення на сервері: "+remoteWarning);
+  tempMailSetStatus(saved.special?"Особливий мейл прибрано тільки локально. Щоб повернутися — введи ту саму назву і натисни «Створити особливий», пароль 2024.":(remoteDeleted||!remoteWarning?"Збережену пошту видалено.":"Пошту прибрано локально. Mail.tm не підтвердив видалення на сервері: "+remoteWarning));
   tempMailBusy=false;
 }
 function tempMailRenderSaved(){
@@ -1770,9 +1774,11 @@ async function tempMailDeleteMessage(id){
   finally{tempMailBusy=false}
 }
 async function tempMailDeleteCurrent({silent=false}={}){
-  if(tempMailState?.fixed){
+  if(tempMailState?.fixed||tempMailState?.special){
+    const wasSpecial=!!tempMailState?.special;
+    const oldAddress=tempMailState?.address||"";
     tempMailState=null;tempMailSave();tempMailRestore();tempMailRenderMessages([]);tempMailClearViewer();tempMailMessagesSignature="";tempMailEmptyChecks=0;tempMailSetInboxMeta("ще не перевірено");
-    if(!silent)tempMailSetStatus("Готову пошту відключено локально. Серверний акаунт не видалено.");
+    if(!silent)tempMailSetStatus(wasSpecial?"Особливий мейл відключено тільки локально, серверний акаунт не видалено. Щоб повернутися — введи "+oldAddress.replace(/@.*/,"")+" і натисни «Створити особливий», пароль 2024.":"Готову пошту відключено локально. Серверний акаунт не видалено.");
     return;
   }
   const deletedAccountId=tempMailState?.accountId||"";
@@ -1809,19 +1815,25 @@ async function tempMailCreateSpecial(){
   if(tempMailState?.address&&tempMailState.address!==address&&!confirm("Замінити поточну пошту на "+address+"?"))return;
   tempMailBusy=true;tempMailSetStatus("Створення особливого мейлу "+address+" …");
   try{
-    if(tempMailState?.accountId&&tempMailState?.token&&!tempMailState?.fixed){try{await tempMailRequest("/accounts/"+encodeURIComponent(tempMailState.accountId),{method:"DELETE"})}catch(error){console.warn("Previous temp mailbox delete failed",error)}}
+    if(tempMailState?.accountId&&tempMailState?.token&&!tempMailState?.fixed&&!tempMailState?.special){try{await tempMailRequest("/accounts/"+encodeURIComponent(tempMailState.accountId),{method:"DELETE"})}catch(error){console.warn("Previous temp mailbox delete failed",error)}}
     tempMailState=null;tempMailSave();tempMailRestore();tempMailDeletedMessageIds.clear();tempMailClearViewer();tempMailRenderMessages([]);
-    const password=crypto.randomUUID()+"-"+crypto.randomUUID();
-    const account=await tempMailRequest("/accounts",{method:"POST",json:{address,password}});
+    const password=TEMP_MAIL_SPECIAL_PASSWORD;
+    let account=null;
+    try{account=await tempMailRequest("/accounts",{method:"POST",json:{address,password}})}
+    catch(createError){
+      if(createError?.status===422||/already|exists|used|address/i.test(String(createError?.message||""))){
+        tempMailSetStatus("Адреса вже існує. Пробую увійти з паролем 2024…");
+      }else{throw createError}
+    }
     const auth=await tempMailRequest("/token",{method:"POST",json:{address,password}});
     if(!auth?.token)throw new Error("Mail.tm не повернув bearer token");
-    tempMailState={address,accountId:account.id,token:auth.token,password,special:true,domain:TEMP_MAIL_SPECIAL_DOMAIN};tempMailSave();tempMailRestore();
+    tempMailState={address,accountId:account?.id||auth.id||address,token:auth.token,password,special:true,domain:TEMP_MAIL_SPECIAL_DOMAIN};tempMailSave();tempMailRestore();
     tempMailEmptyChecks=0;tempMailMessagesSignature="";tempMailSetInboxMeta("ще не перевірено");
-    tempMailSetStatus("Особливий мейл створено: "+address+". Домен залишився @web-library.net. Можна копіювати та чекати листи.");
+    tempMailSetStatus((account?"Особливий мейл створено: ":"Особливий мейл відновлено: ")+address+". Пароль: 2024. Домен залишився @web-library.net.");
     await tempMailRefresh({force:true});
   }catch(error){
     let hint="";
-    if(error?.status===422||/already|exists|address/i.test(String(error?.message||"")))hint=" Можливо, ця назва вже зайнята — спробуй іншу.";
+    if(error?.status===401||error?.status===422||/already|exists|address|credentials|unauthorized/i.test(String(error?.message||"")))hint=" Якщо це старий особливий мейл, він міг бути створений до пароля 2024 або з іншим паролем. Нові особливі мейли тепер створюються і відновлюються через пароль 2024.";
     tempMailSetStatus("Не вдалося створити особливий мейл: "+error.message+hint);
   }
   finally{tempMailBusy=false}
