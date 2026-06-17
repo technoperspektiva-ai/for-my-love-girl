@@ -902,7 +902,7 @@ body.dashboard-focus-open{overflow:hidden}
 <div class="temp-mail-special-domain">@web-library.net</div>
 <input class="temp-mail-special-input" id="tempMailSpecialName" inputmode="latin" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="48" placeholder="my+name.test" type="text"/>
 <button class="btn green" id="tempMailSpecialCreate" type="button">Створити особливий</button>
-<div class="temp-mail-special-help">Можна латиницю, цифри та символи: . _ - + = ! # $ % &amp; * ? ^ { } ~. Якщо сервіс не прийме рідкісний символ — покаже помилку і можна спробувати іншу назву.</div>
+<div class="temp-mail-special-help">Можна латиницю, цифри та символи: . _ - + = ! # $ % &amp; * ? ^ { } ~. Пароль для особливих мейлів: 2024. Якщо адреса вже існує, кнопка спробує увійти в неї з паролем 2024.</div>
 </div>
 <p class="info temp-mail-status" id="tempMailStatus"></p>
 <div class="temp-mail-saved" id="tempMailSaved"></div>
@@ -1381,11 +1381,13 @@ const TEMP_MAIL_SAVED_KEY="wwg_temp_mail_saved_v1";
 const TEMP_MAIL_API_BASE="https://api.mail.tm";
 const TEMP_MAIL_DOMAIN_CURSOR_KEY="wwg_temp_mail_domain_cursor_v1";
 const TEMP_MAIL_SPECIAL_DOMAIN="web-library.net";
+const TEMP_MAIL_SPECIAL_PASSWORD="2024";
 let tempMailState=null;
 let tempMailBusy=false;
 let tempMailMessagesSignature="";
 let tempMailLastCheckedAt=0;
 let tempMailEmptyChecks=0;
+let tempMailDeletedMessageIds=new Set();
 function tempMailSetStatus(text=""){el("tempMailStatus").textContent=text}
 function tempMailSetInboxMeta(text=""){const node=el("tempMailInboxMeta");if(node)node.textContent=text}
 function tempMailCheckedLabel(count){
@@ -1394,6 +1396,20 @@ function tempMailCheckedLabel(count){
 }
 function tempMailSignature(messages){
   return messages.map(message=>[message.id,message.createdAt,message.subject,message.from?.address].join("|")).join("||");
+}
+function tempMailVisibleMessages(messages){
+  return (Array.isArray(messages)?messages:[]).filter(message=>message?.id&&!tempMailDeletedMessageIds.has(String(message.id)));
+}
+function tempMailRememberDeletedMessage(id){
+  if(id)tempMailDeletedMessageIds.add(String(id));
+}
+function tempMailRemoveMessageFromUi(id){
+  if(!id)return;
+  document.querySelectorAll(`[data-temp-mail-message-id="${CSS.escape(String(id))}"]`).forEach(node=>node.remove());
+  const box=el("tempMailMessages");
+  if(box&&!box.querySelector(".temp-mail-row")){
+    box.replaceChildren(tempMailMake("div","temp-mail-empty","Вхідних листів поки немає."));
+  }
 }
 function tempMailSave(){
   if(tempMailState){sessionStorage.setItem(TEMP_MAIL_SESSION_KEY,JSON.stringify(tempMailState))}
@@ -1459,7 +1475,7 @@ async function tempMailOpenSaved(accountId){
   tempMailBusy=true;tempMailSetStatus("Відновлення пошти…");
   try{
     const token=await tempMailTokenFor(saved,{force:true});
-    tempMailState={...saved,token};tempMailSave();tempMailRestore();tempMailClearViewer();
+    tempMailState={...saved,token};tempMailSave();tempMailRestore();tempMailDeletedMessageIds.clear();tempMailClearViewer();
     tempMailSavedWrite(tempMailSavedRead().map(item=>item.accountId===saved.accountId?{...item,token}:item));
     tempMailSetStatus("");
   }catch(error){tempMailSetStatus("Не вдалося відновити пошту: "+error.message)}
@@ -1469,18 +1485,21 @@ async function tempMailOpenSaved(accountId){
 async function tempMailDeleteSaved(accountId){
   const saved=tempMailSavedRead().find(item=>item.accountId===accountId);
   if(!saved||tempMailBusy)return;
-  tempMailBusy=true;tempMailSetStatus("Видалення збереженої пошти…");
+  if(saved.special&&!confirm("Особливий мейл краще не видаляти із сервера. Прибрати тільки збереження у цьому браузері?"))return;
+  tempMailBusy=true;tempMailSetStatus(saved.special?"Прибираю особливий мейл локально…":"Видалення збереженої пошти…");
   let remoteDeleted=false;
   let remoteWarning="";
-  try{
-    const token=await tempMailTokenFor(saved,{force:true});
-    const response=await fetch(TEMP_MAIL_API_BASE+"/accounts/"+encodeURIComponent(saved.accountId),{method:"DELETE",headers:{authorization:"Bearer "+token},cache:"no-store"});
-    if(response.ok||response.status===404)remoteDeleted=true;
-    else remoteWarning="Mail.tm HTTP "+response.status;
-  }catch(error){remoteWarning=error.message}
-  if(tempMailState?.accountId===saved.accountId){tempMailState=null;tempMailSave();tempMailRestore();tempMailRenderMessages([]);tempMailClearViewer();tempMailMessagesSignature="";tempMailSetInboxMeta("ще не перевірено")}
+  if(!saved.special){
+    try{
+      const token=await tempMailTokenFor(saved,{force:true});
+      const response=await fetch(TEMP_MAIL_API_BASE+"/accounts/"+encodeURIComponent(saved.accountId),{method:"DELETE",headers:{authorization:"Bearer "+token},cache:"no-store"});
+      if(response.ok||response.status===404)remoteDeleted=true;
+      else remoteWarning="Mail.tm HTTP "+response.status;
+    }catch(error){remoteWarning=error.message}
+  }
+  if(tempMailState?.accountId===saved.accountId){tempMailState=null;tempMailSave();tempMailRestore();tempMailDeletedMessageIds.clear();tempMailRenderMessages([]);tempMailClearViewer();tempMailMessagesSignature="";tempMailSetInboxMeta("ще не перевірено")}
   tempMailSavedRemoveLocal(saved.accountId);
-  tempMailSetStatus(remoteDeleted||!remoteWarning?"Збережену пошту видалено.":"Пошту прибрано локально. Mail.tm не підтвердив видалення на сервері: "+remoteWarning);
+  tempMailSetStatus(saved.special?"Особливий мейл прибрано тільки локально. Щоб повернутися — введи ту саму назву і натисни «Створити особливий», пароль 2024.":(remoteDeleted||!remoteWarning?"Збережену пошту видалено.":"Пошту прибрано локально. Mail.tm не підтвердив видалення на сервері: "+remoteWarning));
   tempMailBusy=false;
 }
 function tempMailRenderSaved(){
@@ -1573,7 +1592,7 @@ async function tempMailConnectFixed(){
     const config=await tempMailFixedRequest("/config");
     if(!config?.configured||!config?.address)throw new Error("Готова пошта не налаштована у Worker");
     tempMailState={address:config.address,accountId:"fixed-server",token:"server-proxy",password:"",fixed:true};
-    tempMailSave();tempMailRestore();tempMailMessagesSignature="";tempMailRenderMessages([]);tempMailClearViewer();
+    tempMailSave();tempMailRestore();tempMailMessagesSignature="";tempMailDeletedMessageIds.clear();tempMailRenderMessages([]);tempMailClearViewer();
     tempMailSetStatus("Готову пошту підключено через серверний proxy. Пароль не передається у браузер.");
     await tempMailRefresh({force:true});
   }catch(error){tempMailSetStatus("Не вдалося підключити готову пошту: "+error.message)}
@@ -1653,10 +1672,11 @@ async function tempMailRenderRichBody(viewer,message){
   viewer.append(rich);
 }
 function tempMailRenderMessages(messages){
+  const visibleMessages=tempMailVisibleMessages(messages);
   const box=el("tempMailMessages");box.replaceChildren();
-  if(!messages.length){box.append(tempMailMake("div","temp-mail-empty","Вхідних листів поки немає."));return}
-  messages.forEach(message=>{
-    const row=tempMailMake("div","temp-mail-row");row.tabIndex=0;
+  if(!visibleMessages.length){box.append(tempMailMake("div","temp-mail-empty","Вхідних листів поки немає."));return}
+  visibleMessages.forEach(message=>{
+    const row=tempMailMake("div","temp-mail-row");row.tabIndex=0;row.dataset.tempMailMessageId=String(message.id);
     row.append(tempMailMake("div","temp-mail-from",message.from?.address||message.from?.name||"Невідомий відправник"));
     row.append(tempMailMake("div","temp-mail-subject",message.subject||"Без теми"));
     row.append(tempMailMake("div","temp-mail-time",tempMailFormatTime(message.createdAt)));
@@ -1678,18 +1698,19 @@ async function tempMailRefresh({silent=false,force=false}={}){
     const data=tempMailState?.fixed?await tempMailFixedRequest("/messages"):await tempMailRequest("/messages?page=1");
     const messages=Array.isArray(data)?data:(data?.messages||data?.["hydra:member"]||data?.member||data?.data||data?.items||[]);
     const upstreamTotal=Number(data?.totalItems??data?.["hydra:totalItems"]??messages.length);
-    const signature=tempMailSignature(messages);
+    const visibleMessages=tempMailVisibleMessages(messages);
+    const signature=tempMailSignature(visibleMessages);
     tempMailLastCheckedAt=Date.now();
-    tempMailSetInboxMeta(tempMailCheckedLabel(messages.length));
+    tempMailSetInboxMeta(tempMailCheckedLabel(visibleMessages.length));
     if(signature!==tempMailMessagesSignature){
       tempMailMessagesSignature=signature;
-      tempMailRenderMessages(messages);
-      if(silent&&messages.length)tempMailSetStatus(`Нових або змінених листів: ${messages.length}.`);
+      tempMailRenderMessages(visibleMessages);
+      if(silent&&visibleMessages.length)tempMailSetStatus(`Нових або змінених листів: ${visibleMessages.length}.`);
     }
-    if(messages.length){tempMailEmptyChecks=0}else{tempMailEmptyChecks++}
+    if(visibleMessages.length){tempMailEmptyChecks=0}else{tempMailEmptyChecks++}
     if(!silent){
-      if(messages.length){
-        tempMailSetStatus(`Знайдено листів: ${messages.length}.`);
+      if(visibleMessages.length){
+        tempMailSetStatus(`Знайдено листів: ${visibleMessages.length}.`);
       }else if(upstreamTotal>0){
         tempMailSetStatus(`Mail.tm повідомляє про ${upstreamTotal} листів, але список не розібрано. Відкрий /api/temp-mail/fixed/debug для діагностики.`);
       }else if(tempMailEmptyChecks>=3){
@@ -1734,19 +1755,30 @@ async function tempMailDeleteMessage(id){
   if(!id||!tempMailState?.token||tempMailBusy)return;
   if(!confirm("Видалити цей лист?"))return;
   tempMailBusy=true;tempMailSetStatus("Видалення листа…");
+  document.querySelectorAll(`[data-temp-mail-message-id="${CSS.escape(String(id))}"] .btn`).forEach(button=>button.disabled=true);
+  const viewerDelete=el("tempMailViewer")?.querySelector(".temp-mail-viewer-actions .btn.red");
+  if(viewerDelete)viewerDelete.disabled=true;
   try{
     const path="/messages/"+encodeURIComponent(id);
     if(tempMailState?.fixed){await tempMailFixedRequest(path,{method:"DELETE"})}else{await tempMailRequest(path,{method:"DELETE"})}
+    tempMailRememberDeletedMessage(id);
+    tempMailRemoveMessageFromUi(id);
     tempMailMessagesSignature="";tempMailClearViewer();
-    tempMailSetStatus("Лист видалено.");
+    tempMailSetStatus("Лист видалено і прибрано зі списку.");
     await tempMailRefresh({silent:true,force:true});
-  }catch(error){tempMailSetStatus("Не вдалося видалити лист: "+error.message)}
+  }catch(error){
+    document.querySelectorAll(`[data-temp-mail-message-id="${CSS.escape(String(id))}"] .btn`).forEach(button=>button.disabled=false);
+    if(viewerDelete)viewerDelete.disabled=false;
+    tempMailSetStatus("Не вдалося видалити лист: "+error.message);
+  }
   finally{tempMailBusy=false}
 }
 async function tempMailDeleteCurrent({silent=false}={}){
-  if(tempMailState?.fixed){
+  if(tempMailState?.fixed||tempMailState?.special){
+    const wasSpecial=!!tempMailState?.special;
+    const oldAddress=tempMailState?.address||"";
     tempMailState=null;tempMailSave();tempMailRestore();tempMailRenderMessages([]);tempMailClearViewer();tempMailMessagesSignature="";tempMailEmptyChecks=0;tempMailSetInboxMeta("ще не перевірено");
-    if(!silent)tempMailSetStatus("Готову пошту відключено локально. Серверний акаунт не видалено.");
+    if(!silent)tempMailSetStatus(wasSpecial?"Особливий мейл відключено тільки локально, серверний акаунт не видалено. Щоб повернутися — введи "+oldAddress.replace(/@.*/,"")+" і натисни «Створити особливий», пароль 2024.":"Готову пошту відключено локально. Серверний акаунт не видалено.");
     return;
   }
   const deletedAccountId=tempMailState?.accountId||"";
@@ -1783,19 +1815,25 @@ async function tempMailCreateSpecial(){
   if(tempMailState?.address&&tempMailState.address!==address&&!confirm("Замінити поточну пошту на "+address+"?"))return;
   tempMailBusy=true;tempMailSetStatus("Створення особливого мейлу "+address+" …");
   try{
-    if(tempMailState?.accountId&&tempMailState?.token&&!tempMailState?.fixed){try{await tempMailRequest("/accounts/"+encodeURIComponent(tempMailState.accountId),{method:"DELETE"})}catch(error){console.warn("Previous temp mailbox delete failed",error)}}
-    tempMailState=null;tempMailSave();tempMailRestore();tempMailClearViewer();tempMailRenderMessages([]);
-    const password=crypto.randomUUID()+"-"+crypto.randomUUID();
-    const account=await tempMailRequest("/accounts",{method:"POST",json:{address,password}});
+    if(tempMailState?.accountId&&tempMailState?.token&&!tempMailState?.fixed&&!tempMailState?.special){try{await tempMailRequest("/accounts/"+encodeURIComponent(tempMailState.accountId),{method:"DELETE"})}catch(error){console.warn("Previous temp mailbox delete failed",error)}}
+    tempMailState=null;tempMailSave();tempMailRestore();tempMailDeletedMessageIds.clear();tempMailClearViewer();tempMailRenderMessages([]);
+    const password=TEMP_MAIL_SPECIAL_PASSWORD;
+    let account=null;
+    try{account=await tempMailRequest("/accounts",{method:"POST",json:{address,password}})}
+    catch(createError){
+      if(createError?.status===422||/already|exists|used|address/i.test(String(createError?.message||""))){
+        tempMailSetStatus("Адреса вже існує. Пробую увійти з паролем 2024…");
+      }else{throw createError}
+    }
     const auth=await tempMailRequest("/token",{method:"POST",json:{address,password}});
     if(!auth?.token)throw new Error("Mail.tm не повернув bearer token");
-    tempMailState={address,accountId:account.id,token:auth.token,password,special:true,domain:TEMP_MAIL_SPECIAL_DOMAIN};tempMailSave();tempMailRestore();
+    tempMailState={address,accountId:account?.id||auth.id||address,token:auth.token,password,special:true,domain:TEMP_MAIL_SPECIAL_DOMAIN};tempMailSave();tempMailRestore();
     tempMailEmptyChecks=0;tempMailMessagesSignature="";tempMailSetInboxMeta("ще не перевірено");
-    tempMailSetStatus("Особливий мейл створено: "+address+". Домен залишився @web-library.net. Можна копіювати та чекати листи.");
+    tempMailSetStatus((account?"Особливий мейл створено: ":"Особливий мейл відновлено: ")+address+". Пароль: 2024. Домен залишився @web-library.net.");
     await tempMailRefresh({force:true});
   }catch(error){
     let hint="";
-    if(error?.status===422||/already|exists|address/i.test(String(error?.message||"")))hint=" Можливо, ця назва вже зайнята — спробуй іншу.";
+    if(error?.status===401||error?.status===422||/already|exists|address|credentials|unauthorized/i.test(String(error?.message||"")))hint=" Якщо це старий особливий мейл, він міг бути створений до пароля 2024 або з іншим паролем. Нові особливі мейли тепер створюються і відновлюються через пароль 2024.";
     tempMailSetStatus("Не вдалося створити особливий мейл: "+error.message+hint);
   }
   finally{tempMailBusy=false}
@@ -1805,7 +1843,7 @@ async function tempMailCreate({replace=false}={}){
   tempMailBusy=true;tempMailSetStatus(replace?"Заміна тимчасової адреси…":"Створення тимчасової адреси…");
   try{
     if(replace&&!tempMailState?.fixed&&tempMailState?.accountId&&tempMailState?.token){try{await tempMailRequest("/accounts/"+encodeURIComponent(tempMailState.accountId),{method:"DELETE"})}catch(error){console.warn("Previous temp mailbox delete failed",error)}}
-    tempMailState=null;tempMailSave();tempMailRestore();tempMailClearViewer();tempMailRenderMessages([]);
+    tempMailState=null;tempMailSave();tempMailRestore();tempMailDeletedMessageIds.clear();tempMailClearViewer();tempMailRenderMessages([]);
     const domain=await tempMailPickDomain();
     if(!domain)throw new Error("Mail.tm не повернув доступний домен");
     let account=null,address="",password="";
