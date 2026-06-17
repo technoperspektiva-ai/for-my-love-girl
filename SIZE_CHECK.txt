@@ -1,1 +1,1 @@
-v187 special web-library mail
+v188 special mail symbols + toggle panel
