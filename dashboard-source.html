@@ -13,7 +13,7 @@
 html{scroll-behavior:smooth;background:var(--bg)}
 body{margin:0;background:radial-gradient(circle at 15% 0%,rgba(0,255,149,.055),transparent 27%),linear-gradient(180deg,#050708,#030506 58%,#050708);color:var(--text);font-family:"JetBrains Mono","Cascadia Code",Consolas,monospace;min-height:100vh}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(80,255,177,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(80,255,177,.02) 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),transparent 88%)}
-a{color:inherit}button,input,textarea{font:inherit}button{cursor:pointer}.wrap{width:min(1480px,calc(100% - 24px));margin:0 auto;padding:14px 0 30px;position:relative}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 12px;border:1px solid var(--line);background:rgba(6,11,12,.96);box-shadow:0 10px 24px rgba(0,0,0,.28)}.logo{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#eafff8}.logo img{width:40px;height:40px;object-fit:contain;background:#071013;border:1px solid #1b3438;padding:4px}.logo-title{display:inline-flex;align-items:center;gap:0}.hym-mark{color:var(--green)}.hym-sep{color:var(--green)}.v{color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.v-divider{color:#42635d;opacity:.95}.runtime-os-stack{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;line-height:1.05}.os-neon{display:inline-block;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:0 2px}.launch-source{display:inline-block;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#5f7d78;font-size:8px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;text-shadow:0 0 8px rgba(52,255,154,.12)}.launch-source::before{content:"↳ ";color:#34ff9a;opacity:.72}.os-android{color:#b8ff5f;text-shadow:0 0 8px rgba(184,255,95,.78),0 0 17px rgba(120,255,70,.48)}.os-ios{color:#f8fbff;text-shadow:0 0 8px rgba(255,255,255,.9),0 0 17px rgba(204,214,224,.62)}.os-windows{color:#86d9ff;text-shadow:0 0 8px rgba(134,217,255,.9),0 0 17px rgba(66,185,255,.62)}.os-macos{color:#ffd3eb;text-shadow:0 0 8px rgba(255,215,232,.9),0 0 17px rgba(255,166,214,.62)}.os-unknown{color:#8bf4d7;text-shadow:0 0 8px rgba(139,244,215,.78),0 0 17px rgba(60,208,170,.48)}.beta-gradient{display:inline-block;color:var(--green);text-shadow:0 0 14px rgba(52,255,154,.45)}.ops-nav{display:flex;flex-wrap:wrap;gap:6px;padding:8px 0 10px}.ops-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border:1px solid var(--line);background:#080d0f;color:var(--muted);font-size:11px;font-weight:800;text-decoration:none;text-transform:uppercase;letter-spacing:.08em}.ops-nav a::before{content:"//";color:var(--green)}.ops-nav a:hover{border-color:var(--green);color:var(--text);background:#0b1614}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:10px;grid-auto-flow:dense;align-items:start}.card,.temp-mail-card{background:linear-gradient(180deg,rgba(14,20,22,.98),rgba(8,12,14,.98));border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 8px 20px rgba(0,0,0,.24);overflow:hidden}.card{padding:12px}h2{margin:0 0 10px;font-size:15px;line-height:1.1;letter-spacing:.02em;color:#e6fff8;text-transform:uppercase}h2::before,.temp-mail-card>summary::before{display:block;margin-bottom:5px;color:var(--green);font-size:9px;letter-spacing:.15em;font-weight:900;text-transform:uppercase}#section-payments h2::before{content:"cashier desk"}#section-redirects h2::before{content:"app redirects"}#section-offers h2::before{content:"offer redirects"}#section-temp-mail>summary::before{content:"mail sandbox"}#section-gpay h2::before{content:"wallet"}#section-signin h2::before{content:"google identity"}#section-telegram h2::before{content:"telegram access"}#section-chat h2::before{content:"support endpoint"}#section-text h2::before{content:"quick input"}#section-media h2::before{content:"media"}#section-ua h2::before{content:"runtime"}.btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.btn{appearance:none;background:#11191c;border:1px solid #24353a;color:#d7f5ee;padding:10px 11px;font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:.02em;transition:.15s ease;box-shadow:none}.btn:hover{background:#162327;border-color:var(--green);color:#fff}.red{background:#3b1317;border-color:#77252c;color:#ffdfe2}.red:hover{background:#541920;border-color:var(--red)}.green{background:#06381f;border-color:#0e9151;color:#a8ffd1}.green:hover{background:#08542e;border-color:var(--green);color:#fff}.paytm{background:#07374a;border-color:#0b7293;color:#b9efff}.phonepe{background:#29164b;border-color:#6334ab;color:#eadcff}.kbc{background:#0b3457;border-color:#1d689c;color:#d9efff}.amazon{background:#3a2b07;border-color:#9b7219;color:#ffe7a4}.gpay{background:#0b1113;border-color:#344c52;color:#fff}input,textarea{width:100%;background:#05090a;color:#d7f5ee;border:1px solid #24353a;padding:10px;margin:5px 0;outline:none;font-size:12px}input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(52,255,154,.08)}textarea{min-height:92px;resize:vertical}.info{font-size:11px;color:var(--muted);word-break:break-word;white-space:pre-wrap;line-height:1.45}.profile{display:none;border:1px solid #24353a;padding:10px;margin-top:8px;background:#071013}.profile.on{display:block}.profile-head{display:flex;align-items:center;gap:10px}.profile img{width:42px;height:42px;border-radius:50%;background:#101719;object-fit:cover}.badge{display:inline-block;background:#06381f;border:1px solid #0e9151;color:#a8ffd1;font-weight:900;padding:5px 7px;margin-bottom:8px;font-size:9px;letter-spacing:.12em}.telegram-box{min-height:46px;display:flex;align-items:center;justify-content:flex-start}.success{display:none;border:1px solid #0e9151;color:#a8ffd1;background:#06381f;padding:8px;margin-top:8px;font-size:11px}.modal{position:fixed;inset:0;background:#000c;display:none;place-items:center;padding:14px;z-index:99}.modal.on{display:grid}.box{background:#0b1012;border:1px solid #294146;padding:14px;width:min(420px,100%)}.checkout-row{display:flex;justify-content:space-between;border-bottom:1px solid #1c2a2f;padding:8px 0;color:var(--muted)}iframe{width:100%;aspect-ratio:16/9;border:1px solid #24353a;background:#000}audio{width:100%;margin-top:10px;filter:invert(.92) hue-rotate(110deg)}.stripe-card{grid-column:span 4;padding:10px}.stripe-checkout-only{min-height:42px}.temp-mail-card{grid-column:1/-1;padding:0}.temp-mail-card>summary{list-style:none;cursor:pointer;padding:12px;font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:10px;text-transform:uppercase}.temp-mail-card>summary::-webkit-details-marker{display:none}.temp-mail-card>summary::after{content:"[+]";color:var(--green);font-size:12px}.temp-mail-card[open]>summary::after{content:"[-]"}.temp-mail-card[open]>summary{border-bottom:1px solid var(--line)}.temp-mail-content{padding:12px}.temp-mail-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:7px;align-items:center}.temp-mail-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}.temp-mail-special{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center;margin-top:8px;padding:8px;border:1px solid #1c2a2f;background:rgba(5,9,10,.72)}.temp-mail-special-label{font-size:10px;color:#7c9994;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.temp-mail-special-input{margin:0}.temp-mail-special-domain{font-size:11px;color:#34ff9a;font-weight:900;white-space:nowrap}.temp-mail-special-help{grid-column:1/-1;color:#4b6461;font-size:10px;line-height:1.35}.temp-mail-address{margin:0}.temp-mail-list{margin-top:8px;border:1px solid #1c2a2f;background:#060a0b}.temp-mail-empty{padding:10px;color:var(--muted);font-size:11px}.temp-mail-row{display:grid;grid-template-columns:minmax(140px,.8fr) minmax(180px,1.4fr) auto auto;gap:7px;align-items:center;padding:9px;border-bottom:1px solid #1c2a2f;cursor:pointer}.temp-mail-row:last-child{border-bottom:0}.temp-mail-row:hover{background:#0b1416}.temp-mail-from{font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.temp-mail-subject{color:#bdd8d3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.temp-mail-time{font-size:10px;color:var(--dim);white-space:nowrap}.temp-mail-row-actions,.temp-mail-viewer-actions{display:flex;gap:7px;flex-wrap:wrap}.temp-mail-row-actions .btn,.temp-mail-viewer-actions .btn{padding:7px 8px;font-size:10px}.temp-mail-viewer-actions{margin-top:8px}.temp-mail-viewer{display:none;margin-top:8px;border:1px solid #1c2a2f;background:#060a0b;padding:10px}.temp-mail-viewer.on{display:block}.temp-mail-viewer-head{border-bottom:1px solid #1c2a2f;padding-bottom:8px;margin-bottom:8px}.temp-mail-body{white-space:pre-wrap;word-break:break-word;color:#bdd8d3;line-height:1.45;font-size:12px}.temp-mail-code{display:inline-block;margin-top:7px;padding:5px 7px;background:#052b1a;border:1px solid #0b8650;color:#8dffc0;font-weight:900}.temp-mail-status:empty{display:none}.temp-mail-saved{margin-top:8px;border:1px solid #1c2a2f;background:#060a0b}.temp-mail-saved:empty{display:none}.temp-mail-saved-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:7px;align-items:center;padding:7px;border-bottom:1px solid #1c2a2f}.temp-mail-saved-row:last-child{border-bottom:0}.temp-mail-saved-address{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:#bdd8d3}.temp-mail-inbox{margin-top:8px;border:1px solid #1c2a2f;background:#060a0b}.temp-mail-inbox>summary{cursor:pointer;list-style:none;padding:9px 10px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:7px;text-transform:uppercase;font-size:12px}.temp-mail-inbox>summary::-webkit-details-marker{display:none}.temp-mail-inbox>summary::after{content:"[+]";color:var(--green);font-size:10px}.temp-mail-inbox[open]>summary::after{content:"[-]"}.temp-mail-inbox[open]>summary{border-bottom:1px solid #1c2a2f}.temp-mail-inbox-meta{margin-left:auto;color:var(--dim);font-size:10px;font-weight:400}.temp-mail-inbox .temp-mail-list{margin-top:0;border:0}.temp-mail-inbox .temp-mail-viewer{margin:8px}.temp-mail-attribution{grid-column:1/-1;text-align:right;font-size:9px;color:#39504e;padding:0 2px}.temp-mail-attribution a{color:#587b76;text-decoration:none}#section-payments{grid-column:span 7}#section-redirects{grid-column:span 5}#section-temp-mail{grid-column:1/-1}#section-offers{grid-column:span 7}#section-chat{grid-column:span 5}#section-gpay{grid-column:span 4}#section-signin{grid-column:span 4}#section-telegram{grid-column:span 4}#section-text{grid-column:span 5}#section-media{grid-column:span 5}#section-ua{grid-column:span 2}#section-payments .btns,#section-offers .btns,#section-redirects .btns{grid-template-columns:repeat(2,minmax(0,1fr))}#section-chat .btns{grid-template-columns:1fr}@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}#section-payments,#section-redirects,#section-temp-mail,#section-offers,#section-chat,#section-gpay,#section-signin,#section-telegram,#section-text,#section-media,#section-ua,.stripe-card{grid-column:auto}.temp-mail-card{grid-column:1/-1}.stripe-card{grid-column:1/-1}}@media(max-width:700px){.wrap{width:min(100% - 14px,1480px);padding-top:7px}.top{padding:8px}.logo{font-size:13px}.logo img{width:34px;height:34px}.v{font-size:9px}.ops-nav{overflow-x:auto;flex-wrap:nowrap;padding:7px 0 8px}.ops-nav a{white-space:nowrap;font-size:10px;padding:7px 8px}.grid{grid-template-columns:1fr;gap:8px}.card{padding:10px}.btns,.temp-mail-toolbar{grid-template-columns:1fr}.temp-mail-actions{display:grid;grid-template-columns:1fr 1fr}.temp-mail-row,.temp-mail-saved-row{grid-template-columns:1fr}.temp-mail-time{white-space:normal}.temp-mail-content{padding:10px}.temp-mail-card>summary{padding:10px}.stripe-card{grid-column:auto}}@media(max-width:430px){.temp-mail-actions{grid-template-columns:1fr}.btn{font-size:11px;padding:10px}}
+a{color:inherit}button,input,textarea{font:inherit}button{cursor:pointer}.wrap{width:min(1480px,calc(100% - 24px));margin:0 auto;padding:14px 0 30px;position:relative}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 12px;border:1px solid var(--line);background:rgba(6,11,12,.96);box-shadow:0 10px 24px rgba(0,0,0,.28)}.logo{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#eafff8}.logo img{width:40px;height:40px;object-fit:contain;background:#071013;border:1px solid #1b3438;padding:4px}.logo-title{display:inline-flex;align-items:center;gap:0}.hym-mark{color:var(--green)}.hym-sep{color:var(--green)}.v{color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.v-divider{color:#42635d;opacity:.95}.runtime-os-stack{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;line-height:1.05}.os-neon{display:inline-block;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:0 2px}.launch-source{display:inline-block;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#5f7d78;font-size:8px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;text-shadow:0 0 8px rgba(52,255,154,.12)}.launch-source::before{content:"↳ ";color:#34ff9a;opacity:.72}.os-android{color:#b8ff5f;text-shadow:0 0 8px rgba(184,255,95,.78),0 0 17px rgba(120,255,70,.48)}.os-ios{color:#f8fbff;text-shadow:0 0 8px rgba(255,255,255,.9),0 0 17px rgba(204,214,224,.62)}.os-windows{color:#86d9ff;text-shadow:0 0 8px rgba(134,217,255,.9),0 0 17px rgba(66,185,255,.62)}.os-macos{color:#ffd3eb;text-shadow:0 0 8px rgba(255,215,232,.9),0 0 17px rgba(255,166,214,.62)}.os-unknown{color:#8bf4d7;text-shadow:0 0 8px rgba(139,244,215,.78),0 0 17px rgba(60,208,170,.48)}.beta-gradient{display:inline-block;color:var(--green);text-shadow:0 0 14px rgba(52,255,154,.45)}.ops-nav{display:flex;flex-wrap:wrap;gap:6px;padding:8px 0 10px}.ops-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border:1px solid var(--line);background:#080d0f;color:var(--muted);font-size:11px;font-weight:800;text-decoration:none;text-transform:uppercase;letter-spacing:.08em}.ops-nav a::before{content:"//";color:var(--green)}.ops-nav a:hover{border-color:var(--green);color:var(--text);background:#0b1614}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:10px;grid-auto-flow:dense;align-items:start}.card,.temp-mail-card{background:linear-gradient(180deg,rgba(14,20,22,.98),rgba(8,12,14,.98));border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 8px 20px rgba(0,0,0,.24);overflow:hidden}.card{padding:12px}h2{margin:0 0 10px;font-size:15px;line-height:1.1;letter-spacing:.02em;color:#e6fff8;text-transform:uppercase}h2::before,.temp-mail-card>summary::before{display:block;margin-bottom:5px;color:var(--green);font-size:9px;letter-spacing:.15em;font-weight:900;text-transform:uppercase}#section-payments h2::before{content:"cashier desk"}#section-redirects h2::before{content:"app redirects"}#section-offers h2::before{content:"offer redirects"}#section-temp-mail>summary::before{content:"mail sandbox"}#section-gpay h2::before{content:"wallet"}#section-signin h2::before{content:"google identity"}#section-telegram h2::before{content:"telegram access"}#section-chat h2::before{content:"support endpoint"}#section-text h2::before{content:"quick input"}#section-media h2::before{content:"media"}#section-ua h2::before{content:"runtime"}.btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.btn{appearance:none;background:#11191c;border:1px solid #24353a;color:#d7f5ee;padding:10px 11px;font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:.02em;transition:.15s ease;box-shadow:none}.btn:hover{background:#162327;border-color:var(--green);color:#fff}.red{background:#3b1317;border-color:#77252c;color:#ffdfe2}.red:hover{background:#541920;border-color:var(--red)}.green{background:#06381f;border-color:#0e9151;color:#a8ffd1}.green:hover{background:#08542e;border-color:var(--green);color:#fff}.paytm{background:#07374a;border-color:#0b7293;color:#b9efff}.phonepe{background:#29164b;border-color:#6334ab;color:#eadcff}.kbc{background:#0b3457;border-color:#1d689c;color:#d9efff}.amazon{background:#3a2b07;border-color:#9b7219;color:#ffe7a4}.gpay{background:#0b1113;border-color:#344c52;color:#fff}input,textarea{width:100%;background:#05090a;color:#d7f5ee;border:1px solid #24353a;padding:10px;margin:5px 0;outline:none;font-size:12px}input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(52,255,154,.08)}textarea{min-height:92px;resize:vertical}.info{font-size:11px;color:var(--muted);word-break:break-word;white-space:pre-wrap;line-height:1.45}.profile{display:none;border:1px solid #24353a;padding:10px;margin-top:8px;background:#071013}.profile.on{display:block}.profile-head{display:flex;align-items:center;gap:10px}.profile img{width:42px;height:42px;border-radius:50%;background:#101719;object-fit:cover}.badge{display:inline-block;background:#06381f;border:1px solid #0e9151;color:#a8ffd1;font-weight:900;padding:5px 7px;margin-bottom:8px;font-size:9px;letter-spacing:.12em}.telegram-box{min-height:46px;display:flex;align-items:center;justify-content:flex-start}.success{display:none;border:1px solid #0e9151;color:#a8ffd1;background:#06381f;padding:8px;margin-top:8px;font-size:11px}.modal{position:fixed;inset:0;background:#000c;display:none;place-items:center;padding:14px;z-index:99}.modal.on{display:grid}.box{background:#0b1012;border:1px solid #294146;padding:14px;width:min(420px,100%)}.checkout-row{display:flex;justify-content:space-between;border-bottom:1px solid #1c2a2f;padding:8px 0;color:var(--muted)}iframe{width:100%;aspect-ratio:16/9;border:1px solid #24353a;background:#000}audio{width:100%;margin-top:10px;filter:invert(.92) hue-rotate(110deg)}.stripe-card{grid-column:span 4;padding:10px}.stripe-checkout-only{min-height:42px}.temp-mail-card{grid-column:1/-1;padding:0}.temp-mail-card>summary{list-style:none;cursor:pointer;padding:12px;font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:10px;text-transform:uppercase}.temp-mail-card>summary::-webkit-details-marker{display:none}.temp-mail-card>summary::after{content:"[+]";color:var(--green);font-size:12px}.temp-mail-card[open]>summary::after{content:"[-]"}.temp-mail-card[open]>summary{border-bottom:1px solid var(--line)}.temp-mail-content{padding:12px}.temp-mail-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:7px;align-items:center}.temp-mail-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}.temp-mail-special{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center;margin-top:8px;padding:8px;border:1px solid #1c2a2f;background:rgba(5,9,10,.72)}.temp-mail-special:not(.is-open){display:none!important}.temp-mail-special.is-open{display:grid}.temp-mail-special-label{font-size:10px;color:#7c9994;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.temp-mail-special-input{margin:0}.temp-mail-special-domain{font-size:11px;color:#34ff9a;font-weight:900;white-space:nowrap}.temp-mail-special-help{grid-column:1/-1;color:#4b6461;font-size:10px;line-height:1.35}.temp-mail-address{margin:0}.temp-mail-list{margin-top:8px;border:1px solid #1c2a2f;background:#060a0b}.temp-mail-empty{padding:10px;color:var(--muted);font-size:11px}.temp-mail-row{display:grid;grid-template-columns:minmax(140px,.8fr) minmax(180px,1.4fr) auto auto;gap:7px;align-items:center;padding:9px;border-bottom:1px solid #1c2a2f;cursor:pointer}.temp-mail-row:last-child{border-bottom:0}.temp-mail-row:hover{background:#0b1416}.temp-mail-from{font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.temp-mail-subject{color:#bdd8d3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.temp-mail-time{font-size:10px;color:var(--dim);white-space:nowrap}.temp-mail-row-actions,.temp-mail-viewer-actions{display:flex;gap:7px;flex-wrap:wrap}.temp-mail-row-actions .btn,.temp-mail-viewer-actions .btn{padding:7px 8px;font-size:10px}.temp-mail-viewer-actions{margin-top:8px}.temp-mail-viewer{display:none;margin-top:8px;border:1px solid #1c2a2f;background:#060a0b;padding:10px}.temp-mail-viewer.on{display:block}.temp-mail-viewer-head{border-bottom:1px solid #1c2a2f;padding-bottom:8px;margin-bottom:8px}.temp-mail-body{white-space:pre-wrap;word-break:break-word;color:#bdd8d3;line-height:1.45;font-size:12px}.temp-mail-code{display:inline-block;margin-top:7px;padding:5px 7px;background:#052b1a;border:1px solid #0b8650;color:#8dffc0;font-weight:900}.temp-mail-status:empty{display:none}.temp-mail-saved{margin-top:8px;border:1px solid #1c2a2f;background:#060a0b}.temp-mail-saved:empty{display:none}.temp-mail-saved-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:7px;align-items:center;padding:7px;border-bottom:1px solid #1c2a2f}.temp-mail-saved-row:last-child{border-bottom:0}.temp-mail-saved-address{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:#bdd8d3}.temp-mail-inbox{margin-top:8px;border:1px solid #1c2a2f;background:#060a0b}.temp-mail-inbox>summary{cursor:pointer;list-style:none;padding:9px 10px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:7px;text-transform:uppercase;font-size:12px}.temp-mail-inbox>summary::-webkit-details-marker{display:none}.temp-mail-inbox>summary::after{content:"[+]";color:var(--green);font-size:10px}.temp-mail-inbox[open]>summary::after{content:"[-]"}.temp-mail-inbox[open]>summary{border-bottom:1px solid #1c2a2f}.temp-mail-inbox-meta{margin-left:auto;color:var(--dim);font-size:10px;font-weight:400}.temp-mail-inbox .temp-mail-list{margin-top:0;border:0}.temp-mail-inbox .temp-mail-viewer{margin:8px}.temp-mail-attribution{grid-column:1/-1;text-align:right;font-size:9px;color:#39504e;padding:0 2px}.temp-mail-attribution a{color:#587b76;text-decoration:none}#section-payments{grid-column:span 7}#section-redirects{grid-column:span 5}#section-temp-mail{grid-column:1/-1}#section-offers{grid-column:span 7}#section-chat{grid-column:span 5}#section-gpay{grid-column:span 4}#section-signin{grid-column:span 4}#section-telegram{grid-column:span 4}#section-text{grid-column:span 5}#section-media{grid-column:span 5}#section-ua{grid-column:span 2}#section-payments .btns,#section-offers .btns,#section-redirects .btns{grid-template-columns:repeat(2,minmax(0,1fr))}#section-chat .btns{grid-template-columns:1fr}@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}#section-payments,#section-redirects,#section-temp-mail,#section-offers,#section-chat,#section-gpay,#section-signin,#section-telegram,#section-text,#section-media,#section-ua,.stripe-card{grid-column:auto}.temp-mail-card{grid-column:1/-1}.stripe-card{grid-column:1/-1}}@media(max-width:700px){.wrap{width:min(100% - 14px,1480px);padding-top:7px}.top{padding:8px}.logo{font-size:13px}.logo img{width:34px;height:34px}.v{font-size:9px}.ops-nav{overflow-x:auto;flex-wrap:nowrap;padding:7px 0 8px}.ops-nav a{white-space:nowrap;font-size:10px;padding:7px 8px}.grid{grid-template-columns:1fr;gap:8px}.card{padding:10px}.btns,.temp-mail-toolbar{grid-template-columns:1fr}.temp-mail-actions{display:grid;grid-template-columns:1fr 1fr}.temp-mail-row,.temp-mail-saved-row{grid-template-columns:1fr}.temp-mail-time{white-space:normal}.temp-mail-content{padding:10px}.temp-mail-card>summary{padding:10px}.stripe-card{grid-column:auto}}@media(max-width:430px){.temp-mail-actions{grid-template-columns:1fr}.btn{font-size:11px;padding:10px}}
 
 /* Hidden layout editor: enabled by triple-clicking the logo */
 .layout-toolbar{display:none;position:fixed;right:14px;bottom:14px;z-index:120;gap:7px;align-items:center;padding:8px;border:1px solid #315b51;background:rgba(4,10,11,.96);box-shadow:0 12px 30px rgba(0,0,0,.45)}
@@ -894,14 +894,15 @@ body.dashboard-focus-open{overflow:hidden}
 <button class="btn" id="tempMailRefresh" type="button">Оновити листи</button>
 <button class="btn green" id="tempMailOpenInbox" type="button">Вхідні листи</button>
 <button class="btn" id="tempMailSaveAccount" type="button">Зберегти пошту</button>
+<button class="btn green" id="tempMailSpecialToggle" type="button">Особливий мейл</button>
 <button class="btn red" id="tempMailDelete" type="button">Видалити адресу</button>
 </div>
-<div class="temp-mail-special">
+<div class="temp-mail-special" id="tempMailSpecialPanel">
 <div class="temp-mail-special-label">Особливий мейл</div>
 <div class="temp-mail-special-domain">@web-library.net</div>
-<input class="temp-mail-special-input" id="tempMailSpecialName" inputmode="latin" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="32" placeholder="твоя-назва" type="text"/>
+<input class="temp-mail-special-input" id="tempMailSpecialName" inputmode="latin" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="48" placeholder="my+name.test" type="text"/>
 <button class="btn green" id="tempMailSpecialCreate" type="button">Створити особливий</button>
-<div class="temp-mail-special-help">Назва чиститься автоматично: латиниця, цифри, крапка, дефіс, нижнє підкреслення.</div>
+<div class="temp-mail-special-help">Можна латиницю, цифри та символи: . _ - + = ! # $ % &amp; * ? ^ { } ~. Якщо сервіс не прийме рідкісний символ — покаже помилку і можна спробувати іншу назву.</div>
 </div>
 <p class="info temp-mail-status" id="tempMailStatus"></p>
 <div class="temp-mail-saved" id="tempMailSaved"></div>
@@ -1385,6 +1386,7 @@ let tempMailBusy=false;
 let tempMailMessagesSignature="";
 let tempMailLastCheckedAt=0;
 let tempMailEmptyChecks=0;
+let tempMailDeletedMessageIds=new Set();
 function tempMailSetStatus(text=""){el("tempMailStatus").textContent=text}
 function tempMailSetInboxMeta(text=""){const node=el("tempMailInboxMeta");if(node)node.textContent=text}
 function tempMailCheckedLabel(count){
@@ -1393,6 +1395,20 @@ function tempMailCheckedLabel(count){
 }
 function tempMailSignature(messages){
   return messages.map(message=>[message.id,message.createdAt,message.subject,message.from?.address].join("|")).join("||");
+}
+function tempMailVisibleMessages(messages){
+  return (Array.isArray(messages)?messages:[]).filter(message=>message?.id&&!tempMailDeletedMessageIds.has(String(message.id)));
+}
+function tempMailRememberDeletedMessage(id){
+  if(id)tempMailDeletedMessageIds.add(String(id));
+}
+function tempMailRemoveMessageFromUi(id){
+  if(!id)return;
+  document.querySelectorAll(`[data-temp-mail-message-id="${CSS.escape(String(id))}"]`).forEach(node=>node.remove());
+  const box=el("tempMailMessages");
+  if(box&&!box.querySelector(".temp-mail-row")){
+    box.replaceChildren(tempMailMake("div","temp-mail-empty","Вхідних листів поки немає."));
+  }
 }
 function tempMailSave(){
   if(tempMailState){sessionStorage.setItem(TEMP_MAIL_SESSION_KEY,JSON.stringify(tempMailState))}
@@ -1458,7 +1474,7 @@ async function tempMailOpenSaved(accountId){
   tempMailBusy=true;tempMailSetStatus("Відновлення пошти…");
   try{
     const token=await tempMailTokenFor(saved,{force:true});
-    tempMailState={...saved,token};tempMailSave();tempMailRestore();tempMailClearViewer();
+    tempMailState={...saved,token};tempMailSave();tempMailRestore();tempMailDeletedMessageIds.clear();tempMailClearViewer();
     tempMailSavedWrite(tempMailSavedRead().map(item=>item.accountId===saved.accountId?{...item,token}:item));
     tempMailSetStatus("");
   }catch(error){tempMailSetStatus("Не вдалося відновити пошту: "+error.message)}
@@ -1477,7 +1493,7 @@ async function tempMailDeleteSaved(accountId){
     if(response.ok||response.status===404)remoteDeleted=true;
     else remoteWarning="Mail.tm HTTP "+response.status;
   }catch(error){remoteWarning=error.message}
-  if(tempMailState?.accountId===saved.accountId){tempMailState=null;tempMailSave();tempMailRestore();tempMailRenderMessages([]);tempMailClearViewer();tempMailMessagesSignature="";tempMailSetInboxMeta("ще не перевірено")}
+  if(tempMailState?.accountId===saved.accountId){tempMailState=null;tempMailSave();tempMailRestore();tempMailDeletedMessageIds.clear();tempMailRenderMessages([]);tempMailClearViewer();tempMailMessagesSignature="";tempMailSetInboxMeta("ще не перевірено")}
   tempMailSavedRemoveLocal(saved.accountId);
   tempMailSetStatus(remoteDeleted||!remoteWarning?"Збережену пошту видалено.":"Пошту прибрано локально. Mail.tm не підтвердив видалення на сервері: "+remoteWarning);
   tempMailBusy=false;
@@ -1572,7 +1588,7 @@ async function tempMailConnectFixed(){
     const config=await tempMailFixedRequest("/config");
     if(!config?.configured||!config?.address)throw new Error("Готова пошта не налаштована у Worker");
     tempMailState={address:config.address,accountId:"fixed-server",token:"server-proxy",password:"",fixed:true};
-    tempMailSave();tempMailRestore();tempMailMessagesSignature="";tempMailRenderMessages([]);tempMailClearViewer();
+    tempMailSave();tempMailRestore();tempMailMessagesSignature="";tempMailDeletedMessageIds.clear();tempMailRenderMessages([]);tempMailClearViewer();
     tempMailSetStatus("Готову пошту підключено через серверний proxy. Пароль не передається у браузер.");
     await tempMailRefresh({force:true});
   }catch(error){tempMailSetStatus("Не вдалося підключити готову пошту: "+error.message)}
@@ -1652,10 +1668,11 @@ async function tempMailRenderRichBody(viewer,message){
   viewer.append(rich);
 }
 function tempMailRenderMessages(messages){
+  const visibleMessages=tempMailVisibleMessages(messages);
   const box=el("tempMailMessages");box.replaceChildren();
-  if(!messages.length){box.append(tempMailMake("div","temp-mail-empty","Вхідних листів поки немає."));return}
-  messages.forEach(message=>{
-    const row=tempMailMake("div","temp-mail-row");row.tabIndex=0;
+  if(!visibleMessages.length){box.append(tempMailMake("div","temp-mail-empty","Вхідних листів поки немає."));return}
+  visibleMessages.forEach(message=>{
+    const row=tempMailMake("div","temp-mail-row");row.tabIndex=0;row.dataset.tempMailMessageId=String(message.id);
     row.append(tempMailMake("div","temp-mail-from",message.from?.address||message.from?.name||"Невідомий відправник"));
     row.append(tempMailMake("div","temp-mail-subject",message.subject||"Без теми"));
     row.append(tempMailMake("div","temp-mail-time",tempMailFormatTime(message.createdAt)));
@@ -1677,18 +1694,19 @@ async function tempMailRefresh({silent=false,force=false}={}){
     const data=tempMailState?.fixed?await tempMailFixedRequest("/messages"):await tempMailRequest("/messages?page=1");
     const messages=Array.isArray(data)?data:(data?.messages||data?.["hydra:member"]||data?.member||data?.data||data?.items||[]);
     const upstreamTotal=Number(data?.totalItems??data?.["hydra:totalItems"]??messages.length);
-    const signature=tempMailSignature(messages);
+    const visibleMessages=tempMailVisibleMessages(messages);
+    const signature=tempMailSignature(visibleMessages);
     tempMailLastCheckedAt=Date.now();
-    tempMailSetInboxMeta(tempMailCheckedLabel(messages.length));
+    tempMailSetInboxMeta(tempMailCheckedLabel(visibleMessages.length));
     if(signature!==tempMailMessagesSignature){
       tempMailMessagesSignature=signature;
-      tempMailRenderMessages(messages);
-      if(silent&&messages.length)tempMailSetStatus(`Нових або змінених листів: ${messages.length}.`);
+      tempMailRenderMessages(visibleMessages);
+      if(silent&&visibleMessages.length)tempMailSetStatus(`Нових або змінених листів: ${visibleMessages.length}.`);
     }
-    if(messages.length){tempMailEmptyChecks=0}else{tempMailEmptyChecks++}
+    if(visibleMessages.length){tempMailEmptyChecks=0}else{tempMailEmptyChecks++}
     if(!silent){
-      if(messages.length){
-        tempMailSetStatus(`Знайдено листів: ${messages.length}.`);
+      if(visibleMessages.length){
+        tempMailSetStatus(`Знайдено листів: ${visibleMessages.length}.`);
       }else if(upstreamTotal>0){
         tempMailSetStatus(`Mail.tm повідомляє про ${upstreamTotal} листів, але список не розібрано. Відкрий /api/temp-mail/fixed/debug для діагностики.`);
       }else if(tempMailEmptyChecks>=3){
@@ -1733,13 +1751,22 @@ async function tempMailDeleteMessage(id){
   if(!id||!tempMailState?.token||tempMailBusy)return;
   if(!confirm("Видалити цей лист?"))return;
   tempMailBusy=true;tempMailSetStatus("Видалення листа…");
+  document.querySelectorAll(`[data-temp-mail-message-id="${CSS.escape(String(id))}"] .btn`).forEach(button=>button.disabled=true);
+  const viewerDelete=el("tempMailViewer")?.querySelector(".temp-mail-viewer-actions .btn.red");
+  if(viewerDelete)viewerDelete.disabled=true;
   try{
     const path="/messages/"+encodeURIComponent(id);
     if(tempMailState?.fixed){await tempMailFixedRequest(path,{method:"DELETE"})}else{await tempMailRequest(path,{method:"DELETE"})}
+    tempMailRememberDeletedMessage(id);
+    tempMailRemoveMessageFromUi(id);
     tempMailMessagesSignature="";tempMailClearViewer();
-    tempMailSetStatus("Лист видалено.");
+    tempMailSetStatus("Лист видалено і прибрано зі списку.");
     await tempMailRefresh({silent:true,force:true});
-  }catch(error){tempMailSetStatus("Не вдалося видалити лист: "+error.message)}
+  }catch(error){
+    document.querySelectorAll(`[data-temp-mail-message-id="${CSS.escape(String(id))}"] .btn`).forEach(button=>button.disabled=false);
+    if(viewerDelete)viewerDelete.disabled=false;
+    tempMailSetStatus("Не вдалося видалити лист: "+error.message);
+  }
   finally{tempMailBusy=false}
 }
 async function tempMailDeleteCurrent({silent=false}={}){
@@ -1770,20 +1797,20 @@ async function tempMailDeleteCurrent({silent=false}={}){
   }
 }
 function tempMailCleanSpecialName(value){
-  return String(value||"").trim().toLowerCase().replace(/@.*/,"").replace(/[^a-z0-9._-]+/g,"-").replace(/[._-]{2,}/g,"-").replace(/^[._-]+|[._-]+$/g,"").slice(0,32);
+  return String(value||"").trim().toLowerCase().replace(/@.*/,"").replace(/\s+/g,"-").replace(/[^a-z0-9.!#$%&*+=?^_{}~-]+/g,"").replace(/\.{2,}/g,".").replace(/^\.+|\.+$/g,"").slice(0,48);
 }
 async function tempMailCreateSpecial(){
   if(tempMailBusy)return;
   const input=el("tempMailSpecialName");
   const local=tempMailCleanSpecialName(input?.value||"");
   if(input)input.value=local;
-  if(local.length<3){tempMailSetStatus("Введи назву особливого мейлу мінімум 3 символи. Наприклад: wwg-test або qa_777.");return}
+  if(local.length<3){tempMailSetStatus("Введи назву особливого мейлу мінімум 3 символи. Наприклад: wwg-test, qa_777 або my+mail.");return}
   const address=local+"@"+TEMP_MAIL_SPECIAL_DOMAIN;
   if(tempMailState?.address&&tempMailState.address!==address&&!confirm("Замінити поточну пошту на "+address+"?"))return;
   tempMailBusy=true;tempMailSetStatus("Створення особливого мейлу "+address+" …");
   try{
     if(tempMailState?.accountId&&tempMailState?.token&&!tempMailState?.fixed){try{await tempMailRequest("/accounts/"+encodeURIComponent(tempMailState.accountId),{method:"DELETE"})}catch(error){console.warn("Previous temp mailbox delete failed",error)}}
-    tempMailState=null;tempMailSave();tempMailRestore();tempMailClearViewer();tempMailRenderMessages([]);
+    tempMailState=null;tempMailSave();tempMailRestore();tempMailDeletedMessageIds.clear();tempMailClearViewer();tempMailRenderMessages([]);
     const password=crypto.randomUUID()+"-"+crypto.randomUUID();
     const account=await tempMailRequest("/accounts",{method:"POST",json:{address,password}});
     const auth=await tempMailRequest("/token",{method:"POST",json:{address,password}});
@@ -1804,7 +1831,7 @@ async function tempMailCreate({replace=false}={}){
   tempMailBusy=true;tempMailSetStatus(replace?"Заміна тимчасової адреси…":"Створення тимчасової адреси…");
   try{
     if(replace&&!tempMailState?.fixed&&tempMailState?.accountId&&tempMailState?.token){try{await tempMailRequest("/accounts/"+encodeURIComponent(tempMailState.accountId),{method:"DELETE"})}catch(error){console.warn("Previous temp mailbox delete failed",error)}}
-    tempMailState=null;tempMailSave();tempMailRestore();tempMailClearViewer();tempMailRenderMessages([]);
+    tempMailState=null;tempMailSave();tempMailRestore();tempMailDeletedMessageIds.clear();tempMailClearViewer();tempMailRenderMessages([]);
     const domain=await tempMailPickDomain();
     if(!domain)throw new Error("Mail.tm не повернув доступний домен");
     let account=null,address="",password="";
@@ -1931,7 +1958,10 @@ function initTempMail(){
   tempMailAttachInnerOverlays();
   tempMailRestore();
   el("tempMailCreate").onclick=()=>tempMailCreate();
+  const specialToggle=el("tempMailSpecialToggle");
+  const specialPanel=el("tempMailSpecialPanel");
   const specialNameInput=el("tempMailSpecialName");
+  if(specialToggle&&specialPanel){specialToggle.setAttribute("aria-expanded","false");specialToggle.onclick=()=>{const open=!specialPanel.classList.contains("is-open");specialPanel.classList.toggle("is-open",open);specialToggle.setAttribute("aria-expanded",open?"true":"false");if(open&&specialNameInput)setTimeout(()=>specialNameInput.focus(),30)}}
   if(specialNameInput){specialNameInput.addEventListener("input",()=>{const cleaned=tempMailCleanSpecialName(specialNameInput.value);if(cleaned!==specialNameInput.value)specialNameInput.value=cleaned});specialNameInput.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();tempMailCreateSpecial()}})}
   const specialCreate=el("tempMailSpecialCreate");if(specialCreate)specialCreate.onclick=tempMailCreateSpecial;
   el("tempMailReplace").onclick=()=>tempMailCreate({replace:true});
