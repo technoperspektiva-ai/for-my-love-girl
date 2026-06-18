@@ -7,10 +7,7 @@
     "deploy": "wrangler deploy --config wrangler.jsonc",
     "dev": "wrangler dev",
     "check": "node --check src/index.js",
-    "deploy:production": "wrangler deploy --config wrangler.jsonc",
-    "test:e2e": "npx playwright test",
-    "test:e2e:ui": "npx playwright test --ui",
-    "test:e2e:codegen": "npx playwright codegen"
+    "deploy:production": "wrangler deploy --config wrangler.jsonc"
   },
   "devDependencies": {
     "wrangler": "^4.37.1"
