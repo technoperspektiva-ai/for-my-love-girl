@@ -1,4 +1,1 @@
- 516865 dashboard-source.html
- 495244 page.html
- 577491 src/index.js
-1589600 total
+v198 truthful QA statuses; short UI report; full TXT details; no test photo embedded
