@@ -851,14 +851,6 @@ body.dashboard-focus-open{overflow:hidden}
 .redirect-modal-column input{margin:0}
 .redirect-modal-url{margin-top:9px;font-size:11px;color:var(--muted);word-break:break-all}
 
-/* --- v194 WebView flow QA launcher + result report modal --- */
-.autotest-top-btn{appearance:none;display:inline-grid;place-items:center;min-width:max-content;background:#071013;border:1px solid #1c2a2f;color:#9cded0;font:900 10px/1 "JetBrains Mono","Cascadia Code",Consolas,monospace;padding:8px 9px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;box-shadow:0 0 0 rgba(52,255,154,0);transition:.15s ease}.autotest-top-btn::before{content:"▶";color:var(--green);margin-right:6px}.autotest-top-btn:hover{border-color:var(--green);color:#eafff8;background:#0b1716;box-shadow:0 0 18px rgba(52,255,154,.12)}.autotest-top-btn.is-running{border-color:#b8ff5f;color:#b8ff5f;animation:autotestPulse 1s ease-in-out infinite}.autotest-top-btn.is-running::before{content:"●"}@keyframes autotestPulse{0%,100%{box-shadow:0 0 0 rgba(52,255,154,0)}50%{box-shadow:0 0 18px rgba(52,255,154,.28)}}.autotest-modal-box{width:min(920px,100%)}.autotest-result-modal-box{width:min(980px,calc(100vw - 20px));max-height:92vh}.autotest-modal-body,.autotest-result-body{padding:12px;max-height:82vh;overflow:auto}.autotest-result-body{display:grid;gap:10px}.autotest-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-bottom:10px}.autotest-result-body .autotest-summary{margin-bottom:0}.autotest-pill{border:1px solid #1c2a2f;background:#060a0b;padding:8px 9px}.autotest-pill strong{display:block;color:#eafff8;font-size:16px}.autotest-pill span{display:block;color:#607b77;font-size:9px;text-transform:uppercase;letter-spacing:.1em}.autotest-list{display:grid;gap:6px}.autotest-result-list{display:grid;gap:6px;max-height:48vh;overflow:auto;padding-right:2px}.autotest-row{display:grid;grid-template-columns:82px minmax(0,1fr);gap:8px;align-items:flex-start;border:1px solid #1c2a2f;background:#060a0b;padding:8px 9px}.autotest-state{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.09em}.autotest-row.pass .autotest-state{color:#34ff9a}.autotest-row.warn .autotest-state{color:#ffd76d}.autotest-row.fail .autotest-state{color:#ff7b83}.autotest-row.info .autotest-state{color:#42d8ff}.autotest-name{font-size:12px;font-weight:900;color:#d7f5ee}.autotest-detail{font-size:10px;color:#6f8d88;margin-top:3px;line-height:1.35;word-break:break-word}.autotest-actions,.autotest-result-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.autotest-result-actions{margin-top:0;justify-content:flex-end}.autotest-status,.autotest-result-status{font-size:10px;color:#6f8d88;margin-top:8px;min-height:14px}.autotest-result-status{margin-top:0}.autotest-result-note{border:1px solid #1c2a2f;background:#060a0b;color:#7c9994;font-size:10px;line-height:1.45;padding:9px}.autotest-manual{margin-top:11px;border:1px solid #1c2a2f;background:linear-gradient(180deg,rgba(7,16,19,.88),rgba(4,8,9,.88));padding:10px}.autotest-manual-title{font-size:11px;font-weight:900;letter-spacing:.12em;color:#eafff8;text-transform:uppercase;margin-bottom:7px}.autotest-manual-help{font-size:10px;color:#6f8d88;line-height:1.35;margin-bottom:9px}.autotest-manual-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.autotest-mini-input{position:absolute;left:-9999px;width:1px;height:1px;opacity:.01}.autotest-deeplink-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:8px}.autotest-deeplink-grid .btn,.autotest-manual-grid .btn{font-size:10px;padding:8px 9px}.autotest-flow-status{font-size:10px;color:#7c9994;line-height:1.4;margin-top:8px;white-space:pre-wrap;word-break:break-word}.autotest-section-label{margin-top:10px;font-size:9px;color:#34ff9a;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.autotest-danger-note{color:#ffd76d}@media(max-width:700px){.autotest-top-btn{padding:7px 8px;font-size:9px}.autotest-top-btn::before{margin-right:4px}.autotest-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.autotest-row{grid-template-columns:68px minmax(0,1fr);padding:8px}.autotest-modal-body,.autotest-result-body{padding:9px}.autotest-result-actions{display:grid;grid-template-columns:1fr}.autotest-result-actions .btn{width:100%}.top-right{flex-wrap:wrap}.v{order:4;width:100%;justify-content:flex-start}.autotest-top-btn{order:2}.autotest-manual-grid,.autotest-deeplink-grid{grid-template-columns:1fr 1fr}}
-
-/* --- v196 Gambling QA case runner styles --- */
-.gqa-runner{margin-top:11px;border:1px solid #244047;background:linear-gradient(180deg,rgba(4,12,13,.96),rgba(2,6,7,.94));padding:10px;box-shadow:inset 0 0 0 1px rgba(52,255,154,.04)}
-.gqa-runner-actions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}.gqa-cases{display:grid;gap:10px}.gqa-section{border:1px solid #152a2f;background:#040808;padding:8px}.gqa-section-title{font-size:10px;color:#34ff9a;font-weight:900;letter-spacing:.13em;text-transform:uppercase;margin:0 0 7px}.gqa-case{border:1px solid #1c2a2f;background:#060a0b;margin:7px 0;padding:8px}.gqa-case.pass{border-color:rgba(52,255,154,.42)}.gqa-case.fail{border-color:rgba(255,123,131,.55)}.gqa-case.warn{border-color:rgba(255,215,109,.48)}.gqa-case.info{border-color:#1c2a2f}.gqa-case-head{display:grid;grid-template-columns:34px minmax(0,1fr)86px;gap:7px;align-items:center}.gqa-case-head strong{font-size:11px;color:#eafff8;line-height:1.25}.gqa-case-head em{font-style:normal;text-align:right;font-size:9px;color:#7c9994;text-transform:uppercase}.gqa-num{display:inline-grid;place-items:center;border:1px solid #234047;color:#34ff9a;font-size:9px;height:22px}.gqa-expected{margin-top:7px;border-left:2px solid #234047;padding-left:8px;font-size:10px;line-height:1.4;color:#85a4a0}.gqa-expected b{color:#d7f5ee}.gqa-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.gqa-actions .btn{font-size:9px;padding:7px 8px}.gqa-status.active{border-color:#34ff9a;color:#eafff8;box-shadow:0 0 12px rgba(52,255,154,.15)}.gqa-note{width:100%;min-height:42px;margin-top:7px;resize:vertical;background:#030607;border:1px solid #1c2a2f;color:#d7f5ee;padding:8px;font:10px/1.35 "JetBrains Mono","Cascadia Code",Consolas,monospace}.qa-stub-screen{min-height:300px;display:grid;place-items:center;align-content:center;gap:12px;text-align:center;background:radial-gradient(circle at center,rgba(52,255,154,.18),rgba(4,8,9,.95) 45%,#020303);border:1px solid #244047}.qa-stub-screen strong{font-size:22px;letter-spacing:.18em;color:#eafff8}.qa-stub-screen span{font-size:10px;color:#7c9994}.qa-stub-loader{width:46px;height:46px;border:3px solid #1c2a2f;border-top-color:#34ff9a;border-radius:50%;animation:gqaSpin 1s linear infinite}@keyframes gqaSpin{to{transform:rotate(360deg)}}@media(max-width:700px){.gqa-case-head{grid-template-columns:28px minmax(0,1fr);}.gqa-case-head em{grid-column:2;text-align:left}.gqa-runner-actions,.gqa-actions{display:grid;grid-template-columns:1fr 1fr}.gqa-actions .btn,.gqa-runner-actions .btn{width:100%}}
-.auto-flow-runner{border-color:#31524b;background:linear-gradient(180deg,rgba(4,18,16,.94),rgba(4,9,10,.94));box-shadow:0 0 26px rgba(52,255,154,.08) inset}.auto-flow-runner .autotest-manual-title{color:#34ff9a}.auto-flow-runner .gqa-runner-actions{grid-template-columns:repeat(6,minmax(0,1fr))}@media(max-width:700px){.auto-flow-runner .gqa-runner-actions{grid-template-columns:1fr 1fr}.auto-flow-runner .gqa-runner-actions .btn{width:100%}}
-/* --- /v196 Gambling QA case runner styles --- */
 /* --- /v194 WebView flow QA launcher + result report modal --- */
 
 </style>
@@ -1677,7 +1669,117 @@ async function tempMailRenderRichBody(viewer,message){
   let safeHtml=htmlValue?tempMailSanitizeHtml(htmlValue):"";safeHtml=tempMailHydrateInlineImages(safeHtml,assets);
   const rich=tempMailMake("div","temp-mail-rich");
   if(safeHtml.trim()){
-    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'</body></html>';rich.append(frame)
+    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'
+<script>
+
+</script>
+
+<script id="backend-status-clean-v213">
+(function(){
+  'use strict';
+  const VERSION='v213 Backend Status clean';
+  const $=id=>document.getElementById(id);
+  let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
+  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function log(text,level){
+    const msg='BACKEND STATUS · '+String(text||'');
+    try{ if(typeof window.logUsefulEvent==='function') window.logUsefulEvent(msg,level||'INFO'); }
+    catch(e){}
+    try{ if(typeof window.__hymOriginalUsefulEvent==='function') window.__hymOriginalUsefulEvent(msg,level||'INFO'); }
+    catch(e){}
+    try{
+      const last=$('eventLogLast');
+      if(last) last.textContent=msg;
+    }catch(e){}
+  }
+  function ensureStyles(){
+    if($('backendStatusCleanStyle'))return;
+    const st=document.createElement('style');st.id='backendStatusCleanStyle';
+    st.textContent=`
+      .backend-clean-modal{position:fixed;inset:0;z-index:999999;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.82);padding:18px}.backend-clean-modal.on{display:flex}
+      .backend-clean-box{width:min(520px,calc(100vw - 28px));background:#080d10;border:1px solid #234247;box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 38px rgba(52,255,154,.08);color:#d7f5ee;font-family:inherit}
+      .backend-clean-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid #1c2a2f;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#34ff9a}.backend-clean-close{background:#11191c;border:1px solid #294146;color:#d7f5ee;font-weight:900;padding:7px 10px}
+      .backend-clean-body{padding:14px;text-align:center}.backend-clean-gauge{position:relative;width:330px;max-width:100%;margin:0 auto 8px}.backend-clean-gauge svg{width:100%;height:auto;display:block}.backend-clean-track{fill:none;stroke:#1f2f58;stroke-width:18;opacity:.9}.backend-clean-progress{fill:none;stroke:url(#bcg);stroke-width:18;stroke-linecap:butt;filter:drop-shadow(0 0 10px rgba(55,246,229,.35))}.backend-clean-tick{fill:#a4a8b5;font-size:12px;font-weight:900}.backend-clean-strong{fill:#fff;font-size:12px;font-weight:900}.backend-clean-needle{transform-origin:100px 104px;filter:drop-shadow(0 10px 12px rgba(0,0,0,.45))}.backend-clean-needle-body{fill:url(#bcn)}.backend-clean-needle-cap{fill:#fff}.backend-clean-center{position:absolute;left:0;right:0;bottom:22px;text-align:center}.backend-clean-ratio{font-size:34px;line-height:1;color:#f1f7ff;font-weight:500;letter-spacing:.02em}.backend-clean-label{font-size:11px;color:#7c9994;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-top:5px}.backend-clean-status{font-size:21px;font-weight:900;letter-spacing:.08em;color:#34ff9a;text-transform:uppercase}.backend-clean-status.bad{color:#ff5d6d}.backend-clean-sub{margin-top:6px;color:#7c9994;font-size:12px}.backend-clean-issues{margin-top:12px;text-align:left}.backend-clean-issue{border:1px solid #3a2428;background:#160b0e;color:#ffdfe2;padding:10px;margin-top:8px}.backend-clean-issue-name{font-weight:900;color:#ff7780}.backend-clean-issue-detail{font-size:11px;color:#e9b8bd;margin-top:4px;word-break:break-word}.backend-clean-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}.backend-clean-actions .btn{min-width:120px}.backend-clean-checking{color:#7c9994;font-size:12px;margin-top:8px}`;
+    document.head.appendChild(st);
+  }
+  function ensureModal(){
+    ensureStyles();
+    let m=$('backendStatusCleanModal');
+    if(m)return m;
+    m=document.createElement('div');m.id='backendStatusCleanModal';m.className='backend-clean-modal';
+    m.innerHTML='<div class="backend-clean-box" role="dialog" aria-modal="true"><div class="backend-clean-head"><span>Backend Status</span><button class="backend-clean-close" type="button">×</button></div><div class="backend-clean-body" id="backendStatusCleanBody"></div></div>';
+    document.body.appendChild(m);
+    m.querySelector('.backend-clean-close').onclick=()=>m.classList.remove('on');
+    m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on')});
+    return m;
+  }
+  function gauge(ok,total){
+    total=Math.max(1,total||10); ok=Math.max(0,Math.min(ok,total));
+    const pct=ok/total, off=251.2*(1-pct), angle=-135+270*pct;
+    return '<div class="backend-clean-gauge"><svg viewBox="0 0 200 165" aria-hidden="true"><defs><linearGradient id="bcg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#19baff"/><stop offset=".55" stop-color="#58fff1"/><stop offset="1" stop-color="'+(ok===total?'#34ff9a':'#ff5d6d')+'"/></linearGradient><linearGradient id="bcn" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f4f7fb"/><stop offset=".7" stop-color="#70778c"/><stop offset="1" stop-color="#101722"/></linearGradient></defs><path class="backend-clean-track" d="M 35 135 A 80 80 0 1 1 165 135"/><path class="backend-clean-progress" d="M 35 135 A 80 80 0 1 1 165 135" pathLength="251.2" stroke-dasharray="251.2" stroke-dashoffset="'+off.toFixed(1)+'"/><text class="backend-clean-strong" x="33" y="126">0</text><text class="backend-clean-strong" x="30" y="91">5</text><text class="backend-clean-strong" x="39" y="55">10</text><text class="backend-clean-tick" x="69" y="32">50</text><text class="backend-clean-tick" x="93" y="20">100</text><text class="backend-clean-tick" x="128" y="32">250</text><text class="backend-clean-tick" x="151" y="62">500</text><text class="backend-clean-tick" x="150" y="103">750</text><text class="backend-clean-tick" x="136" y="134">1000</text><g class="backend-clean-needle" style="transform:rotate('+angle.toFixed(2)+'deg)"><polygon class="backend-clean-needle-body" points="100,104 94,100 35,104 94,108"/><circle class="backend-clean-needle-cap" cx="100" cy="104" r="5"/></g></svg><div class="backend-clean-center"><div class="backend-clean-ratio">'+ok+'/'+total+'</div><div class="backend-clean-label">systems working</div></div></div>';
+  }
+  function renderLoading(){
+    const m=ensureModal(), b=$('backendStatusCleanBody');
+    b.innerHTML=gauge(0,10)+'<div class="backend-clean-status">checking…</div><div class="backend-clean-checking">Scanning core systems only.</div>';
+    m.classList.add('on');
+  }
+  function renderResult(){
+    const b=$('backendStatusCleanBody'); if(!b)return;
+    const total=lastReport.checks.length||10, ok=lastReport.checks.filter(x=>x.ok).length, issues=lastReport.checks.filter(x=>!x.ok);
+    const issuesHtml=issues.length?'<div class="backend-clean-issues">'+issues.map(x=>'<div class="backend-clean-issue"><div class="backend-clean-issue-name">'+esc(x.name)+'</div><div class="backend-clean-issue-detail">'+esc(x.detail||'No details')+'</div></div>').join('')+'</div>':'';
+    b.innerHTML=gauge(ok,total)+'<div class="backend-clean-status '+(issues.length?'bad':'')+'">'+ok+'/'+total+' systems working</div><div class="backend-clean-sub">'+(issues.length?'Only failed systems are shown here. Working systems are in TXT.':'All systems normal. Full details are in TXT.')+'</div>'+issuesHtml+'<div class="backend-clean-actions"><button class="btn green" id="backendCleanDownload" type="button">DOWNLOAD TXT</button><button class="btn" id="backendCleanCopy" type="button">COPY TXT</button><button class="btn" id="backendCleanRun" type="button">RUN AGAIN</button></div>';
+    const d=$('backendCleanDownload'), c=$('backendCleanCopy'), r=$('backendCleanRun');
+    if(d)d.onclick=downloadTxt; if(c)c.onclick=copyTxt; if(r)r.onclick=run;
+  }
+  async function fetchJson(url,opts){const r=await fetch(url,Object.assign({cache:'no-store'},opts||{}));let data=null;try{data=await r.clone().json()}catch(e){}return {r,data};}
+  async function check(name,fn){const start=performance.now();let ok=false,detail='';try{const res=await fn();ok=!!res.ok;detail=String(res.detail||'OK');}catch(e){detail=e&&e.message?e.message:String(e)}const item={name,ok,detail,elapsedMs:Math.round(performance.now()-start),time:new Date().toISOString()};lastReport.checks.push(item);log(name+' · '+(ok?'OK':'ISSUE'),ok?'SUCCESS':'ERROR');return item;}
+  function storageRoundtrip(label,store){const key='backend_clean_'+label+'_'+Date.now();store.setItem(key,'ok');const read=store.getItem(key)==='ok';store.removeItem(key);const removed=store.getItem(key)==null;return {ok:read&&removed,detail:'read='+read+'; removed='+removed};}
+  function idbRoundtrip(){return new Promise(resolve=>{if(!('indexedDB' in window))return resolve({ok:false,detail:'IndexedDB unavailable'});let done=false;const dbName='backend_clean_db_'+Date.now();const finish=x=>{if(done)return;done=true;try{indexedDB.deleteDatabase(dbName)}catch(e){}resolve(x)};try{const req=indexedDB.open(dbName,1);req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch(e){}};req.onerror=()=>finish({ok:false,detail:'open error'});req.onsuccess=()=>{const db=req.result;try{const tx=db.transaction('kv','readwrite'),st=tx.objectStore('kv');st.put('ok','key');const g=st.get('key');g.onsuccess=()=>{const ok=g.result==='ok';try{db.close()}catch(e){}finish({ok,detail:'stored value='+String(g.result)})};g.onerror=()=>finish({ok:false,detail:'read error'})}catch(e){try{db.close()}catch(x){}finish({ok:false,detail:e.message||String(e)})}};setTimeout(()=>finish({ok:false,detail:'timeout'}),2500)}catch(e){finish({ok:false,detail:e.message||String(e)})}})}
+  async function run(){
+    renderLoading();
+    lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};
+    log('scan started','INFO');
+    await check('Server health API',async()=>{const {r,data}=await fetchJson('/api/health',{headers:{accept:'application/json'}});return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});
+    await check('Server self processor',async()=>{const runId='bc-'+Date.now()+'-'+Math.random().toString(16).slice(2);const {r,data}=await fetchJson('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-clean'})});return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')}});
+    await check('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}});const text=await r.text();return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});
+    await check('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'});return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});
+    await check('EVENT LOG connection',async()=>({ok:!!$('eventLogLast')||!!$('eventLogList')||typeof window.logUsefulEvent==='function',detail:'eventLogLast='+!!$('eventLogLast')+'; eventLogList='+!!$('eventLogList')}));
+    await check('DOM ready state',async()=>({ok:/interactive|complete/.test(document.readyState),detail:'readyState='+document.readyState}));
+    await check('Cookie write/read/delete',async()=>{const key='backend_clean_cookie_'+Date.now();document.cookie=key+'=ok; SameSite=Lax; path=/';const read=document.cookie.includes(key+'=ok');document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';const removed=!document.cookie.includes(key+'=ok');return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});
+    await check('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));
+    await check('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));
+    await check('IndexedDB write/read',idbRoundtrip);
+    lastReport.finishedAt=new Date().toISOString(); lastReport.ok=lastReport.checks.every(x=>x.ok);
+    log('scan finished · '+lastReport.checks.filter(x=>x.ok).length+'/'+lastReport.checks.length+' systems working',lastReport.ok?'SUCCESS':'WARN');
+    renderResult();
+  }
+  function reportText(){const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length;const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'Started: '+(lastReport.startedAt||'--'),'Finished: '+(lastReport.finishedAt||'--'),'URL: '+location.href,'User-Agent: '+navigator.userAgent,'','SCREEN STATUS:',ok+'/'+total+' systems working','','CHECK DETAILS:'];lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));return lines.join('\n');}
+  function copyTxt(){const txt=reportText();if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>log('TXT copied','SUCCESS'),()=>log('TXT copy failed','WARN'));else log('Clipboard unavailable','WARN');}
+  function downloadTxt(){const a=document.createElement('a'),blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'});a.href=URL.createObjectURL(blob);a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},400);log('TXT downloaded','SUCCESS');}
+  function fixStuckLabels(){
+    try{
+      const launch=$('launchSourceBadge'); if(launch && /detecting/i.test(launch.textContent||'')) launch.textContent='browser';
+      const cap=$('uaCapabilitySnapshot'); if(cap && /loading/i.test(cap.textContent||'')) cap.textContent='Snapshot unavailable yet. Open details or run Backend Status.';
+      const ua=$('ua'); if(ua && /^Loading/i.test(ua.textContent||'')) ua.textContent=navigator.userAgent;
+      const gpay=$('gpayStatus'); if(gpay && /Loading Google Pay/i.test(gpay.textContent||'')) gpay.textContent='Google Pay script not ready yet.';
+      const gs=$('googleStatus'); if(gs && /Loading Google Sign-In/i.test(gs.textContent||'')) gs.textContent='Google Sign-In script not ready yet.';
+      const tg=$('telegramStatus'); if(tg && /Checking Telegram session/i.test(tg.textContent||'')) tg.textContent='Telegram session not confirmed yet.';
+    }catch(e){}
+  }
+  function bindButton(){
+    const old=$('autotestStart');
+    if(old&&!old.dataset.backendCleanBound){
+      const btn=old.cloneNode(true); btn.textContent='Backend Status'; btn.dataset.backendCleanBound='1'; btn.removeAttribute('onclick'); old.replaceWith(btn); btn.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();run();},true);
+    }
+  }
+  function boot(){fixStuckLabels();bindButton();ensureModal();}
+  window.hymBackendStatusRun=run;window.hymStatusCoreRun=run;window.hymRunAutotest=run;window.hymAutotestReportText=reportText;window.hymAutotestReportLines=function(){return reportText().split('\n')};
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+  [150,700,1600,3500].forEach(t=>setTimeout(boot,t));
+})();
+</script>
+
+</body></html>';rich.append(frame)
   }else{rich.append(tempMailMake("div","temp-mail-body",tempMailSafeText(message)||"Текст листа відсутній."))}
   const imageAssets=assets.filter(asset=>asset.isImage);
   if(imageAssets.length){const gallery=tempMailMake("div","temp-mail-image-gallery");imageAssets.forEach(asset=>{const link=document.createElement("a");link.className="temp-mail-image-card";link.href=asset.blobUrl;link.target="_blank";link.rel="noopener noreferrer";link.title=asset.filename;const img=document.createElement("img");img.src=asset.inlineUrl;img.alt=asset.filename;img.loading="lazy";const label=tempMailMake("span","",asset.filename);link.append(img,label);gallery.append(link)});rich.append(gallery)}
@@ -2661,521 +2763,14 @@ function initHymAutotest(){
   document.addEventListener("keydown",event=>{if(event.key==="Escape"&&el("autotestResultModal")?.classList.contains("on")){hymAutotestResultClose();event.stopImmediatePropagation();return}if(event.key==="Escape"&&el("autotestModal")?.classList.contains("on")){hymAutotestClose();event.stopImmediatePropagation()}});
 }
 // --- /v193 WebView gambling/container flow QA runner ---
-/* --- v196 Gambling QA case runner: manual status remains not determined until tester verdict --- */
-(function(){
-  const CASE_VERSION='v196 Gambling QA runner';
-  const statusList=['passed','failed','blocked','skipped'];
-  const cases=[
-    {id:'env-passport', group:'Environment', title:'Detect launch container', expected:'Source is detected: Safari / Custom Tabs / WebView / Telegram / app WebView. Cookies, storage, viewport and APIs are recorded.', auto:true},
-    {id:'stub-open', group:'Stub / Splash', title:'Open application / stub splash', expected:"Doesn't crash. Loading screen and overall design match Asana/reference. No white screen and no eternal loading.", probe:'stub'},
-    {id:'stub-redirect', group:'Stub / Splash', title:'Redirect to stub / placeholder resource', expected:'Redirect opens expected stub/offer resource. Back/return does not break the app container.', probe:'offer'},
-    {id:'stub-minigame', group:'Stub / Mini game', title:'Play a mini game', expected:"Application plays as expected. Doesn't crash. Logic is not broken.", probe:'wild'},
-    {id:'stub-other', group:'Stub / General', title:'Check other functionality', expected:'Everything works as expected. Buttons, blocks, images and controls do not collapse.'},
-    {id:'stub-restart', group:'Stub / Lifecycle', title:'Restart app', expected:"Doesn't crash. Logic is not broken. App returns to expected state after close/reopen."},
-    {id:'stub-volume', group:'Stub / Native controls', title:'Check [volume] buttons', expected:"Application doesn't crash. Volume indicator appears. No unexpected navigation or UI actions."},
-    {id:'stub-lock', group:'Stub / Native controls', title:'Check [screen lock] button', expected:'Phone screen is locked. After unlocking, game/offer continues at the same place where it was stopped.'},
-    {id:'stub-multitap', group:'Stub / Stress', title:'Tap many times on the buttons in the game', expected:"The game doesn't crash. No double-submit, frozen loader or broken logic."},
-    {id:'stub-rotation', group:'Stub / Orientation', title:'Check screen rotation', expected:'Buttons are displayed correctly, game keeps running, text is displayed correctly.', probe:'orientation'},
-    {id:'stub-curtains', group:'Stub / Lifecycle', title:'Check top curtains', expected:'The game is working correctly after notification/control center curtain open-close.'},
-    {id:'splash-back', group:'Offer loading', title:'Back during splash/loading', expected:'Splash does not crash. Previous page or expected screen loads. No white screen.'},
-    {id:'splash-minimize', group:'Offer loading', title:'Minimize app during splash/loading', expected:'Splash does not crash. After return there is no eternal loading or white screen.', probe:'lifecycle'},
-    {id:'splash-lock', group:'Offer loading', title:'Lock screen during splash/loading', expected:'After unlock the offer continues loading or opens normally. No crash.'},
-    {id:'splash-taps', group:'Offer loading', title:'Tap many times on splash/loading', expected:'No crash, no broken navigation, no double actions.'},
-    {id:'offer-images', group:'Offer', title:'Check display of images on the offer', expected:'All pictures are uploaded and displayed. External blocks do not break after rotation/minimize/back.'},
-    {id:'offer-scroll', group:'Offer', title:'Test scroll', expected:'User can scroll as expected in slots, main menu and other parts of the offer.'},
-    {id:'registration', group:'Auth', title:'Registration form', expected:'User can enter phone/email and password. Registration completes or clear validation error is shown. Keyboard does not cover form.', probe:'keyboard'},
-    {id:'telegram-auth', group:'Auth', title:'Telegram authorization', expected:'Telegram auth opens. If Telegram is installed, app opens; if not installed/blocked, status is clear. Return to WebView works.', probe:'telegram'},
-    {id:'google-auth', group:'Auth', title:'Google authorization', expected:'Google auth opens or reports popup/WebView block. Cancel/return does not crash.'},
-    {id:'session-restore', group:'Auth', title:'Close app and reopen authorized state', expected:'There must be an authorized main screen after reopen, unless logout was expected.'},
-    {id:'card-payment', group:'Payment', title:'Check card payment form', expected:'Card fields can be filled and submitted with test card; expected payment error appears, no crash.'},
-    {id:'google-pay', group:'Payment', title:'Google Pay attempt', expected:'Google Pay sheet opens or a clear unavailable/blocked status is recorded. Cancel returns to offer.', probe:'gpay'},
-    {id:'payment-back', group:'Payment', title:'Back button after payment attempt', expected:'1 click and several clicks do not crash the app and load the previous/expected page.'},
-    {id:'deeplink-installed', group:'Redirects / Apps', title:'Installed apps status', expected:'Installed apps open and return correctly. Status is recorded as APP OPENED / returned.', probe:'deeplinks'},
-    {id:'deeplink-not-installed', group:'Redirects / Apps', title:'Not installed apps status', expected:'Not installed apps show NOT INSTALLED / BLOCKED or fallback. No white screen or broken WebView.', probe:'deeplinks'},
-    {id:'contacts', group:'Redirects / Apps', title:'Click contacts links', expected:'Phone, mail, Telegram/social media links open expected functionality or clear blocked/not installed status.', probe:'deeplinks'},
-    {id:'camera-docs', group:'Camera / Gallery', title:'Upload documents through camera/gallery', expected:'Documents/photos are loaded. App responds correctly to closed/open camera access.', probe:'camera'},
-    {id:'photo-share', group:'Camera / Gallery', title:'Attach and share photo', expected:'Photo is attached. Share opens if supported or blocked status is recorded.', probe:'photo'},
-    {id:'support-chat', group:'Support', title:'Open support chat, send message and photo', expected:'Message sent, photo attached. Keyboard and photo picker do not break the chat.', probe:'keyboard'},
-    {id:'slot-demo', group:'Slots', title:'Test game in slots demo', expected:'Game looks and responds as expected. Back twice returns to main screen.', probe:'wild'},
-    {id:'slot-rotation', group:'Slots', title:'Screen rotation in slots', expected:'Game should not restart or close. Interface adapts to frequent and single changes.', probe:'orientation'},
-    {id:'slot-volume', group:'Slots', title:'Volume buttons in slot', expected:'Game sound volume changes, system volume indicator appears, no other actions happen.'},
-    {id:'slot-lock', group:'Slots', title:'Lock/unlock in slot', expected:'After unlocking the app opens in the same place where the screen turned off.'},
-    {id:'keyboard', group:'Keyboard', title:'Keyboard behavior', expected:'Keyboard opens/closes correctly, input remains visible, back closes keyboard or navigates correctly.', probe:'keyboard'},
-    {id:'cookies-session', group:'Cookies / Session', title:'Cookies and session', expected:'Cookies/localStorage work. Session survives reload/reopen when expected.', probe:'cookie'},
-  ];
-  window.hymGamblingQaCases=cases;
-  function $(id){return document.getElementById(id)}
-  function getStore(){try{return JSON.parse(localStorage.getItem('hymGamblingQaCaseStatuses')||'{}')}catch{return {}}}
-  function setStore(data){try{localStorage.setItem('hymGamblingQaCaseStatuses',JSON.stringify(data));return true}catch{return false}}
-  function labelStatus(st,started){return st==='passed'?'Passed':st==='failed'?'Failed':st==='blocked'?'Blocked':st==='skipped'?'Skipped':started?'Started · not determined':'Status not determined'}
-  function stateFromStatus(st){return st==='passed'?'pass':st==='failed'?'fail':(st==='blocked'||st==='skipped')?'warn':'info'}
-  function record(id,status){const store=getStore();store[id]={status,at:new Date().toISOString()};setStore(store);renderCases();updateReportFromCases();try{if(typeof logUsefulEvent==='function'){const c=cases.find(x=>x.id===id);logUsefulEvent('Gambling QA · '+(c?.title||id)+' · '+status)}}catch{}}
-  function note(id,value){const store=getStore();store[id]=store[id]||{};store[id].note=value;store[id].at=store[id].at||new Date().toISOString();setStore(store);updateReportFromCases(false)}
-  function startCase(id){const c=cases.find(x=>x.id===id);if(!c)return; const store=getStore();store[id]=store[id]||{};store[id].startedAt=store[id].startedAt||new Date().toISOString();setStore(store);renderCases();updateReportFromCases(false);
-    const map={camera:'autotestCameraProbe',keyboard:'autotestKeyboardProbe',photo:'autotestPhotoProbe',gpay:'autotestGpayProbe',cookie:'autotestCookieProbe',offer:'autotestOfferProbe',wild:'autotestWildProbe'};
-    if(c.probe==='telegram'){ const btn=[...document.querySelectorAll('#autotestDeepLinks button')].find(b=>/telegram/i.test(b.textContent||'')); if(btn)btn.click(); }
-    else if(c.probe==='deeplinks'){ const grid=$('autotestDeepLinks'); if(grid)grid.scrollIntoView({block:'center'}); }
-    else if(c.probe==='orientation'){ window.dispatchEvent(new Event('orientationchange')); window.dispatchEvent(new Event('resize')); if(typeof hymAutotestAppend==='function')hymAutotestAppend('Orientation probe','info','Rotate the real phone now, then mark the case Passed/Failed. JS resize/orientation listeners are armed.'); }
-    else if(c.probe==='lifecycle'){ if(typeof hymAutotestAppend==='function')hymAutotestAppend('Lifecycle probe','info','Minimize/lock/top curtain now, then return and mark the case. visibilitychange/pagehide/pageshow events will be logged.'); }
-    else if(c.probe==='stub'){ showStub(); }
-    else if(map[c.probe]){ const b=$(map[c.probe]); if(b)b.click(); }
-    if(typeof hymAutotestSetFlowStatus==='function')hymAutotestSetFlowStatus('Started case: '+c.title+' · status is NOT DETERMINED until you manually choose Passed / Failed / Blocked / Skipped.');
-  }
-  function showStub(){
-    let m=$('hymQaStubModal');
-    if(!m){m=document.createElement('div');m.id='hymQaStubModal';m.className='temp-mail-modal on';m.innerHTML='<div class="temp-mail-modal-box autotest-modal-box" role="dialog" aria-modal="true"><div class="temp-mail-modal-head"><div><strong>QA STUB / SPLASH TEST</strong><span class="event-log-modal-head-meta">local placeholder</span></div><button class="temp-mail-modal-close" id="hymQaStubClose" type="button">×</button></div><div class="autotest-modal-body"><div class="qa-stub-screen"><div class="qa-stub-loader"></div><strong>WWG TEST STUB</strong><span>Splash / mini game / redirect placeholder</span><button class="btn green" id="hymQaStubPlay" type="button">PLAY MINI GAME</button><button class="btn" id="hymQaStubRotate" type="button">SIMULATE ROTATION</button></div><div class="autotest-flow-status" id="hymQaStubStatus">Open application stub. Check design, splash, buttons, rotate, lock/minimize manually.</div></div></div>';document.body.appendChild(m);m.querySelector('#hymQaStubClose').onclick=()=>{m.classList.remove('on');m.setAttribute('aria-hidden','true')};m.querySelector('#hymQaStubPlay').onclick=()=>{const s=$('hymQaStubStatus'); if(s)s.textContent='Mini game action clicked · logic alive · now mark Passed/Failed in Gambling QA.'; try{if(typeof logUsefulEvent==='function')logUsefulEvent('QA stub mini game clicked')}catch{}};m.querySelector('#hymQaStubRotate').onclick=()=>{window.dispatchEvent(new Event('resize'));window.dispatchEvent(new Event('orientationchange'));const s=$('hymQaStubStatus'); if(s)s.textContent='Rotation event simulated · rotate real device too for native/WebView check.';};}
-    m.classList.add('on');m.setAttribute('aria-hidden','false');try{if(typeof logUsefulEvent==='function')logUsefulEvent('QA stub opened')}catch{}
-  }
-  function renderCases(){const root=$('gamblingQaCases'); if(!root)return; const store=getStore(); const groups=[...new Set(cases.map(c=>c.group))]; root.innerHTML=''; groups.forEach(group=>{const sec=document.createElement('div');sec.className='gqa-section';sec.innerHTML='<div class="gqa-section-title">'+group+'</div>';cases.filter(c=>c.group===group).forEach((c,idx)=>{const item=store[c.id]||{};const val=item.status||'not-run';const started=Boolean(item.startedAt&&!item.status);const card=document.createElement('div');card.className='gqa-case '+stateFromStatus(val);card.innerHTML='<div class="gqa-case-head"><span class="gqa-num">'+String(idx+1).padStart(2,'0')+'</span><strong>'+c.title+'</strong><em>'+labelStatus(val,started)+'</em></div><div class="gqa-expected"><b>Expected result</b><br>'+c.expected+'</div><div class="gqa-actions"><button class="btn" data-start="'+c.id+'" type="button">'+(started?'STARTED':'START')+'</button>'+statusList.map(st=>'<button class="btn gqa-status '+(val===st?'active':'')+'" data-case="'+c.id+'" data-status="'+st+'" type="button">'+labelStatus(st)+'</button>').join('')+'</div><textarea class="gqa-note" data-note="'+c.id+'" placeholder="Note / actual result">'+(item.note||'')+'</textarea>';sec.appendChild(card)});root.appendChild(sec)});root.querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>record(b.dataset.case,b.dataset.status));root.querySelectorAll('[data-start]').forEach(b=>b.onclick=()=>startCase(b.dataset.start));root.querySelectorAll('[data-note]').forEach(t=>t.oninput=()=>note(t.dataset.note,t.value));}
-  function caseResults(){const store=getStore();return cases.map(c=>{const item=store[c.id]||{};const st=item.status||'not-run';const started=Boolean(item.startedAt&&!item.status);return {name:c.group+' · '+c.title,state:stateFromStatus(st),detail:labelStatus(st,started)+' · Manual verdict required'+(started?' · STARTED':'')+' · Expected: '+c.expected+(item.note?' · Note: '+item.note:'')}})}
-  function envResults(){ const list=[]; try{list.push({name:'Environment · Launch source',state:'pass',detail:($('launchSourceBadge')?.textContent||'unknown')+' · '+navigator.userAgent});list.push({name:'Environment · Viewport',state:'pass',detail:window.innerWidth+'x'+window.innerHeight+' · visual '+(window.visualViewport?Math.round(window.visualViewport.width)+'x'+Math.round(window.visualViewport.height):'n/a')});list.push({name:'Environment · Storage/Cookies',state:navigator.cookieEnabled?'pass':'warn',detail:'cookies '+(navigator.cookieEnabled?'enabled':'blocked')+' · localStorage '+(function(){try{localStorage.setItem('__gqa','1');localStorage.removeItem('__gqa');return 'ok'}catch{return 'blocked'}})()});}catch{} return list; }
-  function updateReportFromCases(open){const results=envResults().concat(caseResults(), window.hymAutotestLastReport||[]); window.hymAutotestLastReport=results; if(typeof hymAutotestRenderSummary==='function')hymAutotestRenderSummary($('autotestResultSummary'),results); if(typeof hymAutotestRenderRows==='function')hymAutotestRenderRows($('autotestResultList'),results); const meta=$('autotestResultMeta'); if(meta)meta.textContent='gambling qa · '+new Date().toLocaleTimeString(); if(open&&typeof hymAutotestShowResultModal==='function')hymAutotestShowResultModal(results);}
-  function install(){
-    const start=$('autotestStart'); if(start)start.textContent='Gambling QA';
-    const title=$('autotestTitle'); if(title)title.textContent='GAMBLING WEBVIEW QA';
-    const ready=document.querySelector('#autotestList .autotest-name'); if(ready)ready.textContent='Gambling/WebView regression runner';
-    const detail=document.querySelector('#autotestList .autotest-detail'); if(detail)detail.textContent='Це не фейк-тест сайту: ресурс створює QA cases під оффер/заглушку/авторизацію/оплати/deep links/камеру/слоти/lifecycle. Частина подій ловиться автоматично, частину ти підтверджуєш Passed/Failed/Blocked/Skipped.';
-    let host=$('gamblingQaCases'); if(!host){const manual=document.querySelector('.autotest-manual'); if(manual){const wrap=document.createElement('div');wrap.className='gqa-runner';wrap.innerHTML='<div class="autotest-manual-title">Gambling QA cases</div><div class="autotest-manual-help">Натискай START біля кейсу, виконуй дію в app/WebView/offer. START не ставить Passed автоматично: поки ти не обереш Passed / Failed / Blocked / Skipped, статус буде Status not determined. У фінальний report піде список кейсів + actual notes + авто-події контейнера.</div><div class="gqa-runner-actions"><button class="btn green" id="gqaBuildReport" type="button">BUILD FINAL REPORT</button><button class="btn" id="gqaResetCases" type="button">RESET CASES</button><button class="btn" id="gqaOpenStub" type="button">OPEN QA STUB</button></div><div id="gamblingQaCases" class="gqa-cases"></div>';manual.parentNode.insertBefore(wrap,manual);} }
-    renderCases();
-    const build=$('gqaBuildReport'); if(build)build.onclick=()=>updateReportFromCases(true);
-    const reset=$('gqaResetCases'); if(reset)reset.onclick=()=>{try{localStorage.removeItem('hymGamblingQaCaseStatuses')}catch{} renderCases(); updateReportFromCases(false); if(typeof hymAutotestSetFlowStatus==='function')hymAutotestSetFlowStatus('Gambling QA cases reset.');};
-    const stub=$('gqaOpenStub'); if(stub)stub.onclick=showStub;
-    ['visibilitychange','pagehide','pageshow','blur','focus','resize','orientationchange'].forEach(ev=>window.addEventListener(ev,()=>{try{if(typeof logUsefulEvent==='function')logUsefulEvent('Gambling QA native event · '+ev+' · hidden='+document.hidden+' · '+window.innerWidth+'x'+window.innerHeight)}catch{}},{capture:true}));
-    const oldReport=window.hymAutotestReportLines; window.hymAutotestReportLines=function(results){const base=oldReport?oldReport(results||window.hymAutotestLastReport||[]):[];return ['WWG GAMBLING WEBVIEW QA '+CASE_VERSION,'Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch: '+($('launchSourceBadge')?.textContent||'unknown'),'OS: '+($('osBadge')?.textContent||'unknown'),''].concat((results||window.hymAutotestLastReport||[]).map(item=>'['+String(item.state||'info').toUpperCase()+'] '+item.name+' — '+(item.detail||'')));};
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install);else install();
-})();
-/* --- /v196 Gambling QA case runner --- */
 
 
 
 
-/* --- v197 Auto Flow Runner without GPT: real redirect/app handoff probes --- */
-(function(){
-  const $=id=>document.getElementById(id);
-  const VERSION='v197-auto-flow-no-gpt';
-  let autoStop=false;
-  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  function safeText(x){return String(x||'').replace(/[<>]/g,'').slice(0,400)}
-  function addResult(name,state,detail){
-    const normalized=state||'info';
-    if(typeof hymAutotestAppend==='function')hymAutotestAppend(name,normalized,detail||'');
-    try{if(typeof logUsefulEvent==='function')logUsefulEvent('Auto Flow · '+name+' · '+normalized+' · '+safeText(detail))}catch{}
-    return {name,state:normalized,detail:detail||''};
-  }
-  function flowStatus(text){
-    if(typeof hymAutotestSetFlowStatus==='function')hymAutotestSetFlowStatus(text);
-    const n=$('gqaAutoFlowStatus'); if(n)n.textContent=text;
-  }
-  function platform(){const ua=navigator.userAgent||''; if(/android/i.test(ua))return 'android'; if(/iphone|ipad|ipod/i.test(ua))return 'ios'; return 'other'}
-  function storeFor(label){
-    try{if(typeof hymAppStoreFallbackUrl==='function')return hymAppStoreFallbackUrl(label)||''}catch{}
-    const q=encodeURIComponent(label); const p=platform();
-    if(p==='android')return 'market://search?q='+q;
-    if(p==='ios')return 'itms-apps://itunes.apple.com/search?term='+q;
-    return '';
-  }
-  function launchUrl(url){
-    try{
-      const iframe=document.createElement('iframe');
-      iframe.style.cssText='position:absolute;left:-9999px;width:1px;height:1px;opacity:.01;border:0;pointer-events:none';
-      iframe.setAttribute('aria-hidden','true');
-      iframe.src=url;
-      document.body.appendChild(iframe);
-      setTimeout(()=>{try{iframe.remove()}catch{}},3500);
-    }catch{}
-    try{location.href=url}catch(error){throw error}
-  }
-  function probeHandoff(label,url,opts={}){
-    const timeout=opts.timeout||1800;
-    const fallback=opts.fallback||'';
-    const fallbackDelay=opts.fallbackDelay||1200;
-    return new Promise(resolve=>{
-      let settled=false,hiddenAt=0,pageHideAt=0,blurAt=0,focusAt=0,fallbackTried=false;
-      const started=Date.now();
-      const clean=()=>{clearTimeout(timer);clearTimeout(fallbackTimer);document.removeEventListener('visibilitychange',onVis,true);window.removeEventListener('pagehide',onPageHide,true);window.removeEventListener('blur',onBlur,true);window.removeEventListener('focus',onFocus,true);window.removeEventListener('pageshow',onPageShow,true)};
-      const evidence=()=>{
-        const parts=[]; if(hiddenAt)parts.push('visibility hidden '+(hiddenAt-started)+'ms'); if(pageHideAt)parts.push('pagehide '+(pageHideAt-started)+'ms'); if(blurAt)parts.push('blur '+(blurAt-started)+'ms'); if(focusAt)parts.push('focus returned '+(focusAt-started)+'ms'); if(fallbackTried)parts.push('fallback tried'); return parts.join(' · ')||'no browser handoff signal';
-      };
-      const done=(state,verdict)=>{if(settled)return; settled=true; clean(); const detail=verdict+' · evidence: '+evidence()+' · target: '+url+(fallback?' · fallback: '+fallback:''); resolve(addResult('Auto redirect · '+label,state,detail));};
-      const strong=()=>done('pass','APP_OPENED_PROBABLE / container accepted external handoff');
-      const onVis=()=>{if(document.hidden){hiddenAt=Date.now(); strong();}};
-      const onPageHide=()=>{pageHideAt=Date.now(); strong();};
-      const onBlur=()=>{blurAt=Date.now(); setTimeout(()=>{if(!settled&&!document.hidden)done('warn','WEAK_HANDOFF_SIGNAL / blur only, app or picker may have opened')},420)};
-      const onFocus=()=>{focusAt=Date.now();};
-      const onPageShow=()=>{focusAt=Date.now();};
-      const fallbackTimer=setTimeout(()=>{
-        if(settled||!fallback)return;
-        fallbackTried=true;
-        flowStatus(label+': app was not detected fast, trying fallback/store…');
-        try{launchUrl(fallback)}catch(error){done('fail','FALLBACK_LAUNCH_ERROR '+(error?.message||error));}
-      },fallback?fallbackDelay:999999);
-      const timer=setTimeout(()=>{
-        if(settled)return;
-        if(fallbackTried)done('warn','STORE_OR_FALLBACK_BLOCKED_OR_UNKNOWN');
-        else done('warn','NOT_INSTALLED_OR_WEBVIEW_BLOCKED_OR_UNKNOWN');
-      },timeout+(fallback?fallbackDelay+900:0));
-      document.addEventListener('visibilitychange',onVis,true);
-      window.addEventListener('pagehide',onPageHide,{once:true,capture:true});
-      window.addEventListener('blur',onBlur,{once:true,capture:true});
-      window.addEventListener('focus',onFocus,{capture:true});
-      window.addEventListener('pageshow',onPageShow,{capture:true});
-      addResult('Auto redirect · '+label,'info','RUNNING · waiting for app/store/background signal');
-      flowStatus('Testing '+label+'… if app/store opens, return back to continue.');
-      try{launchUrl(url)}catch(error){done('fail','DEEPLINK_LAUNCH_ERROR '+(error?.message||error));}
-    });
-  }
-  function getAppTargets(){
-    const base=[];
-    try{(window.apps||apps||[]).forEach(a=>{if(a&&a[0]&&a[1]&&a[0]!=='HTTP')base.push({label:a[0],url:a[1],fallback:storeFor(a[0])})})}catch{}
-    return base;
-  }
-  function getUpiTargets(){
-    const base=[];
-    try{(window.upiApps||upiApps||[]).forEach(a=>{if(a&&a[0]&&a[1])base.push({label:a[0],url:a[1],fallback:storeFor(a[0])})})}catch{}
-    return base;
-  }
-  function getOfferTargets(){
-    const base=[];
-    try{(window.offers||offers||[]).slice(0,6).forEach(o=>{if(o&&o.label&&o.url)base.push({label:'Offer '+o.label,url:o.url,popup:true})})}catch{}
-    return base;
-  }
-  async function runTargets(title,targets,limit){
-    autoStop=false;
-    if(!targets.length){addResult('Auto flow · '+title,'warn','No targets found');return}
-    addResult('Auto flow · '+title,'info','Queue started · '+targets.length+' targets');
-    let i=0;
-    for(const t of targets){
-      if(autoStop){addResult('Auto flow · '+title,'warn','Stopped by user after '+i+' targets');break}
-      i++;
-      flowStatus('Auto Flow '+title+' · '+i+'/'+targets.length+' · '+t.label);
-      if(t.popup){
-        let popup=null;
-        try{popup=window.open(t.url,'_blank','noopener,noreferrer')}catch(error){addResult('Auto redirect · '+t.label,'fail','POPUP_ERROR '+(error?.message||error));}
-        if(popup)addResult('Auto redirect · '+t.label,'pass','POPUP_OPENED_PROBABLE · target opened in new tab/window · '+t.url);
-        else addResult('Auto redirect · '+t.label,'warn','POPUP_BLOCKED_OR_WEBVIEW_RESTRICTED · '+t.url);
-      }else{
-        await probeHandoff(t.label,t.url,{fallback:t.fallback,timeout:1900,fallbackDelay:1300});
-      }
-      await sleep(650);
-      if(limit&&i>=limit)break;
-    }
-    flowStatus('Auto Flow '+title+' finished. Build final report or copy report.');
-  }
-  async function runCore(){
-    addResult('Auto core · Environment','pass','Launch: '+(($('launchSourceBadge')?.textContent)||'unknown')+' · OS: '+(($('osBadge')?.textContent)||'unknown')+' · viewport '+innerWidth+'x'+innerHeight);
-    try{document.cookie='gqa_auto_cookie=1; SameSite=Lax; path=/'; const ok=document.cookie.includes('gqa_auto_cookie=1'); document.cookie='gqa_auto_cookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; addResult('Auto core · Cookies',ok?'pass':'warn',ok?'write/read/delete OK':'cookie not readable or blocked')}catch(e){addResult('Auto core · Cookies','fail',e?.message||String(e))}
-    try{localStorage.setItem('gqa_auto_ls','1'); const ok=localStorage.getItem('gqa_auto_ls')==='1'; localStorage.removeItem('gqa_auto_ls'); addResult('Auto core · LocalStorage',ok?'pass':'warn',ok?'localStorage OK':'localStorage blocked')}catch(e){addResult('Auto core · LocalStorage','warn','blocked: '+(e?.message||e))}
-    addResult('Auto core · Camera API',navigator.mediaDevices?.getUserMedia?'info':'warn',navigator.mediaDevices?.getUserMedia?'API exists; permission still requires real user confirmation':'getUserMedia unavailable');
-    addResult('Auto core · Share/photo API',navigator.share?'info':'warn','navigator.share '+(navigator.share?'available':'unavailable')+' · file input '+($('photo')?'present':'missing'));
-    addResult('Auto core · Orientation/viewport listeners','info','resize/orientation/visibility listeners armed. Rotate/minimize/lock to collect native events.');
-  }
-  function installPanel(){
-    const manual=document.querySelector('.autotest-manual');
-    if(!manual||$('gqaAutoFlowRunner'))return;
-    const wrap=document.createElement('div');
-    wrap.id='gqaAutoFlowRunner';
-    wrap.className='gqa-runner auto-flow-runner';
-    wrap.innerHTML='<div class="autotest-manual-title">Auto Flow Runner · без GPT</div><div class="autotest-manual-help">Цей блок сам запускає deep links / store fallback / offer popups і ставить технічний вердикт по доказах WebView: visibility hidden, pagehide, blur/focus, return. Це не фейковий Passed: якщо доказ слабкий — буде WARN/UNKNOWN.</div><div class="gqa-runner-actions"><button class="btn green" id="gqaAutoCore" type="button">AUTO CORE</button><button class="btn" id="gqaAutoTelegram" type="button">AUTO TELEGRAM</button><button class="btn" id="gqaAutoApps" type="button">AUTO APPS</button><button class="btn paytm" id="gqaAutoUpi" type="button">AUTO UPI/PAY</button><button class="btn" id="gqaAutoOffers" type="button">AUTO OFFERS</button><button class="btn red" id="gqaAutoStop" type="button">STOP</button></div><div class="autotest-flow-status" id="gqaAutoFlowStatus">Auto Flow ready. Запускай по одному блоку, бо WebView може блокувати багато переходів без user gesture.</div>';
-    manual.parentNode.insertBefore(wrap,manual);
-    $('gqaAutoCore').onclick=runCore;
-    $('gqaAutoTelegram').onclick=()=>{const tg=getAppTargets().find(t=>/telegram/i.test(t.label))||{label:'Telegram',url:'tg://resolve?domain=nsqmarket',fallback:'https://t.me/nsqmarket'};runTargets('Telegram',[tg]);};
-    $('gqaAutoApps').onclick=()=>runTargets('Apps',getAppTargets());
-    $('gqaAutoUpi').onclick=()=>runTargets('UPI/Pay',getUpiTargets());
-    $('gqaAutoOffers').onclick=()=>runTargets('Offers',getOfferTargets());
-    $('gqaAutoStop').onclick=()=>{autoStop=true;flowStatus('Auto Flow stop requested.');addResult('Auto flow · stop','warn','Stop requested by tester');};
-    const start=$('autotestStart'); if(start)start.textContent='Gambling QA';
-    const title=$('autotestTitle'); if(title)title.textContent='GAMBLING AUTO FLOW QA';
-    const help=document.querySelector('.autotest-manual-help'); if(help)help.textContent='Manual probes лишаються нижче, але Auto Flow Runner зверху сам пробує app links/store/offer redirects і пише evidence. GPT ключ не потрібний.';
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installPanel);else installPanel();
-})();
-/* --- /v197 Auto Flow Runner without GPT --- */
-
-/* --- v198 truthful QA result labels: short screen, full TXT details --- */
-(function(){
-  const PUBLIC = {
-    pass: "Passed",
-    hand: "I Can’t without hand",
-    nopass: "No pass"
-  };
-  function txt(x){return String(x||"")}
-  function low(item){return (txt(item?.name)+" "+txt(item?.detail)+" "+txt(item?.state)).toLowerCase()}
-  function isDirectPass(item){
-    const t=low(item);
-    if(item?.state!=="pass")return false;
-    if(/probable|likely|maybe|\?|manual|required|readiness|ready|targets prepared|api exists|available|handler active|listeners armed|current:|fingerprint|container class|launch container|popup|new tab|handoff|app opened|store|fallback|google pay attempt|registration\/auth|photo share|photo attach|orientation|horizontal overflow|runtime alive|offer \/ gambling|webview risk/.test(t))return false;
-    return /cookie|localstorage|sessionstorage|camera granted|stream received|write\/read\/delete ok|localstorage ok|cookie write\/read\/delete ok|js runtime/.test(t);
-  }
-  function publicStatus(item){
-    const t=low(item);
-    if(isDirectPass(item))return PUBLIC.pass;
-    if(item?.state==="fail"||/deep link error|launch_error|popup_error|blocked by webview|not installed|unavailable|denied|rejected|missing|not supported|not readable|blocked or partitioned|cookie blocked|localstorage blocked|sdk.*not ready|button.*missing|no offers found/.test(t))return PUBLIC.nopass;
-    return PUBLIC.hand;
-  }
-  function publicClass(label){return label===PUBLIC.pass?"pass":label===PUBLIC.nopass?"fail":"warn"}
-  function normalizeItem(item){
-    const next=Object.assign({},item||{});
-    const label=publicStatus(next);
-    next.publicStatus=label;
-    next.publicClass=publicClass(label);
-    return next;
-  }
-  function normalizeList(results){return (results||[]).map(normalizeItem)}
-  function counts(results){
-    const list=normalizeList(results);
-    return {
-      total:list.length,
-      passed:list.filter(i=>i.publicStatus===PUBLIC.pass).length,
-      hand:list.filter(i=>i.publicStatus===PUBLIC.hand).length,
-      nopass:list.filter(i=>i.publicStatus===PUBLIC.nopass).length
-    };
-  }
-  window.hymQaPublicStatus=publicStatus;
-  window.hymQaPublicStatusLabels=PUBLIC;
-
-  window.hymAutotestRenderSummary=function(target,results){
-    if(!target)return;
-    const c=counts(results||[]);
-    target.innerHTML='<div class="autotest-pill"><strong>'+c.total+'</strong><span>checks</span></div><div class="autotest-pill"><strong>'+c.passed+'</strong><span>Passed</span></div><div class="autotest-pill"><strong>'+c.hand+'</strong><span>I Can\'t without hand</span></div><div class="autotest-pill"><strong>'+c.nopass+'</strong><span>No pass</span></div>';
-  };
-  window.hymAutotestRenderRows=function(target,results){
-    if(!target)return;
-    const shortOnly=target.id==="autotestResultList";
-    target.replaceChildren();
-    normalizeList(results).forEach(item=>{
-      const row=document.createElement("div");
-      row.className="autotest-row "+item.publicClass;
-      const state=document.createElement("div");
-      state.className="autotest-state";
-      state.textContent=item.publicStatus;
-      const body=document.createElement("div");
-      const title=document.createElement("div");
-      title.className="autotest-name";
-      title.textContent=item.name||"check";
-      const detail=document.createElement("div");
-      detail.className="autotest-detail";
-      detail.textContent=shortOnly?"Details are inside TXT report." :(item.detail||"");
-      body.append(title,detail);row.append(state,body);target.append(row);
-    });
-  };
-  window.hymAutotestShowResultModal=function(results=window.hymAutotestLastReport||[]){
-    window.hymAutotestRenderSummary(document.getElementById("autotestResultSummary"),results);
-    window.hymAutotestRenderRows(document.getElementById("autotestResultList"),results);
-    const meta=document.getElementById("autotestResultMeta");
-    if(meta){const c=counts(results);meta.textContent=(c.nopass?"No pass":c.hand?"Need hand":"Passed")+" · "+c.total+" checks · "+new Date().toLocaleTimeString()}
-    const note=document.querySelector(".autotest-result-note");
-    if(note)note.textContent="Short result only. Full evidence, links, timings and raw browser signals are saved inside TXT report.";
-    if(typeof hymAutotestSetResultStatus==="function")hymAutotestSetResultStatus("Short report ready. Use DOWNLOAD TXT for full details.");
-    if(typeof hymAutotestResultOpen==="function")hymAutotestResultOpen();
-  };
-  window.hymAutotestRender=function(results){
-    const list=results||[];
-    window.hymAutotestLastReport=list.slice();
-    const listNode=document.getElementById("autotestList"),summary=document.getElementById("autotestSummary"),meta=document.getElementById("autotestHeadMeta");
-    if(summary)window.hymAutotestRenderSummary(summary,list);
-    if(listNode)window.hymAutotestRenderRows(listNode,list);
-    const c=counts(list);
-    if(meta)meta.textContent=(c.nopass?"No pass":c.hand?"Need hand":"Passed")+" · "+new Date().toLocaleTimeString();
-    if(typeof hymAutotestSetStatus==="function")hymAutotestSetStatus(c.nopass?"Autotest finished: No pass. Download TXT for details.":c.hand?"Autotest finished: needs hand check. Download TXT for details.":"Autotest finished: Passed.");
-  };
-  const oldAppend=window.hymAutotestAppend;
-  window.hymAutotestAppend=function(name,state,detail){
-    const item=normalizeItem({name,state:state||"info",detail:detail||""});
-    const next={name:item.name,state:item.publicClass,detail:item.detail||""};
-    if(typeof oldAppend==="function")return oldAppend(next.name,next.state,next.detail);
-    window.hymAutotestLastReport=window.hymAutotestLastReport||[];
-    const idx=window.hymAutotestLastReport.findIndex(x=>x.name===next.name);
-    if(idx>=0)window.hymAutotestLastReport.splice(idx,1,next);else window.hymAutotestLastReport.push(next);
-    window.hymAutotestRender(window.hymAutotestLastReport);
-    return next;
-  };
-  window.hymAutotestReportLines=function(results=window.hymAutotestLastReport||[]){
-    const list=normalizeList(results);
-    const c=counts(list);
-    const lines=[
-      "WWG GAMBLING WEBVIEW QA v198 truthful report",
-      "Generated: "+new Date().toISOString(),
-      "URL: "+location.href,
-      "Launch: "+(document.getElementById("launchSourceBadge")?.textContent||"unknown"),
-      "OS: "+(document.getElementById("osBadge")?.textContent||"unknown"),
-      "User-Agent: "+navigator.userAgent,
-      "",
-      "SHORT SUMMARY:",
-      "Passed: "+c.passed,
-      "I Can’t without hand: "+c.hand,
-      "No pass: "+c.nopass,
-      "Total checks: "+c.total,
-      "",
-      "DETAILS:"
-    ];
-    list.forEach((item,index)=>{
-      lines.push("");
-      lines.push(String(index+1)+". "+(item.name||"check"));
-      lines.push("Screen status: "+item.publicStatus);
-      lines.push("Raw state: "+(item.state||"info"));
-      lines.push("What I did / saw: "+(item.detail||"no details"));
-      if(item.publicStatus===PUBLIC.hand)lines.push("Meaning: I cannot prove this fully from browser/WebView signals. Check by hand.");
-      if(item.publicStatus===PUBLIC.nopass)lines.push("Meaning: blocked, failed, unavailable, not installed, or no useful handoff signal was detected.");
-      if(item.publicStatus===PUBLIC.pass)lines.push("Meaning: direct browser proof was received for this specific check.");
-    });
-    return lines;
-  };
-  window.hymAutotestReportText=function(results=window.hymAutotestLastReport||[]){return window.hymAutotestReportLines(results).join("\n")};
-  function tuneCopy(){
-    const title=document.getElementById("autotestTitle"); if(title)title.textContent="GAMBLING AUTO FLOW QA";
-    const resultTitle=document.getElementById("autotestResultTitle"); if(resultTitle)resultTitle.textContent="SHORT AUTOTEST RESULT";
-    const note=document.querySelector(".autotest-result-note"); if(note)note.textContent="Short result only. Full evidence is in TXT.";
-    const flow=document.getElementById("gqaAutoFlowStatus"); if(flow)flow.textContent="Auto Flow ready. Screen shows only Passed / I Can’t without hand / No pass. Details go to TXT.";
-    const help=document.querySelector("#gqaAutoFlowRunner .autotest-manual-help"); if(help)help.textContent="Auto Flow tries real redirects/app links and records browser evidence. Probable or unclear cases are not Passed — they become I Can’t without hand.";
-  }
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",tuneCopy,{once:true});else tuneCopy();
-})();
-/* --- /v198 truthful QA result labels --- */
 
 
 
-/* --- v199 Backend Status honest runner UI + event log bridge --- */
-(function(){
-  const VERSION='v199 Backend Status';
-  const LABELS={pass:'Passed',hand:"I Can\'t without hand",nopass:'No pass'};
-  const $=id=>document.getElementById(id);
-  function safeText(v){return String(v||'').replace(/\s+/g,' ').trim().slice(0,220)}
-  function rawLog(message,level){try{if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent(message,level);if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent(message,level)}catch{}}
-  function normalizeLogText(message){
-    return safeText(message)
-      .replace(/WebView QA/gi,'Backend Status')
-      .replace(/WebView flow QA/gi,'Backend Status')
-      .replace(/Gambling Auto Flow QA/gi,'Backend Status')
-      .replace(/GAMBLING AUTO FLOW QA/gi,'BACKEND STATUS')
-      .replace(/Gambling WEBVIEW QA/gi,'Backend Status')
-      .replace(/Gambling QA/gi,'Backend Status')
-      .replace(/Auto Flow/gi,'Backend Status');
-  }
-  function testLightLog(message,level='INFO'){
-    try{rawLog('BACKEND STATUS · '+normalizeLogText(message),level)}catch{}
-  }
-  window.hymTestLightLog=testLightLog;
-  if(typeof window.logUsefulEvent==='function'&&!window.__hymOriginalUsefulEvent){
-    window.__hymOriginalUsefulEvent=window.logUsefulEvent;
-    window.logUsefulEvent=function(message,level='INFO'){
-      const text=safeText(message);
-      if(/WebView QA|WebView flow QA|Gambling QA|Auto Flow|BACKEND STATUS/i.test(text)){
-        return window.__hymOriginalUsefulEvent('BACKEND STATUS · '+normalizeLogText(text).replace(/^BACKEND STATUS · /i,''),level);
-      }
-      return window.__hymOriginalUsefulEvent(message,level);
-    };
-  }
-  function counts(results){
-    const list=(results||[]).map(item=>{
-      const label=typeof window.hymQaPublicStatus==='function'?window.hymQaPublicStatus(item):(item?.state==='pass'?LABELS.pass:item?.state==='fail'?LABELS.nopass:LABELS.hand);
-      return {label};
-    });
-    return {total:list.length,passed:list.filter(i=>i.label===LABELS.pass).length,hand:list.filter(i=>i.label===LABELS.hand).length,nopass:list.filter(i=>i.label===LABELS.nopass).length};
-  }
-  function setText(id,text){const n=$(id); if(n)n.textContent=text;}
-  function tuneUi(){
-    setText('autotestTitle','BACKEND STATUS');
-    setText('autotestResultTitle','BACKEND STATUS');
-    const start=$('autotestStart'); if(start&&!start.classList.contains('is-running'))start.textContent='Backend Status';
-    const meta=$('autotestHeadMeta'); if(meta&&/GAMBLING|WEBVIEW/i.test(meta.textContent||''))meta.textContent='light mode';
-    const note=document.querySelector('.autotest-result-note'); if(note)note.textContent='Only the main result is shown here. Full proof is inside TXT report.';
-    const flow=$('gqaAutoFlowStatus'); if(flow&&!flow.dataset.v199){flow.dataset.v199='1';flow.textContent="Backend Status ready. Screen shows only Passed / I Can't without hand / No pass. Full proof goes to TXT.";}
-    const runnerTitle=document.querySelector('#gqaAutoFlowRunner .autotest-manual-title'); if(runnerTitle)runnerTitle.textContent='Backend Status · auto runner';
-    const runnerHelp=document.querySelector('#gqaAutoFlowRunner .autotest-manual-help'); if(runnerHelp)runnerHelp.textContent="Runs only what the browser/WebView can really try: cookies, storage, camera/API checks, app links, fallbacks and redirects. If the site cannot prove the result itself, status becomes I Can't without hand.";
-    const manualTitle=document.querySelector('.autotest-manual-title'); if(manualTitle&&/Manual probes/i.test(manualTitle.textContent||''))manualTitle.textContent='Manual confirmation only where WebView is blind';
-  }
-  function mainVerdict(c){
-    if(c.nopass>0)return 'No pass';
-    if(c.hand>0)return "I Can't without hand";
-    return 'Passed';
-  }
-  const oldRender=window.hymAutotestRender;
-  window.hymAutotestRender=function(results){
-    if(typeof oldRender==='function')oldRender(results);
-    tuneUi();
-    const c=counts(results||[]);
-    const status=$('autotestStatus');
-    if(status)status.textContent='Backend Status: '+mainVerdict(c)+' · Passed '+c.passed+' · I Can\'t without hand '+c.hand+' · No pass '+c.nopass;
-    testLightLog('screen summary updated · '+mainVerdict(c)+' · passed '+c.passed+' · hand '+c.hand+' · no pass '+c.nopass);
-  };
-  const oldShow=window.hymAutotestShowResultModal;
-  window.hymAutotestShowResultModal=function(results=window.hymAutotestLastReport||[]){
-    if(typeof oldShow==='function')oldShow(results);
-    tuneUi();
-    const c=counts(results||[]);
-    const meta=$('autotestResultMeta'); if(meta)meta.textContent=mainVerdict(c)+' · '+c.total+' checks';
-    const status=$('autotestResultStatus'); if(status)status.textContent='Result: '+mainVerdict(c)+'. Download TXT for full proof.';
-    testLightLog('final short result · '+mainVerdict(c)+' · total '+c.total+' · passed '+c.passed+' · hand '+c.hand+' · no pass '+c.nopass);
-  };
-  const oldAppend=window.hymAutotestAppend;
-  window.hymAutotestAppend=function(name,state,detail){
-    const result=typeof oldAppend==='function'?oldAppend(name,state,detail):null;
-    const item={name,state,detail};
-    const label=typeof window.hymQaPublicStatus==='function'?window.hymQaPublicStatus(item):(state==='pass'?LABELS.pass:state==='fail'?LABELS.nopass:LABELS.hand);
-    testLightLog((name||'check')+' · '+label+' · '+safeText(detail));
-    return result;
-  };
-  window.hymAutotestReportLines=function(results=window.hymAutotestLastReport||[]){
-    const list=(results||[]).map(item=>{
-      const label=typeof window.hymQaPublicStatus==='function'?window.hymQaPublicStatus(item):(item?.state==='pass'?LABELS.pass:item?.state==='fail'?LABELS.nopass:LABELS.hand);
-      return Object.assign({},item,{screenStatus:label});
-    });
-    const c=counts(list);
-    const lines=[
-      'WWG BACKEND STATUS REPORT v199',
-      'Generated: '+new Date().toISOString(),
-      'URL: '+location.href,
-      'Launch source: '+(($('launchSourceBadge')?.textContent)||'unknown'),
-      'OS: '+(($('osBadge')?.textContent)||'unknown'),
-      'User-Agent: '+navigator.userAgent,
-      '',
-      'SHORT RESULT:',
-      'Overall: '+mainVerdict(c),
-      'Passed: '+c.passed,
-      "I Can't without hand: "+c.hand,
-      'No pass: '+c.nopass,
-      'Total: '+c.total,
-      '',
-      'HOW TO READ STATUSES:',
-      'Passed = the site did the check itself and received direct proof.',
-      "I Can't without hand = the site tried, but WebView/browser cannot prove the final result without your confirmation.",
-      'No pass = blocked, failed, unavailable, or no useful signal was detected.',
-      '',
-      'DETAILS:'
-    ];
-    list.forEach((item,index)=>{
-      const name=item.name||'check';
-      const rawState=item.state||'info';
-      const detail=item.detail||'no details';
-      lines.push('');
-      lines.push((index+1)+'. '+name);
-      lines.push('Screen status: '+item.screenStatus);
-      lines.push('Raw technical state: '+rawState);
-      lines.push('What Backend Status did / saw: '+detail);
-      if(item.screenStatus===LABELS.pass)lines.push('Meaning: direct browser/WebView proof exists for this exact check.');
-      else if(item.screenStatus===LABELS.nopass)lines.push('Meaning: the action did not work, was blocked, unsupported, unavailable, or produced no useful signal.');
-      else lines.push('Meaning: Backend Status attempted the action, but the final result needs your eyes/hands because WebView does not expose a reliable proof API.');
-    });
-    return lines;
-  };
-  window.hymAutotestReportText=function(results=window.hymAutotestLastReport||[]){return window.hymAutotestReportLines(results).join('\n')};
-  function bindActionLogs(){
-    document.addEventListener('click',event=>{
-      const btn=event.target&&event.target.closest&&event.target.closest('#autotestModal button,#autotestResultModal button,#gqaAutoFlowRunner button,.autotest-manual button');
-      if(!btn)return;
-      const label=safeText(btn.textContent||btn.id||'button');
-      testLightLog('button clicked · '+label);
-    },true);
-    ['visibilitychange','pagehide','pageshow','blur','focus','resize','orientationchange'].forEach(ev=>{
-      window.addEventListener(ev,()=>testLightLog('native event · '+ev+' · hidden='+document.hidden+' · viewport '+innerWidth+'x'+innerHeight),{capture:true,passive:true});
-    });
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{tuneUi();bindActionLogs();testLightLog('ready');},{once:true});
-  else {tuneUi();bindActionLogs();testLightLog('ready');}
-  setTimeout(tuneUi,80);setTimeout(tuneUi,400);setTimeout(tuneUi,1200);
-})();
-/* --- /v199 Backend Status honest runner UI + event log bridge --- */
+
 
 
 // --- v171 visible random button hover/tap FX ---
@@ -3288,773 +2883,118 @@ hymMediaRender();initYoutubeEventLogger();initGoogleLoginCancelTracking();
 dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:true,repairPosition:true});initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();initHymAutotest();
 // --- /v167 useful redirect + event engine ---
 
-/* --- v200 Backend Status self-verifiable only --- */
-(function(){
-  const VERSION='v200 Backend Status · self checks only';
-  const $=id=>document.getElementById(id);
-  const LABELS={pass:'Passed',nopass:'No pass',hand:"I Can't without hand"};
-  let lastResults=[];
-  function text(v){return String(v||'').replace(/\s+/g,' ').trim()}
-  function log(message,level='INFO'){
-    try{
-      if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent('BACKEND STATUS · '+text(message),level);
-      if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent('BACKEND STATUS · '+text(message),level);
-    }catch{}
-  }
-  function openModal(){
-    try{ if(typeof window.hymAutotestOpen==='function')window.hymAutotestOpen(); else {$('autotestModal')?.classList.add('on');$('autotestModal')?.setAttribute('aria-hidden','false');} }catch{}
-  }
-  function setStatus(msg){ const n=$('autotestStatus'); if(n)n.textContent=msg; const f=$('gqaAutoFlowStatus')||$('autotestFlowStatus'); if(f)f.textContent=msg; }
-  function shortState(item){return item.state==='pass'?LABELS.pass:LABELS.nopass}
-  function counts(results){return {total:results.length,passed:results.filter(x=>x.state==='pass').length,nopass:results.filter(x=>x.state!=='pass').length,hand:0}}
-  function renderSummary(target,results){
-    if(!target)return; const c=counts(results);
-    target.innerHTML='<div class="autotest-pill"><strong>'+c.total+'</strong><span>checks</span></div><div class="autotest-pill"><strong>'+c.passed+'</strong><span>Passed</span></div><div class="autotest-pill"><strong>0</strong><span>I Can\'t without hand</span></div><div class="autotest-pill"><strong>'+c.nopass+'</strong><span>No pass</span></div>';
-  }
-  function renderRows(target,results,shortOnly=false){
-    if(!target)return; target.replaceChildren();
-    results.forEach(item=>{
-      const row=document.createElement('div'); row.className='autotest-row '+(item.state==='pass'?'pass':'fail');
-      const state=document.createElement('div'); state.className='autotest-state'; state.textContent=shortState(item);
-      const body=document.createElement('div'); const title=document.createElement('div'); title.className='autotest-name'; title.textContent=item.name;
-      const detail=document.createElement('div'); detail.className='autotest-detail'; detail.textContent=shortOnly?'Details are inside TXT report.':item.short;
-      body.append(title,detail); row.append(state,body); target.append(row);
-    });
-  }
-  function render(results){
-    lastResults=results.slice(); window.hymAutotestLastReport=lastResults.slice();
-    renderSummary($('autotestSummary'),lastResults); renderRows($('autotestList'),lastResults,false);
-    const c=counts(lastResults); const verdict=c.nopass?'No pass':'Passed';
-    const meta=$('autotestHeadMeta'); if(meta)meta.textContent=verdict+' · '+c.total+' checks';
-    setStatus('Backend Status: '+verdict+' · Passed '+c.passed+' · I Can\'t without hand 0 · No pass '+c.nopass);
-  }
-  function add(results,name,state,short,details){
-    const item={name,state:state==='pass'?'pass':'fail',short:short||'',detail:details||short||'',time:new Date().toISOString()};
-    results.push(item); log(name+' · '+shortState(item)+' · '+(short||''),item.state==='pass'?'SUCCESS':'ERROR'); render(results); return item;
-  }
-  function testCookie(){
-    try{const key='tl_self_cookie_'+Date.now(); document.cookie=key+'=ok; SameSite=Lax; path=/'; const written=document.cookie.includes(key+'=ok'); document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; const removed=!document.cookie.includes(key+'=ok'); return written&&removed?['pass','Cookie write/read/delete works','Created test cookie, read it from document.cookie, deleted it, confirmed it disappeared.']:['fail','Cookie roundtrip failed','Could not prove cookie write/read/delete. written='+written+' removed='+removed];}catch(e){return ['fail','Cookie check error',e?.message||String(e)]}
-  }
-  function testStorage(kind,storage){
-    try{const key='tl_self_'+kind+'_'+Date.now(); storage.setItem(key,'ok'); const read=storage.getItem(key)==='ok'; storage.removeItem(key); const removed=storage.getItem(key)===null; return read&&removed?['pass',kind+' write/read/delete works','Wrote value, read it back, removed it, confirmed it disappeared.']:['fail',kind+' roundtrip failed','read='+read+' removed='+removed];}catch(e){return ['fail',kind+' blocked or failed',e?.message||String(e)]}
-  }
-  function testIndexedDb(){
-    return new Promise(resolve=>{
-      if(!window.indexedDB)return resolve(['fail','IndexedDB unavailable','window.indexedDB is missing.']);
-      const dbName='tl_self_db_'+Date.now(); let done=false;
-      const finish=(state,short,detail)=>{if(done)return; done=true; try{indexedDB.deleteDatabase(dbName)}catch{} resolve([state,short,detail]);};
-      try{
-        const req=indexedDB.open(dbName,1);
-        req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};
-        req.onerror=()=>finish('fail','IndexedDB open failed',req.error?.message||'open error');
-        req.onsuccess=()=>{
-          const db=req.result;
-          try{
-            const tx=db.transaction('kv','readwrite'); const store=tx.objectStore('kv');
-            store.put('ok','key');
-            const get=store.get('key');
-            get.onsuccess=()=>{ const ok=get.result==='ok'; try{db.close()}catch{} finish(ok?'pass':'fail',ok?'IndexedDB write/read works':'IndexedDB read mismatch','Stored value and read it back. result='+String(get.result)); };
-            get.onerror=()=>{try{db.close()}catch{} finish('fail','IndexedDB read failed',get.error?.message||'read error')};
-          }catch(e){try{db.close()}catch{} finish('fail','IndexedDB transaction failed',e?.message||String(e))}
-        };
-        setTimeout(()=>finish('fail','IndexedDB timeout','No success/error response in time.'),2500);
-      }catch(e){finish('fail','IndexedDB exception',e?.message||String(e))}
-    });
-  }
-  function testDom(){
-    const ids=['autotestModal','eventLogModal','section-temp-mail','section-ua'];
-    const missing=ids.filter(id=>!$(id));
-    return missing.length?['fail','Required UI elements missing','Missing: '+missing.join(', ')]:['pass','Required UI elements exist','Checked required local DOM nodes: '+ids.join(', ')];
-  }
-  function testViewport(){
-    const w=Math.round(window.innerWidth||0),h=Math.round(window.innerHeight||0); const vv=window.visualViewport; const vw=Math.round(vv?.width||0),vh=Math.round(vv?.height||0);
-    const ok=w>0&&h>0&&(!vv||(vw>0&&vh>0));
-    return ok?['pass','Viewport values readable','window '+w+'x'+h+(vv?' · visualViewport '+vw+'x'+vh:' · visualViewport unavailable but window viewport is readable')]:['fail','Viewport values invalid','window '+w+'x'+h+' visualViewport '+vw+'x'+vh];
-  }
-  function testHorizontalOverflow(){
-    const overflow=Math.max(0,Math.round((document.documentElement.scrollWidth||0)-(window.innerWidth||0)));
-    return overflow<=4?['pass','No critical horizontal overflow','scrollWidth - innerWidth = '+overflow+'px']:['fail','Horizontal overflow detected','scrollWidth - innerWidth = '+overflow+'px'];
-  }
-  function testEventLog(){
-    const ok=typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function';
-    return ok?['pass','EVENT LOG writer available','logUsefulEvent bridge is available and Backend Status actions are written to EVENT LOG.']:['fail','EVENT LOG writer missing','Cannot find logUsefulEvent bridge.'];
-  }
-  async function runSelfChecks(){
-    openModal(); const btn=$('autotestStart'); if(btn){btn.disabled=true;btn.classList.add('is-running');btn.textContent='Testing…'}
-    const again=$('autotestRunAgain'); if(again)again.disabled=true;
-    const results=[]; lastResults=[]; render(results); log('self checks started','INFO');
-    setStatus('Backend Status is running only checks it can prove by itself…');
-    add(results,'JS runtime','pass','JavaScript executed','The Backend Status script started and rendered this result.');
-    let r=testDom(); add(results,'Local UI DOM',r[0],r[1],r[2]);
-    r=testEventLog(); add(results,'EVENT LOG integration',r[0],r[1],r[2]);
-    r=testViewport(); add(results,'Viewport read',r[0],r[1],r[2]);
-    r=testHorizontalOverflow(); add(results,'Horizontal layout check',r[0],r[1],r[2]);
-    r=testCookie(); add(results,'Cookie roundtrip',r[0],r[1],r[2]);
-    r=testStorage('LocalStorage',window.localStorage); add(results,'LocalStorage roundtrip',r[0],r[1],r[2]);
-    r=testStorage('SessionStorage',window.sessionStorage); add(results,'SessionStorage roundtrip',r[0],r[1],r[2]);
-    r=await testIndexedDb(); add(results,'IndexedDB roundtrip',r[0],r[1],r[2]);
-    const c=counts(results); const verdict=c.nopass?'No pass':'Passed';
-    setStatus('Backend Status finished: '+verdict+' · Passed '+c.passed+' · No pass '+c.nopass+' · I Can\'t without hand 0');
-    log('self checks finished · '+verdict+' · passed '+c.passed+' · no pass '+c.nopass,'INFO');
-    if(btn){btn.disabled=false;btn.classList.remove('is-running');btn.textContent='Backend Status'}
-    if(again)again.disabled=false;
-    showResult(results);
-  }
-  async function runCameraCheck(){
-    openModal(); const results=lastResults.slice(); log('camera real check started','INFO');
-    if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){add(results,'Camera real check','fail','Camera API unavailable','navigator.mediaDevices.getUserMedia is missing.');showResult(results);return}
-    try{setStatus('Requesting camera permission…'); const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:false}); stream.getTracks().forEach(t=>t.stop()); add(results,'Camera real check','pass','Camera stream received','getUserMedia returned a real video stream and Backend Status stopped it safely.');}
-    catch(e){add(results,'Camera real check','fail','Camera not available or permission denied',(e?.name||'Error')+': '+(e?.message||'camera request failed'));}
-    showResult(results);
-  }
-  function showResult(results=lastResults){
-    lastResults=results.slice(); window.hymAutotestLastReport=lastResults.slice();
-    renderSummary($('autotestResultSummary'),lastResults); renderRows($('autotestResultList'),lastResults,true);
-    const c=counts(lastResults); const verdict=c.nopass?'No pass':'Passed';
-    const meta=$('autotestResultMeta'); if(meta)meta.textContent=verdict+' · '+c.total+' checks';
-    const note=document.querySelector('.autotest-result-note'); if(note)note.textContent='Only checks with direct proof are included. Full details are inside TXT.';
-    const status=$('autotestResultStatus'); if(status)status.textContent='Result: '+verdict+'. Download TXT for full details.';
-    try{if(typeof window.hymAutotestResultOpen==='function')window.hymAutotestResultOpen(); else {$('autotestResultModal')?.classList.add('on');$('autotestResultModal')?.setAttribute('aria-hidden','false');}}catch{}
-  }
-  function reportLines(results=lastResults){
-    const c=counts(results); const verdict=c.nopass?'No pass':'Passed';
-    const lines=['WWG BACKEND STATUS REPORT v200','Mode: self-verifiable checks only','Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')?.textContent)||'unknown'),'OS: '+(($('osBadge')?.textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SHORT RESULT:','Overall: '+verdict,'Passed: '+c.passed,"I Can't without hand: 0",'No pass: '+c.nopass,'Total: '+c.total,'','WHAT WAS REMOVED:','No deep links, store fallbacks, Google/Telegram auth, payments, photo picker, share sheet, volume, screen lock, back button or rotation are counted here because the site cannot prove those results by itself.','','DETAILS:'];
-    results.forEach((item,i)=>{lines.push('',(i+1)+'. '+item.name,'Screen status: '+shortState(item),'What Backend Status did: '+item.detail,'Meaning: '+(item.state==='pass'?'Direct proof was received by the browser/WebView.':'The browser/WebView did not provide direct proof or the check failed.'));});
-    return lines;
-  }
-  function tuneUi(){
-    const start=$('autotestStart'); if(start&&!start.classList.contains('is-running'))start.textContent='Backend Status';
-    const title=$('autotestTitle'); if(title)title.textContent='BACKEND STATUS';
-    const resultTitle=$('autotestResultTitle'); if(resultTitle)resultTitle.textContent='BACKEND STATUS';
-    const meta=$('autotestHeadMeta'); if(meta)meta.textContent='self checks only';
-    const list=$('autotestList'); if(list&&!list.dataset.v200Ready){list.dataset.v200Ready='1';list.innerHTML='<div class="autotest-row warn"><div class="autotest-state">READY</div><div><div class="autotest-name">Backend Status</div><div class="autotest-detail">Only checks the site can prove by itself. Deep links, auth, payments, photo picker, rotation, back, volume and screen lock were removed from autotest.</div></div></div>';}
-    const manual=document.querySelector('.autotest-manual'); if(manual)manual.style.display='none';
-    const runner=$('gqaAutoFlowRunner'); if(runner){runner.innerHTML='<div class="autotest-manual-title">Self checks only</div><div class="autotest-manual-help">Removed everything that needs eyes/hands or external app confirmation. This runner tests only direct browser proofs.</div><div class="gqa-runner-actions"><button class="btn green" id="tlSelfChecks" type="button">RUN SELF CHECKS</button><button class="btn" id="tlCameraCheck" type="button">CAMERA REAL CHECK</button></div><div class="autotest-flow-status" id="gqaAutoFlowStatus">Ready. No deep links, no payments, no auth in autotest.</div>';}
-    if(!$('gqaAutoFlowRunner')){
-      const body=document.querySelector('.autotest-modal-body'); const before=document.querySelector('.autotest-actions');
-      if(body&&before){const wrap=document.createElement('div');wrap.id='gqaAutoFlowRunner';wrap.className='gqa-runner auto-flow-runner';wrap.innerHTML='<div class="autotest-manual-title">Self checks only</div><div class="autotest-manual-help">Removed everything that needs eyes/hands or external app confirmation. This runner tests only direct browser proofs.</div><div class="gqa-runner-actions"><button class="btn green" id="tlSelfChecks" type="button">RUN SELF CHECKS</button><button class="btn" id="tlCameraCheck" type="button">CAMERA REAL CHECK</button></div><div class="autotest-flow-status" id="gqaAutoFlowStatus">Ready. No deep links, no payments, no auth in autotest.</div>';body.insertBefore(wrap,before);}
-    }
-    const runAgain=$('autotestRunAgain'); if(runAgain)runAgain.textContent='RUN SELF CHECKS';
-    const copy=$('autotestCopy'); if(copy)copy.textContent='COPY TXT';
-    const mail=$('autotestOpenMail'); if(mail)mail.style.display='none';
-    const dev=$('autotestOpenDevice'); if(dev)dev.style.display='none';
-    $('tlSelfChecks')?.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();runSelfChecks();},{once:false});
-    $('tlCameraCheck')?.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();runCameraCheck();},{once:false});
-  }
-  window.hymAutotestReportLines=function(results=lastResults.length?lastResults:(window.hymAutotestLastReport||[])){return reportLines(results)};
-  window.hymAutotestReportText=function(results=lastResults.length?lastResults:(window.hymAutotestLastReport||[])){return reportLines(results).join('\n')};
-  window.hymAutotestShowResultModal=showResult;
-  window.hymAutotestRender=render;
-  window.hymRunAutotest=runSelfChecks;
-  window.hymTestLightSelfChecks=runSelfChecks;
-  function bind(){
-    tuneUi();
-    $('autotestStart')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();runSelfChecks();},true);
-    $('autotestRunAgain')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();runSelfChecks();},true);
-    $('autotestCopy')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();const txt=window.hymAutotestReportText(); if(navigator.clipboard?.writeText)navigator.clipboard.writeText(txt).then(()=>setStatus('TXT copied.'),()=>setStatus(txt)); else setStatus(txt);},true);
-    log('v200 ready · self-verifiable checks only','INFO');
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
-  setTimeout(tuneUi,100);setTimeout(tuneUi,500);setTimeout(tuneUi,1200);
-})();
-/* --- /v200 Backend Status self-verifiable only --- */
 
-/* --- v201 Backend Status verified-only UI --- */
-(function(){
-  const VERSION='v201 Backend Status · verified only';
-  const $=id=>document.getElementById(id);
-  let lastReport={passed:[],hidden:[],startedAt:'',finishedAt:''};
-  const clean=v=>String(v==null?'':v).replace(/\s+/g,' ').trim();
-  function baseLog(message,level='INFO'){
-    try{
-      const msg='BACKEND STATUS · '+clean(message);
-      if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent(msg,level);
-      if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent(msg,level);
-    }catch{}
-  }
-  function status(msg){
-    const a=$('autotestStatus'); if(a)a.textContent=msg;
-    const b=$('gqaAutoFlowStatus')||$('autotestFlowStatus'); if(b)b.textContent=msg;
-  }
-  function openModal(){
-    try{if(typeof window.hymAutotestOpen==='function')window.hymAutotestOpen();else{const m=$('autotestModal'); if(m){m.classList.add('on');m.setAttribute('aria-hidden','false');}}}catch{}
-  }
-  function openResult(){
-    try{if(typeof window.hymAutotestResultOpen==='function')window.hymAutotestResultOpen();else{const m=$('autotestResultModal'); if(m){m.classList.add('on');m.setAttribute('aria-hidden','false');}}}catch{}
-  }
-  function makeItem(name,ok,screen,detail){return {name,ok:!!ok,screen:screen||'',detail:detail||screen||'',time:new Date().toISOString()}}
-  function count(){return lastReport.passed.length}
-  function renderSummary(target){
-    if(!target)return;
-    target.innerHTML='<div class="autotest-pill"><strong>'+count()+'</strong><span>verified</span></div><div class="autotest-pill"><strong>'+(lastReport.finishedAt?'done':'ready')+'</strong><span>mode</span></div>';
-  }
-  function renderPassedList(target,shortOnly){
-    if(!target)return; target.replaceChildren();
-    if(!lastReport.passed.length){
-      const row=document.createElement('div'); row.className='autotest-row warn';
-      row.innerHTML='<div class="autotest-state">READY</div><div><div class="autotest-name">Backend Status</div><div class="autotest-detail">Показує тільки те, що сайт/сервер сам зміг підтвердити. Ручні, зовнішні й непідтверджені кейси тут не показуються.</div></div>';
-      target.append(row); return;
-    }
-    lastReport.passed.forEach(item=>{
-      const row=document.createElement('div'); row.className='autotest-row pass';
-      const st=document.createElement('div'); st.className='autotest-state'; st.textContent='Passed';
-      const body=document.createElement('div');
-      const nm=document.createElement('div'); nm.className='autotest-name'; nm.textContent=item.name;
-      const dt=document.createElement('div'); dt.className='autotest-detail'; dt.textContent=shortOnly?'Verified. Details are inside TXT report.':item.screen;
-      body.append(nm,dt); row.append(st,body); target.append(row);
-    });
-  }
-  function renderAll(){
-    renderSummary($('autotestSummary')); renderPassedList($('autotestList'),false);
-    const meta=$('autotestHeadMeta'); if(meta)meta.textContent=lastReport.finishedAt?('verified '+count()):'verified-only';
-    status(lastReport.finishedAt?'Backend Status done · verified '+count():'Backend Status ready · verified checks only');
-    window.hymAutotestLastReport=lastReport.passed.slice();
-  }
-  async function runCheck(name,fn){
-    baseLog('RUN · '+name,'INFO');
-    try{
-      const item=await fn();
-      if(item&&item.ok){lastReport.passed.push(item); baseLog('PASSED · '+name,'SUCCESS');}
-      else{lastReport.hidden.push(item||makeItem(name,false,'Not verified','The check did not return direct proof.'));}
-    }catch(e){lastReport.hidden.push(makeItem(name,false,'Not verified',(e&&e.message)||String(e)));}
-    renderAll();
-  }
-  async function jsonFetch(url,options){
-    const r=await fetch(url,Object.assign({cache:'no-store',headers:{'accept':'application/json'}},options||{}));
-    const ct=r.headers.get('content-type')||''; let data=null;
-    if(ct.includes('json'))data=await r.json(); else data={text:await r.text()};
-    return {response:r,data,ct};
-  }
-  async function testHealth(){
-    const {response,data}=await jsonFetch('/api/health');
-    return makeItem('Server health API',response.ok&&data&&data.ok===true,'/api/health answered ok','HTTP '+response.status+' · ok='+String(data&&data.ok)+' · version='+(data&&data.version||'unknown'));
-  }
-  async function testServerProcessor(){
-    const runId='tl-'+Date.now()+'-'+Math.random().toString(16).slice(2);
-    const {response,data}=await jsonFetch('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json','accept':'application/json'},body:JSON.stringify({runId,source:'test-light'})});
-    return makeItem('Server self processor',response.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,'server accepted and echoed test payload','HTTP '+response.status+' · echo.runId='+(data&&data.echo&&data.echo.runId)+' · method='+(data&&data.method));
-  }
-  async function testHtmlServed(){
-    const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{'accept':'text/html'}});
-    const text=await r.text(); const ok=r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team');
-    return makeItem('Main page HTML delivery',ok,'main page HTML is delivered','HTTP '+r.status+' · content-type='+(r.headers.get('content-type')||'')+' · html markers='+(text.includes('WWG QA Team')?'yes':'no'));
-  }
-  async function testAudioAsset(){
-    const r=await fetch('/audio.mp3',{method:'GET',cache:'no-store'}); const len=Number(r.headers.get('content-length')||0);
-    return makeItem('Static asset delivery',r.ok,'public/audio.mp3 is reachable','HTTP '+r.status+' · content-type='+(r.headers.get('content-type')||'')+' · bytes header='+(len||'unknown'));
-  }
-  function testEventLogger(){
-    const ok=typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function';
-    return makeItem('EVENT LOG connection',ok,'Backend Status can write actions into EVENT LOG','logUsefulEvent='+(typeof window.logUsefulEvent)+' · original='+(typeof window.__hymOriginalUsefulEvent));
-  }
-  function testDomReady(){
-    const ok=document.readyState==='interactive'||document.readyState==='complete';
-    return makeItem('DOM ready state',ok,'page DOM is ready','document.readyState='+document.readyState);
-  }
-  function testCookie(){
-    const key='tl_v201_'+Date.now(); document.cookie=key+'=ok; SameSite=Lax; path=/';
-    const read=document.cookie.includes(key+'=ok'); document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
-    const removed=!document.cookie.includes(key+'=ok');
-    return makeItem('Cookie write/read/delete',read&&removed,'cookie roundtrip verified','read='+read+' · removed='+removed);
-  }
-  function testStorage(kind,store){
-    const key='tl_v201_'+kind+'_'+Date.now(); store.setItem(key,'ok'); const read=store.getItem(key)==='ok'; store.removeItem(key); const removed=store.getItem(key)===null;
-    return makeItem(kind+' write/read/delete',read&&removed,kind+' roundtrip verified','read='+read+' · removed='+removed);
-  }
-  async function testIndexedDb(){
-    if(!window.indexedDB)return makeItem('IndexedDB write/read',false,'IndexedDB missing','window.indexedDB is unavailable');
-    const dbName='tl_v201_'+Date.now();
-    return await new Promise(resolve=>{
-      let done=false; const finish=item=>{if(done)return; done=true; try{indexedDB.deleteDatabase(dbName)}catch{} resolve(item)};
-      try{const req=indexedDB.open(dbName,1);
-        req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};
-        req.onerror=()=>finish(makeItem('IndexedDB write/read',false,'IndexedDB open failed',req.error?.message||'open error'));
-        req.onsuccess=()=>{const db=req.result; try{const tx=db.transaction('kv','readwrite'); const s=tx.objectStore('kv'); s.put('ok','key'); const g=s.get('key'); g.onsuccess=()=>{const ok=g.result==='ok'; try{db.close()}catch{} finish(makeItem('IndexedDB write/read',ok,'IndexedDB roundtrip verified','stored value result='+String(g.result)));}; g.onerror=()=>{try{db.close()}catch{} finish(makeItem('IndexedDB write/read',false,'IndexedDB read failed',g.error?.message||'read error'))};}catch(e){try{db.close()}catch{} finish(makeItem('IndexedDB write/read',false,'IndexedDB transaction failed',e.message||String(e)))}};
-        setTimeout(()=>finish(makeItem('IndexedDB write/read',false,'IndexedDB timeout','No direct proof in 2500ms')),2500);
-      }catch(e){finish(makeItem('IndexedDB write/read',false,'IndexedDB exception',e.message||String(e)))}
-    });
-  }
-  async function runVerifiedOnly(){
-    openModal(); lastReport={passed:[],hidden:[],startedAt:new Date().toISOString(),finishedAt:''};
-    renderAll(); status('Backend Status running verified checks only…'); baseLog('START · verified-only checks','INFO');
-    const btn=$('autotestStart'); const again=$('autotestRunAgain'); if(btn){btn.disabled=true;btn.textContent='Testing…'} if(again)again.disabled=true;
-    await runCheck('Server health API',testHealth);
-    await runCheck('Server self processor',testServerProcessor);
-    await runCheck('Main page HTML delivery',testHtmlServed);
-    await runCheck('Static asset delivery',testAudioAsset);
-    await runCheck('EVENT LOG connection',()=>testEventLogger());
-    await runCheck('DOM ready state',()=>testDomReady());
-    await runCheck('Cookie write/read/delete',()=>testCookie());
-    await runCheck('LocalStorage write/read/delete',()=>testStorage('LocalStorage',localStorage));
-    await runCheck('SessionStorage write/read/delete',()=>testStorage('SessionStorage',sessionStorage));
-    await runCheck('IndexedDB write/read',testIndexedDb);
-    lastReport.finishedAt=new Date().toISOString(); renderAll();
-    baseLog('DONE · verified passed '+lastReport.passed.length,'SUCCESS');
-    if(lastReport.passed.length)baseLog('DONE LIST · '+lastReport.passed.map(x=>x.name).join(' | '),'SUCCESS');
-    if(btn){btn.disabled=false;btn.textContent='Backend Status'} if(again)again.disabled=false;
-    showResult();
-  }
-  function showResult(){
-    renderSummary($('autotestResultSummary')); renderPassedList($('autotestResultList'),true);
-    const meta=$('autotestResultMeta'); if(meta)meta.textContent='verified '+count();
-    const note=document.querySelector('.autotest-result-note'); if(note)note.textContent='Only confirmed self-checks are shown. No manual/unknown/failed items are displayed here.';
-    const rs=$('autotestResultStatus'); if(rs)rs.textContent='Passed verified checks: '+count()+'. TXT has technical details.';
-    openResult();
-  }
-  function reportLines(){
-    const lines=['WWG BACKEND STATUS REPORT v201','Mode: verified self-checks only','Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')?.textContent)||'unknown'),'OS: '+(($('osBadge')?.textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SHORT RESULT:','Passed verified checks: '+lastReport.passed.length,'Visible failed/manual/unknown checks: 0','','PASSED CHECKS SHOWN ON SCREEN:'];
-    lastReport.passed.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: Passed','What was verified: '+x.screen,'Technical detail: '+x.detail,'Time: '+x.time));
-    lines.push('','','HIDDEN TECHNICAL FAILURES / NOT VERIFIED: '+lastReport.hidden.length);
-    lastReport.hidden.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Not shown on screen','Reason: '+x.detail,'Time: '+x.time));
-    lines.push('','','REMOVED FROM BACKEND STATUS:','Deep links, app installed status, auth, payments, offer redirects, photo picker, share sheet, keyboard, rotation, back button, volume, screen lock, top curtain and camera permission are not part of Backend Status because they need hands, external apps, permissions, or visual confirmation.');
-    return lines;
-  }
-  function copyTxt(){const txt=reportLines().join('\n'); if(navigator.clipboard?.writeText)navigator.clipboard.writeText(txt).then(()=>status('TXT copied.'),()=>status(txt)); else status(txt)}
-  function replaceButton(id,text,handler){
-    const old=$(id); if(!old)return null; const btn=old.cloneNode(true); btn.textContent=text; btn.disabled=false; btn.classList.remove('is-running'); old.replaceWith(btn); btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();handler();},true); return btn;
-  }
-  function tune(){
-    const title=$('autotestTitle'); if(title)title.textContent='BACKEND STATUS';
-    const rt=$('autotestResultTitle'); if(rt)rt.textContent='BACKEND STATUS';
-    const meta=$('autotestHeadMeta'); if(meta)meta.textContent='verified only';
-    const manual=document.querySelector('.autotest-manual'); if(manual)manual.remove();
-    const runner=$('gqaAutoFlowRunner'); if(runner)runner.remove();
-    const mail=$('autotestOpenMail'); if(mail)mail.remove(); const dev=$('autotestOpenDevice'); if(dev)dev.remove();
-    replaceButton('autotestStart','Backend Status',runVerifiedOnly);
-    replaceButton('autotestRunAgain','RUN VERIFIED CHECKS',runVerifiedOnly);
-    replaceButton('autotestCopy','COPY TXT',copyTxt);
-    const actions=document.querySelector('.autotest-actions'); if(actions&&!$('tlV201Run')){const b=document.createElement('button');b.className='btn green';b.id='tlV201Run';b.type='button';b.textContent='RUN VERIFIED CHECKS';b.addEventListener('click',runVerifiedOnly);actions.prepend(b)}
-    renderAll();
-  }
-  window.hymRunAutotest=runVerifiedOnly;
-  window.hymTestLightSelfChecks=runVerifiedOnly;
-  window.hymAutotestReportLines=reportLines;
-  window.hymAutotestReportText=()=>reportLines().join('\n');
-  window.hymAutotestShowResultModal=showResult;
-  function bind(){tune(); baseLog('v201 ready · visible list contains only passed verified checks','INFO')}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true}); else bind();
-  setTimeout(tune,80); setTimeout(tune,400); setTimeout(tune,1200);
-})();
-/* --- /v201 Backend Status verified-only UI --- */
 
-/* --- v203 Status Core minimal backend/site status --- */
-(function(){
-  const VERSION='v203 Status Core';
-  const $=id=>document.getElementById(id);
-  let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
-  function clean(v){return String(v||'').replace(/\s+/g,' ').trim();}
-  function eventLog(text,level='INFO'){
-    const msg='STATUS CORE · '+clean(text);
-    try{
-      if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent(msg,level);
-      if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent(msg,level);
-    }catch{}
-  }
-  async function safeCheck(name, fn){
-    const started=performance.now();
-    try{
-      const result=await fn();
-      const ok=!!(result&&result.ok);
-      const item={name,ok,screen:ok?'OK':'ISSUE',detail:clean(result&&result.detail||''),elapsedMs:Math.round(performance.now()-started),time:new Date().toISOString()};
-      lastReport.checks.push(item);
-      eventLog(name+' · '+(ok?'OK':'ISSUE'), ok?'SUCCESS':'WARN');
-      return item;
-    }catch(e){
-      const item={name,ok:false,screen:'ISSUE',detail:clean(e&&e.message||e),elapsedMs:Math.round(performance.now()-started),time:new Date().toISOString()};
-      lastReport.checks.push(item);
-      eventLog(name+' · ISSUE', 'WARN');
-      return item;
-    }
-  }
-  async function jsonFetch(url,options){
-    const r=await fetch(url,Object.assign({cache:'no-store'},options||{}));
-    let data=null; try{data=await r.json()}catch{}
-    return {r,data};
-  }
-  function storageRoundtrip(kind,store){
-    const key='status_core_'+kind+'_'+Date.now();
-    store.setItem(key,'ok');
-    const read=store.getItem(key)==='ok';
-    store.removeItem(key);
-    const removed=store.getItem(key)===null;
-    return {ok:read&&removed, detail:'read='+read+'; removed='+removed};
-  }
-  async function indexedDbRoundtrip(){
-    if(!window.indexedDB)return {ok:false,detail:'indexedDB API missing'};
-    const dbName='status_core_'+Date.now();
-    return await new Promise(resolve=>{
-      let done=false;
-      const finish=x=>{if(done)return;done=true;try{indexedDB.deleteDatabase(dbName)}catch{} resolve(x)};
-      try{
-        const req=indexedDB.open(dbName,1);
-        req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};
-        req.onerror=()=>finish({ok:false,detail:'open error: '+(req.error&&req.error.message||'unknown')});
-        req.onsuccess=()=>{
-          const db=req.result;
-          try{
-            const tx=db.transaction('kv','readwrite');
-            const store=tx.objectStore('kv');
-            store.put('ok','key');
-            const get=store.get('key');
-            get.onsuccess=()=>{const ok=get.result==='ok'; try{db.close()}catch{} finish({ok,detail:'stored value='+String(get.result)})};
-            get.onerror=()=>{try{db.close()}catch{} finish({ok:false,detail:'read error: '+(get.error&&get.error.message||'unknown')})};
-          }catch(e){try{db.close()}catch{} finish({ok:false,detail:'transaction exception: '+(e.message||e)})}
-        };
-        setTimeout(()=>finish({ok:false,detail:'timeout after 2500ms'}),2500);
-      }catch(e){finish({ok:false,detail:'exception: '+(e.message||e)})}
-    });
-  }
-  async function runStatusCore(){
-    lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};
-    const btn=$('autotestStart'); if(btn){btn.disabled=true;btn.textContent='Checking…';btn.classList.add('is-running')}
-    eventLog('start','INFO');
-    await safeCheck('Server health API',async()=>{const {r,data}=await jsonFetch('/api/health',{headers:{accept:'application/json'}}); return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});
-    await safeCheck('Server self processor',async()=>{const runId='sc-'+Date.now()+'-'+Math.random().toString(16).slice(2); const {r,data}=await jsonFetch('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'status-core'})}); return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')+'; colo='+(data&&data.server&&data.server.colo||'--')}});
-    await safeCheck('Main HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}}); const text=await r.text(); return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});
-    await safeCheck('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'}); return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')+'; bytes='+(r.headers.get('content-length')||'unknown')}});
-    await safeCheck('EVENT LOG connection',async()=>({ok:typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function',detail:'logger='+(typeof window.logUsefulEvent)+'; original='+(typeof window.__hymOriginalUsefulEvent)}));
-    await safeCheck('DOM ready',async()=>({ok:document.readyState==='interactive'||document.readyState==='complete',detail:'readyState='+document.readyState}));
-    await safeCheck('Cookie roundtrip',async()=>{const key='status_core_cookie_'+Date.now(); document.cookie=key+'=ok; SameSite=Lax; path=/'; const read=document.cookie.includes(key+'=ok'); document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; const removed=!document.cookie.includes(key+'=ok'); return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});
-    await safeCheck('LocalStorage roundtrip',async()=>storageRoundtrip('localStorage',localStorage));
-    await safeCheck('SessionStorage roundtrip',async()=>storageRoundtrip('sessionStorage',sessionStorage));
-    await safeCheck('IndexedDB roundtrip',indexedDbRoundtrip);
-    lastReport.finishedAt=new Date().toISOString();
-    lastReport.ok=lastReport.checks.every(x=>x.ok);
-    eventLog('done · '+lastReport.checks.filter(x=>x.ok).length+'/'+lastReport.checks.length+' OK', lastReport.ok?'SUCCESS':'WARN');
-    eventLog('checked · '+lastReport.checks.map(x=>x.name).join(' | '), 'INFO');
-    if(btn){btn.disabled=false;btn.textContent='Status Core';btn.classList.remove('is-running')}
-    showStatusResult();
-  }
-  function reportText(){
-    const ok=lastReport.checks.filter(x=>x.ok).length;
-    const total=lastReport.checks.length;
-    const lines=['WWG STATUS CORE TXT REPORT', 'Version: '+VERSION, 'Generated: '+new Date().toISOString(), 'URL: '+location.href, 'Launch source: '+(($('launchSourceBadge')&&$('launchSourceBadge').textContent)||'unknown'), 'OS: '+(($('osBadge')&&$('osBadge').textContent)||'unknown'), 'User-Agent: '+navigator.userAgent, '', 'SHORT STATUS:', lastReport.ok?'ALL OK':'ISSUE FOUND', 'Verified: '+ok+'/'+total, '', 'CHECK DETAILS:'];
-    lastReport.checks.forEach((x,i)=>lines.push('', (i+1)+'. '+x.name, 'Status: '+(x.ok?'OK':'ISSUE'), 'Detail: '+x.detail, 'Elapsed: '+x.elapsedMs+'ms', 'Time: '+x.time));
-    lines.push('', 'NOTE:', 'This tool shows only core site/backend status on screen. It does not test external apps, auth, payments, redirects, camera, rotation, back button, volume, screen lock, or manual gambling flows.');
-    return lines.join('\n');
-  }
-  function copyTxt(){const txt=reportText(); if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>eventLog('TXT copied','SUCCESS'),()=>{}); else eventLog('Clipboard unavailable','WARN');}
-  function downloadTxt(){
-    const blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'});
-    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='status-core-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt'; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove()},500); eventLog('TXT downloaded','SUCCESS');
-  }
-  function showStatusResult(){
-    const modal=$('autotestResultModal');
-    const body=modal&&modal.querySelector('.autotest-result-body');
-    const title=$('autotestResultTitle');
-    const meta=$('autotestResultMeta');
-    const ok=lastReport.checks.filter(x=>x.ok).length;
-    const total=lastReport.checks.length;
-    if(title)title.textContent='STATUS CORE';
-    if(meta)meta.textContent=lastReport.ok?'ALL OK':'ISSUE';
-    if(body){
-      body.innerHTML='<div class="autotest-result-note" style="font-size:13px;color:#d7f5ee;border-color:#1c2a2f">'+
-        '<strong style="display:block;font-size:18px;color:'+(lastReport.ok?'#34ff9a':'#ff7b83')+';margin-bottom:6px">'+(lastReport.ok?'ALL OK':'ISSUE FOUND')+'</strong>'+ 
-        '<span>Verified: '+ok+'/'+total+'. Full details are inside TXT report.</span></div>'+ 
-        '<div class="autotest-result-actions"><button class="btn green" id="statusCoreDownload" type="button">DOWNLOAD TXT</button><button class="btn" id="statusCoreCopy" type="button">COPY TXT</button><button class="btn" id="statusCoreRunAgain" type="button">RUN AGAIN</button></div>'+ 
-        '<div class="autotest-result-status">Only core site/backend self-checks are included.</div>';
-      setTimeout(()=>{const d=$('statusCoreDownload'),c=$('statusCoreCopy'),r=$('statusCoreRunAgain'); if(d)d.onclick=downloadTxt; if(c)c.onclick=copyTxt; if(r)r.onclick=runStatusCore;},0);
-    }
-    if(modal){modal.classList.add('on');modal.setAttribute('aria-hidden','false')}
-  }
-  function hideLegacyUi(){
-    const title=$('autotestTitle'); if(title)title.textContent='STATUS CORE';
-    const head=$('autotestHeadMeta'); if(head)head.textContent='site/backend';
-    const start=$('autotestStart'); if(start){start.textContent='Status Core'; start.setAttribute('data-testid','status-core-start');}
-    const boxes=['gqaAutoFlowRunner','autotestOpenMail','autotestOpenDevice','autotestDeepLinks','autotestKeyboardInput'];
-    boxes.forEach(id=>{const el=$(id); if(el)el.remove()});
-    document.querySelectorAll('.autotest-manual,.autotest-flow-panel,.autotest-list,.autotest-summary').forEach(el=>{el.style.display='none'});
-    const status=$('autotestStatus'); if(status)status.textContent='Status Core checks only site/backend basics. Result screen shows only OK/issue and TXT.';
-    const actions=document.querySelector('.autotest-actions');
-    if(actions){
-      [...actions.querySelectorAll('button')].forEach(b=>{if(!['autotestCopy'].includes(b.id))b.remove()});
-      let run=$('statusCoreRunMain');
-      if(!run){run=document.createElement('button');run.className='btn green';run.id='statusCoreRunMain';run.type='button';run.textContent='RUN STATUS';actions.prepend(run)}
-      run.onclick=runStatusCore;
-      const cp=$('autotestCopy'); if(cp){cp.textContent='COPY TXT'; cp.onclick=copyTxt;}
-    }
-  }
-  function bindButton(){
-    const old=$('autotestStart');
-    if(old&&!old.dataset.statusCoreBound){
-      const btn=old.cloneNode(true); btn.textContent='Status Core'; btn.dataset.statusCoreBound='1'; old.replaceWith(btn); btn.addEventListener('click',e=>{e.preventDefault(); e.stopImmediatePropagation(); runStatusCore();},true);
-    }
-  }
-  function boot(){hideLegacyUi(); bindButton(); eventLog('ready · site/backend status only','INFO')}
-  window.hymRunAutotest=runStatusCore;
-  window.hymStatusCoreRun=runStatusCore;
-  window.hymAutotestReportText=reportText;
-  window.hymAutotestReportLines=()=>reportText().split('\n');
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true}); else boot();
-  setTimeout(boot,100); setTimeout(boot,600); setTimeout(boot,1500);
-})();
-/* --- /v203 Status Core minimal backend/site status --- */
 
-/* --- v204 Backend Status minimal result --- */
-(function(){
-  const VERSION='v204 Backend Status';
-  const $=id=>document.getElementById(id);
-  let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
-  function clean(v){return String(v||'').replace(/\s+/g,' ').trim();}
-  function log(text,level='INFO'){
-    const msg='BACKEND STATUS · '+clean(text);
-    try{
-      if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent(msg,level);
-      if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent(msg,level);
-    }catch{}
-  }
-  async function safeCheck(name, fn){
-    const started=performance.now();
-    try{
-      const result=await fn();
-      const ok=!!(result&&result.ok);
-      const item={name,ok,detail:clean(result&&result.detail||''),elapsedMs:Math.round(performance.now()-started),time:new Date().toISOString()};
-      lastReport.checks.push(item);
-      log('checked · '+name+' · '+(ok?'OK':'ISSUE'),ok?'SUCCESS':'WARN');
-      return item;
-    }catch(e){
-      const item={name,ok:false,detail:clean(e&&e.message||e),elapsedMs:Math.round(performance.now()-started),time:new Date().toISOString()};
-      lastReport.checks.push(item);
-      log('issue · '+name+' · '+item.detail,'WARN');
-      return item;
-    }
-  }
-  async function jsonFetch(url,options){
-    const r=await fetch(url,Object.assign({cache:'no-store'},options||{}));
-    let data=null; try{data=await r.json()}catch{}
-    return {r,data};
-  }
-  function storageRoundtrip(kind,store){
-    const key='backend_status_'+kind+'_'+Date.now();
-    store.setItem(key,'ok');
-    const read=store.getItem(key)==='ok';
-    store.removeItem(key);
-    const removed=store.getItem(key)===null;
-    return {ok:read&&removed,detail:'read='+read+'; removed='+removed};
-  }
-  async function indexedDbRoundtrip(){
-    if(!window.indexedDB)return {ok:false,detail:'IndexedDB API missing'};
-    const dbName='backend_status_'+Date.now();
-    return await new Promise(resolve=>{
-      let done=false;
-      const finish=x=>{if(done)return; done=true; try{indexedDB.deleteDatabase(dbName)}catch{} resolve(x)};
-      try{
-        const req=indexedDB.open(dbName,1);
-        req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};
-        req.onerror=()=>finish({ok:false,detail:'open error: '+(req.error&&req.error.message||'unknown')});
-        req.onsuccess=()=>{
-          const db=req.result;
-          try{
-            const tx=db.transaction('kv','readwrite');
-            const st=tx.objectStore('kv');
-            st.put('ok','key');
-            const get=st.get('key');
-            get.onsuccess=()=>{const ok=get.result==='ok'; try{db.close()}catch{} finish({ok,detail:'stored value='+String(get.result)})};
-            get.onerror=()=>{try{db.close()}catch{} finish({ok:false,detail:'read error: '+(get.error&&get.error.message||'unknown')})};
-          }catch(e){try{db.close()}catch{} finish({ok:false,detail:'transaction exception: '+(e.message||e)})}
-        };
-        setTimeout(()=>finish({ok:false,detail:'timeout after 2500ms'}),2500);
-      }catch(e){finish({ok:false,detail:'exception: '+(e.message||e)})}
-    });
-  }
-  async function run(){
-    lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};
-    normalizeUi();
-    const top=$('autotestStart'), main=$('backendStatusRunMain')||$('statusCoreRunMain');
-    [top,main].forEach(btn=>{if(btn){btn.disabled=true; btn.textContent='Checking…'; btn.classList.add('is-running')}});
-    log('started','INFO');
-    await safeCheck('Server health API',async()=>{const {r,data}=await jsonFetch('/api/health',{headers:{accept:'application/json'}}); return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});
-    await safeCheck('Server self processor',async()=>{const runId='bs-'+Date.now()+'-'+Math.random().toString(16).slice(2); const {r,data}=await jsonFetch('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-status'})}); return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')+'; colo='+(data&&data.server&&data.server.colo||'--')}});
-    await safeCheck('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}}); const t=await r.text(); return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&t.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});
-    await safeCheck('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'}); return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')+'; bytes='+(r.headers.get('content-length')||'unknown')}});
-    await safeCheck('Event Log connection',async()=>({ok:typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function',detail:'logger='+(typeof window.logUsefulEvent)+'; original='+(typeof window.__hymOriginalUsefulEvent)}));
-    await safeCheck('DOM ready state',async()=>({ok:document.readyState==='interactive'||document.readyState==='complete',detail:'readyState='+document.readyState}));
-    await safeCheck('Cookie write/read/delete',async()=>{const key='backend_status_cookie_'+Date.now(); document.cookie=key+'=ok; SameSite=Lax; path=/'; const read=document.cookie.includes(key+'=ok'); document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; const removed=!document.cookie.includes(key+'=ok'); return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});
-    await safeCheck('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));
-    await safeCheck('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));
-    await safeCheck('IndexedDB write/read',indexedDbRoundtrip);
-    lastReport.finishedAt=new Date().toISOString();
-    lastReport.ok=lastReport.checks.every(x=>x.ok);
-    log('finished · '+(lastReport.ok?'ALL OK':'ISSUE FOUND')+' · scanned '+lastReport.checks.length,'SUCCESS');
-    log('scanned systems · '+lastReport.checks.map(x=>x.name).join(' | '),'INFO');
-    [top,main].forEach(btn=>{if(btn){btn.disabled=false; btn.textContent='Backend Status'; btn.classList.remove('is-running')}});
-    showResult();
-  }
-  function reportText(){
-    const ok=lastReport.checks.filter(x=>x.ok).length, total=lastReport.checks.length;
-    const issues=lastReport.checks.filter(x=>!x.ok);
-    const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')&&$('launchSourceBadge').textContent)||'unknown'),'OS: '+(($('osBadge')&&$('osBadge').textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SHORT STATUS:',lastReport.ok?'ALL SYSTEMS NORMAL':'SYSTEM ISSUES FOUND','Scanned systems: '+total,'OK: '+ok,'Issues: '+issues.length,'','CHECK DETAILS:'];
-    lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));
-    lines.push('','NOTE:','Backend Status checks only site/server basics that can be verified automatically. Manual gambling flows, auth, payments, redirects, external apps, camera, rotation, back, volume and screen lock are not displayed here.');
-    return lines.join('\n');
-  }
-  function copyTxt(){const txt=reportText(); if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>log('TXT copied','SUCCESS'),()=>log('TXT copy failed','WARN')); else log('Clipboard unavailable','WARN');}
-  function downloadTxt(){const blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt'; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove()},500); log('TXT downloaded','SUCCESS');}
-  function showResult(){
-    const modal=$('autotestResultModal'), body=modal&&modal.querySelector('.autotest-result-body');
-    const title=$('autotestResultTitle'), meta=$('autotestResultMeta');
-    const total=lastReport.checks.length, issues=lastReport.checks.filter(x=>!x.ok);
-    if(title)title.textContent='BACKEND STATUS';
-    if(meta)meta.textContent=lastReport.ok?'ALL OK':'ISSUE FOUND';
-    if(body){
-      const issueHtml=issues.length?('<div class="autotest-result-list" style="display:block;margin-top:12px">'+issues.map(x=>'<div class="autotest-row fail"><div class="autotest-state">ISSUE</div><div><div class="autotest-name">'+escapeHtml(x.name)+'</div><div class="autotest-detail">'+escapeHtml(x.detail||'No detail')+'</div></div></div>').join('')+'</div>'):'';
-      body.innerHTML='<div class="autotest-result-note" style="font-size:13px;color:#d7f5ee;border-color:#1c2a2f">'+
-        '<strong style="display:block;font-size:20px;color:'+(lastReport.ok?'#34ff9a':'#ff7b83')+';margin-bottom:6px">'+(lastReport.ok?'ALL SYSTEMS NORMAL':'SYSTEM ISSUES FOUND')+'</strong>'+ 
-        '<span>Scanned systems: '+total+'. '+(issues.length?'Only problem systems are shown below.':'No problem systems found.')+'</span></div>'+issueHtml+
-        '<div class="autotest-result-actions"><button class="btn green" id="backendStatusDownload" type="button">DOWNLOAD TXT</button><button class="btn" id="backendStatusCopy" type="button">COPY TXT</button><button class="btn" id="backendStatusRunAgain" type="button">RUN AGAIN</button></div>'+ 
-        '<div class="autotest-result-status">Short status only. Full technical details are inside TXT report.</div>';
-      setTimeout(()=>{const d=$('backendStatusDownload'),c=$('backendStatusCopy'),r=$('backendStatusRunAgain'); if(d)d.onclick=downloadTxt; if(c)c.onclick=copyTxt; if(r)r.onclick=run;},0);
-    }
-    if(modal){modal.classList.add('on');modal.setAttribute('aria-hidden','false')}
-  }
-  function escapeHtml(v){return String(v||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-  function normalizeUi(){
-    const top=$('autotestStart'); if(top){top.textContent='Backend Status';top.setAttribute('data-testid','backend-status-start')}
-    const t=$('autotestTitle'); if(t)t.textContent='BACKEND STATUS';
-    const hm=$('autotestHeadMeta'); if(hm)hm.textContent='site/server';
-    const rt=$('autotestResultTitle'); if(rt&&/BACKEND STATUS|AUTOTEST/i.test(rt.textContent||''))rt.textContent='BACKEND STATUS';
-    document.querySelectorAll('.autotest-manual,.autotest-flow-panel,.autotest-list,.autotest-summary,#autotestDeepLinks,#autotestKeyboardInput').forEach(el=>{if(el)el.style.display='none'});
-    const status=$('autotestStatus'); if(status)status.textContent='Only automatic site/server status is checked.';
-    const actions=document.querySelector('#autotestModal .autotest-actions');
-    if(actions){
-      [...actions.querySelectorAll('button')].forEach(b=>b.remove());
-      let runBtn=$('backendStatusRunMain');
-      if(!runBtn){runBtn=document.createElement('button'); runBtn.className='btn green'; runBtn.id='backendStatusRunMain'; runBtn.type='button'; runBtn.textContent='RUN STATUS'; actions.appendChild(runBtn)}
-      let cp=$('backendStatusCopyMain');
-      if(!cp){cp=document.createElement('button'); cp.className='btn'; cp.id='backendStatusCopyMain'; cp.type='button'; cp.textContent='COPY TXT'; actions.appendChild(cp)}
-      runBtn.onclick=run; cp.onclick=copyTxt;
-    }
-  }
-  function bindTop(){
-    const old=$('autotestStart');
-    if(old&&!old.dataset.backendStatusBound){
-      const btn=old.cloneNode(true); btn.textContent='Backend Status'; btn.dataset.backendStatusBound='1'; old.replaceWith(btn); btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();run();},true);
-    }
-  }
-  function boot(){normalizeUi(); bindTop(); log('ready · automatic site/server status only','INFO');}
-  window.hymRunAutotest=run;
-  window.hymStatusCoreRun=run;
-  window.hymBackendStatusRun=run;
-  window.hymAutotestReportText=reportText;
-  window.hymAutotestReportLines=()=>reportText().split('\n');
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true}); else boot();
-  setTimeout(boot,100); setTimeout(boot,600); setTimeout(boot,1600);
-  try{
-    new MutationObserver(()=>normalizeUi()).observe(document.body,{childList:true,subtree:true,characterData:true});
-  }catch{}
-})();
-/* --- /v204 Backend Status minimal result --- */
 
 </script>
 
 <script>
+
+</script>
+
+<script id="backend-status-clean-v213">
 (function(){
   'use strict';
-  const VERSION='v211 Backend Status · gauge stable';
+  const VERSION='v213 Backend Status clean';
   const $=id=>document.getElementById(id);
-  const EVENT_KEY='hym_event_log_v2_useful';
-  const now=()=>new Date().toLocaleTimeString('uk-UA',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
-  const esc=v=>String(v==null?'':v).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
-
-  function eventLog(message, level='INFO'){
-    const msg='BACKEND STATUS · '+String(message||'').replace(/\s+/g,' ').trim();
-    try{ if(typeof window.logUsefulEvent==='function') window.logUsefulEvent(msg, level); }catch{}
+  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function log(text,level){
+    const msg='BACKEND STATUS · '+String(text||'');
+    try{ if(typeof window.logUsefulEvent==='function') window.logUsefulEvent(msg,level||'INFO'); }
+    catch(e){}
+    try{ if(typeof window.__hymOriginalUsefulEvent==='function') window.__hymOriginalUsefulEvent(msg,level||'INFO'); }
+    catch(e){}
     try{
-      const item={time:now(),ts:Date.now(),level:String(level||'INFO').toUpperCase(),message:msg};
-      const list=JSON.parse(sessionStorage.getItem(EVENT_KEY)||'[]');
-      const next=Array.isArray(list)?list:[];
-      next.push(item); sessionStorage.setItem(EVENT_KEY,JSON.stringify(next.slice(-180)));
-    }catch{}
-    try{
-      const last=$('eventLogLast'); if(last){last.textContent=now()+'  '+msg; last.dataset.empty='false';}
-      const count=$('eventLogCount'), list=$('eventLogList');
-      if(list){
-        const empty=list.querySelector('.event-log-empty'); if(empty)empty.remove();
-        const row=document.createElement('div'); row.className='event-log-row'; row.dataset.level=String(level||'INFO').toUpperCase();
-        const t=document.createElement('span'); t.className='event-log-time'; t.textContent=now();
-        const m=document.createElement('span'); m.className='event-log-message'; m.textContent=msg;
-        row.append(t,m); list.append(row); while(list.children.length>180)list.firstElementChild?.remove();
-        if(count)count.textContent=list.children.length+' events';
-      }
-    }catch{}
+      const last=$('eventLogLast');
+      if(last) last.textContent=msg;
+    }catch(e){}
   }
-
-  function detectOs(){
-    const ua=navigator.userAgent||'', p=navigator.platform||'', s=(ua+' '+p).toLowerCase(), touch=navigator.maxTouchPoints||0;
-    if(/android/.test(s))return ['Android','os-android'];
-    if(/iphone|ipad|ipod/.test(s)||(/mac/.test(s)&&touch>1))return ['iOS','os-ios'];
-    if(/win/.test(s))return ['Windows','os-windows'];
-    if(/mac/.test(s))return ['Mac OS','os-macos'];
-    return ['Unknown','os-unknown'];
-  }
-  function detectSource(){
-    const ua=navigator.userAgent||'', l=ua.toLowerCase(), ref=document.referrer||'';
-    try{ if((matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true)return 'PWA / STANDALONE'; }catch{}
-    if(window.TelegramWebviewProxy||window.Telegram?.WebApp||/[?&]tgWebAppData=/.test(location.href))return 'TELEGRAM WEBVIEW';
-    if(/instagram/.test(l))return 'INSTAGRAM WEBVIEW';
-    if(/fban|fbav|fb_iab|facebook/.test(l))return 'FACEBOOK WEBVIEW';
-    if(window.ReactNativeWebView||window.flutter_inappwebview||window.AndroidInterface)return 'APP WEBVIEW';
-    if(/; wv\)/.test(l)||/\bwv\b/.test(l))return 'ANDROID WEBVIEW';
-    if(/iphone|ipad|ipod/.test(l)&&/applewebkit/.test(l)&&!/safari\//.test(l))return 'IOS WEBVIEW';
-    if(/^android-app:\/\//i.test(ref))return 'CUSTOM TABS?';
-    if(/crios\//i.test(ua))return 'CHROME IOS';
-    if(/chrome\//i.test(ua)&&/android/i.test(ua))return 'CHROME / CCT?';
-    if(/chrome\//i.test(ua))return 'CHROME';
-    if(/safari\//i.test(ua)&&/iphone|ipad|ipod/i.test(ua))return 'SAFARI';
-    if(/safari\//i.test(ua))return 'SAFARI';
-    return 'BROWSER';
-  }
-
-  function unstickRuntime(){
-    try{
-      const [os,cls]=detectOs();
-      const osNode=$('osBadge'); if(osNode&&/detect|loading|unknown|^$/i.test(osNode.textContent||'')){osNode.textContent=os+' | --'; osNode.className='os-neon '+cls;}
-      const src=$('launchSourceBadge'); if(src&&/detect|loading|source|^$/i.test(src.textContent||'')){src.textContent=detectSource(); src.title='Launch source: '+src.textContent+' · '+(navigator.userAgent||'unknown');}
-      const snap=$('uaCapabilitySnapshot'); if(snap&&/loading|^$/i.test(snap.textContent||'')){snap.textContent=[detectSource(),os,Math.round(innerWidth)+'×'+Math.round(innerHeight),navigator.cookieEnabled?'COOKIES ON':'COOKIES OFF'].join(' · ');}
-      const ua=$('ua'); if(ua&&/loading|^$/i.test(ua.textContent||''))ua.textContent=navigator.userAgent;
-      const gpay=$('gpayStatus'); if(gpay&&/loading/i.test(gpay.textContent||''))gpay.textContent='Google Pay SDK not confirmed.';
-      const sign=$('signinStatus'); if(sign&&/loading/i.test(sign.textContent||''))sign.textContent='Google Sign-In SDK not confirmed.';
-      const tg=$('telegramStatus'); if(tg&&/checking|loading|^$/i.test(tg.textContent||''))tg.textContent='Telegram session not confirmed.';
-    }catch(e){console.warn('Backend Status unstick error',e);}
-  }
-
-  function ensureStyle(){
-    if($('backendStatusV211Style'))return;
-    const s=document.createElement('style'); s.id='backendStatusV211Style';
-    s.textContent=`.backend-v211-modal{position:fixed;inset:0;background:rgba(0,0,0,.84);display:none;place-items:center;padding:14px;z-index:1400}.backend-v211-modal.on{display:grid}.backend-v211-box{width:min(560px,calc(100vw - 24px));background:#090f12;border:1px solid #294146;box-shadow:0 24px 70px rgba(0,0,0,.72);color:#d7f5ee}.backend-v211-head{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border-bottom:1px solid #1c2a2f;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.backend-v211-close{border:1px solid #294146;background:#0e171a;color:#d7f5ee;width:32px;height:32px;font-size:21px;font-weight:900}.backend-v211-body{padding:14px;display:grid;gap:10px}.backend-v211-status{text-align:center;font-size:24px;font-weight:900;color:#34ff9a;letter-spacing:.03em}.backend-v211-status.bad{color:#ff6b78}.backend-v211-sub{text-align:center;color:#7c9994;font-size:11px}.backend-v211-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:4px}.backend-v211-issues{display:grid;gap:7px;margin-top:4px}.backend-v211-issue{border:1px solid #5d252b;background:#230b0f;padding:9px}.backend-v211-issue-name{font-weight:900;color:#ffb8be}.backend-v211-issue-detail{font-size:11px;color:#c68b91;margin-top:3px;word-break:break-word}.backend-v211-gauge{width:min(310px,76vw);margin:0 auto;position:relative}.backend-v211-gauge svg{width:100%;display:block}.backend-v211-gauge .track{fill:none;stroke:#243455;stroke-width:18;stroke-linecap:butt}.backend-v211-gauge .progress{fill:none;stroke:url(#b211grad);stroke-width:18;stroke-linecap:butt;filter:drop-shadow(0 0 10px rgba(70,255,230,.25))}.backend-v211-gauge .tick{fill:#87909f;font-size:9px;font-weight:800}.backend-v211-gauge .tick-strong{fill:#f4fbff;font-size:10px;font-weight:900}.backend-v211-gauge .needle{transform-origin:100px 104px;transition:transform .45s ease}.backend-v211-gauge .needle-body{fill:url(#b211needle)}.backend-v211-gauge .needle-cap{fill:#f4f7fb}.backend-v211-gauge-center{position:absolute;left:0;right:0;bottom:10px;text-align:center}.backend-v211-ratio{font-size:28px;line-height:1;font-weight:500;color:#f1f5ff}.backend-v211-label{font-size:10px;color:#7c9994;margin-top:4px;text-transform:uppercase;letter-spacing:.12em}`;
-    document.head.appendChild(s);
+  function ensureStyles(){
+    if($('backendStatusCleanStyle'))return;
+    const st=document.createElement('style');st.id='backendStatusCleanStyle';
+    st.textContent=`
+      .backend-clean-modal{position:fixed;inset:0;z-index:999999;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.82);padding:18px}.backend-clean-modal.on{display:flex}
+      .backend-clean-box{width:min(520px,calc(100vw - 28px));background:#080d10;border:1px solid #234247;box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 38px rgba(52,255,154,.08);color:#d7f5ee;font-family:inherit}
+      .backend-clean-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid #1c2a2f;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#34ff9a}.backend-clean-close{background:#11191c;border:1px solid #294146;color:#d7f5ee;font-weight:900;padding:7px 10px}
+      .backend-clean-body{padding:14px;text-align:center}.backend-clean-gauge{position:relative;width:330px;max-width:100%;margin:0 auto 8px}.backend-clean-gauge svg{width:100%;height:auto;display:block}.backend-clean-track{fill:none;stroke:#1f2f58;stroke-width:18;opacity:.9}.backend-clean-progress{fill:none;stroke:url(#bcg);stroke-width:18;stroke-linecap:butt;filter:drop-shadow(0 0 10px rgba(55,246,229,.35))}.backend-clean-tick{fill:#a4a8b5;font-size:12px;font-weight:900}.backend-clean-strong{fill:#fff;font-size:12px;font-weight:900}.backend-clean-needle{transform-origin:100px 104px;filter:drop-shadow(0 10px 12px rgba(0,0,0,.45))}.backend-clean-needle-body{fill:url(#bcn)}.backend-clean-needle-cap{fill:#fff}.backend-clean-center{position:absolute;left:0;right:0;bottom:22px;text-align:center}.backend-clean-ratio{font-size:34px;line-height:1;color:#f1f7ff;font-weight:500;letter-spacing:.02em}.backend-clean-label{font-size:11px;color:#7c9994;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-top:5px}.backend-clean-status{font-size:21px;font-weight:900;letter-spacing:.08em;color:#34ff9a;text-transform:uppercase}.backend-clean-status.bad{color:#ff5d6d}.backend-clean-sub{margin-top:6px;color:#7c9994;font-size:12px}.backend-clean-issues{margin-top:12px;text-align:left}.backend-clean-issue{border:1px solid #3a2428;background:#160b0e;color:#ffdfe2;padding:10px;margin-top:8px}.backend-clean-issue-name{font-weight:900;color:#ff7780}.backend-clean-issue-detail{font-size:11px;color:#e9b8bd;margin-top:4px;word-break:break-word}.backend-clean-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}.backend-clean-actions .btn{min-width:120px}.backend-clean-checking{color:#7c9994;font-size:12px;margin-top:8px}`;
+    document.head.appendChild(st);
   }
   function ensureModal(){
-    ensureStyle(); let m=$('backendStatusV211Modal'); if(m)return m;
-    m=document.createElement('div'); m.id='backendStatusV211Modal'; m.className='backend-v211-modal';
-    m.innerHTML='<div class="backend-v211-box" role="dialog" aria-modal="true"><div class="backend-v211-head"><span>Backend Status</span><button class="backend-v211-close" type="button" aria-label="close">×</button></div><div class="backend-v211-body" id="backendStatusV211Body"></div></div>';
-    document.body.appendChild(m); m.querySelector('.backend-v211-close').onclick=()=>m.classList.remove('on'); m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on')}); return m;
+    ensureStyles();
+    let m=$('backendStatusCleanModal');
+    if(m)return m;
+    m=document.createElement('div');m.id='backendStatusCleanModal';m.className='backend-clean-modal';
+    m.innerHTML='<div class="backend-clean-box" role="dialog" aria-modal="true"><div class="backend-clean-head"><span>Backend Status</span><button class="backend-clean-close" type="button">×</button></div><div class="backend-clean-body" id="backendStatusCleanBody"></div></div>';
+    document.body.appendChild(m);
+    m.querySelector('.backend-clean-close').onclick=()=>m.classList.remove('on');
+    m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on')});
+    return m;
   }
   function gauge(ok,total){
-    const pct=total?Math.max(0,Math.min(1,ok/total)):0, dash=251.2, off=(1-pct)*dash, angle=-135+270*pct;
-    return '<div class="backend-v211-gauge"><svg viewBox="0 0 200 170" aria-hidden="true"><defs><linearGradient id="b211grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#19baff"/><stop offset=".55" stop-color="#58fff1"/><stop offset="1" stop-color="'+(ok===total?'#34ff9a':'#ff5d6d')+'"/></linearGradient><linearGradient id="b211needle" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f4f7fb"/><stop offset=".68" stop-color="#737d92"/><stop offset="1" stop-color="#111722"/></linearGradient></defs><path class="track" d="M 35 135 A 80 80 0 1 1 165 135"/><path class="progress" d="M 35 135 A 80 80 0 1 1 165 135" pathLength="251.2" stroke-dasharray="251.2" stroke-dashoffset="'+off.toFixed(1)+'"/><text class="tick-strong" x="33" y="126">0</text><text class="tick-strong" x="30" y="91">5</text><text class="tick-strong" x="39" y="55">10</text><text class="tick" x="69" y="32">50</text><text class="tick" x="93" y="20">100</text><text class="tick" x="128" y="32">250</text><text class="tick" x="151" y="62">500</text><text class="tick" x="150" y="103">750</text><text class="tick" x="136" y="134">1000</text><g class="needle" style="transform:rotate('+angle.toFixed(2)+'deg)"><polygon class="needle-body" points="100,104 94,100 35,104 94,108"/><circle class="needle-cap" cx="100" cy="104" r="5"/></g></svg><div class="backend-v211-gauge-center"><div class="backend-v211-ratio">'+ok+'/'+total+'</div><div class="backend-v211-label">systems working</div></div></div>';
+    total=Math.max(1,total||10); ok=Math.max(0,Math.min(ok,total));
+    const pct=ok/total, off=251.2*(1-pct), angle=-135+270*pct;
+    return '<div class="backend-clean-gauge"><svg viewBox="0 0 200 165" aria-hidden="true"><defs><linearGradient id="bcg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#19baff"/><stop offset=".55" stop-color="#58fff1"/><stop offset="1" stop-color="'+(ok===total?'#34ff9a':'#ff5d6d')+'"/></linearGradient><linearGradient id="bcn" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f4f7fb"/><stop offset=".7" stop-color="#70778c"/><stop offset="1" stop-color="#101722"/></linearGradient></defs><path class="backend-clean-track" d="M 35 135 A 80 80 0 1 1 165 135"/><path class="backend-clean-progress" d="M 35 135 A 80 80 0 1 1 165 135" pathLength="251.2" stroke-dasharray="251.2" stroke-dashoffset="'+off.toFixed(1)+'"/><text class="backend-clean-strong" x="33" y="126">0</text><text class="backend-clean-strong" x="30" y="91">5</text><text class="backend-clean-strong" x="39" y="55">10</text><text class="backend-clean-tick" x="69" y="32">50</text><text class="backend-clean-tick" x="93" y="20">100</text><text class="backend-clean-tick" x="128" y="32">250</text><text class="backend-clean-tick" x="151" y="62">500</text><text class="backend-clean-tick" x="150" y="103">750</text><text class="backend-clean-tick" x="136" y="134">1000</text><g class="backend-clean-needle" style="transform:rotate('+angle.toFixed(2)+'deg)"><polygon class="backend-clean-needle-body" points="100,104 94,100 35,104 94,108"/><circle class="backend-clean-needle-cap" cx="100" cy="104" r="5"/></g></svg><div class="backend-clean-center"><div class="backend-clean-ratio">'+ok+'/'+total+'</div><div class="backend-clean-label">systems working</div></div></div>';
   }
-  function showLoading(){const m=ensureModal(),b=$('backendStatusV211Body'); if(b)b.innerHTML=gauge(0,10)+'<div class="backend-v211-status">checking…</div><div class="backend-v211-sub">Сканую тільки системи, які сайт може підтвердити сам.</div>'; m.classList.add('on');}
-  function showResult(){
-    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok),m=ensureModal(),b=$('backendStatusV211Body'); if(!b)return;
-    const issueHtml=issues.length?'<div class="backend-v211-issues">'+issues.map(x=>'<div class="backend-v211-issue"><div class="backend-v211-issue-name">'+esc(x.name)+'</div><div class="backend-v211-issue-detail">'+esc(x.detail||'No detail')+'</div></div>').join('')+'</div>':'';
-    b.innerHTML=gauge(ok,total)+'<div class="backend-v211-status '+(issues.length?'bad':'')+'">'+ok+'/'+total+' systems working</div><div class="backend-v211-sub">'+(issues.length?'Нижче тільки системи зі збоєм. Працюючі — тільки в TXT.':'Всі системи в нормі. Деталі — тільки в TXT.')+'</div>'+issueHtml+'<div class="backend-v211-actions"><button class="btn green" id="backendV211Download" type="button">DOWNLOAD TXT</button><button class="btn" id="backendV211Copy" type="button">COPY TXT</button><button class="btn" id="backendV211Run" type="button">RUN AGAIN</button></div>';
-    m.classList.add('on'); setTimeout(()=>{const d=$('backendV211Download'),c=$('backendV211Copy'),r=$('backendV211Run'); if(d)d.onclick=downloadTxt; if(c)c.onclick=copyTxt; if(r)r.onclick=run;},0);
+  function renderLoading(){
+    const m=ensureModal(), b=$('backendStatusCleanBody');
+    b.innerHTML=gauge(0,10)+'<div class="backend-clean-status">checking…</div><div class="backend-clean-checking">Scanning core systems only.</div>';
+    m.classList.add('on');
   }
-  async function fetchJson(url,opts){const r=await fetch(url,Object.assign({cache:'no-store'},opts||{}));let data=null;try{data=await r.clone().json()}catch{}return {r,data};}
-  async function check(name,fn){const start=performance.now();let ok=false,detail='';try{const res=await fn();ok=!!res.ok;detail=String(res.detail||'OK');}catch(e){detail=e&&e.message?e.message:String(e);}const item={name,ok,detail,elapsedMs:Math.round(performance.now()-start),time:new Date().toISOString()};lastReport.checks.push(item);eventLog(name+' · '+(ok?'OK':'ISSUE'),ok?'SUCCESS':'ERROR');return item;}
-  function storageRoundtrip(label,store){const key='backend_v211_'+label+'_'+Date.now();store.setItem(key,'ok');const read=store.getItem(key)==='ok';store.removeItem(key);const removed=store.getItem(key)==null;return {ok:read&&removed,detail:'read='+read+'; removed='+removed};}
-  function idbRoundtrip(){return new Promise(resolve=>{if(!('indexedDB' in window))return resolve({ok:false,detail:'IndexedDB unavailable'});let done=false;const finish=x=>{if(done)return;done=true;try{indexedDB.deleteDatabase('backend_v211_db')}catch{}resolve(x)};try{const req=indexedDB.open('backend_v211_db',1);req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};req.onerror=()=>finish({ok:false,detail:'open error'});req.onsuccess=()=>{const db=req.result;try{const tx=db.transaction('kv','readwrite'),st=tx.objectStore('kv'),getKey='key';st.put('ok',getKey);const g=st.get(getKey);g.onsuccess=()=>{const ok=g.result==='ok';try{db.close()}catch{}finish({ok,detail:'stored value='+String(g.result)})};g.onerror=()=>finish({ok:false,detail:'read error'})}catch(e){try{db.close()}catch{}finish({ok:false,detail:e.message||String(e)})}};setTimeout(()=>finish({ok:false,detail:'timeout'}),2500)}catch(e){finish({ok:false,detail:e.message||String(e)})}});}
-  async function run(){showLoading();lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};eventLog('scan started','INFO');await check('Server health API',async()=>{const {r,data}=await fetchJson('/api/health',{headers:{accept:'application/json'}});return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});await check('Server self processor',async()=>{const runId='b211-'+Date.now()+'-'+Math.random().toString(16).slice(2);const {r,data}=await fetchJson('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-v211'})});return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')}});await check('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}});const text=await r.text();return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});await check('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'});return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});await check('EVENT LOG connection',async()=>({ok:!!$('eventLogLast')||!!$('eventLogList'),detail:'eventLogLast='+!!$('eventLogLast')+'; eventLogList='+!!$('eventLogList')}));await check('DOM ready state',async()=>({ok:/interactive|complete/.test(document.readyState),detail:'readyState='+document.readyState}));await check('Cookie write/read/delete',async()=>{const key='backend_v211_cookie_'+Date.now();document.cookie=key+'=ok; SameSite=Lax; path=/';const read=document.cookie.includes(key+'=ok');document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';const removed=!document.cookie.includes(key+'=ok');return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});await check('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));await check('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));await check('IndexedDB write/read',idbRoundtrip);lastReport.finishedAt=new Date().toISOString();lastReport.ok=lastReport.checks.every(x=>x.ok);eventLog('scan finished · '+lastReport.checks.filter(x=>x.ok).length+'/'+lastReport.checks.length+' systems working',lastReport.ok?'SUCCESS':'WARN');showResult();}
-  function reportText(){const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'Started: '+(lastReport.startedAt||'--'),'Finished: '+(lastReport.finishedAt||'--'),'URL: '+location.href,'Launch source: '+detectSource(),'User-Agent: '+navigator.userAgent,'','SCREEN STATUS:',ok+'/'+total+' systems working','Issues: '+issues.length,'','CHECK DETAILS:'];lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));return lines.join('\n');}
-  function copyTxt(){const txt=reportText();if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>eventLog('TXT copied','SUCCESS'),()=>eventLog('TXT copy failed','WARN'));else eventLog('Clipboard unavailable','WARN');}
-  function downloadTxt(){const a=document.createElement('a'),blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'});a.href=URL.createObjectURL(blob);a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},400);eventLog('TXT downloaded','SUCCESS');}
-  function bindButton(){const old=$('autotestStart');if(old&&!old.dataset.backendV211){const btn=old.cloneNode(true);btn.textContent='Backend Status';btn.dataset.backendV211='1';btn.onclick=null;old.replaceWith(btn);btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();run();},true);}}
-  function boot(){unstickRuntime();bindButton();ensureModal();}
-  window.hymBackendStatusRun=run;window.hymStatusCoreRun=run;window.hymRunAutotest=run;window.hymAutotestReportText=reportText;window.hymAutotestReportLines=()=>reportText().split('\n');
+  function renderResult(){
+    const b=$('backendStatusCleanBody'); if(!b)return;
+    const total=lastReport.checks.length||10, ok=lastReport.checks.filter(x=>x.ok).length, issues=lastReport.checks.filter(x=>!x.ok);
+    const issuesHtml=issues.length?'<div class="backend-clean-issues">'+issues.map(x=>'<div class="backend-clean-issue"><div class="backend-clean-issue-name">'+esc(x.name)+'</div><div class="backend-clean-issue-detail">'+esc(x.detail||'No details')+'</div></div>').join('')+'</div>':'';
+    b.innerHTML=gauge(ok,total)+'<div class="backend-clean-status '+(issues.length?'bad':'')+'">'+ok+'/'+total+' systems working</div><div class="backend-clean-sub">'+(issues.length?'Only failed systems are shown here. Working systems are in TXT.':'All systems normal. Full details are in TXT.')+'</div>'+issuesHtml+'<div class="backend-clean-actions"><button class="btn green" id="backendCleanDownload" type="button">DOWNLOAD TXT</button><button class="btn" id="backendCleanCopy" type="button">COPY TXT</button><button class="btn" id="backendCleanRun" type="button">RUN AGAIN</button></div>';
+    const d=$('backendCleanDownload'), c=$('backendCleanCopy'), r=$('backendCleanRun');
+    if(d)d.onclick=downloadTxt; if(c)c.onclick=copyTxt; if(r)r.onclick=run;
+  }
+  async function fetchJson(url,opts){const r=await fetch(url,Object.assign({cache:'no-store'},opts||{}));let data=null;try{data=await r.clone().json()}catch(e){}return {r,data};}
+  async function check(name,fn){const start=performance.now();let ok=false,detail='';try{const res=await fn();ok=!!res.ok;detail=String(res.detail||'OK');}catch(e){detail=e&&e.message?e.message:String(e)}const item={name,ok,detail,elapsedMs:Math.round(performance.now()-start),time:new Date().toISOString()};lastReport.checks.push(item);log(name+' · '+(ok?'OK':'ISSUE'),ok?'SUCCESS':'ERROR');return item;}
+  function storageRoundtrip(label,store){const key='backend_clean_'+label+'_'+Date.now();store.setItem(key,'ok');const read=store.getItem(key)==='ok';store.removeItem(key);const removed=store.getItem(key)==null;return {ok:read&&removed,detail:'read='+read+'; removed='+removed};}
+  function idbRoundtrip(){return new Promise(resolve=>{if(!('indexedDB' in window))return resolve({ok:false,detail:'IndexedDB unavailable'});let done=false;const dbName='backend_clean_db_'+Date.now();const finish=x=>{if(done)return;done=true;try{indexedDB.deleteDatabase(dbName)}catch(e){}resolve(x)};try{const req=indexedDB.open(dbName,1);req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch(e){}};req.onerror=()=>finish({ok:false,detail:'open error'});req.onsuccess=()=>{const db=req.result;try{const tx=db.transaction('kv','readwrite'),st=tx.objectStore('kv');st.put('ok','key');const g=st.get('key');g.onsuccess=()=>{const ok=g.result==='ok';try{db.close()}catch(e){}finish({ok,detail:'stored value='+String(g.result)})};g.onerror=()=>finish({ok:false,detail:'read error'})}catch(e){try{db.close()}catch(x){}finish({ok:false,detail:e.message||String(e)})}};setTimeout(()=>finish({ok:false,detail:'timeout'}),2500)}catch(e){finish({ok:false,detail:e.message||String(e)})}})}
+  async function run(){
+    renderLoading();
+    lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};
+    log('scan started','INFO');
+    await check('Server health API',async()=>{const {r,data}=await fetchJson('/api/health',{headers:{accept:'application/json'}});return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});
+    await check('Server self processor',async()=>{const runId='bc-'+Date.now()+'-'+Math.random().toString(16).slice(2);const {r,data}=await fetchJson('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-clean'})});return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')}});
+    await check('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}});const text=await r.text();return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});
+    await check('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'});return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});
+    await check('EVENT LOG connection',async()=>({ok:!!$('eventLogLast')||!!$('eventLogList')||typeof window.logUsefulEvent==='function',detail:'eventLogLast='+!!$('eventLogLast')+'; eventLogList='+!!$('eventLogList')}));
+    await check('DOM ready state',async()=>({ok:/interactive|complete/.test(document.readyState),detail:'readyState='+document.readyState}));
+    await check('Cookie write/read/delete',async()=>{const key='backend_clean_cookie_'+Date.now();document.cookie=key+'=ok; SameSite=Lax; path=/';const read=document.cookie.includes(key+'=ok');document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';const removed=!document.cookie.includes(key+'=ok');return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});
+    await check('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));
+    await check('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));
+    await check('IndexedDB write/read',idbRoundtrip);
+    lastReport.finishedAt=new Date().toISOString(); lastReport.ok=lastReport.checks.every(x=>x.ok);
+    log('scan finished · '+lastReport.checks.filter(x=>x.ok).length+'/'+lastReport.checks.length+' systems working',lastReport.ok?'SUCCESS':'WARN');
+    renderResult();
+  }
+  function reportText(){const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length;const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'Started: '+(lastReport.startedAt||'--'),'Finished: '+(lastReport.finishedAt||'--'),'URL: '+location.href,'User-Agent: '+navigator.userAgent,'','SCREEN STATUS:',ok+'/'+total+' systems working','','CHECK DETAILS:'];lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));return lines.join('\n');}
+  function copyTxt(){const txt=reportText();if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>log('TXT copied','SUCCESS'),()=>log('TXT copy failed','WARN'));else log('Clipboard unavailable','WARN');}
+  function downloadTxt(){const a=document.createElement('a'),blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'});a.href=URL.createObjectURL(blob);a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},400);log('TXT downloaded','SUCCESS');}
+  function fixStuckLabels(){
+    try{
+      const launch=$('launchSourceBadge'); if(launch && /detecting/i.test(launch.textContent||'')) launch.textContent='browser';
+      const cap=$('uaCapabilitySnapshot'); if(cap && /loading/i.test(cap.textContent||'')) cap.textContent='Snapshot unavailable yet. Open details or run Backend Status.';
+      const ua=$('ua'); if(ua && /^Loading/i.test(ua.textContent||'')) ua.textContent=navigator.userAgent;
+      const gpay=$('gpayStatus'); if(gpay && /Loading Google Pay/i.test(gpay.textContent||'')) gpay.textContent='Google Pay script not ready yet.';
+      const gs=$('googleStatus'); if(gs && /Loading Google Sign-In/i.test(gs.textContent||'')) gs.textContent='Google Sign-In script not ready yet.';
+      const tg=$('telegramStatus'); if(tg && /Checking Telegram session/i.test(tg.textContent||'')) tg.textContent='Telegram session not confirmed yet.';
+    }catch(e){}
+  }
+  function bindButton(){
+    const old=$('autotestStart');
+    if(old&&!old.dataset.backendCleanBound){
+      const btn=old.cloneNode(true); btn.textContent='Backend Status'; btn.dataset.backendCleanBound='1'; btn.removeAttribute('onclick'); old.replaceWith(btn); btn.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();run();},true);
+    }
+  }
+  function boot(){fixStuckLabels();bindButton();ensureModal();}
+  window.hymBackendStatusRun=run;window.hymStatusCoreRun=run;window.hymRunAutotest=run;window.hymAutotestReportText=reportText;window.hymAutotestReportLines=function(){return reportText().split('\n')};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-  [150,600,1500,3000,5000].forEach(t=>setTimeout(boot,t));
+  [150,700,1600,3500].forEach(t=>setTimeout(boot,t));
 })();
 </script>
 
