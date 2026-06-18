@@ -2654,6 +2654,151 @@ function initHymAutotest(){
 }
 // --- /v193 WebView gambling/container flow QA runner ---
 
+
+
+/* --- v197 Auto Flow Runner without GPT: real redirect/app handoff probes --- */
+(function(){
+  const $=id=>document.getElementById(id);
+  const VERSION='v197-auto-flow-no-gpt';
+  let autoStop=false;
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  function safeText(x){return String(x||'').replace(/[<>]/g,'').slice(0,400)}
+  function addResult(name,state,detail){
+    const normalized=state||'info';
+    if(typeof hymAutotestAppend==='function')hymAutotestAppend(name,normalized,detail||'');
+    try{if(typeof logUsefulEvent==='function')logUsefulEvent('Auto Flow · '+name+' · '+normalized+' · '+safeText(detail))}catch{}
+    return {name,state:normalized,detail:detail||''};
+  }
+  function flowStatus(text){
+    if(typeof hymAutotestSetFlowStatus==='function')hymAutotestSetFlowStatus(text);
+    const n=$('gqaAutoFlowStatus'); if(n)n.textContent=text;
+  }
+  function platform(){const ua=navigator.userAgent||''; if(/android/i.test(ua))return 'android'; if(/iphone|ipad|ipod/i.test(ua))return 'ios'; return 'other'}
+  function storeFor(label){
+    try{if(typeof hymAppStoreFallbackUrl==='function')return hymAppStoreFallbackUrl(label)||''}catch{}
+    const q=encodeURIComponent(label); const p=platform();
+    if(p==='android')return 'market://search?q='+q;
+    if(p==='ios')return 'itms-apps://itunes.apple.com/search?term='+q;
+    return '';
+  }
+  function launchUrl(url){
+    try{
+      const iframe=document.createElement('iframe');
+      iframe.style.cssText='position:absolute;left:-9999px;width:1px;height:1px;opacity:.01;border:0;pointer-events:none';
+      iframe.setAttribute('aria-hidden','true');
+      iframe.src=url;
+      document.body.appendChild(iframe);
+      setTimeout(()=>{try{iframe.remove()}catch{}},3500);
+    }catch{}
+    try{location.href=url}catch(error){throw error}
+  }
+  function probeHandoff(label,url,opts={}){
+    const timeout=opts.timeout||1800;
+    const fallback=opts.fallback||'';
+    const fallbackDelay=opts.fallbackDelay||1200;
+    return new Promise(resolve=>{
+      let settled=false,hiddenAt=0,pageHideAt=0,blurAt=0,focusAt=0,fallbackTried=false;
+      const started=Date.now();
+      const clean=()=>{clearTimeout(timer);clearTimeout(fallbackTimer);document.removeEventListener('visibilitychange',onVis,true);window.removeEventListener('pagehide',onPageHide,true);window.removeEventListener('blur',onBlur,true);window.removeEventListener('focus',onFocus,true);window.removeEventListener('pageshow',onPageShow,true)};
+      const evidence=()=>{
+        const parts=[]; if(hiddenAt)parts.push('visibility hidden '+(hiddenAt-started)+'ms'); if(pageHideAt)parts.push('pagehide '+(pageHideAt-started)+'ms'); if(blurAt)parts.push('blur '+(blurAt-started)+'ms'); if(focusAt)parts.push('focus returned '+(focusAt-started)+'ms'); if(fallbackTried)parts.push('fallback tried'); return parts.join(' · ')||'no browser handoff signal';
+      };
+      const done=(state,verdict)=>{if(settled)return; settled=true; clean(); const detail=verdict+' · evidence: '+evidence()+' · target: '+url+(fallback?' · fallback: '+fallback:''); resolve(addResult('Auto redirect · '+label,state,detail));};
+      const strong=()=>done('pass','APP_OPENED_PROBABLE / container accepted external handoff');
+      const onVis=()=>{if(document.hidden){hiddenAt=Date.now(); strong();}};
+      const onPageHide=()=>{pageHideAt=Date.now(); strong();};
+      const onBlur=()=>{blurAt=Date.now(); setTimeout(()=>{if(!settled&&!document.hidden)done('warn','WEAK_HANDOFF_SIGNAL / blur only, app or picker may have opened')},420)};
+      const onFocus=()=>{focusAt=Date.now();};
+      const onPageShow=()=>{focusAt=Date.now();};
+      const fallbackTimer=setTimeout(()=>{
+        if(settled||!fallback)return;
+        fallbackTried=true;
+        flowStatus(label+': app was not detected fast, trying fallback/store…');
+        try{launchUrl(fallback)}catch(error){done('fail','FALLBACK_LAUNCH_ERROR '+(error?.message||error));}
+      },fallback?fallbackDelay:999999);
+      const timer=setTimeout(()=>{
+        if(settled)return;
+        if(fallbackTried)done('warn','STORE_OR_FALLBACK_BLOCKED_OR_UNKNOWN');
+        else done('warn','NOT_INSTALLED_OR_WEBVIEW_BLOCKED_OR_UNKNOWN');
+      },timeout+(fallback?fallbackDelay+900:0));
+      document.addEventListener('visibilitychange',onVis,true);
+      window.addEventListener('pagehide',onPageHide,{once:true,capture:true});
+      window.addEventListener('blur',onBlur,{once:true,capture:true});
+      window.addEventListener('focus',onFocus,{capture:true});
+      window.addEventListener('pageshow',onPageShow,{capture:true});
+      addResult('Auto redirect · '+label,'info','RUNNING · waiting for app/store/background signal');
+      flowStatus('Testing '+label+'… if app/store opens, return back to continue.');
+      try{launchUrl(url)}catch(error){done('fail','DEEPLINK_LAUNCH_ERROR '+(error?.message||error));}
+    });
+  }
+  function getAppTargets(){
+    const base=[];
+    try{(window.apps||apps||[]).forEach(a=>{if(a&&a[0]&&a[1]&&a[0]!=='HTTP')base.push({label:a[0],url:a[1],fallback:storeFor(a[0])})})}catch{}
+    return base;
+  }
+  function getUpiTargets(){
+    const base=[];
+    try{(window.upiApps||upiApps||[]).forEach(a=>{if(a&&a[0]&&a[1])base.push({label:a[0],url:a[1],fallback:storeFor(a[0])})})}catch{}
+    return base;
+  }
+  function getOfferTargets(){
+    const base=[];
+    try{(window.offers||offers||[]).slice(0,6).forEach(o=>{if(o&&o.label&&o.url)base.push({label:'Offer '+o.label,url:o.url,popup:true})})}catch{}
+    return base;
+  }
+  async function runTargets(title,targets,limit){
+    autoStop=false;
+    if(!targets.length){addResult('Auto flow · '+title,'warn','No targets found');return}
+    addResult('Auto flow · '+title,'info','Queue started · '+targets.length+' targets');
+    let i=0;
+    for(const t of targets){
+      if(autoStop){addResult('Auto flow · '+title,'warn','Stopped by user after '+i+' targets');break}
+      i++;
+      flowStatus('Auto Flow '+title+' · '+i+'/'+targets.length+' · '+t.label);
+      if(t.popup){
+        let popup=null;
+        try{popup=window.open(t.url,'_blank','noopener,noreferrer')}catch(error){addResult('Auto redirect · '+t.label,'fail','POPUP_ERROR '+(error?.message||error));}
+        if(popup)addResult('Auto redirect · '+t.label,'pass','POPUP_OPENED_PROBABLE · target opened in new tab/window · '+t.url);
+        else addResult('Auto redirect · '+t.label,'warn','POPUP_BLOCKED_OR_WEBVIEW_RESTRICTED · '+t.url);
+      }else{
+        await probeHandoff(t.label,t.url,{fallback:t.fallback,timeout:1900,fallbackDelay:1300});
+      }
+      await sleep(650);
+      if(limit&&i>=limit)break;
+    }
+    flowStatus('Auto Flow '+title+' finished. Build final report or copy report.');
+  }
+  async function runCore(){
+    addResult('Auto core · Environment','pass','Launch: '+(($('launchSourceBadge')?.textContent)||'unknown')+' · OS: '+(($('osBadge')?.textContent)||'unknown')+' · viewport '+innerWidth+'x'+innerHeight);
+    try{document.cookie='gqa_auto_cookie=1; SameSite=Lax; path=/'; const ok=document.cookie.includes('gqa_auto_cookie=1'); document.cookie='gqa_auto_cookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; addResult('Auto core · Cookies',ok?'pass':'warn',ok?'write/read/delete OK':'cookie not readable or blocked')}catch(e){addResult('Auto core · Cookies','fail',e?.message||String(e))}
+    try{localStorage.setItem('gqa_auto_ls','1'); const ok=localStorage.getItem('gqa_auto_ls')==='1'; localStorage.removeItem('gqa_auto_ls'); addResult('Auto core · LocalStorage',ok?'pass':'warn',ok?'localStorage OK':'localStorage blocked')}catch(e){addResult('Auto core · LocalStorage','warn','blocked: '+(e?.message||e))}
+    addResult('Auto core · Camera API',navigator.mediaDevices?.getUserMedia?'info':'warn',navigator.mediaDevices?.getUserMedia?'API exists; permission still requires real user confirmation':'getUserMedia unavailable');
+    addResult('Auto core · Share/photo API',navigator.share?'info':'warn','navigator.share '+(navigator.share?'available':'unavailable')+' · file input '+($('photo')?'present':'missing'));
+    addResult('Auto core · Orientation/viewport listeners','info','resize/orientation/visibility listeners armed. Rotate/minimize/lock to collect native events.');
+  }
+  function installPanel(){
+    const manual=document.querySelector('.autotest-manual');
+    if(!manual||$('gqaAutoFlowRunner'))return;
+    const wrap=document.createElement('div');
+    wrap.id='gqaAutoFlowRunner';
+    wrap.className='gqa-runner auto-flow-runner';
+    wrap.innerHTML='<div class="autotest-manual-title">Auto Flow Runner · без GPT</div><div class="autotest-manual-help">Цей блок сам запускає deep links / store fallback / offer popups і ставить технічний вердикт по доказах WebView: visibility hidden, pagehide, blur/focus, return. Це не фейковий Passed: якщо доказ слабкий — буде WARN/UNKNOWN.</div><div class="gqa-runner-actions"><button class="btn green" id="gqaAutoCore" type="button">AUTO CORE</button><button class="btn" id="gqaAutoTelegram" type="button">AUTO TELEGRAM</button><button class="btn" id="gqaAutoApps" type="button">AUTO APPS</button><button class="btn paytm" id="gqaAutoUpi" type="button">AUTO UPI/PAY</button><button class="btn" id="gqaAutoOffers" type="button">AUTO OFFERS</button><button class="btn red" id="gqaAutoStop" type="button">STOP</button></div><div class="autotest-flow-status" id="gqaAutoFlowStatus">Auto Flow ready. Запускай по одному блоку, бо WebView може блокувати багато переходів без user gesture.</div>';
+    manual.parentNode.insertBefore(wrap,manual);
+    $('gqaAutoCore').onclick=runCore;
+    $('gqaAutoTelegram').onclick=()=>{const tg=getAppTargets().find(t=>/telegram/i.test(t.label))||{label:'Telegram',url:'tg://resolve?domain=nsqmarket',fallback:'https://t.me/nsqmarket'};runTargets('Telegram',[tg]);};
+    $('gqaAutoApps').onclick=()=>runTargets('Apps',getAppTargets());
+    $('gqaAutoUpi').onclick=()=>runTargets('UPI/Pay',getUpiTargets());
+    $('gqaAutoOffers').onclick=()=>runTargets('Offers',getOfferTargets());
+    $('gqaAutoStop').onclick=()=>{autoStop=true;flowStatus('Auto Flow stop requested.');addResult('Auto flow · stop','warn','Stop requested by tester');};
+    const start=$('autotestStart'); if(start)start.textContent='Gambling QA';
+    const title=$('autotestTitle'); if(title)title.textContent='GAMBLING AUTO FLOW QA';
+    const help=document.querySelector('.autotest-manual-help'); if(help)help.textContent='Manual probes лишаються нижче, але Auto Flow Runner зверху сам пробує app links/store/offer redirects і пише evidence. GPT ключ не потрібний.';
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installPanel);else installPanel();
+})();
+/* --- /v197 Auto Flow Runner without GPT --- */
+
+
 // --- v171 visible random button hover/tap FX ---
 (function(){
   const fx=["scan","pulse","glitch","lift","alarm"];
