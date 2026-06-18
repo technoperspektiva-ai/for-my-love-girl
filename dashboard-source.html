@@ -1677,207 +1677,7 @@ async function tempMailRenderRichBody(viewer,message){
   let safeHtml=htmlValue?tempMailSanitizeHtml(htmlValue):"";safeHtml=tempMailHydrateInlineImages(safeHtml,assets);
   const rich=tempMailMake("div","temp-mail-rich");
   if(safeHtml.trim()){
-    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'
-<script>
-/* --- v205 Backend Status ratio-only result --- */
-(function(){
-  const VERSION='v205 Backend Status · ratio only';
-  const $=id=>document.getElementById(id);
-  let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
-  function eventLog(msg,type){
-    const text='BACKEND STATUS · '+msg;
-    try{ if(typeof window.logUsefulEvent==='function') return window.logUsefulEvent(text,type||'INFO'); }catch{}
-    try{ if(typeof window.__hymOriginalUsefulEvent==='function') return window.__hymOriginalUsefulEvent(text,type||'INFO'); }catch{}
-  }
-  function esc(v){return String(v==null?'':v).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-  async function jsonFetch(url,opts){const r=await fetch(url,Object.assign({cache:'no-store'},opts||{})); let data=null; try{data=await r.json()}catch{} return {r,data};}
-  async function safeCheck(name,fn){
-    const started=performance.now();
-    let item={name,ok:false,detail:'',elapsedMs:0,time:new Date().toISOString()};
-    try{const res=await fn(); item.ok=!!(res&&res.ok); item.detail=(res&&res.detail)||'';}catch(e){item.ok=false; item.detail=(e&&e.message)||String(e);}
-    item.elapsedMs=Math.round(performance.now()-started);
-    lastReport.checks.push(item);
-    eventLog(name+' · '+(item.ok?'OK':'ISSUE')+' · '+item.elapsedMs+'ms', item.ok?'SUCCESS':'WARN');
-    return item;
-  }
-  async function storageRoundtrip(label,store){
-    const key='backend_status_'+label+'_'+Date.now();
-    try{store.setItem(key,'ok'); const read=store.getItem(key)==='ok'; store.removeItem(key); const removed=store.getItem(key)===null; return {ok:read&&removed,detail:'read='+read+'; removed='+removed};}
-    catch(e){return {ok:false,detail:(e&&e.message)||String(e)}}
-  }
-  async function indexedDbRoundtrip(){
-    if(!('indexedDB' in window))return {ok:false,detail:'indexedDB API unavailable'};
-    const dbName='backend_status_'+Date.now();
-    return await new Promise(resolve=>{
-      let done=false;
-      const finish=x=>{if(done)return;done=true;try{indexedDB.deleteDatabase(dbName)}catch{} resolve(x)};
-      try{
-        const req=indexedDB.open(dbName,1);
-        req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};
-        req.onerror=()=>finish({ok:false,detail:'open error: '+((req.error&&req.error.message)||'unknown')});
-        req.onsuccess=()=>{
-          const db=req.result;
-          try{
-            const tx=db.transaction('kv','readwrite');
-            const store=tx.objectStore('kv');
-            store.put('ok','key');
-            const get=store.get('key');
-            get.onsuccess=()=>{const ok=get.result==='ok'; try{db.close()}catch{} finish({ok,detail:'stored value='+String(get.result)})};
-            get.onerror=()=>{try{db.close()}catch{} finish({ok:false,detail:'read error: '+((get.error&&get.error.message)||'unknown')})};
-          }catch(e){try{db.close()}catch{} finish({ok:false,detail:'transaction exception: '+((e&&e.message)||e)})}
-        };
-        setTimeout(()=>finish({ok:false,detail:'timeout after 2500ms'}),2500);
-      }catch(e){finish({ok:false,detail:'exception: '+((e&&e.message)||e)})}
-    });
-  }
-  async function run(){
-    lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};
-    const buttons=[$('autotestStart'),$('backendStatusRunMain'),$('statusCoreRunMain')].filter(Boolean);
-    buttons.forEach(b=>{b.disabled=true;b.textContent='Checking…';b.classList.add('is-running')});
-    eventLog('scan started','INFO');
-    await safeCheck('Server health API',async()=>{const {r,data}=await jsonFetch('/api/health',{headers:{accept:'application/json'}}); return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});
-    await safeCheck('Server self processor',async()=>{const runId='bs-'+Date.now()+'-'+Math.random().toString(16).slice(2); const {r,data}=await jsonFetch('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-status-ratio'})}); return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')+'; colo='+(data&&data.server&&data.server.colo||'--')}});
-    await safeCheck('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}}); const text=await r.text(); return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});
-    await safeCheck('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'}); return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')+'; bytes='+(r.headers.get('content-length')||'unknown')}});
-    await safeCheck('EVENT LOG connection',async()=>({ok:typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function',detail:'logger='+(typeof window.logUsefulEvent)+'; original='+(typeof window.__hymOriginalUsefulEvent)}));
-    await safeCheck('DOM ready state',async()=>({ok:document.readyState==='interactive'||document.readyState==='complete',detail:'readyState='+document.readyState}));
-    await safeCheck('Cookie write/read/delete',async()=>{const key='backend_status_cookie_'+Date.now(); document.cookie=key+'=ok; SameSite=Lax; path=/'; const read=document.cookie.includes(key+'=ok'); document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; const removed=!document.cookie.includes(key+'=ok'); return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});
-    await safeCheck('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));
-    await safeCheck('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));
-    await safeCheck('IndexedDB write/read',indexedDbRoundtrip);
-    lastReport.finishedAt=new Date().toISOString();
-    lastReport.ok=lastReport.checks.every(x=>x.ok);
-    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length;
-    eventLog('scan finished · '+ok+'/'+total+' systems working', lastReport.ok?'SUCCESS':'WARN');
-    eventLog('scanned list · '+lastReport.checks.map(x=>x.name+': '+(x.ok?'OK':'ISSUE')).join(' | '),'INFO');
-    buttons.forEach(b=>{b.disabled=false;b.textContent='Backend Status';b.classList.remove('is-running')});
-    showResult();
-  }
-  function reportText(){
-    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);
-    const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')&&$('launchSourceBadge').textContent)||'unknown'),'OS: '+(($('osBadge')&&$('osBadge').textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SCREEN STATUS:',ok+'/'+total+' systems working',issues.length?'Issues: '+issues.length:'Issues: 0','','CHECK DETAILS:'];
-    lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));
-    lines.push('','NOTE:','Screen shows only the numeric system status. Working systems are detailed only in this TXT report. If a system is broken, only that broken system is shown on screen.');
-    return lines.join('\n');
-  }
-  function copyTxt(){const txt=reportText(); if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>eventLog('TXT copied','SUCCESS'),()=>eventLog('TXT copy failed','WARN')); else eventLog('Clipboard unavailable','WARN');}
-  function downloadTxt(){const blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt'; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove()},500); eventLog('TXT downloaded','SUCCESS');}
-  function showResult(){
-    const modal=$('autotestResultModal'), body=modal&&modal.querySelector('.autotest-result-body'), title=$('autotestResultTitle'), meta=$('autotestResultMeta');
-    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);
-    if(title)title.textContent='BACKEND STATUS';
-    if(meta)meta.textContent=ok+'/'+total;
-    if(body){
-      const ratio=ok+'/'+total+' systems working';
-      const issueHtml=issues.length?('<div class="autotest-result-list" style="display:block;margin-top:12px">'+issues.map(x=>'<div class="autotest-row fail"><div class="autotest-state">ISSUE</div><div><div class="autotest-name">'+esc(x.name)+'</div><div class="autotest-detail">'+esc(x.detail||'No detail')+'</div></div></div>').join('')+'</div>'):'';
-      body.innerHTML='<div class="autotest-result-note" style="font-size:13px;color:#d7f5ee;border-color:#1c2a2f">'+
-        '<strong style="display:block;font-size:22px;color:'+(issues.length?'#ff7b83':'#34ff9a')+';margin-bottom:6px">'+esc(ratio)+'</strong>'+ 
-        '<span>'+(issues.length?'Only failed systems are shown below. Working systems are inside TXT.':'All checked systems are OK. Details are inside TXT.')+'</span></div>'+issueHtml+
-        '<div class="autotest-result-actions"><button class="btn green" id="backendStatusDownload" type="button">DOWNLOAD TXT</button><button class="btn" id="backendStatusCopy" type="button">COPY TXT</button><button class="btn" id="backendStatusRunAgain" type="button">RUN AGAIN</button></div>';
-      setTimeout(()=>{const d=$('backendStatusDownload'),c=$('backendStatusCopy'),r=$('backendStatusRunAgain'); if(d)d.onclick=downloadTxt; if(c)c.onclick=copyTxt; if(r)r.onclick=run;},0);
-    }
-    if(modal){modal.classList.add('on');modal.setAttribute('aria-hidden','false')}
-  }
-  function normalizeUi(){
-    const top=$('autotestStart'); if(top){top.textContent='Backend Status';top.setAttribute('data-testid','backend-status-start')}
-    const t=$('autotestTitle'); if(t)t.textContent='BACKEND STATUS';
-    const hm=$('autotestHeadMeta'); if(hm)hm.textContent='site/server';
-    document.querySelectorAll('.autotest-manual,.autotest-flow-panel,.autotest-list,.autotest-summary,#autotestDeepLinks,#autotestKeyboardInput,#gqaAutoFlowRunner').forEach(el=>{if(el)el.style.display='none'});
-    const status=$('autotestStatus'); if(status)status.textContent='Shows only numeric system status. Full details are inside TXT.';
-    const actions=document.querySelector('#autotestModal .autotest-actions');
-    if(actions){
-      [...actions.querySelectorAll('button')].forEach(b=>b.remove());
-      let runBtn=$('backendStatusRunMain'); if(!runBtn){runBtn=document.createElement('button');runBtn.className='btn green';runBtn.id='backendStatusRunMain';runBtn.type='button';runBtn.textContent='RUN STATUS';actions.appendChild(runBtn)}
-      let cp=$('backendStatusCopyMain'); if(!cp){cp=document.createElement('button');cp.className='btn';cp.id='backendStatusCopyMain';cp.type='button';cp.textContent='COPY TXT';actions.appendChild(cp)}
-      runBtn.onclick=run; cp.onclick=copyTxt;
-    }
-  }
-  function bindTop(){
-    const old=$('autotestStart');
-    if(old&&!old.dataset.backendStatusV205){
-      const btn=old.cloneNode(true); btn.textContent='Backend Status'; btn.dataset.backendStatusV205='1'; old.replaceWith(btn); btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();run();},true);
-    }
-  }
-  function boot(){normalizeUi(); bindTop(); eventLog('ready · numeric system status only','INFO');}
-  window.hymRunAutotest=run;
-  window.hymBackendStatusRun=run;
-  window.hymStatusCoreRun=run;
-  window.hymAutotestReportText=reportText;
-  window.hymAutotestReportLines=()=>reportText().split('\n');
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true}); else boot();
-  setTimeout(boot,100); setTimeout(boot,600); setTimeout(boot,1600);
-  try{new MutationObserver(()=>normalizeUi()).observe(document.documentElement,{childList:true,subtree:true,characterData:true});}catch{}
-})();
-/* --- /v205 Backend Status ratio-only result --- */
-
-</script>
-<script>
-(function(){
-  'use strict';
-  const VERSION='v209 Backend Status · rescue / no loading';
-  const $=id=>document.getElementById(id);
-  const esc=v=>String(v==null?'':v).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const now=()=>new Date().toLocaleTimeString('uk-UA',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
-  let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
-  const EVENT_KEY='hym_event_log_v2_useful';
-  function eventLog(message,level='INFO'){
-    const clean='BACKEND STATUS · '+String(message||'').replace(/\s+/g,' ').trim();
-    try{
-      const item={time:now(),ts:Date.now(),level:String(level||'INFO').toUpperCase(),message:clean};
-      const list=JSON.parse(sessionStorage.getItem(EVENT_KEY)||'[]');
-      if(Array.isArray(list)){list.push(item);sessionStorage.setItem(EVENT_KEY,JSON.stringify(list.slice(-180)));}
-    }catch{}
-    renderEventLogLine(clean,level);
-  }
-  function renderEventLogLine(message,level){
-    const last=$('eventLogLast');
-    if(last){last.textContent=now()+'  '+message;last.dataset.empty='false'}
-    const count=$('eventLogCount'), list=$('eventLogList');
-    if(list){
-      const empty=list.querySelector('.event-log-empty'); if(empty)empty.remove();
-      const row=document.createElement('div'); row.className='event-log-row'; row.dataset.level=String(level||'INFO').toUpperCase();
-      const t=document.createElement('span'); t.className='event-log-time'; t.textContent=now();
-      const m=document.createElement('span'); m.className='event-log-message'; m.textContent=message;
-      row.append(t,m); list.append(row); while(list.children.length>180)list.firstElementChild?.remove();
-      if(count)count.textContent=list.children.length+' events';
-    }
-  }
-  function detectOs(){const ua=navigator.userAgent||'',p=navigator.platform||'',s=(ua+' '+p).toLowerCase(),touch=navigator.maxTouchPoints||0;if(/android/.test(s))return ['Android','os-android'];if(/iphone|ipad|ipod/.test(s)||(/mac/.test(s)&&touch>1))return ['iOS','os-ios'];if(/win/.test(s))return ['Windows','os-windows'];if(/mac/.test(s))return ['Mac OS','os-macos'];return ['Unknown','os-unknown'];}
-  function detectSource(){const ua=navigator.userAgent||'',l=ua.toLowerCase(),ref=document.referrer||'';try{if((matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true)return 'PWA / STANDALONE'}catch{}; if(window.TelegramWebviewProxy||window.Telegram?.WebApp||/[?&]tgWebAppData=/.test(location.href))return 'TELEGRAM WEBVIEW'; if(/instagram/.test(l))return 'INSTAGRAM WEBVIEW'; if(/fban|fbav|fb_iab|facebook/.test(l))return 'FACEBOOK WEBVIEW'; if(window.ReactNativeWebView||window.flutter_inappwebview||window.AndroidInterface)return 'APP WEBVIEW'; if(/; wv\)/.test(l)||/\bwv\b/.test(l))return 'ANDROID WEBVIEW'; if(/iphone|ipad|ipod/.test(l)&&/applewebkit/.test(l)&&!/safari\//.test(l))return 'IOS WEBVIEW'; if(/^android-app:\/\//i.test(ref))return 'CUSTOM TABS?'; if(/crios\//i.test(ua))return 'CHROME IOS'; if(/chrome\//i.test(ua)&&/android/i.test(ua))return 'CHROME / CCT?'; if(/chrome\//i.test(ua))return 'CHROME'; if(/safari\//i.test(ua)&&/iphone|ipad|ipod/i.test(ua))return 'SAFARI'; if(/safari\//i.test(ua))return 'SAFARI'; return 'BROWSER';}
-  function unstickRuntime(){
-    try{
-      const [os,cls]=detectOs();
-      const osNode=$('osBadge'); if(osNode&&/detect|loading|unknown|^$/i.test(osNode.textContent||'')){osNode.textContent=os+' | --'; osNode.className='os-neon '+cls;}
-      const src=$('launchSourceBadge'); if(src&&/detect|loading|source|^$/i.test(src.textContent||'')){src.textContent=detectSource(); src.title='Launch source: '+src.textContent+' · '+(navigator.userAgent||'unknown');}
-      const ua=$('uaCapabilitySnapshot'); if(ua&&/loading|^$/i.test(ua.textContent||'')){ua.textContent=[detectSource(),os,Math.round(innerWidth)+'×'+Math.round(innerHeight),navigator.cookieEnabled?'COOKIES ON':'COOKIES OFF'].join(' · ');}
-      const gpay=$('gpayStatus'); if(gpay&&/loading/i.test(gpay.textContent||''))gpay.textContent='Google Pay SDK not confirmed.';
-      const sign=$('signinStatus'); if(sign&&/loading/i.test(sign.textContent||''))sign.textContent='Google Sign-In SDK not confirmed.';
-      const tg=$('telegramStatus'); if(tg&&/loading|^$/i.test(tg.textContent||''))tg.textContent='Telegram session not confirmed.';
-    }catch(e){console.warn('v209 unstick error',e)}
-  }
-  function ensureStyle(){if($('backendStatusV209Style'))return;const s=document.createElement('style');s.id='backendStatusV209Style';s.textContent=`
-    .backend-v209-modal{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;place-items:center;padding:14px;z-index:1200}.backend-v209-modal.on{display:grid}.backend-v209-box{width:min(560px,calc(100vw - 24px));background:#090f12;border:1px solid #294146;box-shadow:0 24px 70px rgba(0,0,0,.72);color:#d7f5ee}.backend-v209-head{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border-bottom:1px solid #1c2a2f;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.backend-v209-close{border:1px solid #294146;background:#0e171a;color:#d7f5ee;width:32px;height:32px;font-size:21px;font-weight:900}.backend-v209-body{padding:14px;display:grid;gap:10px}.backend-v209-status{text-align:center;font-size:24px;font-weight:900;color:#34ff9a;letter-spacing:.03em}.backend-v209-status.bad{color:#ff6b78}.backend-v209-sub{text-align:center;color:#7c9994;font-size:11px}.backend-v209-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:4px}.backend-v209-issues{display:grid;gap:7px;margin-top:4px}.backend-v209-issue{border:1px solid #5d252b;background:#230b0f;padding:9px}.backend-v209-issue-name{font-weight:900;color:#ffb8be}.backend-v209-issue-detail{font-size:11px;color:#c68b91;margin-top:3px;word-break:break-word}.backend-v209-gauge{width:min(310px,76vw);margin:0 auto;position:relative}.backend-v209-gauge svg{width:100%;display:block}.backend-v209-gauge .track{fill:none;stroke:#243455;stroke-width:18;stroke-linecap:butt}.backend-v209-gauge .progress{fill:none;stroke:url(#b209grad);stroke-width:18;stroke-linecap:butt;filter:drop-shadow(0 0 10px rgba(70,255,230,.25))}.backend-v209-gauge .tick{fill:#87909f;font-size:9px;font-weight:800}.backend-v209-gauge .tick-strong{fill:#f4fbff;font-size:10px;font-weight:900}.backend-v209-gauge .needle{transform-origin:100px 104px;transition:transform .45s ease}.backend-v209-gauge .needle-body{fill:url(#b209needle)}.backend-v209-gauge .needle-cap{fill:#f4f7fb}.backend-v209-gauge-center{position:absolute;left:0;right:0;bottom:10px;text-align:center}.backend-v209-ratio{font-size:28px;line-height:1;font-weight:500;color:#f1f5ff}.backend-v209-label{font-size:10px;color:#7c9994;margin-top:4px;text-transform:uppercase;letter-spacing:.12em}`;document.head.appendChild(s)}
-  function ensureModal(){ensureStyle();let m=$('backendStatusV209Modal');if(m)return m;m=document.createElement('div');m.id='backendStatusV209Modal';m.className='backend-v209-modal';m.innerHTML='<div class="backend-v209-box" role="dialog" aria-modal="true"><div class="backend-v209-head"><span>Backend Status</span><button class="backend-v209-close" type="button" aria-label="close">×</button></div><div class="backend-v209-body" id="backendStatusV209Body"></div></div>';document.body.appendChild(m);m.querySelector('.backend-v209-close').onclick=()=>m.classList.remove('on');m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on')});return m}
-  function gauge(ok,total){const pct=total?Math.max(0,Math.min(1,ok/total)):0;const dash=251.2,off=(1-pct)*dash,angle=-135+270*pct;return '<div class="backend-v209-gauge"><svg viewBox="0 0 200 170" aria-hidden="true"><defs><linearGradient id="b209grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#19baff"/><stop offset=".55" stop-color="#58fff1"/><stop offset="1" stop-color="'+(ok===total?'#34ff9a':'#ff5d6d')+'"/></linearGradient><linearGradient id="b209needle" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f4f7fb"/><stop offset=".68" stop-color="#737d92"/><stop offset="1" stop-color="#111722"/></linearGradient></defs><path class="track" d="M 35 135 A 80 80 0 1 1 165 135"/><path class="progress" d="M 35 135 A 80 80 0 1 1 165 135" pathLength="251.2" stroke-dasharray="251.2" stroke-dashoffset="'+off.toFixed(1)+'"/><text class="tick-strong" x="33" y="126">0</text><text class="tick-strong" x="30" y="91">5</text><text class="tick-strong" x="39" y="55">10</text><text class="tick" x="69" y="32">50</text><text class="tick" x="93" y="20">100</text><text class="tick" x="128" y="32">250</text><text class="tick" x="151" y="62">500</text><text class="tick" x="150" y="103">750</text><text class="tick" x="136" y="134">1000</text><g class="needle" style="transform:rotate('+angle.toFixed(2)+'deg)"><polygon class="needle-body" points="100,104 94,100 35,104 94,108"/><circle class="needle-cap" cx="100" cy="104" r="5"/></g></svg><div class="backend-v209-gauge-center"><div class="backend-v209-ratio">'+ok+'/'+total+'</div><div class="backend-v209-label">systems working</div></div></div>'}
-  function showLoading(){const m=ensureModal(),b=$('backendStatusV209Body');if(b)b.innerHTML=gauge(0,10)+'<div class="backend-v209-status">checking…</div><div class="backend-v209-sub">Сканую тільки ті системи, які сайт може підтвердити сам.</div>';m.classList.add('on')}
-  function showResult(){const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok),m=ensureModal(),b=$('backendStatusV209Body');if(!b)return;const issueHtml=issues.length?'<div class="backend-v209-issues">'+issues.map(x=>'<div class="backend-v209-issue"><div class="backend-v209-issue-name">'+esc(x.name)+'</div><div class="backend-v209-issue-detail">'+esc(x.detail||'No detail')+'</div></div>').join('')+'</div>':'';b.innerHTML=gauge(ok,total)+'<div class="backend-v209-status '+(issues.length?'bad':'')+'">'+ok+'/'+total+' systems working</div><div class="backend-v209-sub">'+(issues.length?'Нижче тільки системи зі збоєм. Працюючі — тільки в TXT.':'Всі системи в нормі. Деталі — тільки в TXT.')+'</div>'+issueHtml+'<div class="backend-v209-actions"><button class="btn green" id="backendV209Download" type="button">DOWNLOAD TXT</button><button class="btn" id="backendV209Copy" type="button">COPY TXT</button><button class="btn" id="backendV209Run" type="button">RUN AGAIN</button></div>';m.classList.add('on');setTimeout(()=>{const d=$('backendV209Download'),c=$('backendV209Copy'),r=$('backendV209Run');if(d)d.onclick=downloadTxt;if(c)c.onclick=copyTxt;if(r)r.onclick=run},0)}
-  async function fetchJson(url,opts){const r=await fetch(url,Object.assign({cache:'no-store'},opts||{}));let data=null;try{data=await r.clone().json()}catch{}return {r,data}}
-  async function check(name,fn){const start=performance.now();let ok=false,detail='';try{const res=await fn();ok=!!res.ok;detail=String(res.detail||'OK')}catch(e){detail=e&&e.message?e.message:String(e)}const item={name,ok,detail,elapsedMs:Math.round(performance.now()-start),time:new Date().toISOString()};lastReport.checks.push(item);eventLog(name+' · '+(ok?'OK':'ISSUE'),ok?'SUCCESS':'ERROR');return item}
-  function storageRoundtrip(label,store){const key='backend_v209_'+label+'_'+Date.now();store.setItem(key,'ok');const read=store.getItem(key)==='ok';store.removeItem(key);return {ok:read&&store.getItem(key)==null,detail:'read='+read+'; removed='+(store.getItem(key)==null)}}
-  function idbRoundtrip(){return new Promise(resolve=>{if(!('indexedDB' in window))return resolve({ok:false,detail:'IndexedDB unavailable'});let done=false;const finish=x=>{if(done)return;done=true;resolve(x)};try{const req=indexedDB.open('backend_v209_db',1);req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};req.onerror=()=>finish({ok:false,detail:'open error'});req.onsuccess=()=>{const db=req.result;try{const tx=db.transaction('kv','readwrite'),st=tx.objectStore('kv'),getKey='key';st.put('ok',getKey);const g=st.get(getKey);g.onsuccess=()=>{const ok=g.result==='ok';try{db.close()}catch{}finish({ok,detail:'stored value='+String(g.result)})};g.onerror=()=>finish({ok:false,detail:'read error'})}catch(e){try{db.close()}catch{}finish({ok:false,detail:e.message||String(e)})}};setTimeout(()=>finish({ok:false,detail:'timeout'}),2500)}catch(e){finish({ok:false,detail:e.message||String(e)})}})}
-  async function run(){showLoading();lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};eventLog('scan started','INFO');await check('Server health API',async()=>{const {r,data}=await fetchJson('/api/health',{headers:{accept:'application/json'}});return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});await check('Server self processor',async()=>{const runId='b209-'+Date.now()+'-'+Math.random().toString(16).slice(2);const {r,data}=await fetchJson('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-v209'})});return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')}});await check('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}});const text=await r.text();return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});await check('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'});return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});await check('EVENT LOG connection',async()=>({ok:!!$('eventLogLast')||!!$('eventLogList'),detail:'eventLogLast='+!!$('eventLogLast')+'; eventLogList='+!!$('eventLogList')}));await check('DOM ready state',async()=>({ok:/interactive|complete/.test(document.readyState),detail:'readyState='+document.readyState}));await check('Cookie write/read/delete',async()=>{const key='backend_v209_cookie_'+Date.now();document.cookie=key+'=ok; SameSite=Lax; path=/';const read=document.cookie.includes(key+'=ok');document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';const removed=!document.cookie.includes(key+'=ok');return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});await check('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));await check('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));await check('IndexedDB write/read',idbRoundtrip);lastReport.finishedAt=new Date().toISOString();lastReport.ok=lastReport.checks.every(x=>x.ok);eventLog('scan finished · '+lastReport.checks.filter(x=>x.ok).length+'/'+lastReport.checks.length+' systems working',lastReport.ok?'SUCCESS':'WARN');showResult()}
-  function reportText(){const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'Started: '+(lastReport.startedAt||'--'),'Finished: '+(lastReport.finishedAt||'--'),'URL: '+location.href,'Launch source: '+detectSource(),'User-Agent: '+navigator.userAgent,'','SCREEN STATUS:',ok+'/'+total+' systems working','Issues: '+issues.length,'','CHECK DETAILS:'];lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));return lines.join('\n')}
-  function copyTxt(){const txt=reportText();if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>eventLog('TXT copied','SUCCESS'),()=>eventLog('TXT copy failed','WARN'));else eventLog('Clipboard unavailable','WARN')}
-  function downloadTxt(){const a=document.createElement('a'),blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'});a.href=URL.createObjectURL(blob);a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},400);eventLog('TXT downloaded','SUCCESS')}
-  function bindButton(){const old=$('autotestStart');if(old&&!old.dataset.backendV209){const btn=old.cloneNode(true);btn.textContent='Backend Status';btn.dataset.backendV209='1';btn.onclick=null;old.replaceWith(btn);btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();run()},true)}}
-  function boot(){unstickRuntime();bindButton();ensureModal();}
-  window.hymBackendStatusRun=run;window.hymStatusCoreRun=run;window.hymRunAutotest=run;window.hymAutotestReportText=reportText;window.hymAutotestReportLines=()=>reportText().split('\n');
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-  [150,600,1500,3000,5000].forEach(t=>setTimeout(boot,t));
-})();
-</script>
-
-</body></html>';rich.append(frame)
+    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'</body></html>';rich.append(frame)
   }else{rich.append(tempMailMake("div","temp-mail-body",tempMailSafeText(message)||"Текст листа відсутній."))}
   const imageAssets=assets.filter(asset=>asset.isImage);
   if(imageAssets.length){const gallery=tempMailMake("div","temp-mail-image-gallery");imageAssets.forEach(asset=>{const link=document.createElement("a");link.className="temp-mail-image-card";link.href=asset.blobUrl;link.target="_blank";link.rel="noopener noreferrer";link.title=asset.filename;const img=document.createElement("img");img.src=asset.inlineUrl;img.alt=asset.filename;img.loading="lazy";const label=tempMailMake("span","",asset.filename);link.append(img,label);gallery.append(link)});rich.append(gallery)}
@@ -4148,197 +3948,109 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
 </script>
 
 <script>
-/* --- v205 Backend Status ratio-only result --- */
-(function(){
-  const VERSION='v205 Backend Status · ratio only';
-  const $=id=>document.getElementById(id);
-  let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
-  function eventLog(msg,type){
-    const text='BACKEND STATUS · '+msg;
-    try{ if(typeof window.logUsefulEvent==='function') return window.logUsefulEvent(text,type||'INFO'); }catch{}
-    try{ if(typeof window.__hymOriginalUsefulEvent==='function') return window.__hymOriginalUsefulEvent(text,type||'INFO'); }catch{}
-  }
-  function esc(v){return String(v==null?'':v).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-  async function jsonFetch(url,opts){const r=await fetch(url,Object.assign({cache:'no-store'},opts||{})); let data=null; try{data=await r.json()}catch{} return {r,data};}
-  async function safeCheck(name,fn){
-    const started=performance.now();
-    let item={name,ok:false,detail:'',elapsedMs:0,time:new Date().toISOString()};
-    try{const res=await fn(); item.ok=!!(res&&res.ok); item.detail=(res&&res.detail)||'';}catch(e){item.ok=false; item.detail=(e&&e.message)||String(e);}
-    item.elapsedMs=Math.round(performance.now()-started);
-    lastReport.checks.push(item);
-    eventLog(name+' · '+(item.ok?'OK':'ISSUE')+' · '+item.elapsedMs+'ms', item.ok?'SUCCESS':'WARN');
-    return item;
-  }
-  async function storageRoundtrip(label,store){
-    const key='backend_status_'+label+'_'+Date.now();
-    try{store.setItem(key,'ok'); const read=store.getItem(key)==='ok'; store.removeItem(key); const removed=store.getItem(key)===null; return {ok:read&&removed,detail:'read='+read+'; removed='+removed};}
-    catch(e){return {ok:false,detail:(e&&e.message)||String(e)}}
-  }
-  async function indexedDbRoundtrip(){
-    if(!('indexedDB' in window))return {ok:false,detail:'indexedDB API unavailable'};
-    const dbName='backend_status_'+Date.now();
-    return await new Promise(resolve=>{
-      let done=false;
-      const finish=x=>{if(done)return;done=true;try{indexedDB.deleteDatabase(dbName)}catch{} resolve(x)};
-      try{
-        const req=indexedDB.open(dbName,1);
-        req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};
-        req.onerror=()=>finish({ok:false,detail:'open error: '+((req.error&&req.error.message)||'unknown')});
-        req.onsuccess=()=>{
-          const db=req.result;
-          try{
-            const tx=db.transaction('kv','readwrite');
-            const store=tx.objectStore('kv');
-            store.put('ok','key');
-            const get=store.get('key');
-            get.onsuccess=()=>{const ok=get.result==='ok'; try{db.close()}catch{} finish({ok,detail:'stored value='+String(get.result)})};
-            get.onerror=()=>{try{db.close()}catch{} finish({ok:false,detail:'read error: '+((get.error&&get.error.message)||'unknown')})};
-          }catch(e){try{db.close()}catch{} finish({ok:false,detail:'transaction exception: '+((e&&e.message)||e)})}
-        };
-        setTimeout(()=>finish({ok:false,detail:'timeout after 2500ms'}),2500);
-      }catch(e){finish({ok:false,detail:'exception: '+((e&&e.message)||e)})}
-    });
-  }
-  async function run(){
-    lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};
-    const buttons=[$('autotestStart'),$('backendStatusRunMain'),$('statusCoreRunMain')].filter(Boolean);
-    buttons.forEach(b=>{b.disabled=true;b.textContent='Checking…';b.classList.add('is-running')});
-    eventLog('scan started','INFO');
-    await safeCheck('Server health API',async()=>{const {r,data}=await jsonFetch('/api/health',{headers:{accept:'application/json'}}); return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});
-    await safeCheck('Server self processor',async()=>{const runId='bs-'+Date.now()+'-'+Math.random().toString(16).slice(2); const {r,data}=await jsonFetch('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-status-ratio'})}); return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')+'; colo='+(data&&data.server&&data.server.colo||'--')}});
-    await safeCheck('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}}); const text=await r.text(); return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});
-    await safeCheck('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'}); return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')+'; bytes='+(r.headers.get('content-length')||'unknown')}});
-    await safeCheck('EVENT LOG connection',async()=>({ok:typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function',detail:'logger='+(typeof window.logUsefulEvent)+'; original='+(typeof window.__hymOriginalUsefulEvent)}));
-    await safeCheck('DOM ready state',async()=>({ok:document.readyState==='interactive'||document.readyState==='complete',detail:'readyState='+document.readyState}));
-    await safeCheck('Cookie write/read/delete',async()=>{const key='backend_status_cookie_'+Date.now(); document.cookie=key+'=ok; SameSite=Lax; path=/'; const read=document.cookie.includes(key+'=ok'); document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; const removed=!document.cookie.includes(key+'=ok'); return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});
-    await safeCheck('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));
-    await safeCheck('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));
-    await safeCheck('IndexedDB write/read',indexedDbRoundtrip);
-    lastReport.finishedAt=new Date().toISOString();
-    lastReport.ok=lastReport.checks.every(x=>x.ok);
-    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length;
-    eventLog('scan finished · '+ok+'/'+total+' systems working', lastReport.ok?'SUCCESS':'WARN');
-    eventLog('scanned list · '+lastReport.checks.map(x=>x.name+': '+(x.ok?'OK':'ISSUE')).join(' | '),'INFO');
-    buttons.forEach(b=>{b.disabled=false;b.textContent='Backend Status';b.classList.remove('is-running')});
-    showResult();
-  }
-  function reportText(){
-    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);
-    const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')&&$('launchSourceBadge').textContent)||'unknown'),'OS: '+(($('osBadge')&&$('osBadge').textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SCREEN STATUS:',ok+'/'+total+' systems working',issues.length?'Issues: '+issues.length:'Issues: 0','','CHECK DETAILS:'];
-    lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));
-    lines.push('','NOTE:','Screen shows only the numeric system status. Working systems are detailed only in this TXT report. If a system is broken, only that broken system is shown on screen.');
-    return lines.join('\n');
-  }
-  function copyTxt(){const txt=reportText(); if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>eventLog('TXT copied','SUCCESS'),()=>eventLog('TXT copy failed','WARN')); else eventLog('Clipboard unavailable','WARN');}
-  function downloadTxt(){const blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt'; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove()},500); eventLog('TXT downloaded','SUCCESS');}
-  function showResult(){
-    const modal=$('autotestResultModal'), body=modal&&modal.querySelector('.autotest-result-body'), title=$('autotestResultTitle'), meta=$('autotestResultMeta');
-    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);
-    if(title)title.textContent='BACKEND STATUS';
-    if(meta)meta.textContent=ok+'/'+total;
-    if(body){
-      const ratio=ok+'/'+total+' systems working';
-      const issueHtml=issues.length?('<div class="autotest-result-list" style="display:block;margin-top:12px">'+issues.map(x=>'<div class="autotest-row fail"><div class="autotest-state">ISSUE</div><div><div class="autotest-name">'+esc(x.name)+'</div><div class="autotest-detail">'+esc(x.detail||'No detail')+'</div></div></div>').join('')+'</div>'):'';
-      body.innerHTML='<div class="autotest-result-note" style="font-size:13px;color:#d7f5ee;border-color:#1c2a2f">'+
-        '<strong style="display:block;font-size:22px;color:'+(issues.length?'#ff7b83':'#34ff9a')+';margin-bottom:6px">'+esc(ratio)+'</strong>'+ 
-        '<span>'+(issues.length?'Only failed systems are shown below. Working systems are inside TXT.':'All checked systems are OK. Details are inside TXT.')+'</span></div>'+issueHtml+
-        '<div class="autotest-result-actions"><button class="btn green" id="backendStatusDownload" type="button">DOWNLOAD TXT</button><button class="btn" id="backendStatusCopy" type="button">COPY TXT</button><button class="btn" id="backendStatusRunAgain" type="button">RUN AGAIN</button></div>';
-      setTimeout(()=>{const d=$('backendStatusDownload'),c=$('backendStatusCopy'),r=$('backendStatusRunAgain'); if(d)d.onclick=downloadTxt; if(c)c.onclick=copyTxt; if(r)r.onclick=run;},0);
-    }
-    if(modal){modal.classList.add('on');modal.setAttribute('aria-hidden','false')}
-  }
-  function normalizeUi(){
-    const top=$('autotestStart'); if(top){top.textContent='Backend Status';top.setAttribute('data-testid','backend-status-start')}
-    const t=$('autotestTitle'); if(t)t.textContent='BACKEND STATUS';
-    const hm=$('autotestHeadMeta'); if(hm)hm.textContent='site/server';
-    document.querySelectorAll('.autotest-manual,.autotest-flow-panel,.autotest-list,.autotest-summary,#autotestDeepLinks,#autotestKeyboardInput,#gqaAutoFlowRunner').forEach(el=>{if(el)el.style.display='none'});
-    const status=$('autotestStatus'); if(status)status.textContent='Shows only numeric system status. Full details are inside TXT.';
-    const actions=document.querySelector('#autotestModal .autotest-actions');
-    if(actions){
-      [...actions.querySelectorAll('button')].forEach(b=>b.remove());
-      let runBtn=$('backendStatusRunMain'); if(!runBtn){runBtn=document.createElement('button');runBtn.className='btn green';runBtn.id='backendStatusRunMain';runBtn.type='button';runBtn.textContent='RUN STATUS';actions.appendChild(runBtn)}
-      let cp=$('backendStatusCopyMain'); if(!cp){cp=document.createElement('button');cp.className='btn';cp.id='backendStatusCopyMain';cp.type='button';cp.textContent='COPY TXT';actions.appendChild(cp)}
-      runBtn.onclick=run; cp.onclick=copyTxt;
-    }
-  }
-  function bindTop(){
-    const old=$('autotestStart');
-    if(old&&!old.dataset.backendStatusV205){
-      const btn=old.cloneNode(true); btn.textContent='Backend Status'; btn.dataset.backendStatusV205='1'; old.replaceWith(btn); btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();run();},true);
-    }
-  }
-  function boot(){normalizeUi(); bindTop(); eventLog('ready · numeric system status only','INFO');}
-  window.hymRunAutotest=run;
-  window.hymBackendStatusRun=run;
-  window.hymStatusCoreRun=run;
-  window.hymAutotestReportText=reportText;
-  window.hymAutotestReportLines=()=>reportText().split('\n');
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true}); else boot();
-  setTimeout(boot,100); setTimeout(boot,600); setTimeout(boot,1600);
-  try{new MutationObserver(()=>normalizeUi()).observe(document.documentElement,{childList:true,subtree:true,characterData:true});}catch{}
-})();
-/* --- /v205 Backend Status ratio-only result --- */
-
-</script>
-<script>
 (function(){
   'use strict';
-  const VERSION='v209 Backend Status · rescue / no loading';
+  const VERSION='v211 Backend Status · gauge stable';
   const $=id=>document.getElementById(id);
-  const esc=v=>String(v==null?'':v).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const now=()=>new Date().toLocaleTimeString('uk-UA',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
-  let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
   const EVENT_KEY='hym_event_log_v2_useful';
-  function eventLog(message,level='INFO'){
-    const clean='BACKEND STATUS · '+String(message||'').replace(/\s+/g,' ').trim();
+  const now=()=>new Date().toLocaleTimeString('uk-UA',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  const esc=v=>String(v==null?'':v).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
+
+  function eventLog(message, level='INFO'){
+    const msg='BACKEND STATUS · '+String(message||'').replace(/\s+/g,' ').trim();
+    try{ if(typeof window.logUsefulEvent==='function') window.logUsefulEvent(msg, level); }catch{}
     try{
-      const item={time:now(),ts:Date.now(),level:String(level||'INFO').toUpperCase(),message:clean};
+      const item={time:now(),ts:Date.now(),level:String(level||'INFO').toUpperCase(),message:msg};
       const list=JSON.parse(sessionStorage.getItem(EVENT_KEY)||'[]');
-      if(Array.isArray(list)){list.push(item);sessionStorage.setItem(EVENT_KEY,JSON.stringify(list.slice(-180)));}
+      const next=Array.isArray(list)?list:[];
+      next.push(item); sessionStorage.setItem(EVENT_KEY,JSON.stringify(next.slice(-180)));
     }catch{}
-    renderEventLogLine(clean,level);
+    try{
+      const last=$('eventLogLast'); if(last){last.textContent=now()+'  '+msg; last.dataset.empty='false';}
+      const count=$('eventLogCount'), list=$('eventLogList');
+      if(list){
+        const empty=list.querySelector('.event-log-empty'); if(empty)empty.remove();
+        const row=document.createElement('div'); row.className='event-log-row'; row.dataset.level=String(level||'INFO').toUpperCase();
+        const t=document.createElement('span'); t.className='event-log-time'; t.textContent=now();
+        const m=document.createElement('span'); m.className='event-log-message'; m.textContent=msg;
+        row.append(t,m); list.append(row); while(list.children.length>180)list.firstElementChild?.remove();
+        if(count)count.textContent=list.children.length+' events';
+      }
+    }catch{}
   }
-  function renderEventLogLine(message,level){
-    const last=$('eventLogLast');
-    if(last){last.textContent=now()+'  '+message;last.dataset.empty='false'}
-    const count=$('eventLogCount'), list=$('eventLogList');
-    if(list){
-      const empty=list.querySelector('.event-log-empty'); if(empty)empty.remove();
-      const row=document.createElement('div'); row.className='event-log-row'; row.dataset.level=String(level||'INFO').toUpperCase();
-      const t=document.createElement('span'); t.className='event-log-time'; t.textContent=now();
-      const m=document.createElement('span'); m.className='event-log-message'; m.textContent=message;
-      row.append(t,m); list.append(row); while(list.children.length>180)list.firstElementChild?.remove();
-      if(count)count.textContent=list.children.length+' events';
-    }
+
+  function detectOs(){
+    const ua=navigator.userAgent||'', p=navigator.platform||'', s=(ua+' '+p).toLowerCase(), touch=navigator.maxTouchPoints||0;
+    if(/android/.test(s))return ['Android','os-android'];
+    if(/iphone|ipad|ipod/.test(s)||(/mac/.test(s)&&touch>1))return ['iOS','os-ios'];
+    if(/win/.test(s))return ['Windows','os-windows'];
+    if(/mac/.test(s))return ['Mac OS','os-macos'];
+    return ['Unknown','os-unknown'];
   }
-  function detectOs(){const ua=navigator.userAgent||'',p=navigator.platform||'',s=(ua+' '+p).toLowerCase(),touch=navigator.maxTouchPoints||0;if(/android/.test(s))return ['Android','os-android'];if(/iphone|ipad|ipod/.test(s)||(/mac/.test(s)&&touch>1))return ['iOS','os-ios'];if(/win/.test(s))return ['Windows','os-windows'];if(/mac/.test(s))return ['Mac OS','os-macos'];return ['Unknown','os-unknown'];}
-  function detectSource(){const ua=navigator.userAgent||'',l=ua.toLowerCase(),ref=document.referrer||'';try{if((matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true)return 'PWA / STANDALONE'}catch{}; if(window.TelegramWebviewProxy||window.Telegram?.WebApp||/[?&]tgWebAppData=/.test(location.href))return 'TELEGRAM WEBVIEW'; if(/instagram/.test(l))return 'INSTAGRAM WEBVIEW'; if(/fban|fbav|fb_iab|facebook/.test(l))return 'FACEBOOK WEBVIEW'; if(window.ReactNativeWebView||window.flutter_inappwebview||window.AndroidInterface)return 'APP WEBVIEW'; if(/; wv\)/.test(l)||/\bwv\b/.test(l))return 'ANDROID WEBVIEW'; if(/iphone|ipad|ipod/.test(l)&&/applewebkit/.test(l)&&!/safari\//.test(l))return 'IOS WEBVIEW'; if(/^android-app:\/\//i.test(ref))return 'CUSTOM TABS?'; if(/crios\//i.test(ua))return 'CHROME IOS'; if(/chrome\//i.test(ua)&&/android/i.test(ua))return 'CHROME / CCT?'; if(/chrome\//i.test(ua))return 'CHROME'; if(/safari\//i.test(ua)&&/iphone|ipad|ipod/i.test(ua))return 'SAFARI'; if(/safari\//i.test(ua))return 'SAFARI'; return 'BROWSER';}
+  function detectSource(){
+    const ua=navigator.userAgent||'', l=ua.toLowerCase(), ref=document.referrer||'';
+    try{ if((matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true)return 'PWA / STANDALONE'; }catch{}
+    if(window.TelegramWebviewProxy||window.Telegram?.WebApp||/[?&]tgWebAppData=/.test(location.href))return 'TELEGRAM WEBVIEW';
+    if(/instagram/.test(l))return 'INSTAGRAM WEBVIEW';
+    if(/fban|fbav|fb_iab|facebook/.test(l))return 'FACEBOOK WEBVIEW';
+    if(window.ReactNativeWebView||window.flutter_inappwebview||window.AndroidInterface)return 'APP WEBVIEW';
+    if(/; wv\)/.test(l)||/\bwv\b/.test(l))return 'ANDROID WEBVIEW';
+    if(/iphone|ipad|ipod/.test(l)&&/applewebkit/.test(l)&&!/safari\//.test(l))return 'IOS WEBVIEW';
+    if(/^android-app:\/\//i.test(ref))return 'CUSTOM TABS?';
+    if(/crios\//i.test(ua))return 'CHROME IOS';
+    if(/chrome\//i.test(ua)&&/android/i.test(ua))return 'CHROME / CCT?';
+    if(/chrome\//i.test(ua))return 'CHROME';
+    if(/safari\//i.test(ua)&&/iphone|ipad|ipod/i.test(ua))return 'SAFARI';
+    if(/safari\//i.test(ua))return 'SAFARI';
+    return 'BROWSER';
+  }
+
   function unstickRuntime(){
     try{
       const [os,cls]=detectOs();
       const osNode=$('osBadge'); if(osNode&&/detect|loading|unknown|^$/i.test(osNode.textContent||'')){osNode.textContent=os+' | --'; osNode.className='os-neon '+cls;}
       const src=$('launchSourceBadge'); if(src&&/detect|loading|source|^$/i.test(src.textContent||'')){src.textContent=detectSource(); src.title='Launch source: '+src.textContent+' · '+(navigator.userAgent||'unknown');}
-      const ua=$('uaCapabilitySnapshot'); if(ua&&/loading|^$/i.test(ua.textContent||'')){ua.textContent=[detectSource(),os,Math.round(innerWidth)+'×'+Math.round(innerHeight),navigator.cookieEnabled?'COOKIES ON':'COOKIES OFF'].join(' · ');}
+      const snap=$('uaCapabilitySnapshot'); if(snap&&/loading|^$/i.test(snap.textContent||'')){snap.textContent=[detectSource(),os,Math.round(innerWidth)+'×'+Math.round(innerHeight),navigator.cookieEnabled?'COOKIES ON':'COOKIES OFF'].join(' · ');}
+      const ua=$('ua'); if(ua&&/loading|^$/i.test(ua.textContent||''))ua.textContent=navigator.userAgent;
       const gpay=$('gpayStatus'); if(gpay&&/loading/i.test(gpay.textContent||''))gpay.textContent='Google Pay SDK not confirmed.';
       const sign=$('signinStatus'); if(sign&&/loading/i.test(sign.textContent||''))sign.textContent='Google Sign-In SDK not confirmed.';
-      const tg=$('telegramStatus'); if(tg&&/loading|^$/i.test(tg.textContent||''))tg.textContent='Telegram session not confirmed.';
-    }catch(e){console.warn('v209 unstick error',e)}
+      const tg=$('telegramStatus'); if(tg&&/checking|loading|^$/i.test(tg.textContent||''))tg.textContent='Telegram session not confirmed.';
+    }catch(e){console.warn('Backend Status unstick error',e);}
   }
-  function ensureStyle(){if($('backendStatusV209Style'))return;const s=document.createElement('style');s.id='backendStatusV209Style';s.textContent=`
-    .backend-v209-modal{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;place-items:center;padding:14px;z-index:1200}.backend-v209-modal.on{display:grid}.backend-v209-box{width:min(560px,calc(100vw - 24px));background:#090f12;border:1px solid #294146;box-shadow:0 24px 70px rgba(0,0,0,.72);color:#d7f5ee}.backend-v209-head{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border-bottom:1px solid #1c2a2f;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.backend-v209-close{border:1px solid #294146;background:#0e171a;color:#d7f5ee;width:32px;height:32px;font-size:21px;font-weight:900}.backend-v209-body{padding:14px;display:grid;gap:10px}.backend-v209-status{text-align:center;font-size:24px;font-weight:900;color:#34ff9a;letter-spacing:.03em}.backend-v209-status.bad{color:#ff6b78}.backend-v209-sub{text-align:center;color:#7c9994;font-size:11px}.backend-v209-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:4px}.backend-v209-issues{display:grid;gap:7px;margin-top:4px}.backend-v209-issue{border:1px solid #5d252b;background:#230b0f;padding:9px}.backend-v209-issue-name{font-weight:900;color:#ffb8be}.backend-v209-issue-detail{font-size:11px;color:#c68b91;margin-top:3px;word-break:break-word}.backend-v209-gauge{width:min(310px,76vw);margin:0 auto;position:relative}.backend-v209-gauge svg{width:100%;display:block}.backend-v209-gauge .track{fill:none;stroke:#243455;stroke-width:18;stroke-linecap:butt}.backend-v209-gauge .progress{fill:none;stroke:url(#b209grad);stroke-width:18;stroke-linecap:butt;filter:drop-shadow(0 0 10px rgba(70,255,230,.25))}.backend-v209-gauge .tick{fill:#87909f;font-size:9px;font-weight:800}.backend-v209-gauge .tick-strong{fill:#f4fbff;font-size:10px;font-weight:900}.backend-v209-gauge .needle{transform-origin:100px 104px;transition:transform .45s ease}.backend-v209-gauge .needle-body{fill:url(#b209needle)}.backend-v209-gauge .needle-cap{fill:#f4f7fb}.backend-v209-gauge-center{position:absolute;left:0;right:0;bottom:10px;text-align:center}.backend-v209-ratio{font-size:28px;line-height:1;font-weight:500;color:#f1f5ff}.backend-v209-label{font-size:10px;color:#7c9994;margin-top:4px;text-transform:uppercase;letter-spacing:.12em}`;document.head.appendChild(s)}
-  function ensureModal(){ensureStyle();let m=$('backendStatusV209Modal');if(m)return m;m=document.createElement('div');m.id='backendStatusV209Modal';m.className='backend-v209-modal';m.innerHTML='<div class="backend-v209-box" role="dialog" aria-modal="true"><div class="backend-v209-head"><span>Backend Status</span><button class="backend-v209-close" type="button" aria-label="close">×</button></div><div class="backend-v209-body" id="backendStatusV209Body"></div></div>';document.body.appendChild(m);m.querySelector('.backend-v209-close').onclick=()=>m.classList.remove('on');m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on')});return m}
-  function gauge(ok,total){const pct=total?Math.max(0,Math.min(1,ok/total)):0;const dash=251.2,off=(1-pct)*dash,angle=-135+270*pct;return '<div class="backend-v209-gauge"><svg viewBox="0 0 200 170" aria-hidden="true"><defs><linearGradient id="b209grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#19baff"/><stop offset=".55" stop-color="#58fff1"/><stop offset="1" stop-color="'+(ok===total?'#34ff9a':'#ff5d6d')+'"/></linearGradient><linearGradient id="b209needle" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f4f7fb"/><stop offset=".68" stop-color="#737d92"/><stop offset="1" stop-color="#111722"/></linearGradient></defs><path class="track" d="M 35 135 A 80 80 0 1 1 165 135"/><path class="progress" d="M 35 135 A 80 80 0 1 1 165 135" pathLength="251.2" stroke-dasharray="251.2" stroke-dashoffset="'+off.toFixed(1)+'"/><text class="tick-strong" x="33" y="126">0</text><text class="tick-strong" x="30" y="91">5</text><text class="tick-strong" x="39" y="55">10</text><text class="tick" x="69" y="32">50</text><text class="tick" x="93" y="20">100</text><text class="tick" x="128" y="32">250</text><text class="tick" x="151" y="62">500</text><text class="tick" x="150" y="103">750</text><text class="tick" x="136" y="134">1000</text><g class="needle" style="transform:rotate('+angle.toFixed(2)+'deg)"><polygon class="needle-body" points="100,104 94,100 35,104 94,108"/><circle class="needle-cap" cx="100" cy="104" r="5"/></g></svg><div class="backend-v209-gauge-center"><div class="backend-v209-ratio">'+ok+'/'+total+'</div><div class="backend-v209-label">systems working</div></div></div>'}
-  function showLoading(){const m=ensureModal(),b=$('backendStatusV209Body');if(b)b.innerHTML=gauge(0,10)+'<div class="backend-v209-status">checking…</div><div class="backend-v209-sub">Сканую тільки ті системи, які сайт може підтвердити сам.</div>';m.classList.add('on')}
-  function showResult(){const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok),m=ensureModal(),b=$('backendStatusV209Body');if(!b)return;const issueHtml=issues.length?'<div class="backend-v209-issues">'+issues.map(x=>'<div class="backend-v209-issue"><div class="backend-v209-issue-name">'+esc(x.name)+'</div><div class="backend-v209-issue-detail">'+esc(x.detail||'No detail')+'</div></div>').join('')+'</div>':'';b.innerHTML=gauge(ok,total)+'<div class="backend-v209-status '+(issues.length?'bad':'')+'">'+ok+'/'+total+' systems working</div><div class="backend-v209-sub">'+(issues.length?'Нижче тільки системи зі збоєм. Працюючі — тільки в TXT.':'Всі системи в нормі. Деталі — тільки в TXT.')+'</div>'+issueHtml+'<div class="backend-v209-actions"><button class="btn green" id="backendV209Download" type="button">DOWNLOAD TXT</button><button class="btn" id="backendV209Copy" type="button">COPY TXT</button><button class="btn" id="backendV209Run" type="button">RUN AGAIN</button></div>';m.classList.add('on');setTimeout(()=>{const d=$('backendV209Download'),c=$('backendV209Copy'),r=$('backendV209Run');if(d)d.onclick=downloadTxt;if(c)c.onclick=copyTxt;if(r)r.onclick=run},0)}
-  async function fetchJson(url,opts){const r=await fetch(url,Object.assign({cache:'no-store'},opts||{}));let data=null;try{data=await r.clone().json()}catch{}return {r,data}}
-  async function check(name,fn){const start=performance.now();let ok=false,detail='';try{const res=await fn();ok=!!res.ok;detail=String(res.detail||'OK')}catch(e){detail=e&&e.message?e.message:String(e)}const item={name,ok,detail,elapsedMs:Math.round(performance.now()-start),time:new Date().toISOString()};lastReport.checks.push(item);eventLog(name+' · '+(ok?'OK':'ISSUE'),ok?'SUCCESS':'ERROR');return item}
-  function storageRoundtrip(label,store){const key='backend_v209_'+label+'_'+Date.now();store.setItem(key,'ok');const read=store.getItem(key)==='ok';store.removeItem(key);return {ok:read&&store.getItem(key)==null,detail:'read='+read+'; removed='+(store.getItem(key)==null)}}
-  function idbRoundtrip(){return new Promise(resolve=>{if(!('indexedDB' in window))return resolve({ok:false,detail:'IndexedDB unavailable'});let done=false;const finish=x=>{if(done)return;done=true;resolve(x)};try{const req=indexedDB.open('backend_v209_db',1);req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};req.onerror=()=>finish({ok:false,detail:'open error'});req.onsuccess=()=>{const db=req.result;try{const tx=db.transaction('kv','readwrite'),st=tx.objectStore('kv'),getKey='key';st.put('ok',getKey);const g=st.get(getKey);g.onsuccess=()=>{const ok=g.result==='ok';try{db.close()}catch{}finish({ok,detail:'stored value='+String(g.result)})};g.onerror=()=>finish({ok:false,detail:'read error'})}catch(e){try{db.close()}catch{}finish({ok:false,detail:e.message||String(e)})}};setTimeout(()=>finish({ok:false,detail:'timeout'}),2500)}catch(e){finish({ok:false,detail:e.message||String(e)})}})}
-  async function run(){showLoading();lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};eventLog('scan started','INFO');await check('Server health API',async()=>{const {r,data}=await fetchJson('/api/health',{headers:{accept:'application/json'}});return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});await check('Server self processor',async()=>{const runId='b209-'+Date.now()+'-'+Math.random().toString(16).slice(2);const {r,data}=await fetchJson('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-v209'})});return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')}});await check('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}});const text=await r.text();return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});await check('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'});return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});await check('EVENT LOG connection',async()=>({ok:!!$('eventLogLast')||!!$('eventLogList'),detail:'eventLogLast='+!!$('eventLogLast')+'; eventLogList='+!!$('eventLogList')}));await check('DOM ready state',async()=>({ok:/interactive|complete/.test(document.readyState),detail:'readyState='+document.readyState}));await check('Cookie write/read/delete',async()=>{const key='backend_v209_cookie_'+Date.now();document.cookie=key+'=ok; SameSite=Lax; path=/';const read=document.cookie.includes(key+'=ok');document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';const removed=!document.cookie.includes(key+'=ok');return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});await check('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));await check('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));await check('IndexedDB write/read',idbRoundtrip);lastReport.finishedAt=new Date().toISOString();lastReport.ok=lastReport.checks.every(x=>x.ok);eventLog('scan finished · '+lastReport.checks.filter(x=>x.ok).length+'/'+lastReport.checks.length+' systems working',lastReport.ok?'SUCCESS':'WARN');showResult()}
-  function reportText(){const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'Started: '+(lastReport.startedAt||'--'),'Finished: '+(lastReport.finishedAt||'--'),'URL: '+location.href,'Launch source: '+detectSource(),'User-Agent: '+navigator.userAgent,'','SCREEN STATUS:',ok+'/'+total+' systems working','Issues: '+issues.length,'','CHECK DETAILS:'];lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));return lines.join('\n')}
-  function copyTxt(){const txt=reportText();if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>eventLog('TXT copied','SUCCESS'),()=>eventLog('TXT copy failed','WARN'));else eventLog('Clipboard unavailable','WARN')}
-  function downloadTxt(){const a=document.createElement('a'),blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'});a.href=URL.createObjectURL(blob);a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},400);eventLog('TXT downloaded','SUCCESS')}
-  function bindButton(){const old=$('autotestStart');if(old&&!old.dataset.backendV209){const btn=old.cloneNode(true);btn.textContent='Backend Status';btn.dataset.backendV209='1';btn.onclick=null;old.replaceWith(btn);btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();run()},true)}}
+
+  function ensureStyle(){
+    if($('backendStatusV211Style'))return;
+    const s=document.createElement('style'); s.id='backendStatusV211Style';
+    s.textContent=`.backend-v211-modal{position:fixed;inset:0;background:rgba(0,0,0,.84);display:none;place-items:center;padding:14px;z-index:1400}.backend-v211-modal.on{display:grid}.backend-v211-box{width:min(560px,calc(100vw - 24px));background:#090f12;border:1px solid #294146;box-shadow:0 24px 70px rgba(0,0,0,.72);color:#d7f5ee}.backend-v211-head{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border-bottom:1px solid #1c2a2f;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.backend-v211-close{border:1px solid #294146;background:#0e171a;color:#d7f5ee;width:32px;height:32px;font-size:21px;font-weight:900}.backend-v211-body{padding:14px;display:grid;gap:10px}.backend-v211-status{text-align:center;font-size:24px;font-weight:900;color:#34ff9a;letter-spacing:.03em}.backend-v211-status.bad{color:#ff6b78}.backend-v211-sub{text-align:center;color:#7c9994;font-size:11px}.backend-v211-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:4px}.backend-v211-issues{display:grid;gap:7px;margin-top:4px}.backend-v211-issue{border:1px solid #5d252b;background:#230b0f;padding:9px}.backend-v211-issue-name{font-weight:900;color:#ffb8be}.backend-v211-issue-detail{font-size:11px;color:#c68b91;margin-top:3px;word-break:break-word}.backend-v211-gauge{width:min(310px,76vw);margin:0 auto;position:relative}.backend-v211-gauge svg{width:100%;display:block}.backend-v211-gauge .track{fill:none;stroke:#243455;stroke-width:18;stroke-linecap:butt}.backend-v211-gauge .progress{fill:none;stroke:url(#b211grad);stroke-width:18;stroke-linecap:butt;filter:drop-shadow(0 0 10px rgba(70,255,230,.25))}.backend-v211-gauge .tick{fill:#87909f;font-size:9px;font-weight:800}.backend-v211-gauge .tick-strong{fill:#f4fbff;font-size:10px;font-weight:900}.backend-v211-gauge .needle{transform-origin:100px 104px;transition:transform .45s ease}.backend-v211-gauge .needle-body{fill:url(#b211needle)}.backend-v211-gauge .needle-cap{fill:#f4f7fb}.backend-v211-gauge-center{position:absolute;left:0;right:0;bottom:10px;text-align:center}.backend-v211-ratio{font-size:28px;line-height:1;font-weight:500;color:#f1f5ff}.backend-v211-label{font-size:10px;color:#7c9994;margin-top:4px;text-transform:uppercase;letter-spacing:.12em}`;
+    document.head.appendChild(s);
+  }
+  function ensureModal(){
+    ensureStyle(); let m=$('backendStatusV211Modal'); if(m)return m;
+    m=document.createElement('div'); m.id='backendStatusV211Modal'; m.className='backend-v211-modal';
+    m.innerHTML='<div class="backend-v211-box" role="dialog" aria-modal="true"><div class="backend-v211-head"><span>Backend Status</span><button class="backend-v211-close" type="button" aria-label="close">×</button></div><div class="backend-v211-body" id="backendStatusV211Body"></div></div>';
+    document.body.appendChild(m); m.querySelector('.backend-v211-close').onclick=()=>m.classList.remove('on'); m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on')}); return m;
+  }
+  function gauge(ok,total){
+    const pct=total?Math.max(0,Math.min(1,ok/total)):0, dash=251.2, off=(1-pct)*dash, angle=-135+270*pct;
+    return '<div class="backend-v211-gauge"><svg viewBox="0 0 200 170" aria-hidden="true"><defs><linearGradient id="b211grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#19baff"/><stop offset=".55" stop-color="#58fff1"/><stop offset="1" stop-color="'+(ok===total?'#34ff9a':'#ff5d6d')+'"/></linearGradient><linearGradient id="b211needle" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f4f7fb"/><stop offset=".68" stop-color="#737d92"/><stop offset="1" stop-color="#111722"/></linearGradient></defs><path class="track" d="M 35 135 A 80 80 0 1 1 165 135"/><path class="progress" d="M 35 135 A 80 80 0 1 1 165 135" pathLength="251.2" stroke-dasharray="251.2" stroke-dashoffset="'+off.toFixed(1)+'"/><text class="tick-strong" x="33" y="126">0</text><text class="tick-strong" x="30" y="91">5</text><text class="tick-strong" x="39" y="55">10</text><text class="tick" x="69" y="32">50</text><text class="tick" x="93" y="20">100</text><text class="tick" x="128" y="32">250</text><text class="tick" x="151" y="62">500</text><text class="tick" x="150" y="103">750</text><text class="tick" x="136" y="134">1000</text><g class="needle" style="transform:rotate('+angle.toFixed(2)+'deg)"><polygon class="needle-body" points="100,104 94,100 35,104 94,108"/><circle class="needle-cap" cx="100" cy="104" r="5"/></g></svg><div class="backend-v211-gauge-center"><div class="backend-v211-ratio">'+ok+'/'+total+'</div><div class="backend-v211-label">systems working</div></div></div>';
+  }
+  function showLoading(){const m=ensureModal(),b=$('backendStatusV211Body'); if(b)b.innerHTML=gauge(0,10)+'<div class="backend-v211-status">checking…</div><div class="backend-v211-sub">Сканую тільки системи, які сайт може підтвердити сам.</div>'; m.classList.add('on');}
+  function showResult(){
+    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok),m=ensureModal(),b=$('backendStatusV211Body'); if(!b)return;
+    const issueHtml=issues.length?'<div class="backend-v211-issues">'+issues.map(x=>'<div class="backend-v211-issue"><div class="backend-v211-issue-name">'+esc(x.name)+'</div><div class="backend-v211-issue-detail">'+esc(x.detail||'No detail')+'</div></div>').join('')+'</div>':'';
+    b.innerHTML=gauge(ok,total)+'<div class="backend-v211-status '+(issues.length?'bad':'')+'">'+ok+'/'+total+' systems working</div><div class="backend-v211-sub">'+(issues.length?'Нижче тільки системи зі збоєм. Працюючі — тільки в TXT.':'Всі системи в нормі. Деталі — тільки в TXT.')+'</div>'+issueHtml+'<div class="backend-v211-actions"><button class="btn green" id="backendV211Download" type="button">DOWNLOAD TXT</button><button class="btn" id="backendV211Copy" type="button">COPY TXT</button><button class="btn" id="backendV211Run" type="button">RUN AGAIN</button></div>';
+    m.classList.add('on'); setTimeout(()=>{const d=$('backendV211Download'),c=$('backendV211Copy'),r=$('backendV211Run'); if(d)d.onclick=downloadTxt; if(c)c.onclick=copyTxt; if(r)r.onclick=run;},0);
+  }
+  async function fetchJson(url,opts){const r=await fetch(url,Object.assign({cache:'no-store'},opts||{}));let data=null;try{data=await r.clone().json()}catch{}return {r,data};}
+  async function check(name,fn){const start=performance.now();let ok=false,detail='';try{const res=await fn();ok=!!res.ok;detail=String(res.detail||'OK');}catch(e){detail=e&&e.message?e.message:String(e);}const item={name,ok,detail,elapsedMs:Math.round(performance.now()-start),time:new Date().toISOString()};lastReport.checks.push(item);eventLog(name+' · '+(ok?'OK':'ISSUE'),ok?'SUCCESS':'ERROR');return item;}
+  function storageRoundtrip(label,store){const key='backend_v211_'+label+'_'+Date.now();store.setItem(key,'ok');const read=store.getItem(key)==='ok';store.removeItem(key);const removed=store.getItem(key)==null;return {ok:read&&removed,detail:'read='+read+'; removed='+removed};}
+  function idbRoundtrip(){return new Promise(resolve=>{if(!('indexedDB' in window))return resolve({ok:false,detail:'IndexedDB unavailable'});let done=false;const finish=x=>{if(done)return;done=true;try{indexedDB.deleteDatabase('backend_v211_db')}catch{}resolve(x)};try{const req=indexedDB.open('backend_v211_db',1);req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};req.onerror=()=>finish({ok:false,detail:'open error'});req.onsuccess=()=>{const db=req.result;try{const tx=db.transaction('kv','readwrite'),st=tx.objectStore('kv'),getKey='key';st.put('ok',getKey);const g=st.get(getKey);g.onsuccess=()=>{const ok=g.result==='ok';try{db.close()}catch{}finish({ok,detail:'stored value='+String(g.result)})};g.onerror=()=>finish({ok:false,detail:'read error'})}catch(e){try{db.close()}catch{}finish({ok:false,detail:e.message||String(e)})}};setTimeout(()=>finish({ok:false,detail:'timeout'}),2500)}catch(e){finish({ok:false,detail:e.message||String(e)})}});}
+  async function run(){showLoading();lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};eventLog('scan started','INFO');await check('Server health API',async()=>{const {r,data}=await fetchJson('/api/health',{headers:{accept:'application/json'}});return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});await check('Server self processor',async()=>{const runId='b211-'+Date.now()+'-'+Math.random().toString(16).slice(2);const {r,data}=await fetchJson('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-v211'})});return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')}});await check('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}});const text=await r.text();return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});await check('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'});return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});await check('EVENT LOG connection',async()=>({ok:!!$('eventLogLast')||!!$('eventLogList'),detail:'eventLogLast='+!!$('eventLogLast')+'; eventLogList='+!!$('eventLogList')}));await check('DOM ready state',async()=>({ok:/interactive|complete/.test(document.readyState),detail:'readyState='+document.readyState}));await check('Cookie write/read/delete',async()=>{const key='backend_v211_cookie_'+Date.now();document.cookie=key+'=ok; SameSite=Lax; path=/';const read=document.cookie.includes(key+'=ok');document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';const removed=!document.cookie.includes(key+'=ok');return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});await check('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));await check('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));await check('IndexedDB write/read',idbRoundtrip);lastReport.finishedAt=new Date().toISOString();lastReport.ok=lastReport.checks.every(x=>x.ok);eventLog('scan finished · '+lastReport.checks.filter(x=>x.ok).length+'/'+lastReport.checks.length+' systems working',lastReport.ok?'SUCCESS':'WARN');showResult();}
+  function reportText(){const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'Started: '+(lastReport.startedAt||'--'),'Finished: '+(lastReport.finishedAt||'--'),'URL: '+location.href,'Launch source: '+detectSource(),'User-Agent: '+navigator.userAgent,'','SCREEN STATUS:',ok+'/'+total+' systems working','Issues: '+issues.length,'','CHECK DETAILS:'];lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));return lines.join('\n');}
+  function copyTxt(){const txt=reportText();if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>eventLog('TXT copied','SUCCESS'),()=>eventLog('TXT copy failed','WARN'));else eventLog('Clipboard unavailable','WARN');}
+  function downloadTxt(){const a=document.createElement('a'),blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'});a.href=URL.createObjectURL(blob);a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},400);eventLog('TXT downloaded','SUCCESS');}
+  function bindButton(){const old=$('autotestStart');if(old&&!old.dataset.backendV211){const btn=old.cloneNode(true);btn.textContent='Backend Status';btn.dataset.backendV211='1';btn.onclick=null;old.replaceWith(btn);btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();run();},true);}}
   function boot(){unstickRuntime();bindButton();ensureModal();}
   window.hymBackendStatusRun=run;window.hymStatusCoreRun=run;window.hymRunAutotest=run;window.hymAutotestReportText=reportText;window.hymAutotestReportLines=()=>reportText().split('\n');
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
