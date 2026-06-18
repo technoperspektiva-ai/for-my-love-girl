@@ -937,7 +937,7 @@ body.dashboard-focus-open{overflow:hidden}
 <p class="info" id="telegramStatus">Checking Telegram session…</p>
 </section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
-<div aria-hidden="true" class="temp-mail-modal autotest-modal" id="autotestModal"><div aria-modal="true" aria-labelledby="autotestTitle" class="temp-mail-modal-box autotest-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="autotestTitle">WEBVIEW FLOW QA</strong><span class="event-log-modal-head-meta" id="autotestHeadMeta">ready</span></div><div class="temp-mail-modal-head-actions"><button class="btn" id="autotestRunAgain" type="button">RUN SCAN</button><button aria-label="Закрити WebView QA" class="temp-mail-modal-close" id="autotestClose" type="button">×</button></div></div><div class="autotest-modal-body"><div class="autotest-summary" id="autotestSummary"><div class="autotest-pill"><strong>0</strong><span>checks</span></div><div class="autotest-pill"><strong>0</strong><span>pass</span></div><div class="autotest-pill"><strong>0</strong><span>warn</span></div><div class="autotest-pill"><strong>0</strong><span>fail</span></div></div><div class="autotest-list" id="autotestList"><div class="autotest-row warn"><div class="autotest-state">READY</div><div><div class="autotest-name">Натисни WebView test у верхньому барі</div><div class="autotest-detail">Скан перевіряє середовище запуску, авторизацію, платежі, deep links, камеру, музику, фото/share, повороти, cookie, клавіатуру і стабільність блоків. Реальні переходи запускаються тільки окремими ручними кнопками.</div></div></div></div><div class="autotest-manual"><div class="autotest-manual-title">Manual flow probes</div><div class="autotest-manual-help">Ці кнопки запускаються тільки після твого натискання: браузер/WebView може вимагати gesture. Для app status: якщо застосунок встановлений — сторінка піде в background/blur; якщо не встановлений або WebView блокує — залишишся тут і буде статус NOT INSTALLED / BLOCKED.</div><div class="autotest-manual-grid"><button class="btn" id="autotestAuthProbe" type="button">AUTH STATUS</button><button class="btn gpay" id="autotestGpayProbe" type="button">TRY GOOGLE PAY</button><button class="btn" id="autotestCameraProbe" type="button">CAMERA PERMISSION</button><button class="btn" id="autotestKeyboardProbe" type="button">KEYBOARD PROBE</button><button class="btn" id="autotestPhotoProbe" type="button">PHOTO PICKER</button><button class="btn" id="autotestShareProbe" type="button">PHOTO SHARE CHECK</button><button class="btn" id="autotestOfferProbe" type="button">OFFER POPUP TEST</button><button class="btn" id="autotestWildProbe" type="button">WILD BEACH POPUP</button><button class="btn" id="autotestCookieProbe" type="button">COOKIE ROUNDTRIP</button></div><div class="autotest-section-label">Installed / not installed app status</div><div class="autotest-deeplink-grid" id="autotestDeepLinks"></div><input class="autotest-mini-input" id="autotestKeyboardInput" autocomplete="off" inputmode="text" placeholder="keyboard probe"/><div aria-live="polite" class="autotest-flow-status" id="autotestFlowStatus">Manual probes ready.</div></div><div class="autotest-actions"><button class="btn green" id="autotestCopy" type="button">COPY REPORT</button><button class="btn" id="autotestOpenMail" type="button">OPEN TEMP MAIL</button><button class="btn" id="autotestOpenDevice" type="button">OPEN DEVICE INFO</button></div><div aria-live="polite" class="autotest-status" id="autotestStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal autotest-result-modal" id="autotestResultModal"><div aria-modal="true" aria-labelledby="autotestResultTitle" class="temp-mail-modal-box autotest-result-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="autotestResultTitle">AUTOTEST REPORT</strong><span class="event-log-modal-head-meta" id="autotestResultMeta">not saved</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити звіт автотесту" class="temp-mail-modal-close" id="autotestResultClose" type="button">×</button></div></div><div class="autotest-result-body"><div class="autotest-result-note">Список нижче — це все, що перевірив WebView/Gambling flow scan. Його можна зберегти локально в браузері, скачати TXT або скопіювати і скинути мені.</div><div class="autotest-summary" id="autotestResultSummary"><div class="autotest-pill"><strong>0</strong><span>checks</span></div><div class="autotest-pill"><strong>0</strong><span>pass</span></div><div class="autotest-pill"><strong>0</strong><span>warn</span></div><div class="autotest-pill"><strong>0</strong><span>fail</span></div></div><div class="autotest-result-list" id="autotestResultList"></div><div class="autotest-result-actions"><button class="btn green" id="autotestResultSave" type="button">SAVE REPORT</button><button class="btn" id="autotestResultDownload" type="button">DOWNLOAD TXT</button><button class="btn" id="autotestResultCopy" type="button">COPY</button><button class="btn" id="autotestResultBack" type="button">BACK TO TEST</button></div><div aria-live="polite" class="autotest-result-status" id="autotestResultStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal ua-info-modal" id="uaInfoModal"><div aria-modal="true" class="temp-mail-modal-box ua-info-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong>Device Info</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Device Info" class="temp-mail-modal-close" id="uaInfoClose" type="button">×</button></div></div><div class="ua-info-modal-body"><div class="ua-capability-grid" id="uaCapabilityGrid"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal event-log-modal" id="eventLogModal"><div aria-modal="true" aria-labelledby="eventLogTitle" class="temp-mail-modal-box event-log-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="eventLogTitle">EVENT LOG</strong><span class="event-log-modal-head-meta" id="eventLogCount">0 events</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Event Log" class="temp-mail-modal-close" id="eventLogClose" type="button">×</button></div></div><div class="event-log-modal-body"><div class="event-log-list" id="eventLogList"></div><div class="event-log-actions"><button class="btn" id="eventLogCopy" type="button">COPY</button><button class="btn" id="eventLogExport" type="button">EXPORT</button><button class="btn red event-log-clear" id="eventLogClear" type="button">CLEAR</button></div><div class="event-log-status" id="eventLogStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal photo-preview-modal" id="photoPreviewModal"><div aria-modal="true" aria-labelledby="photoPreviewTitle" class="temp-mail-modal-box photo-preview-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong id="photoPreviewTitle">Перегляд фото</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити фото" class="temp-mail-modal-close" id="photoPreviewClose" type="button">×</button></div></div><div class="photo-preview-modal-body"><div class="photo-preview-stage"><img alt="Selected preview" id="preview"/></div><div class="photo-preview-modal-actions"><button class="btn green photo-share-btn" id="photoShare" type="button">Поширити фото</button><button class="btn red photo-delete-btn" id="photoDelete" type="button">Видалити фото</button></div><div aria-live="polite" class="photo-share-status" id="photoShareStatus"></div></div></div></div><div aria-hidden="true" class="dashboard-focus-backdrop" id="dashboardFocusBackdrop"></div>
+<div aria-hidden="true" class="temp-mail-modal autotest-modal" id="autotestModal"><div aria-modal="true" aria-labelledby="autotestTitle" class="temp-mail-modal-box autotest-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="autotestTitle">WEBVIEW FLOW QA</strong><span class="event-log-modal-head-meta" id="autotestHeadMeta">ready</span></div><div class="temp-mail-modal-head-actions"><button class="btn" id="autotestRunAgain" type="button">RUN SCAN</button><button aria-label="Закрити WebView QA" class="temp-mail-modal-close" id="autotestClose" type="button">×</button></div></div><div class="autotest-modal-body"><div class="autotest-summary" id="autotestSummary"><div class="autotest-pill"><strong>0</strong><span>checks</span></div><div class="autotest-pill"><strong>0</strong><span>Passed</span></div><div class="autotest-pill"><strong>0</strong><span>I Can’t without hand</span></div><div class="autotest-pill"><strong>0</strong><span>No pass</span></div></div><div class="autotest-list" id="autotestList"><div class="autotest-row warn"><div class="autotest-state">READY</div><div><div class="autotest-name">Натисни WebView test у верхньому барі</div><div class="autotest-detail">Скан перевіряє середовище запуску, авторизацію, платежі, deep links, камеру, музику, фото/share, повороти, cookie, клавіатуру і стабільність блоків. Реальні переходи запускаються тільки окремими ручними кнопками.</div></div></div></div><div class="autotest-manual"><div class="autotest-manual-title">Manual flow probes</div><div class="autotest-manual-help">Ці кнопки запускаються тільки після твого натискання: браузер/WebView може вимагати gesture. Для app status: якщо застосунок встановлений — сторінка піде в background/blur; якщо не встановлений або WebView блокує — залишишся тут і буде статус NOT INSTALLED / BLOCKED.</div><div class="autotest-manual-grid"><button class="btn" id="autotestAuthProbe" type="button">AUTH STATUS</button><button class="btn gpay" id="autotestGpayProbe" type="button">TRY GOOGLE PAY</button><button class="btn" id="autotestCameraProbe" type="button">CAMERA PERMISSION</button><button class="btn" id="autotestKeyboardProbe" type="button">KEYBOARD PROBE</button><button class="btn" id="autotestPhotoProbe" type="button">PHOTO PICKER</button><button class="btn" id="autotestShareProbe" type="button">PHOTO SHARE CHECK</button><button class="btn" id="autotestOfferProbe" type="button">OFFER POPUP TEST</button><button class="btn" id="autotestWildProbe" type="button">WILD BEACH POPUP</button><button class="btn" id="autotestCookieProbe" type="button">COOKIE ROUNDTRIP</button></div><div class="autotest-section-label">Installed / not installed app status</div><div class="autotest-deeplink-grid" id="autotestDeepLinks"></div><input class="autotest-mini-input" id="autotestKeyboardInput" autocomplete="off" inputmode="text" placeholder="keyboard probe"/><div aria-live="polite" class="autotest-flow-status" id="autotestFlowStatus">Manual probes ready.</div></div><div class="autotest-actions"><button class="btn green" id="autotestCopy" type="button">COPY REPORT</button><button class="btn" id="autotestOpenMail" type="button">OPEN TEMP MAIL</button><button class="btn" id="autotestOpenDevice" type="button">OPEN DEVICE INFO</button></div><div aria-live="polite" class="autotest-status" id="autotestStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal autotest-result-modal" id="autotestResultModal"><div aria-modal="true" aria-labelledby="autotestResultTitle" class="temp-mail-modal-box autotest-result-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="autotestResultTitle">AUTOTEST REPORT</strong><span class="event-log-modal-head-meta" id="autotestResultMeta">not saved</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити звіт автотесту" class="temp-mail-modal-close" id="autotestResultClose" type="button">×</button></div></div><div class="autotest-result-body"><div class="autotest-result-note">Short result only. Full evidence, timings and raw signals are inside TXT report.</div><div class="autotest-summary" id="autotestResultSummary"><div class="autotest-pill"><strong>0</strong><span>checks</span></div><div class="autotest-pill"><strong>0</strong><span>Passed</span></div><div class="autotest-pill"><strong>0</strong><span>I Can’t without hand</span></div><div class="autotest-pill"><strong>0</strong><span>No pass</span></div></div><div class="autotest-result-list" id="autotestResultList"></div><div class="autotest-result-actions"><button class="btn green" id="autotestResultSave" type="button">SAVE REPORT</button><button class="btn" id="autotestResultDownload" type="button">DOWNLOAD TXT</button><button class="btn" id="autotestResultCopy" type="button">COPY</button><button class="btn" id="autotestResultBack" type="button">BACK TO TEST</button></div><div aria-live="polite" class="autotest-result-status" id="autotestResultStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal ua-info-modal" id="uaInfoModal"><div aria-modal="true" class="temp-mail-modal-box ua-info-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong>Device Info</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Device Info" class="temp-mail-modal-close" id="uaInfoClose" type="button">×</button></div></div><div class="ua-info-modal-body"><div class="ua-capability-grid" id="uaCapabilityGrid"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal event-log-modal" id="eventLogModal"><div aria-modal="true" aria-labelledby="eventLogTitle" class="temp-mail-modal-box event-log-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="eventLogTitle">EVENT LOG</strong><span class="event-log-modal-head-meta" id="eventLogCount">0 events</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Event Log" class="temp-mail-modal-close" id="eventLogClose" type="button">×</button></div></div><div class="event-log-modal-body"><div class="event-log-list" id="eventLogList"></div><div class="event-log-actions"><button class="btn" id="eventLogCopy" type="button">COPY</button><button class="btn" id="eventLogExport" type="button">EXPORT</button><button class="btn red event-log-clear" id="eventLogClear" type="button">CLEAR</button></div><div class="event-log-status" id="eventLogStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal photo-preview-modal" id="photoPreviewModal"><div aria-modal="true" aria-labelledby="photoPreviewTitle" class="temp-mail-modal-box photo-preview-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong id="photoPreviewTitle">Перегляд фото</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити фото" class="temp-mail-modal-close" id="photoPreviewClose" type="button">×</button></div></div><div class="photo-preview-modal-body"><div class="photo-preview-stage"><img alt="Selected preview" id="preview"/></div><div class="photo-preview-modal-actions"><button class="btn green photo-share-btn" id="photoShare" type="button">Поширити фото</button><button class="btn red photo-delete-btn" id="photoDelete" type="button">Видалити фото</button></div><div aria-live="polite" class="photo-share-status" id="photoShareStatus"></div></div></div></div><div aria-hidden="true" class="dashboard-focus-backdrop" id="dashboardFocusBackdrop"></div>
 <div aria-hidden="true" class="temp-mail-modal redirect-modal" id="redirectModal"><div aria-modal="true" aria-labelledby="redirectModalTitle" class="temp-mail-modal-box redirect-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="redirectModalTitle">REDIRECT LINK</strong><span class="event-log-modal-head-meta" id="redirectModalLabel">paste destination</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити redirect dialog" class="temp-mail-modal-close" id="redirectModalClose" type="button">×</button></div></div><div class="redirect-modal-body redirect-input-only"><div class="redirect-modal-column"><label class="redirect-modal-field-label" for="redirectModalInput">Куди напрямок</label><input id="redirectModalInput" inputmode="url" autocomplete="off" spellcheck="false" placeholder="http:// або https://"/><button class="btn green" id="redirectModalSend" type="button">ВІДПРАВИТИ</button><button class="btn red" id="redirectModalClose2" type="button">CLOSE</button></div><div class="redirect-modal-url" id="redirectModalUrl">—</div></div></div></div>
 <div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
 <div aria-modal="true" class="temp-mail-modal-box temp-mail-inbox-modal-box" role="dialog">
@@ -2483,7 +2483,7 @@ function hymAutotestReportLines(results=hymAutotestLastReport){return ["WWG WEBV
 function hymAutotestReportText(results=hymAutotestLastReport){return hymAutotestReportLines(results).join("\n")}
 function hymAutotestDownloadText(filename,text){try{const blob=new Blob([text],{type:"text/plain;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200);return true}catch{return false}}
 function hymAutotestRenderRows(target,results){if(!target)return;target.replaceChildren();(results||[]).forEach(item=>{const row=document.createElement("div");row.className="autotest-row "+(item.state||"info");const state=document.createElement("div");state.className="autotest-state";state.textContent=item.state||"info";const body=document.createElement("div");const title=document.createElement("div");title.className="autotest-name";title.textContent=item.name||"check";const detail=document.createElement("div");detail.className="autotest-detail";detail.textContent=item.detail||"";body.append(title,detail);row.append(state,body);target.append(row)})}
-function hymAutotestRenderSummary(target,results){if(!target)return;const pass=results.filter(item=>item.state==="pass").length,warn=results.filter(item=>item.state==="warn").length,fail=results.filter(item=>item.state==="fail").length,pending=results.filter(item=>item.state==="info").length;target.innerHTML='<div class="autotest-pill"><strong>'+results.length+'</strong><span>checks</span></div><div class="autotest-pill"><strong>'+pass+'</strong><span>pass</span></div><div class="autotest-pill"><strong>'+warn+'</strong><span>warn</span></div><div class="autotest-pill"><strong>'+fail+'</strong><span>fail</span></div><div class="autotest-pill"><strong>'+pending+'</strong><span>pending</span></div>'}
+function hymAutotestRenderSummary(target,results){if(!target)return;const pass=results.filter(item=>item.state==="pass").length,warn=results.filter(item=>item.state==="warn").length,fail=results.filter(item=>item.state==="fail").length,pending=results.filter(item=>item.state==="info").length;target.innerHTML='<div class="autotest-pill"><strong>'+results.length+'</strong><span>checks</span></div><div class="autotest-pill"><strong>'+pass+'</strong><span>Passed</span></div><div class="autotest-pill"><strong>'+warn+'</strong><span>I Can’t without hand</span></div><div class="autotest-pill"><strong>'+fail+'</strong><span>No pass</span></div><div class="autotest-pill"><strong>'+pending+'</strong><span>pending</span></div>'}
 function hymAutotestShowResultModal(results=hymAutotestLastReport){hymAutotestRenderSummary(el("autotestResultSummary"),results);hymAutotestRenderRows(el("autotestResultList"),results);const meta=el("autotestResultMeta");if(meta){const fail=results.filter(item=>item.state==="fail").length,warn=results.filter(item=>item.state==="warn").length,pending=results.filter(item=>item.state==="info").length;meta.textContent=(fail?"fail":warn?"warn":pending?"pending":"pass")+" · "+results.length+" checks · "+new Date().toLocaleTimeString()}hymAutotestSetResultStatus("Report ready. Можна SAVE / DOWNLOAD TXT / COPY.");hymAutotestResultOpen()}
 function hymAutotestSaveResult(){const payload={version:HYM_AUTOTEST_VERSION,savedAt:new Date().toISOString(),href:location.href,ua:navigator.userAgent,results:hymAutotestLastReport};try{const key="hymWebviewQaSavedReports";const old=JSON.parse(localStorage.getItem(key)||"[]");old.unshift(payload);localStorage.setItem(key,JSON.stringify(old.slice(0,10)));hymAutotestSetResultStatus("Saved locally. Збережено в цьому браузері/WebView, останні 10 звітів.");return true}catch(error){hymAutotestSetResultStatus("Local save blocked: "+(error?.message||error)+". Спробуй DOWNLOAD TXT або COPY.");return false}}
 function hymAutotestDownloadResult(){const stamp=new Date().toISOString().replace(/[:.]/g,"-");const ok=hymAutotestDownloadText("wwg-webview-qa-"+stamp+".txt",hymAutotestReportText());hymAutotestSetResultStatus(ok?"TXT download started.":"Download blocked by WebView. Спробуй COPY.")}
@@ -2493,7 +2493,7 @@ function hymAutotestRender(results){
   const list=el("autotestList"),summary=el("autotestSummary"),meta=el("autotestHeadMeta");
   if(!list||!summary)return;
   const pass=results.filter(item=>item.state==="pass").length,warn=results.filter(item=>item.state==="warn").length,fail=results.filter(item=>item.state==="fail").length;
-  summary.innerHTML='<div class="autotest-pill"><strong>'+results.length+'</strong><span>checks</span></div><div class="autotest-pill"><strong>'+pass+'</strong><span>pass</span></div><div class="autotest-pill"><strong>'+warn+'</strong><span>warn</span></div><div class="autotest-pill"><strong>'+fail+'</strong><span>fail</span></div>';
+  summary.innerHTML='<div class="autotest-pill"><strong>'+results.length+'</strong><span>checks</span></div><div class="autotest-pill"><strong>'+pass+'</strong><span>Passed</span></div><div class="autotest-pill"><strong>'+warn+'</strong><span>I Can’t without hand</span></div><div class="autotest-pill"><strong>'+fail+'</strong><span>No pass</span></div>';
   list.replaceChildren();
   results.forEach(item=>{const row=document.createElement("div");row.className="autotest-row "+item.state;const state=document.createElement("div");state.className="autotest-state";state.textContent=item.state;const body=document.createElement("div");const title=document.createElement("div");title.className="autotest-name";title.textContent=item.name;const detail=document.createElement("div");detail.className="autotest-detail";detail.textContent=item.detail||"";body.append(title,detail);row.append(state,body);list.append(row)});
   if(meta)meta.textContent=(fail?"fail":warn?"warn":"pass")+" · "+new Date().toLocaleTimeString();
@@ -2889,6 +2889,148 @@ function initHymAutotest(){
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installPanel);else installPanel();
 })();
 /* --- /v197 Auto Flow Runner without GPT --- */
+
+/* --- v198 truthful QA result labels: short screen, full TXT details --- */
+(function(){
+  const PUBLIC = {
+    pass: "Passed",
+    hand: "I Can’t without hand",
+    nopass: "No pass"
+  };
+  function txt(x){return String(x||"")}
+  function low(item){return (txt(item?.name)+" "+txt(item?.detail)+" "+txt(item?.state)).toLowerCase()}
+  function isDirectPass(item){
+    const t=low(item);
+    if(item?.state!=="pass")return false;
+    if(/probable|likely|maybe|\?|manual|required|readiness|ready|targets prepared|api exists|available|handler active|listeners armed|current:|fingerprint|container class|launch container|popup|new tab|handoff|app opened|store|fallback|google pay attempt|registration\/auth|photo share|photo attach|orientation|horizontal overflow|runtime alive|offer \/ gambling|webview risk/.test(t))return false;
+    return /cookie|localstorage|sessionstorage|camera granted|stream received|write\/read\/delete ok|localstorage ok|cookie write\/read\/delete ok|js runtime/.test(t);
+  }
+  function publicStatus(item){
+    const t=low(item);
+    if(isDirectPass(item))return PUBLIC.pass;
+    if(item?.state==="fail"||/deep link error|launch_error|popup_error|blocked by webview|not installed|unavailable|denied|rejected|missing|not supported|not readable|blocked or partitioned|cookie blocked|localstorage blocked|sdk.*not ready|button.*missing|no offers found/.test(t))return PUBLIC.nopass;
+    return PUBLIC.hand;
+  }
+  function publicClass(label){return label===PUBLIC.pass?"pass":label===PUBLIC.nopass?"fail":"warn"}
+  function normalizeItem(item){
+    const next=Object.assign({},item||{});
+    const label=publicStatus(next);
+    next.publicStatus=label;
+    next.publicClass=publicClass(label);
+    return next;
+  }
+  function normalizeList(results){return (results||[]).map(normalizeItem)}
+  function counts(results){
+    const list=normalizeList(results);
+    return {
+      total:list.length,
+      passed:list.filter(i=>i.publicStatus===PUBLIC.pass).length,
+      hand:list.filter(i=>i.publicStatus===PUBLIC.hand).length,
+      nopass:list.filter(i=>i.publicStatus===PUBLIC.nopass).length
+    };
+  }
+  window.hymQaPublicStatus=publicStatus;
+  window.hymQaPublicStatusLabels=PUBLIC;
+
+  window.hymAutotestRenderSummary=function(target,results){
+    if(!target)return;
+    const c=counts(results||[]);
+    target.innerHTML='<div class="autotest-pill"><strong>'+c.total+'</strong><span>checks</span></div><div class="autotest-pill"><strong>'+c.passed+'</strong><span>Passed</span></div><div class="autotest-pill"><strong>'+c.hand+'</strong><span>I Can\'t without hand</span></div><div class="autotest-pill"><strong>'+c.nopass+'</strong><span>No pass</span></div>';
+  };
+  window.hymAutotestRenderRows=function(target,results){
+    if(!target)return;
+    const shortOnly=target.id==="autotestResultList";
+    target.replaceChildren();
+    normalizeList(results).forEach(item=>{
+      const row=document.createElement("div");
+      row.className="autotest-row "+item.publicClass;
+      const state=document.createElement("div");
+      state.className="autotest-state";
+      state.textContent=item.publicStatus;
+      const body=document.createElement("div");
+      const title=document.createElement("div");
+      title.className="autotest-name";
+      title.textContent=item.name||"check";
+      const detail=document.createElement("div");
+      detail.className="autotest-detail";
+      detail.textContent=shortOnly?"Details are inside TXT report." :(item.detail||"");
+      body.append(title,detail);row.append(state,body);target.append(row);
+    });
+  };
+  window.hymAutotestShowResultModal=function(results=window.hymAutotestLastReport||[]){
+    window.hymAutotestRenderSummary(document.getElementById("autotestResultSummary"),results);
+    window.hymAutotestRenderRows(document.getElementById("autotestResultList"),results);
+    const meta=document.getElementById("autotestResultMeta");
+    if(meta){const c=counts(results);meta.textContent=(c.nopass?"No pass":c.hand?"Need hand":"Passed")+" · "+c.total+" checks · "+new Date().toLocaleTimeString()}
+    const note=document.querySelector(".autotest-result-note");
+    if(note)note.textContent="Short result only. Full evidence, links, timings and raw browser signals are saved inside TXT report.";
+    if(typeof hymAutotestSetResultStatus==="function")hymAutotestSetResultStatus("Short report ready. Use DOWNLOAD TXT for full details.");
+    if(typeof hymAutotestResultOpen==="function")hymAutotestResultOpen();
+  };
+  window.hymAutotestRender=function(results){
+    const list=results||[];
+    window.hymAutotestLastReport=list.slice();
+    const listNode=document.getElementById("autotestList"),summary=document.getElementById("autotestSummary"),meta=document.getElementById("autotestHeadMeta");
+    if(summary)window.hymAutotestRenderSummary(summary,list);
+    if(listNode)window.hymAutotestRenderRows(listNode,list);
+    const c=counts(list);
+    if(meta)meta.textContent=(c.nopass?"No pass":c.hand?"Need hand":"Passed")+" · "+new Date().toLocaleTimeString();
+    if(typeof hymAutotestSetStatus==="function")hymAutotestSetStatus(c.nopass?"Autotest finished: No pass. Download TXT for details.":c.hand?"Autotest finished: needs hand check. Download TXT for details.":"Autotest finished: Passed.");
+  };
+  const oldAppend=window.hymAutotestAppend;
+  window.hymAutotestAppend=function(name,state,detail){
+    const item=normalizeItem({name,state:state||"info",detail:detail||""});
+    const next={name:item.name,state:item.publicClass,detail:item.detail||""};
+    if(typeof oldAppend==="function")return oldAppend(next.name,next.state,next.detail);
+    window.hymAutotestLastReport=window.hymAutotestLastReport||[];
+    const idx=window.hymAutotestLastReport.findIndex(x=>x.name===next.name);
+    if(idx>=0)window.hymAutotestLastReport.splice(idx,1,next);else window.hymAutotestLastReport.push(next);
+    window.hymAutotestRender(window.hymAutotestLastReport);
+    return next;
+  };
+  window.hymAutotestReportLines=function(results=window.hymAutotestLastReport||[]){
+    const list=normalizeList(results);
+    const c=counts(list);
+    const lines=[
+      "WWG GAMBLING WEBVIEW QA v198 truthful report",
+      "Generated: "+new Date().toISOString(),
+      "URL: "+location.href,
+      "Launch: "+(document.getElementById("launchSourceBadge")?.textContent||"unknown"),
+      "OS: "+(document.getElementById("osBadge")?.textContent||"unknown"),
+      "User-Agent: "+navigator.userAgent,
+      "",
+      "SHORT SUMMARY:",
+      "Passed: "+c.passed,
+      "I Can’t without hand: "+c.hand,
+      "No pass: "+c.nopass,
+      "Total checks: "+c.total,
+      "",
+      "DETAILS:"
+    ];
+    list.forEach((item,index)=>{
+      lines.push("");
+      lines.push(String(index+1)+". "+(item.name||"check"));
+      lines.push("Screen status: "+item.publicStatus);
+      lines.push("Raw state: "+(item.state||"info"));
+      lines.push("What I did / saw: "+(item.detail||"no details"));
+      if(item.publicStatus===PUBLIC.hand)lines.push("Meaning: I cannot prove this fully from browser/WebView signals. Check by hand.");
+      if(item.publicStatus===PUBLIC.nopass)lines.push("Meaning: blocked, failed, unavailable, not installed, or no useful handoff signal was detected.");
+      if(item.publicStatus===PUBLIC.pass)lines.push("Meaning: direct browser proof was received for this specific check.");
+    });
+    return lines;
+  };
+  window.hymAutotestReportText=function(results=window.hymAutotestLastReport||[]){return window.hymAutotestReportLines(results).join("\n")};
+  function tuneCopy(){
+    const title=document.getElementById("autotestTitle"); if(title)title.textContent="GAMBLING AUTO FLOW QA";
+    const resultTitle=document.getElementById("autotestResultTitle"); if(resultTitle)resultTitle.textContent="SHORT AUTOTEST RESULT";
+    const note=document.querySelector(".autotest-result-note"); if(note)note.textContent="Short result only. Full evidence is in TXT.";
+    const flow=document.getElementById("gqaAutoFlowStatus"); if(flow)flow.textContent="Auto Flow ready. Screen shows only Passed / I Can’t without hand / No pass. Details go to TXT.";
+    const help=document.querySelector("#gqaAutoFlowRunner .autotest-manual-help"); if(help)help.textContent="Auto Flow tries real redirects/app links and records browser evidence. Probable or unclear cases are not Passed — they become I Can’t without hand.";
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",tuneCopy,{once:true});else tuneCopy();
+})();
+/* --- /v198 truthful QA result labels --- */
+
 
 
 // --- v171 visible random button hover/tap FX ---
