@@ -3035,33 +3035,33 @@ function initHymAutotest(){
 
 
 
-/* --- v199 Test Light honest runner UI + event log bridge --- */
+/* --- v199 Backend Status honest runner UI + event log bridge --- */
 (function(){
-  const VERSION='v199 Test Light';
+  const VERSION='v199 Backend Status';
   const LABELS={pass:'Passed',hand:"I Can\'t without hand",nopass:'No pass'};
   const $=id=>document.getElementById(id);
   function safeText(v){return String(v||'').replace(/\s+/g,' ').trim().slice(0,220)}
   function rawLog(message,level){try{if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent(message,level);if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent(message,level)}catch{}}
   function normalizeLogText(message){
     return safeText(message)
-      .replace(/WebView QA/gi,'Test Light')
-      .replace(/WebView flow QA/gi,'Test Light')
-      .replace(/Gambling Auto Flow QA/gi,'Test Light')
-      .replace(/GAMBLING AUTO FLOW QA/gi,'TEST LIGHT')
-      .replace(/Gambling WEBVIEW QA/gi,'Test Light')
-      .replace(/Gambling QA/gi,'Test Light')
-      .replace(/Auto Flow/gi,'Test Light');
+      .replace(/WebView QA/gi,'Backend Status')
+      .replace(/WebView flow QA/gi,'Backend Status')
+      .replace(/Gambling Auto Flow QA/gi,'Backend Status')
+      .replace(/GAMBLING AUTO FLOW QA/gi,'BACKEND STATUS')
+      .replace(/Gambling WEBVIEW QA/gi,'Backend Status')
+      .replace(/Gambling QA/gi,'Backend Status')
+      .replace(/Auto Flow/gi,'Backend Status');
   }
   function testLightLog(message,level='INFO'){
-    try{rawLog('TEST LIGHT · '+normalizeLogText(message),level)}catch{}
+    try{rawLog('BACKEND STATUS · '+normalizeLogText(message),level)}catch{}
   }
   window.hymTestLightLog=testLightLog;
   if(typeof window.logUsefulEvent==='function'&&!window.__hymOriginalUsefulEvent){
     window.__hymOriginalUsefulEvent=window.logUsefulEvent;
     window.logUsefulEvent=function(message,level='INFO'){
       const text=safeText(message);
-      if(/WebView QA|WebView flow QA|Gambling QA|Auto Flow|TEST LIGHT/i.test(text)){
-        return window.__hymOriginalUsefulEvent('TEST LIGHT · '+normalizeLogText(text).replace(/^TEST LIGHT · /i,''),level);
+      if(/WebView QA|WebView flow QA|Gambling QA|Auto Flow|BACKEND STATUS/i.test(text)){
+        return window.__hymOriginalUsefulEvent('BACKEND STATUS · '+normalizeLogText(text).replace(/^BACKEND STATUS · /i,''),level);
       }
       return window.__hymOriginalUsefulEvent(message,level);
     };
@@ -3075,13 +3075,13 @@ function initHymAutotest(){
   }
   function setText(id,text){const n=$(id); if(n)n.textContent=text;}
   function tuneUi(){
-    setText('autotestTitle','TEST LIGHT');
-    setText('autotestResultTitle','TEST LIGHT RESULT');
-    const start=$('autotestStart'); if(start&&!start.classList.contains('is-running'))start.textContent='Test Light';
+    setText('autotestTitle','BACKEND STATUS');
+    setText('autotestResultTitle','BACKEND STATUS');
+    const start=$('autotestStart'); if(start&&!start.classList.contains('is-running'))start.textContent='Backend Status';
     const meta=$('autotestHeadMeta'); if(meta&&/GAMBLING|WEBVIEW/i.test(meta.textContent||''))meta.textContent='light mode';
     const note=document.querySelector('.autotest-result-note'); if(note)note.textContent='Only the main result is shown here. Full proof is inside TXT report.';
-    const flow=$('gqaAutoFlowStatus'); if(flow&&!flow.dataset.v199){flow.dataset.v199='1';flow.textContent="Test Light ready. Screen shows only Passed / I Can't without hand / No pass. Full proof goes to TXT.";}
-    const runnerTitle=document.querySelector('#gqaAutoFlowRunner .autotest-manual-title'); if(runnerTitle)runnerTitle.textContent='Test Light · auto runner';
+    const flow=$('gqaAutoFlowStatus'); if(flow&&!flow.dataset.v199){flow.dataset.v199='1';flow.textContent="Backend Status ready. Screen shows only Passed / I Can't without hand / No pass. Full proof goes to TXT.";}
+    const runnerTitle=document.querySelector('#gqaAutoFlowRunner .autotest-manual-title'); if(runnerTitle)runnerTitle.textContent='Backend Status · auto runner';
     const runnerHelp=document.querySelector('#gqaAutoFlowRunner .autotest-manual-help'); if(runnerHelp)runnerHelp.textContent="Runs only what the browser/WebView can really try: cookies, storage, camera/API checks, app links, fallbacks and redirects. If the site cannot prove the result itself, status becomes I Can't without hand.";
     const manualTitle=document.querySelector('.autotest-manual-title'); if(manualTitle&&/Manual probes/i.test(manualTitle.textContent||''))manualTitle.textContent='Manual confirmation only where WebView is blind';
   }
@@ -3096,7 +3096,7 @@ function initHymAutotest(){
     tuneUi();
     const c=counts(results||[]);
     const status=$('autotestStatus');
-    if(status)status.textContent='Test Light: '+mainVerdict(c)+' · Passed '+c.passed+' · I Can\'t without hand '+c.hand+' · No pass '+c.nopass;
+    if(status)status.textContent='Backend Status: '+mainVerdict(c)+' · Passed '+c.passed+' · I Can\'t without hand '+c.hand+' · No pass '+c.nopass;
     testLightLog('screen summary updated · '+mainVerdict(c)+' · passed '+c.passed+' · hand '+c.hand+' · no pass '+c.nopass);
   };
   const oldShow=window.hymAutotestShowResultModal;
@@ -3123,7 +3123,7 @@ function initHymAutotest(){
     });
     const c=counts(list);
     const lines=[
-      'WWG TEST LIGHT REPORT v199',
+      'WWG BACKEND STATUS REPORT v199',
       'Generated: '+new Date().toISOString(),
       'URL: '+location.href,
       'Launch source: '+(($('launchSourceBadge')?.textContent)||'unknown'),
@@ -3152,10 +3152,10 @@ function initHymAutotest(){
       lines.push((index+1)+'. '+name);
       lines.push('Screen status: '+item.screenStatus);
       lines.push('Raw technical state: '+rawState);
-      lines.push('What Test Light did / saw: '+detail);
+      lines.push('What Backend Status did / saw: '+detail);
       if(item.screenStatus===LABELS.pass)lines.push('Meaning: direct browser/WebView proof exists for this exact check.');
       else if(item.screenStatus===LABELS.nopass)lines.push('Meaning: the action did not work, was blocked, unsupported, unavailable, or produced no useful signal.');
-      else lines.push('Meaning: Test Light attempted the action, but the final result needs your eyes/hands because WebView does not expose a reliable proof API.');
+      else lines.push('Meaning: Backend Status attempted the action, but the final result needs your eyes/hands because WebView does not expose a reliable proof API.');
     });
     return lines;
   };
@@ -3175,7 +3175,7 @@ function initHymAutotest(){
   else {tuneUi();bindActionLogs();testLightLog('ready');}
   setTimeout(tuneUi,80);setTimeout(tuneUi,400);setTimeout(tuneUi,1200);
 })();
-/* --- /v199 Test Light honest runner UI + event log bridge --- */
+/* --- /v199 Backend Status honest runner UI + event log bridge --- */
 
 
 // --- v171 visible random button hover/tap FX ---
@@ -3288,17 +3288,17 @@ hymMediaRender();initYoutubeEventLogger();initGoogleLoginCancelTracking();
 dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:true,repairPosition:true});initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();initHymAutotest();
 // --- /v167 useful redirect + event engine ---
 
-/* --- v200 Test Light self-verifiable only --- */
+/* --- v200 Backend Status self-verifiable only --- */
 (function(){
-  const VERSION='v200 Test Light · self checks only';
+  const VERSION='v200 Backend Status · self checks only';
   const $=id=>document.getElementById(id);
   const LABELS={pass:'Passed',nopass:'No pass',hand:"I Can't without hand"};
   let lastResults=[];
   function text(v){return String(v||'').replace(/\s+/g,' ').trim()}
   function log(message,level='INFO'){
     try{
-      if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent('TEST LIGHT · '+text(message),level);
-      if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent('TEST LIGHT · '+text(message),level);
+      if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent('BACKEND STATUS · '+text(message),level);
+      if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent('BACKEND STATUS · '+text(message),level);
     }catch{}
   }
   function openModal(){
@@ -3326,7 +3326,7 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
     renderSummary($('autotestSummary'),lastResults); renderRows($('autotestList'),lastResults,false);
     const c=counts(lastResults); const verdict=c.nopass?'No pass':'Passed';
     const meta=$('autotestHeadMeta'); if(meta)meta.textContent=verdict+' · '+c.total+' checks';
-    setStatus('Test Light: '+verdict+' · Passed '+c.passed+' · I Can\'t without hand 0 · No pass '+c.nopass);
+    setStatus('Backend Status: '+verdict+' · Passed '+c.passed+' · I Can\'t without hand 0 · No pass '+c.nopass);
   }
   function add(results,name,state,short,details){
     const item={name,state:state==='pass'?'pass':'fail',short:short||'',detail:details||short||'',time:new Date().toISOString()};
@@ -3377,14 +3377,14 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
   }
   function testEventLog(){
     const ok=typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function';
-    return ok?['pass','EVENT LOG writer available','logUsefulEvent bridge is available and Test Light actions are written to EVENT LOG.']:['fail','EVENT LOG writer missing','Cannot find logUsefulEvent bridge.'];
+    return ok?['pass','EVENT LOG writer available','logUsefulEvent bridge is available and Backend Status actions are written to EVENT LOG.']:['fail','EVENT LOG writer missing','Cannot find logUsefulEvent bridge.'];
   }
   async function runSelfChecks(){
     openModal(); const btn=$('autotestStart'); if(btn){btn.disabled=true;btn.classList.add('is-running');btn.textContent='Testing…'}
     const again=$('autotestRunAgain'); if(again)again.disabled=true;
     const results=[]; lastResults=[]; render(results); log('self checks started','INFO');
-    setStatus('Test Light is running only checks it can prove by itself…');
-    add(results,'JS runtime','pass','JavaScript executed','The Test Light script started and rendered this result.');
+    setStatus('Backend Status is running only checks it can prove by itself…');
+    add(results,'JS runtime','pass','JavaScript executed','The Backend Status script started and rendered this result.');
     let r=testDom(); add(results,'Local UI DOM',r[0],r[1],r[2]);
     r=testEventLog(); add(results,'EVENT LOG integration',r[0],r[1],r[2]);
     r=testViewport(); add(results,'Viewport read',r[0],r[1],r[2]);
@@ -3394,16 +3394,16 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
     r=testStorage('SessionStorage',window.sessionStorage); add(results,'SessionStorage roundtrip',r[0],r[1],r[2]);
     r=await testIndexedDb(); add(results,'IndexedDB roundtrip',r[0],r[1],r[2]);
     const c=counts(results); const verdict=c.nopass?'No pass':'Passed';
-    setStatus('Test Light finished: '+verdict+' · Passed '+c.passed+' · No pass '+c.nopass+' · I Can\'t without hand 0');
+    setStatus('Backend Status finished: '+verdict+' · Passed '+c.passed+' · No pass '+c.nopass+' · I Can\'t without hand 0');
     log('self checks finished · '+verdict+' · passed '+c.passed+' · no pass '+c.nopass,'INFO');
-    if(btn){btn.disabled=false;btn.classList.remove('is-running');btn.textContent='Test Light'}
+    if(btn){btn.disabled=false;btn.classList.remove('is-running');btn.textContent='Backend Status'}
     if(again)again.disabled=false;
     showResult(results);
   }
   async function runCameraCheck(){
     openModal(); const results=lastResults.slice(); log('camera real check started','INFO');
     if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){add(results,'Camera real check','fail','Camera API unavailable','navigator.mediaDevices.getUserMedia is missing.');showResult(results);return}
-    try{setStatus('Requesting camera permission…'); const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:false}); stream.getTracks().forEach(t=>t.stop()); add(results,'Camera real check','pass','Camera stream received','getUserMedia returned a real video stream and Test Light stopped it safely.');}
+    try{setStatus('Requesting camera permission…'); const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:false}); stream.getTracks().forEach(t=>t.stop()); add(results,'Camera real check','pass','Camera stream received','getUserMedia returned a real video stream and Backend Status stopped it safely.');}
     catch(e){add(results,'Camera real check','fail','Camera not available or permission denied',(e?.name||'Error')+': '+(e?.message||'camera request failed'));}
     showResult(results);
   }
@@ -3418,16 +3418,16 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
   }
   function reportLines(results=lastResults){
     const c=counts(results); const verdict=c.nopass?'No pass':'Passed';
-    const lines=['WWG TEST LIGHT REPORT v200','Mode: self-verifiable checks only','Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')?.textContent)||'unknown'),'OS: '+(($('osBadge')?.textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SHORT RESULT:','Overall: '+verdict,'Passed: '+c.passed,"I Can't without hand: 0",'No pass: '+c.nopass,'Total: '+c.total,'','WHAT WAS REMOVED:','No deep links, store fallbacks, Google/Telegram auth, payments, photo picker, share sheet, volume, screen lock, back button or rotation are counted here because the site cannot prove those results by itself.','','DETAILS:'];
-    results.forEach((item,i)=>{lines.push('',(i+1)+'. '+item.name,'Screen status: '+shortState(item),'What Test Light did: '+item.detail,'Meaning: '+(item.state==='pass'?'Direct proof was received by the browser/WebView.':'The browser/WebView did not provide direct proof or the check failed.'));});
+    const lines=['WWG BACKEND STATUS REPORT v200','Mode: self-verifiable checks only','Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')?.textContent)||'unknown'),'OS: '+(($('osBadge')?.textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SHORT RESULT:','Overall: '+verdict,'Passed: '+c.passed,"I Can't without hand: 0",'No pass: '+c.nopass,'Total: '+c.total,'','WHAT WAS REMOVED:','No deep links, store fallbacks, Google/Telegram auth, payments, photo picker, share sheet, volume, screen lock, back button or rotation are counted here because the site cannot prove those results by itself.','','DETAILS:'];
+    results.forEach((item,i)=>{lines.push('',(i+1)+'. '+item.name,'Screen status: '+shortState(item),'What Backend Status did: '+item.detail,'Meaning: '+(item.state==='pass'?'Direct proof was received by the browser/WebView.':'The browser/WebView did not provide direct proof or the check failed.'));});
     return lines;
   }
   function tuneUi(){
-    const start=$('autotestStart'); if(start&&!start.classList.contains('is-running'))start.textContent='Test Light';
-    const title=$('autotestTitle'); if(title)title.textContent='TEST LIGHT';
-    const resultTitle=$('autotestResultTitle'); if(resultTitle)resultTitle.textContent='TEST LIGHT RESULT';
+    const start=$('autotestStart'); if(start&&!start.classList.contains('is-running'))start.textContent='Backend Status';
+    const title=$('autotestTitle'); if(title)title.textContent='BACKEND STATUS';
+    const resultTitle=$('autotestResultTitle'); if(resultTitle)resultTitle.textContent='BACKEND STATUS';
     const meta=$('autotestHeadMeta'); if(meta)meta.textContent='self checks only';
-    const list=$('autotestList'); if(list&&!list.dataset.v200Ready){list.dataset.v200Ready='1';list.innerHTML='<div class="autotest-row warn"><div class="autotest-state">READY</div><div><div class="autotest-name">Test Light</div><div class="autotest-detail">Only checks the site can prove by itself. Deep links, auth, payments, photo picker, rotation, back, volume and screen lock were removed from autotest.</div></div></div>';}
+    const list=$('autotestList'); if(list&&!list.dataset.v200Ready){list.dataset.v200Ready='1';list.innerHTML='<div class="autotest-row warn"><div class="autotest-state">READY</div><div><div class="autotest-name">Backend Status</div><div class="autotest-detail">Only checks the site can prove by itself. Deep links, auth, payments, photo picker, rotation, back, volume and screen lock were removed from autotest.</div></div></div>';}
     const manual=document.querySelector('.autotest-manual'); if(manual)manual.style.display='none';
     const runner=$('gqaAutoFlowRunner'); if(runner){runner.innerHTML='<div class="autotest-manual-title">Self checks only</div><div class="autotest-manual-help">Removed everything that needs eyes/hands or external app confirmation. This runner tests only direct browser proofs.</div><div class="gqa-runner-actions"><button class="btn green" id="tlSelfChecks" type="button">RUN SELF CHECKS</button><button class="btn" id="tlCameraCheck" type="button">CAMERA REAL CHECK</button></div><div class="autotest-flow-status" id="gqaAutoFlowStatus">Ready. No deep links, no payments, no auth in autotest.</div>';}
     if(!$('gqaAutoFlowRunner')){
@@ -3457,17 +3457,17 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
   setTimeout(tuneUi,100);setTimeout(tuneUi,500);setTimeout(tuneUi,1200);
 })();
-/* --- /v200 Test Light self-verifiable only --- */
+/* --- /v200 Backend Status self-verifiable only --- */
 
-/* --- v201 Test Light verified-only UI --- */
+/* --- v201 Backend Status verified-only UI --- */
 (function(){
-  const VERSION='v201 Test Light · verified only';
+  const VERSION='v201 Backend Status · verified only';
   const $=id=>document.getElementById(id);
   let lastReport={passed:[],hidden:[],startedAt:'',finishedAt:''};
   const clean=v=>String(v==null?'':v).replace(/\s+/g,' ').trim();
   function baseLog(message,level='INFO'){
     try{
-      const msg='TEST LIGHT · '+clean(message);
+      const msg='BACKEND STATUS · '+clean(message);
       if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent(msg,level);
       if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent(msg,level);
     }catch{}
@@ -3492,7 +3492,7 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
     if(!target)return; target.replaceChildren();
     if(!lastReport.passed.length){
       const row=document.createElement('div'); row.className='autotest-row warn';
-      row.innerHTML='<div class="autotest-state">READY</div><div><div class="autotest-name">Test Light</div><div class="autotest-detail">Показує тільки те, що сайт/сервер сам зміг підтвердити. Ручні, зовнішні й непідтверджені кейси тут не показуються.</div></div>';
+      row.innerHTML='<div class="autotest-state">READY</div><div><div class="autotest-name">Backend Status</div><div class="autotest-detail">Показує тільки те, що сайт/сервер сам зміг підтвердити. Ручні, зовнішні й непідтверджені кейси тут не показуються.</div></div>';
       target.append(row); return;
     }
     lastReport.passed.forEach(item=>{
@@ -3507,7 +3507,7 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
   function renderAll(){
     renderSummary($('autotestSummary')); renderPassedList($('autotestList'),false);
     const meta=$('autotestHeadMeta'); if(meta)meta.textContent=lastReport.finishedAt?('verified '+count()):'verified-only';
-    status(lastReport.finishedAt?'Test Light done · verified '+count():'Test Light ready · verified checks only');
+    status(lastReport.finishedAt?'Backend Status done · verified '+count():'Backend Status ready · verified checks only');
     window.hymAutotestLastReport=lastReport.passed.slice();
   }
   async function runCheck(name,fn){
@@ -3545,7 +3545,7 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
   }
   function testEventLogger(){
     const ok=typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function';
-    return makeItem('EVENT LOG connection',ok,'Test Light can write actions into EVENT LOG','logUsefulEvent='+(typeof window.logUsefulEvent)+' · original='+(typeof window.__hymOriginalUsefulEvent));
+    return makeItem('EVENT LOG connection',ok,'Backend Status can write actions into EVENT LOG','logUsefulEvent='+(typeof window.logUsefulEvent)+' · original='+(typeof window.__hymOriginalUsefulEvent));
   }
   function testDomReady(){
     const ok=document.readyState==='interactive'||document.readyState==='complete';
@@ -3576,7 +3576,7 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
   }
   async function runVerifiedOnly(){
     openModal(); lastReport={passed:[],hidden:[],startedAt:new Date().toISOString(),finishedAt:''};
-    renderAll(); status('Test Light running verified checks only…'); baseLog('START · verified-only checks','INFO');
+    renderAll(); status('Backend Status running verified checks only…'); baseLog('START · verified-only checks','INFO');
     const btn=$('autotestStart'); const again=$('autotestRunAgain'); if(btn){btn.disabled=true;btn.textContent='Testing…'} if(again)again.disabled=true;
     await runCheck('Server health API',testHealth);
     await runCheck('Server self processor',testServerProcessor);
@@ -3591,7 +3591,7 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
     lastReport.finishedAt=new Date().toISOString(); renderAll();
     baseLog('DONE · verified passed '+lastReport.passed.length,'SUCCESS');
     if(lastReport.passed.length)baseLog('DONE LIST · '+lastReport.passed.map(x=>x.name).join(' | '),'SUCCESS');
-    if(btn){btn.disabled=false;btn.textContent='Test Light'} if(again)again.disabled=false;
+    if(btn){btn.disabled=false;btn.textContent='Backend Status'} if(again)again.disabled=false;
     showResult();
   }
   function showResult(){
@@ -3602,11 +3602,11 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
     openResult();
   }
   function reportLines(){
-    const lines=['WWG TEST LIGHT REPORT v201','Mode: verified self-checks only','Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')?.textContent)||'unknown'),'OS: '+(($('osBadge')?.textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SHORT RESULT:','Passed verified checks: '+lastReport.passed.length,'Visible failed/manual/unknown checks: 0','','PASSED CHECKS SHOWN ON SCREEN:'];
+    const lines=['WWG BACKEND STATUS REPORT v201','Mode: verified self-checks only','Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')?.textContent)||'unknown'),'OS: '+(($('osBadge')?.textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SHORT RESULT:','Passed verified checks: '+lastReport.passed.length,'Visible failed/manual/unknown checks: 0','','PASSED CHECKS SHOWN ON SCREEN:'];
     lastReport.passed.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: Passed','What was verified: '+x.screen,'Technical detail: '+x.detail,'Time: '+x.time));
     lines.push('','','HIDDEN TECHNICAL FAILURES / NOT VERIFIED: '+lastReport.hidden.length);
     lastReport.hidden.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Not shown on screen','Reason: '+x.detail,'Time: '+x.time));
-    lines.push('','','REMOVED FROM TEST LIGHT:','Deep links, app installed status, auth, payments, offer redirects, photo picker, share sheet, keyboard, rotation, back button, volume, screen lock, top curtain and camera permission are not part of Test Light because they need hands, external apps, permissions, or visual confirmation.');
+    lines.push('','','REMOVED FROM BACKEND STATUS:','Deep links, app installed status, auth, payments, offer redirects, photo picker, share sheet, keyboard, rotation, back button, volume, screen lock, top curtain and camera permission are not part of Backend Status because they need hands, external apps, permissions, or visual confirmation.');
     return lines;
   }
   function copyTxt(){const txt=reportLines().join('\n'); if(navigator.clipboard?.writeText)navigator.clipboard.writeText(txt).then(()=>status('TXT copied.'),()=>status(txt)); else status(txt)}
@@ -3614,13 +3614,13 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
     const old=$(id); if(!old)return null; const btn=old.cloneNode(true); btn.textContent=text; btn.disabled=false; btn.classList.remove('is-running'); old.replaceWith(btn); btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();handler();},true); return btn;
   }
   function tune(){
-    const title=$('autotestTitle'); if(title)title.textContent='TEST LIGHT';
-    const rt=$('autotestResultTitle'); if(rt)rt.textContent='TEST LIGHT RESULT';
+    const title=$('autotestTitle'); if(title)title.textContent='BACKEND STATUS';
+    const rt=$('autotestResultTitle'); if(rt)rt.textContent='BACKEND STATUS';
     const meta=$('autotestHeadMeta'); if(meta)meta.textContent='verified only';
     const manual=document.querySelector('.autotest-manual'); if(manual)manual.remove();
     const runner=$('gqaAutoFlowRunner'); if(runner)runner.remove();
     const mail=$('autotestOpenMail'); if(mail)mail.remove(); const dev=$('autotestOpenDevice'); if(dev)dev.remove();
-    replaceButton('autotestStart','Test Light',runVerifiedOnly);
+    replaceButton('autotestStart','Backend Status',runVerifiedOnly);
     replaceButton('autotestRunAgain','RUN VERIFIED CHECKS',runVerifiedOnly);
     replaceButton('autotestCopy','COPY TXT',copyTxt);
     const actions=document.querySelector('.autotest-actions'); if(actions&&!$('tlV201Run')){const b=document.createElement('button');b.className='btn green';b.id='tlV201Run';b.type='button';b.textContent='RUN VERIFIED CHECKS';b.addEventListener('click',runVerifiedOnly);actions.prepend(b)}
@@ -3635,7 +3635,7 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true}); else bind();
   setTimeout(tune,80); setTimeout(tune,400); setTimeout(tune,1200);
 })();
-/* --- /v201 Test Light verified-only UI --- */
+/* --- /v201 Backend Status verified-only UI --- */
 
 /* --- v203 Status Core minimal backend/site status --- */
 (function(){
@@ -3789,6 +3789,161 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
   setTimeout(boot,100); setTimeout(boot,600); setTimeout(boot,1500);
 })();
 /* --- /v203 Status Core minimal backend/site status --- */
+
+/* --- v204 Backend Status minimal result --- */
+(function(){
+  const VERSION='v204 Backend Status';
+  const $=id=>document.getElementById(id);
+  let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
+  function clean(v){return String(v||'').replace(/\s+/g,' ').trim();}
+  function log(text,level='INFO'){
+    const msg='BACKEND STATUS · '+clean(text);
+    try{
+      if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent(msg,level);
+      if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent(msg,level);
+    }catch{}
+  }
+  async function safeCheck(name, fn){
+    const started=performance.now();
+    try{
+      const result=await fn();
+      const ok=!!(result&&result.ok);
+      const item={name,ok,detail:clean(result&&result.detail||''),elapsedMs:Math.round(performance.now()-started),time:new Date().toISOString()};
+      lastReport.checks.push(item);
+      log('checked · '+name+' · '+(ok?'OK':'ISSUE'),ok?'SUCCESS':'WARN');
+      return item;
+    }catch(e){
+      const item={name,ok:false,detail:clean(e&&e.message||e),elapsedMs:Math.round(performance.now()-started),time:new Date().toISOString()};
+      lastReport.checks.push(item);
+      log('issue · '+name+' · '+item.detail,'WARN');
+      return item;
+    }
+  }
+  async function jsonFetch(url,options){
+    const r=await fetch(url,Object.assign({cache:'no-store'},options||{}));
+    let data=null; try{data=await r.json()}catch{}
+    return {r,data};
+  }
+  function storageRoundtrip(kind,store){
+    const key='backend_status_'+kind+'_'+Date.now();
+    store.setItem(key,'ok');
+    const read=store.getItem(key)==='ok';
+    store.removeItem(key);
+    const removed=store.getItem(key)===null;
+    return {ok:read&&removed,detail:'read='+read+'; removed='+removed};
+  }
+  async function indexedDbRoundtrip(){
+    if(!window.indexedDB)return {ok:false,detail:'IndexedDB API missing'};
+    const dbName='backend_status_'+Date.now();
+    return await new Promise(resolve=>{
+      let done=false;
+      const finish=x=>{if(done)return; done=true; try{indexedDB.deleteDatabase(dbName)}catch{} resolve(x)};
+      try{
+        const req=indexedDB.open(dbName,1);
+        req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};
+        req.onerror=()=>finish({ok:false,detail:'open error: '+(req.error&&req.error.message||'unknown')});
+        req.onsuccess=()=>{
+          const db=req.result;
+          try{
+            const tx=db.transaction('kv','readwrite');
+            const st=tx.objectStore('kv');
+            st.put('ok','key');
+            const get=st.get('key');
+            get.onsuccess=()=>{const ok=get.result==='ok'; try{db.close()}catch{} finish({ok,detail:'stored value='+String(get.result)})};
+            get.onerror=()=>{try{db.close()}catch{} finish({ok:false,detail:'read error: '+(get.error&&get.error.message||'unknown')})};
+          }catch(e){try{db.close()}catch{} finish({ok:false,detail:'transaction exception: '+(e.message||e)})}
+        };
+        setTimeout(()=>finish({ok:false,detail:'timeout after 2500ms'}),2500);
+      }catch(e){finish({ok:false,detail:'exception: '+(e.message||e)})}
+    });
+  }
+  async function run(){
+    lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};
+    normalizeUi();
+    const top=$('autotestStart'), main=$('backendStatusRunMain')||$('statusCoreRunMain');
+    [top,main].forEach(btn=>{if(btn){btn.disabled=true; btn.textContent='Checking…'; btn.classList.add('is-running')}});
+    log('started','INFO');
+    await safeCheck('Server health API',async()=>{const {r,data}=await jsonFetch('/api/health',{headers:{accept:'application/json'}}); return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});
+    await safeCheck('Server self processor',async()=>{const runId='bs-'+Date.now()+'-'+Math.random().toString(16).slice(2); const {r,data}=await jsonFetch('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-status'})}); return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')+'; colo='+(data&&data.server&&data.server.colo||'--')}});
+    await safeCheck('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}}); const t=await r.text(); return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&t.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});
+    await safeCheck('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'}); return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')+'; bytes='+(r.headers.get('content-length')||'unknown')}});
+    await safeCheck('Event Log connection',async()=>({ok:typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function',detail:'logger='+(typeof window.logUsefulEvent)+'; original='+(typeof window.__hymOriginalUsefulEvent)}));
+    await safeCheck('DOM ready state',async()=>({ok:document.readyState==='interactive'||document.readyState==='complete',detail:'readyState='+document.readyState}));
+    await safeCheck('Cookie write/read/delete',async()=>{const key='backend_status_cookie_'+Date.now(); document.cookie=key+'=ok; SameSite=Lax; path=/'; const read=document.cookie.includes(key+'=ok'); document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; const removed=!document.cookie.includes(key+'=ok'); return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});
+    await safeCheck('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));
+    await safeCheck('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));
+    await safeCheck('IndexedDB write/read',indexedDbRoundtrip);
+    lastReport.finishedAt=new Date().toISOString();
+    lastReport.ok=lastReport.checks.every(x=>x.ok);
+    log('finished · '+(lastReport.ok?'ALL OK':'ISSUE FOUND')+' · scanned '+lastReport.checks.length,'SUCCESS');
+    log('scanned systems · '+lastReport.checks.map(x=>x.name).join(' | '),'INFO');
+    [top,main].forEach(btn=>{if(btn){btn.disabled=false; btn.textContent='Backend Status'; btn.classList.remove('is-running')}});
+    showResult();
+  }
+  function reportText(){
+    const ok=lastReport.checks.filter(x=>x.ok).length, total=lastReport.checks.length;
+    const issues=lastReport.checks.filter(x=>!x.ok);
+    const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')&&$('launchSourceBadge').textContent)||'unknown'),'OS: '+(($('osBadge')&&$('osBadge').textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SHORT STATUS:',lastReport.ok?'ALL SYSTEMS NORMAL':'SYSTEM ISSUES FOUND','Scanned systems: '+total,'OK: '+ok,'Issues: '+issues.length,'','CHECK DETAILS:'];
+    lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));
+    lines.push('','NOTE:','Backend Status checks only site/server basics that can be verified automatically. Manual gambling flows, auth, payments, redirects, external apps, camera, rotation, back, volume and screen lock are not displayed here.');
+    return lines.join('\n');
+  }
+  function copyTxt(){const txt=reportText(); if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>log('TXT copied','SUCCESS'),()=>log('TXT copy failed','WARN')); else log('Clipboard unavailable','WARN');}
+  function downloadTxt(){const blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt'; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove()},500); log('TXT downloaded','SUCCESS');}
+  function showResult(){
+    const modal=$('autotestResultModal'), body=modal&&modal.querySelector('.autotest-result-body');
+    const title=$('autotestResultTitle'), meta=$('autotestResultMeta');
+    const total=lastReport.checks.length, issues=lastReport.checks.filter(x=>!x.ok);
+    if(title)title.textContent='BACKEND STATUS';
+    if(meta)meta.textContent=lastReport.ok?'ALL OK':'ISSUE FOUND';
+    if(body){
+      const issueHtml=issues.length?('<div class="autotest-result-list" style="display:block;margin-top:12px">'+issues.map(x=>'<div class="autotest-row fail"><div class="autotest-state">ISSUE</div><div><div class="autotest-name">'+escapeHtml(x.name)+'</div><div class="autotest-detail">'+escapeHtml(x.detail||'No detail')+'</div></div></div>').join('')+'</div>'):'';
+      body.innerHTML='<div class="autotest-result-note" style="font-size:13px;color:#d7f5ee;border-color:#1c2a2f">'+
+        '<strong style="display:block;font-size:20px;color:'+(lastReport.ok?'#34ff9a':'#ff7b83')+';margin-bottom:6px">'+(lastReport.ok?'ALL SYSTEMS NORMAL':'SYSTEM ISSUES FOUND')+'</strong>'+ 
+        '<span>Scanned systems: '+total+'. '+(issues.length?'Only problem systems are shown below.':'No problem systems found.')+'</span></div>'+issueHtml+
+        '<div class="autotest-result-actions"><button class="btn green" id="backendStatusDownload" type="button">DOWNLOAD TXT</button><button class="btn" id="backendStatusCopy" type="button">COPY TXT</button><button class="btn" id="backendStatusRunAgain" type="button">RUN AGAIN</button></div>'+ 
+        '<div class="autotest-result-status">Short status only. Full technical details are inside TXT report.</div>';
+      setTimeout(()=>{const d=$('backendStatusDownload'),c=$('backendStatusCopy'),r=$('backendStatusRunAgain'); if(d)d.onclick=downloadTxt; if(c)c.onclick=copyTxt; if(r)r.onclick=run;},0);
+    }
+    if(modal){modal.classList.add('on');modal.setAttribute('aria-hidden','false')}
+  }
+  function escapeHtml(v){return String(v||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+  function normalizeUi(){
+    const top=$('autotestStart'); if(top){top.textContent='Backend Status';top.setAttribute('data-testid','backend-status-start')}
+    const t=$('autotestTitle'); if(t)t.textContent='BACKEND STATUS';
+    const hm=$('autotestHeadMeta'); if(hm)hm.textContent='site/server';
+    const rt=$('autotestResultTitle'); if(rt&&/BACKEND STATUS|AUTOTEST/i.test(rt.textContent||''))rt.textContent='BACKEND STATUS';
+    document.querySelectorAll('.autotest-manual,.autotest-flow-panel,.autotest-list,.autotest-summary,#autotestDeepLinks,#autotestKeyboardInput').forEach(el=>{if(el)el.style.display='none'});
+    const status=$('autotestStatus'); if(status)status.textContent='Only automatic site/server status is checked.';
+    const actions=document.querySelector('#autotestModal .autotest-actions');
+    if(actions){
+      [...actions.querySelectorAll('button')].forEach(b=>b.remove());
+      let runBtn=$('backendStatusRunMain');
+      if(!runBtn){runBtn=document.createElement('button'); runBtn.className='btn green'; runBtn.id='backendStatusRunMain'; runBtn.type='button'; runBtn.textContent='RUN STATUS'; actions.appendChild(runBtn)}
+      let cp=$('backendStatusCopyMain');
+      if(!cp){cp=document.createElement('button'); cp.className='btn'; cp.id='backendStatusCopyMain'; cp.type='button'; cp.textContent='COPY TXT'; actions.appendChild(cp)}
+      runBtn.onclick=run; cp.onclick=copyTxt;
+    }
+  }
+  function bindTop(){
+    const old=$('autotestStart');
+    if(old&&!old.dataset.backendStatusBound){
+      const btn=old.cloneNode(true); btn.textContent='Backend Status'; btn.dataset.backendStatusBound='1'; old.replaceWith(btn); btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();run();},true);
+    }
+  }
+  function boot(){normalizeUi(); bindTop(); log('ready · automatic site/server status only','INFO');}
+  window.hymRunAutotest=run;
+  window.hymStatusCoreRun=run;
+  window.hymBackendStatusRun=run;
+  window.hymAutotestReportText=reportText;
+  window.hymAutotestReportLines=()=>reportText().split('\n');
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true}); else boot();
+  setTimeout(boot,100); setTimeout(boot,600); setTimeout(boot,1600);
+  try{
+    new MutationObserver(()=>normalizeUi()).observe(document.body,{childList:true,subtree:true,characterData:true});
+  }catch{}
+})();
+/* --- /v204 Backend Status minimal result --- */
 
 </script>
 </body></html>
