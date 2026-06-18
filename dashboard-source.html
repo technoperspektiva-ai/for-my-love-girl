@@ -3946,4 +3946,264 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
 /* --- /v204 Backend Status minimal result --- */
 
 </script>
+
+<script>
+/* --- v205 Backend Status ratio-only result --- */
+(function(){
+  const VERSION='v205 Backend Status · ratio only';
+  const $=id=>document.getElementById(id);
+  let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
+  function eventLog(msg,type){
+    const text='BACKEND STATUS · '+msg;
+    try{ if(typeof window.logUsefulEvent==='function') return window.logUsefulEvent(text,type||'INFO'); }catch{}
+    try{ if(typeof window.__hymOriginalUsefulEvent==='function') return window.__hymOriginalUsefulEvent(text,type||'INFO'); }catch{}
+  }
+  function esc(v){return String(v==null?'':v).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+  async function jsonFetch(url,opts){const r=await fetch(url,Object.assign({cache:'no-store'},opts||{})); let data=null; try{data=await r.json()}catch{} return {r,data};}
+  async function safeCheck(name,fn){
+    const started=performance.now();
+    let item={name,ok:false,detail:'',elapsedMs:0,time:new Date().toISOString()};
+    try{const res=await fn(); item.ok=!!(res&&res.ok); item.detail=(res&&res.detail)||'';}catch(e){item.ok=false; item.detail=(e&&e.message)||String(e);}
+    item.elapsedMs=Math.round(performance.now()-started);
+    lastReport.checks.push(item);
+    eventLog(name+' · '+(item.ok?'OK':'ISSUE')+' · '+item.elapsedMs+'ms', item.ok?'SUCCESS':'WARN');
+    return item;
+  }
+  async function storageRoundtrip(label,store){
+    const key='backend_status_'+label+'_'+Date.now();
+    try{store.setItem(key,'ok'); const read=store.getItem(key)==='ok'; store.removeItem(key); const removed=store.getItem(key)===null; return {ok:read&&removed,detail:'read='+read+'; removed='+removed};}
+    catch(e){return {ok:false,detail:(e&&e.message)||String(e)}}
+  }
+  async function indexedDbRoundtrip(){
+    if(!('indexedDB' in window))return {ok:false,detail:'indexedDB API unavailable'};
+    const dbName='backend_status_'+Date.now();
+    return await new Promise(resolve=>{
+      let done=false;
+      const finish=x=>{if(done)return;done=true;try{indexedDB.deleteDatabase(dbName)}catch{} resolve(x)};
+      try{
+        const req=indexedDB.open(dbName,1);
+        req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};
+        req.onerror=()=>finish({ok:false,detail:'open error: '+((req.error&&req.error.message)||'unknown')});
+        req.onsuccess=()=>{
+          const db=req.result;
+          try{
+            const tx=db.transaction('kv','readwrite');
+            const store=tx.objectStore('kv');
+            store.put('ok','key');
+            const get=store.get('key');
+            get.onsuccess=()=>{const ok=get.result==='ok'; try{db.close()}catch{} finish({ok,detail:'stored value='+String(get.result)})};
+            get.onerror=()=>{try{db.close()}catch{} finish({ok:false,detail:'read error: '+((get.error&&get.error.message)||'unknown')})};
+          }catch(e){try{db.close()}catch{} finish({ok:false,detail:'transaction exception: '+((e&&e.message)||e)})}
+        };
+        setTimeout(()=>finish({ok:false,detail:'timeout after 2500ms'}),2500);
+      }catch(e){finish({ok:false,detail:'exception: '+((e&&e.message)||e)})}
+    });
+  }
+  async function run(){
+    lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};
+    const buttons=[$('autotestStart'),$('backendStatusRunMain'),$('statusCoreRunMain')].filter(Boolean);
+    buttons.forEach(b=>{b.disabled=true;b.textContent='Checking…';b.classList.add('is-running')});
+    eventLog('scan started','INFO');
+    await safeCheck('Server health API',async()=>{const {r,data}=await jsonFetch('/api/health',{headers:{accept:'application/json'}}); return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});
+    await safeCheck('Server self processor',async()=>{const runId='bs-'+Date.now()+'-'+Math.random().toString(16).slice(2); const {r,data}=await jsonFetch('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-status-ratio'})}); return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')+'; colo='+(data&&data.server&&data.server.colo||'--')}});
+    await safeCheck('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}}); const text=await r.text(); return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});
+    await safeCheck('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'}); return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')+'; bytes='+(r.headers.get('content-length')||'unknown')}});
+    await safeCheck('EVENT LOG connection',async()=>({ok:typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function',detail:'logger='+(typeof window.logUsefulEvent)+'; original='+(typeof window.__hymOriginalUsefulEvent)}));
+    await safeCheck('DOM ready state',async()=>({ok:document.readyState==='interactive'||document.readyState==='complete',detail:'readyState='+document.readyState}));
+    await safeCheck('Cookie write/read/delete',async()=>{const key='backend_status_cookie_'+Date.now(); document.cookie=key+'=ok; SameSite=Lax; path=/'; const read=document.cookie.includes(key+'=ok'); document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; const removed=!document.cookie.includes(key+'=ok'); return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});
+    await safeCheck('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));
+    await safeCheck('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));
+    await safeCheck('IndexedDB write/read',indexedDbRoundtrip);
+    lastReport.finishedAt=new Date().toISOString();
+    lastReport.ok=lastReport.checks.every(x=>x.ok);
+    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length;
+    eventLog('scan finished · '+ok+'/'+total+' systems working', lastReport.ok?'SUCCESS':'WARN');
+    eventLog('scanned list · '+lastReport.checks.map(x=>x.name+': '+(x.ok?'OK':'ISSUE')).join(' | '),'INFO');
+    buttons.forEach(b=>{b.disabled=false;b.textContent='Backend Status';b.classList.remove('is-running')});
+    showResult();
+  }
+  function reportText(){
+    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);
+    const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')&&$('launchSourceBadge').textContent)||'unknown'),'OS: '+(($('osBadge')&&$('osBadge').textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SCREEN STATUS:',ok+'/'+total+' systems working',issues.length?'Issues: '+issues.length:'Issues: 0','','CHECK DETAILS:'];
+    lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));
+    lines.push('','NOTE:','Screen shows only the numeric system status. Working systems are detailed only in this TXT report. If a system is broken, only that broken system is shown on screen.');
+    return lines.join('\n');
+  }
+  function copyTxt(){const txt=reportText(); if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>eventLog('TXT copied','SUCCESS'),()=>eventLog('TXT copy failed','WARN')); else eventLog('Clipboard unavailable','WARN');}
+  function downloadTxt(){const blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt'; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove()},500); eventLog('TXT downloaded','SUCCESS');}
+  function showResult(){
+    const modal=$('autotestResultModal'), body=modal&&modal.querySelector('.autotest-result-body'), title=$('autotestResultTitle'), meta=$('autotestResultMeta');
+    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);
+    if(title)title.textContent='BACKEND STATUS';
+    if(meta)meta.textContent=ok+'/'+total;
+    if(body){
+      const ratio=ok+'/'+total+' systems working';
+      const issueHtml=issues.length?('<div class="autotest-result-list" style="display:block;margin-top:12px">'+issues.map(x=>'<div class="autotest-row fail"><div class="autotest-state">ISSUE</div><div><div class="autotest-name">'+esc(x.name)+'</div><div class="autotest-detail">'+esc(x.detail||'No detail')+'</div></div></div>').join('')+'</div>'):'';
+      body.innerHTML='<div class="autotest-result-note" style="font-size:13px;color:#d7f5ee;border-color:#1c2a2f">'+
+        '<strong style="display:block;font-size:22px;color:'+(issues.length?'#ff7b83':'#34ff9a')+';margin-bottom:6px">'+esc(ratio)+'</strong>'+ 
+        '<span>'+(issues.length?'Only failed systems are shown below. Working systems are inside TXT.':'All checked systems are OK. Details are inside TXT.')+'</span></div>'+issueHtml+
+        '<div class="autotest-result-actions"><button class="btn green" id="backendStatusDownload" type="button">DOWNLOAD TXT</button><button class="btn" id="backendStatusCopy" type="button">COPY TXT</button><button class="btn" id="backendStatusRunAgain" type="button">RUN AGAIN</button></div>';
+      setTimeout(()=>{const d=$('backendStatusDownload'),c=$('backendStatusCopy'),r=$('backendStatusRunAgain'); if(d)d.onclick=downloadTxt; if(c)c.onclick=copyTxt; if(r)r.onclick=run;},0);
+    }
+    if(modal){modal.classList.add('on');modal.setAttribute('aria-hidden','false')}
+  }
+  function normalizeUi(){
+    const top=$('autotestStart'); if(top){top.textContent='Backend Status';top.setAttribute('data-testid','backend-status-start')}
+    const t=$('autotestTitle'); if(t)t.textContent='BACKEND STATUS';
+    const hm=$('autotestHeadMeta'); if(hm)hm.textContent='site/server';
+    document.querySelectorAll('.autotest-manual,.autotest-flow-panel,.autotest-list,.autotest-summary,#autotestDeepLinks,#autotestKeyboardInput,#gqaAutoFlowRunner').forEach(el=>{if(el)el.style.display='none'});
+    const status=$('autotestStatus'); if(status)status.textContent='Shows only numeric system status. Full details are inside TXT.';
+    const actions=document.querySelector('#autotestModal .autotest-actions');
+    if(actions){
+      [...actions.querySelectorAll('button')].forEach(b=>b.remove());
+      let runBtn=$('backendStatusRunMain'); if(!runBtn){runBtn=document.createElement('button');runBtn.className='btn green';runBtn.id='backendStatusRunMain';runBtn.type='button';runBtn.textContent='RUN STATUS';actions.appendChild(runBtn)}
+      let cp=$('backendStatusCopyMain'); if(!cp){cp=document.createElement('button');cp.className='btn';cp.id='backendStatusCopyMain';cp.type='button';cp.textContent='COPY TXT';actions.appendChild(cp)}
+      runBtn.onclick=run; cp.onclick=copyTxt;
+    }
+  }
+  function bindTop(){
+    const old=$('autotestStart');
+    if(old&&!old.dataset.backendStatusV205){
+      const btn=old.cloneNode(true); btn.textContent='Backend Status'; btn.dataset.backendStatusV205='1'; old.replaceWith(btn); btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();run();},true);
+    }
+  }
+  function boot(){normalizeUi(); bindTop(); eventLog('ready · numeric system status only','INFO');}
+  window.hymRunAutotest=run;
+  window.hymBackendStatusRun=run;
+  window.hymStatusCoreRun=run;
+  window.hymAutotestReportText=reportText;
+  window.hymAutotestReportLines=()=>reportText().split('\n');
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true}); else boot();
+  setTimeout(boot,100); setTimeout(boot,600); setTimeout(boot,1600);
+  try{new MutationObserver(()=>normalizeUi()).observe(document.documentElement,{childList:true,subtree:true,characterData:true});}catch{}
+})();
+/* --- /v205 Backend Status ratio-only result --- */
+
+/* --- v206 Backend Status gauge / one-dialog result --- */
+(function(){
+  const VERSION='v206 Backend Status · gauge result';
+  const $=id=>document.getElementById(id);
+  let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
+  function eventLog(msg,type){
+    const text='BACKEND STATUS · '+msg;
+    try{ if(typeof window.logUsefulEvent==='function') return window.logUsefulEvent(text,type||'INFO'); }catch{}
+    try{ if(typeof window.__hymOriginalUsefulEvent==='function') return window.__hymOriginalUsefulEvent(text,type||'INFO'); }catch{}
+  }
+  function esc(v){return String(v==null?'':v).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+  function ensureStyle(){
+    if(document.getElementById('backendStatusGaugeStyle'))return;
+    const st=document.createElement('style'); st.id='backendStatusGaugeStyle'; st.textContent=`
+      .backend-gauge-wrap{display:grid;place-items:center;padding:10px 4px 2px;min-height:300px;background:radial-gradient(circle at 50% 48%,rgba(52,255,154,.08),rgba(8,12,14,.35) 38%,rgba(5,8,10,.15) 75%);border:1px solid #1c2a2f}
+      .backend-gauge{width:min(390px,92vw);max-width:100%;position:relative;aspect-ratio:1.22/1;margin:0 auto 2px;color:#d7f5ee}
+      .backend-gauge svg{width:100%;height:100%;display:block;overflow:visible}.backend-gauge .base{fill:none;stroke:#1c2a2f;stroke-width:22;stroke-linecap:round}.backend-gauge .track{fill:none;stroke:#263754;stroke-width:22;stroke-linecap:round;opacity:.96}.backend-gauge .progress{fill:none;stroke:url(#backendGaugeGradient);stroke-width:22;stroke-linecap:round;filter:drop-shadow(0 0 10px rgba(52,255,154,.22));transition:stroke-dashoffset .6s ease}.backend-gauge .needle{transform-origin:100px 100px;transition:transform .6s ease;filter:drop-shadow(0 0 6px rgba(255,255,255,.2))}.backend-gauge .needle-body{fill:url(#backendNeedleGradient)}.backend-gauge .needle-cap{fill:#e8eef2;stroke:#111827;stroke-width:1.3}.backend-gauge text{font-family:"JetBrains Mono","Cascadia Code",Consolas,monospace;font-weight:900;letter-spacing:.03em}.backend-gauge .tick{fill:#93a1aa;font-size:8px}.backend-gauge .tick-strong{fill:#ecfff8;font-size:9px}.backend-gauge-center{position:absolute;left:0;right:0;bottom:34px;text-align:center;pointer-events:none}.backend-gauge-ratio{font-size:34px;line-height:1;font-weight:300;color:#f4fbff;text-shadow:0 0 12px rgba(255,255,255,.12)}.backend-gauge-label{margin-top:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7c9994}.backend-gauge-ok .backend-gauge-label{color:#34ff9a}.backend-gauge-bad .backend-gauge-label{color:#ff7b83}.backend-issue-list{margin-top:10px;width:100%;display:grid;gap:8px}.backend-issue-row{border:1px solid #5a2630;background:rgba(72,12,21,.26);padding:10px}.backend-issue-name{color:#ffdce0;font-weight:900;text-transform:uppercase;font-size:12px}.backend-issue-detail{margin-top:5px;color:#b58b90;font-size:11px;line-height:1.35;word-break:break-word}.backend-status-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}.backend-status-actions .btn{min-width:120px}.backend-status-mini{font-size:11px;color:#7c9994;text-align:center;margin-top:5px}`;
+    document.head.appendChild(st);
+  }
+  async function jsonFetch(url,opts){const r=await fetch(url,Object.assign({cache:'no-store'},opts||{})); let data=null; try{data=await r.json()}catch{} return {r,data};}
+  async function safeCheck(name,fn){
+    const started=performance.now();
+    let item={name,ok:false,detail:'',elapsedMs:0,time:new Date().toISOString()};
+    try{const res=await fn(); item.ok=!!(res&&res.ok); item.detail=(res&&res.detail)||'';}catch(e){item.ok=false; item.detail=(e&&e.message)||String(e);}
+    item.elapsedMs=Math.round(performance.now()-started);
+    lastReport.checks.push(item);
+    eventLog('checked · '+name+' · '+(item.ok?'OK':'ISSUE')+' · '+item.elapsedMs+'ms', item.ok?'SUCCESS':'WARN');
+    return item;
+  }
+  async function storageRoundtrip(label,store){
+    const key='backend_status_'+label+'_'+Date.now();
+    try{store.setItem(key,'ok'); const read=store.getItem(key)==='ok'; store.removeItem(key); const removed=store.getItem(key)===null; return {ok:read&&removed,detail:'read='+read+'; removed='+removed};}
+    catch(e){return {ok:false,detail:(e&&e.message)||String(e)}}
+  }
+  async function indexedDbRoundtrip(){
+    if(!('indexedDB' in window))return {ok:false,detail:'indexedDB API unavailable'};
+    const dbName='backend_status_'+Date.now();
+    return await new Promise(resolve=>{
+      let done=false;
+      const finish=x=>{if(done)return; done=true; try{indexedDB.deleteDatabase(dbName)}catch{} resolve(x)};
+      try{
+        const req=indexedDB.open(dbName,1);
+        req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};
+        req.onerror=()=>finish({ok:false,detail:'open error: '+((req.error&&req.error.message)||'unknown')});
+        req.onsuccess=()=>{const db=req.result; try{const tx=db.transaction('kv','readwrite'); const os=tx.objectStore('kv'); os.put('ok','key'); const get=os.get('key'); get.onsuccess=()=>{const ok=get.result==='ok'; try{db.close()}catch{} finish({ok,detail:'stored value='+String(get.result)})}; get.onerror=()=>{try{db.close()}catch{} finish({ok:false,detail:'read error: '+((get.error&&get.error.message)||'unknown')})};}catch(e){try{db.close()}catch{} finish({ok:false,detail:'transaction exception: '+((e&&e.message)||e)})}};
+        setTimeout(()=>finish({ok:false,detail:'timeout after 2500ms'}),2500);
+      }catch(e){finish({ok:false,detail:'exception: '+((e&&e.message)||e)})}
+    });
+  }
+  function reportText(){
+    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);
+    const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'Started: '+(lastReport.startedAt||'--'),'Finished: '+(lastReport.finishedAt||'--'),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')&&$('launchSourceBadge').textContent)||'unknown'),'OS: '+(($('osBadge')&&$('osBadge').textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SCREEN STATUS:',ok+'/'+total+' systems working',issues.length?'Issues: '+issues.length:'Issues: 0','','CHECK DETAILS:'];
+    lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));
+    lines.push('','NOTE:','The screen shows only the numeric status gauge. Working systems are listed only in this TXT report. If something fails, only failed systems appear on screen.');
+    return lines.join('\n');
+  }
+  function copyTxt(){const txt=reportText(); if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>eventLog('TXT copied','SUCCESS'),()=>eventLog('TXT copy failed','WARN')); else eventLog('Clipboard unavailable','WARN');}
+  function downloadTxt(){const blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt'; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove()},500); eventLog('TXT downloaded','SUCCESS');}
+  function gaugeSvg(ok,total){
+    const pct=total?Math.max(0,Math.min(1,ok/total)):0;
+    const dash=251.2; const off=(1-pct)*dash;
+    const angle=-135+(270*pct);
+    const bad=ok<total;
+    return '<div class="backend-gauge '+(bad?'backend-gauge-bad':'backend-gauge-ok')+'"><svg viewBox="0 0 200 170" aria-hidden="true"><defs><linearGradient id="backendGaugeGradient" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#20b9ff"/><stop offset=".46" stop-color="#52fff0"/><stop offset="1" stop-color="'+(bad?'#ff5d6d':'#34ff9a')+'"/></linearGradient><linearGradient id="backendNeedleGradient" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f4f7fb"/><stop offset=".65" stop-color="#758198"/><stop offset="1" stop-color="#101624"/></linearGradient></defs><path class="track" d="M 35 135 A 80 80 0 1 1 165 135"/><path class="progress" d="M 35 135 A 80 80 0 1 1 165 135" pathLength="251.2" stroke-dasharray="251.2" stroke-dashoffset="'+off.toFixed(1)+'"/><text class="tick-strong" x="33" y="126">0</text><text class="tick-strong" x="30" y="91">5</text><text class="tick-strong" x="39" y="55">10</text><text class="tick" x="69" y="32">50</text><text class="tick" x="93" y="20">100</text><text class="tick" x="128" y="32">250</text><text class="tick" x="151" y="62">500</text><text class="tick" x="150" y="103">750</text><text class="tick" x="136" y="134">1000</text><g class="needle" style="transform:rotate('+angle.toFixed(2)+'deg)"><polygon class="needle-body" points="100,100 94,96 35,100 94,104"/><circle class="needle-cap" cx="100" cy="100" r="5"/></g></svg><div class="backend-gauge-center"><div class="backend-gauge-ratio">'+ok+'/'+total+'</div><div class="backend-gauge-label">systems working</div></div></div>';
+  }
+  function showDialog(loading){
+    ensureStyle();
+    const modal=$('autotestResultModal'), body=modal&&modal.querySelector('.autotest-result-body'), title=$('autotestResultTitle'), meta=$('autotestResultMeta');
+    const old=$('autotestModal'); if(old){old.classList.remove('on'); old.setAttribute('aria-hidden','true')}
+    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);
+    if(title)title.textContent='BACKEND STATUS';
+    if(meta)meta.textContent=loading?'scanning':(ok+'/'+total);
+    if(body){
+      if(loading){
+        body.innerHTML='<div class="backend-gauge-wrap"><div class="backend-status-mini">Scanning site/server systems…</div>'+gaugeSvg(0,10)+'</div>';
+      }else{
+        const issueHtml=issues.length?'<div class="backend-issue-list">'+issues.map(x=>'<div class="backend-issue-row"><div class="backend-issue-name">'+esc(x.name)+'</div><div class="backend-issue-detail">'+esc(x.detail||'No detail')+'</div></div>').join('')+'</div>':'';
+        body.innerHTML='<div class="backend-gauge-wrap">'+gaugeSvg(ok,total)+'<div class="backend-status-mini">'+(issues.length?'Only broken systems are shown below. Working systems are in TXT.':'All systems are normal. Full details are in TXT.')+'</div>'+issueHtml+'</div><div class="backend-status-actions"><button class="btn green" id="backendStatusDownload" type="button">DOWNLOAD TXT</button><button class="btn" id="backendStatusCopy" type="button">COPY TXT</button><button class="btn" id="backendStatusRunAgain" type="button">RUN AGAIN</button></div>';
+        setTimeout(()=>{const d=$('backendStatusDownload'),c=$('backendStatusCopy'),r=$('backendStatusRunAgain'); if(d)d.onclick=downloadTxt; if(c)c.onclick=copyTxt; if(r)r.onclick=run;},0);
+      }
+    }
+    if(modal){modal.classList.add('on'); modal.setAttribute('aria-hidden','false')}
+  }
+  async function run(){
+    lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};
+    const buttons=[$('autotestStart'),$('backendStatusRunMain'),$('statusCoreRunMain')].filter(Boolean);
+    buttons.forEach(b=>{b.disabled=true;b.textContent='Checking…';b.classList.add('is-running')});
+    eventLog('scan started','INFO');
+    showDialog(true);
+    await safeCheck('Server health API',async()=>{const {r,data}=await jsonFetch('/api/health',{headers:{accept:'application/json'}}); return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});
+    await safeCheck('Server self processor',async()=>{const runId='bs-'+Date.now()+'-'+Math.random().toString(16).slice(2); const {r,data}=await jsonFetch('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-status-gauge'})}); return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')+'; colo='+(data&&data.server&&data.server.colo||'--')}});
+    await safeCheck('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}}); const text=await r.text(); return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});
+    await safeCheck('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'}); return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')+'; bytes='+(r.headers.get('content-length')||'unknown')}});
+    await safeCheck('EVENT LOG connection',async()=>({ok:typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function',detail:'logger='+(typeof window.logUsefulEvent)+'; original='+(typeof window.__hymOriginalUsefulEvent)}));
+    await safeCheck('DOM ready state',async()=>({ok:document.readyState==='interactive'||document.readyState==='complete',detail:'readyState='+document.readyState}));
+    await safeCheck('Cookie write/read/delete',async()=>{const key='backend_status_cookie_'+Date.now(); document.cookie=key+'=ok; SameSite=Lax; path=/'; const read=document.cookie.includes(key+'=ok'); document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; const removed=!document.cookie.includes(key+'=ok'); return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});
+    await safeCheck('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));
+    await safeCheck('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));
+    await safeCheck('IndexedDB write/read',indexedDbRoundtrip);
+    lastReport.finishedAt=new Date().toISOString();
+    lastReport.ok=lastReport.checks.every(x=>x.ok);
+    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length;
+    eventLog('scan finished · '+ok+'/'+total+' systems working', lastReport.ok?'SUCCESS':'WARN');
+    lastReport.checks.forEach(x=>eventLog('scanned system · '+x.name+' · '+(x.ok?'OK':'ISSUE'),'INFO'));
+    buttons.forEach(b=>{b.disabled=false;b.textContent='Backend Status';b.classList.remove('is-running')});
+    showDialog(false);
+  }
+  function normalizeUi(){
+    const top=$('autotestStart'); if(top){top.textContent='Backend Status';top.setAttribute('data-testid','backend-status-start')}
+    const t=$('autotestTitle'); if(t)t.textContent='BACKEND STATUS';
+    const hm=$('autotestHeadMeta'); if(hm)hm.textContent='site/server';
+    const status=$('autotestStatus'); if(status)status.textContent='Backend Status opens one result window with numeric gauge and TXT report.';
+  }
+  function bindTop(){
+    const old=$('autotestStart');
+    if(old&&!old.dataset.backendStatusV206){
+      const btn=old.cloneNode(true); btn.textContent='Backend Status'; btn.dataset.backendStatusV206='1'; old.replaceWith(btn); btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();run();},true);
+    }
+  }
+  function boot(){ensureStyle(); normalizeUi(); bindTop(); eventLog('ready · gauge result / one dialog','INFO');}
+  window.hymRunAutotest=run; window.hymBackendStatusRun=run; window.hymStatusCoreRun=run; window.hymAutotestReportText=reportText; window.hymAutotestReportLines=()=>reportText().split('\n');
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true}); else boot();
+  setTimeout(boot,80); setTimeout(boot,500); setTimeout(boot,1500); setTimeout(boot,2800);
+})();
+/* --- /v206 Backend Status gauge / one-dialog result --- */
+
+</script>
 </body></html>
