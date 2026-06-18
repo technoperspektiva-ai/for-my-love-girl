@@ -3033,6 +3033,149 @@ function initHymAutotest(){
 
 
 
+/* --- v199 Test Light honest runner UI + event log bridge --- */
+(function(){
+  const VERSION='v199 Test Light';
+  const LABELS={pass:'Passed',hand:"I Can\'t without hand",nopass:'No pass'};
+  const $=id=>document.getElementById(id);
+  function safeText(v){return String(v||'').replace(/\s+/g,' ').trim().slice(0,220)}
+  function rawLog(message,level){try{if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent(message,level);if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent(message,level)}catch{}}
+  function normalizeLogText(message){
+    return safeText(message)
+      .replace(/WebView QA/gi,'Test Light')
+      .replace(/WebView flow QA/gi,'Test Light')
+      .replace(/Gambling Auto Flow QA/gi,'Test Light')
+      .replace(/GAMBLING AUTO FLOW QA/gi,'TEST LIGHT')
+      .replace(/Gambling WEBVIEW QA/gi,'Test Light')
+      .replace(/Gambling QA/gi,'Test Light')
+      .replace(/Auto Flow/gi,'Test Light');
+  }
+  function testLightLog(message,level='INFO'){
+    try{rawLog('TEST LIGHT · '+normalizeLogText(message),level)}catch{}
+  }
+  window.hymTestLightLog=testLightLog;
+  if(typeof window.logUsefulEvent==='function'&&!window.__hymOriginalUsefulEvent){
+    window.__hymOriginalUsefulEvent=window.logUsefulEvent;
+    window.logUsefulEvent=function(message,level='INFO'){
+      const text=safeText(message);
+      if(/WebView QA|WebView flow QA|Gambling QA|Auto Flow|TEST LIGHT/i.test(text)){
+        return window.__hymOriginalUsefulEvent('TEST LIGHT · '+normalizeLogText(text).replace(/^TEST LIGHT · /i,''),level);
+      }
+      return window.__hymOriginalUsefulEvent(message,level);
+    };
+  }
+  function counts(results){
+    const list=(results||[]).map(item=>{
+      const label=typeof window.hymQaPublicStatus==='function'?window.hymQaPublicStatus(item):(item?.state==='pass'?LABELS.pass:item?.state==='fail'?LABELS.nopass:LABELS.hand);
+      return {label};
+    });
+    return {total:list.length,passed:list.filter(i=>i.label===LABELS.pass).length,hand:list.filter(i=>i.label===LABELS.hand).length,nopass:list.filter(i=>i.label===LABELS.nopass).length};
+  }
+  function setText(id,text){const n=$(id); if(n)n.textContent=text;}
+  function tuneUi(){
+    setText('autotestTitle','TEST LIGHT');
+    setText('autotestResultTitle','TEST LIGHT RESULT');
+    const start=$('autotestStart'); if(start&&!start.classList.contains('is-running'))start.textContent='Test Light';
+    const meta=$('autotestHeadMeta'); if(meta&&/GAMBLING|WEBVIEW/i.test(meta.textContent||''))meta.textContent='light mode';
+    const note=document.querySelector('.autotest-result-note'); if(note)note.textContent='Only the main result is shown here. Full proof is inside TXT report.';
+    const flow=$('gqaAutoFlowStatus'); if(flow&&!flow.dataset.v199){flow.dataset.v199='1';flow.textContent="Test Light ready. Screen shows only Passed / I Can't without hand / No pass. Full proof goes to TXT.";}
+    const runnerTitle=document.querySelector('#gqaAutoFlowRunner .autotest-manual-title'); if(runnerTitle)runnerTitle.textContent='Test Light · auto runner';
+    const runnerHelp=document.querySelector('#gqaAutoFlowRunner .autotest-manual-help'); if(runnerHelp)runnerHelp.textContent="Runs only what the browser/WebView can really try: cookies, storage, camera/API checks, app links, fallbacks and redirects. If the site cannot prove the result itself, status becomes I Can't without hand.";
+    const manualTitle=document.querySelector('.autotest-manual-title'); if(manualTitle&&/Manual probes/i.test(manualTitle.textContent||''))manualTitle.textContent='Manual confirmation only where WebView is blind';
+  }
+  function mainVerdict(c){
+    if(c.nopass>0)return 'No pass';
+    if(c.hand>0)return "I Can't without hand";
+    return 'Passed';
+  }
+  const oldRender=window.hymAutotestRender;
+  window.hymAutotestRender=function(results){
+    if(typeof oldRender==='function')oldRender(results);
+    tuneUi();
+    const c=counts(results||[]);
+    const status=$('autotestStatus');
+    if(status)status.textContent='Test Light: '+mainVerdict(c)+' · Passed '+c.passed+' · I Can\'t without hand '+c.hand+' · No pass '+c.nopass;
+    testLightLog('screen summary updated · '+mainVerdict(c)+' · passed '+c.passed+' · hand '+c.hand+' · no pass '+c.nopass);
+  };
+  const oldShow=window.hymAutotestShowResultModal;
+  window.hymAutotestShowResultModal=function(results=window.hymAutotestLastReport||[]){
+    if(typeof oldShow==='function')oldShow(results);
+    tuneUi();
+    const c=counts(results||[]);
+    const meta=$('autotestResultMeta'); if(meta)meta.textContent=mainVerdict(c)+' · '+c.total+' checks';
+    const status=$('autotestResultStatus'); if(status)status.textContent='Result: '+mainVerdict(c)+'. Download TXT for full proof.';
+    testLightLog('final short result · '+mainVerdict(c)+' · total '+c.total+' · passed '+c.passed+' · hand '+c.hand+' · no pass '+c.nopass);
+  };
+  const oldAppend=window.hymAutotestAppend;
+  window.hymAutotestAppend=function(name,state,detail){
+    const result=typeof oldAppend==='function'?oldAppend(name,state,detail):null;
+    const item={name,state,detail};
+    const label=typeof window.hymQaPublicStatus==='function'?window.hymQaPublicStatus(item):(state==='pass'?LABELS.pass:state==='fail'?LABELS.nopass:LABELS.hand);
+    testLightLog((name||'check')+' · '+label+' · '+safeText(detail));
+    return result;
+  };
+  window.hymAutotestReportLines=function(results=window.hymAutotestLastReport||[]){
+    const list=(results||[]).map(item=>{
+      const label=typeof window.hymQaPublicStatus==='function'?window.hymQaPublicStatus(item):(item?.state==='pass'?LABELS.pass:item?.state==='fail'?LABELS.nopass:LABELS.hand);
+      return Object.assign({},item,{screenStatus:label});
+    });
+    const c=counts(list);
+    const lines=[
+      'WWG TEST LIGHT REPORT v199',
+      'Generated: '+new Date().toISOString(),
+      'URL: '+location.href,
+      'Launch source: '+(($('launchSourceBadge')?.textContent)||'unknown'),
+      'OS: '+(($('osBadge')?.textContent)||'unknown'),
+      'User-Agent: '+navigator.userAgent,
+      '',
+      'SHORT RESULT:',
+      'Overall: '+mainVerdict(c),
+      'Passed: '+c.passed,
+      "I Can't without hand: "+c.hand,
+      'No pass: '+c.nopass,
+      'Total: '+c.total,
+      '',
+      'HOW TO READ STATUSES:',
+      'Passed = the site did the check itself and received direct proof.',
+      "I Can't without hand = the site tried, but WebView/browser cannot prove the final result without your confirmation.",
+      'No pass = blocked, failed, unavailable, or no useful signal was detected.',
+      '',
+      'DETAILS:'
+    ];
+    list.forEach((item,index)=>{
+      const name=item.name||'check';
+      const rawState=item.state||'info';
+      const detail=item.detail||'no details';
+      lines.push('');
+      lines.push((index+1)+'. '+name);
+      lines.push('Screen status: '+item.screenStatus);
+      lines.push('Raw technical state: '+rawState);
+      lines.push('What Test Light did / saw: '+detail);
+      if(item.screenStatus===LABELS.pass)lines.push('Meaning: direct browser/WebView proof exists for this exact check.');
+      else if(item.screenStatus===LABELS.nopass)lines.push('Meaning: the action did not work, was blocked, unsupported, unavailable, or produced no useful signal.');
+      else lines.push('Meaning: Test Light attempted the action, but the final result needs your eyes/hands because WebView does not expose a reliable proof API.');
+    });
+    return lines;
+  };
+  window.hymAutotestReportText=function(results=window.hymAutotestLastReport||[]){return window.hymAutotestReportLines(results).join('\n')};
+  function bindActionLogs(){
+    document.addEventListener('click',event=>{
+      const btn=event.target&&event.target.closest&&event.target.closest('#autotestModal button,#autotestResultModal button,#gqaAutoFlowRunner button,.autotest-manual button');
+      if(!btn)return;
+      const label=safeText(btn.textContent||btn.id||'button');
+      testLightLog('button clicked · '+label);
+    },true);
+    ['visibilitychange','pagehide','pageshow','blur','focus','resize','orientationchange'].forEach(ev=>{
+      window.addEventListener(ev,()=>testLightLog('native event · '+ev+' · hidden='+document.hidden+' · viewport '+innerWidth+'x'+innerHeight),{capture:true,passive:true});
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{tuneUi();bindActionLogs();testLightLog('ready');},{once:true});
+  else {tuneUi();bindActionLogs();testLightLog('ready');}
+  setTimeout(tuneUi,80);setTimeout(tuneUi,400);setTimeout(tuneUi,1200);
+})();
+/* --- /v199 Test Light honest runner UI + event log bridge --- */
+
+
 // --- v171 visible random button hover/tap FX ---
 (function(){
   const fx=["scan","pulse","glitch","lift","alarm"];
