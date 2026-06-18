@@ -3854,4 +3854,138 @@ dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:t
 /* --- /v204 Backend Status minimal result --- */
 
 </script>
+
+<script>
+/* --- v205 Backend Status ratio-only result --- */
+(function(){
+  const VERSION='v205 Backend Status · ratio only';
+  const $=id=>document.getElementById(id);
+  let lastReport={startedAt:'',finishedAt:'',checks:[],ok:false};
+  function eventLog(msg,type){
+    const text='BACKEND STATUS · '+msg;
+    try{ if(typeof window.logUsefulEvent==='function') return window.logUsefulEvent(text,type||'INFO'); }catch{}
+    try{ if(typeof window.__hymOriginalUsefulEvent==='function') return window.__hymOriginalUsefulEvent(text,type||'INFO'); }catch{}
+  }
+  function esc(v){return String(v==null?'':v).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+  async function jsonFetch(url,opts){const r=await fetch(url,Object.assign({cache:'no-store'},opts||{})); let data=null; try{data=await r.json()}catch{} return {r,data};}
+  async function safeCheck(name,fn){
+    const started=performance.now();
+    let item={name,ok:false,detail:'',elapsedMs:0,time:new Date().toISOString()};
+    try{const res=await fn(); item.ok=!!(res&&res.ok); item.detail=(res&&res.detail)||'';}catch(e){item.ok=false; item.detail=(e&&e.message)||String(e);}
+    item.elapsedMs=Math.round(performance.now()-started);
+    lastReport.checks.push(item);
+    eventLog(name+' · '+(item.ok?'OK':'ISSUE')+' · '+item.elapsedMs+'ms', item.ok?'SUCCESS':'WARN');
+    return item;
+  }
+  async function storageRoundtrip(label,store){
+    const key='backend_status_'+label+'_'+Date.now();
+    try{store.setItem(key,'ok'); const read=store.getItem(key)==='ok'; store.removeItem(key); const removed=store.getItem(key)===null; return {ok:read&&removed,detail:'read='+read+'; removed='+removed};}
+    catch(e){return {ok:false,detail:(e&&e.message)||String(e)}}
+  }
+  async function indexedDbRoundtrip(){
+    if(!('indexedDB' in window))return {ok:false,detail:'indexedDB API unavailable'};
+    const dbName='backend_status_'+Date.now();
+    return await new Promise(resolve=>{
+      let done=false;
+      const finish=x=>{if(done)return;done=true;try{indexedDB.deleteDatabase(dbName)}catch{} resolve(x)};
+      try{
+        const req=indexedDB.open(dbName,1);
+        req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};
+        req.onerror=()=>finish({ok:false,detail:'open error: '+((req.error&&req.error.message)||'unknown')});
+        req.onsuccess=()=>{
+          const db=req.result;
+          try{
+            const tx=db.transaction('kv','readwrite');
+            const store=tx.objectStore('kv');
+            store.put('ok','key');
+            const get=store.get('key');
+            get.onsuccess=()=>{const ok=get.result==='ok'; try{db.close()}catch{} finish({ok,detail:'stored value='+String(get.result)})};
+            get.onerror=()=>{try{db.close()}catch{} finish({ok:false,detail:'read error: '+((get.error&&get.error.message)||'unknown')})};
+          }catch(e){try{db.close()}catch{} finish({ok:false,detail:'transaction exception: '+((e&&e.message)||e)})}
+        };
+        setTimeout(()=>finish({ok:false,detail:'timeout after 2500ms'}),2500);
+      }catch(e){finish({ok:false,detail:'exception: '+((e&&e.message)||e)})}
+    });
+  }
+  async function run(){
+    lastReport={startedAt:new Date().toISOString(),finishedAt:'',checks:[],ok:false};
+    const buttons=[$('autotestStart'),$('backendStatusRunMain'),$('statusCoreRunMain')].filter(Boolean);
+    buttons.forEach(b=>{b.disabled=true;b.textContent='Checking…';b.classList.add('is-running')});
+    eventLog('scan started','INFO');
+    await safeCheck('Server health API',async()=>{const {r,data}=await jsonFetch('/api/health',{headers:{accept:'application/json'}}); return {ok:r.ok&&data&&data.ok===true,detail:'HTTP '+r.status+'; version='+(data&&data.version||'unknown')}});
+    await safeCheck('Server self processor',async()=>{const runId='bs-'+Date.now()+'-'+Math.random().toString(16).slice(2); const {r,data}=await jsonFetch('/api/test-light/self',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({runId,source:'backend-status-ratio'})}); return {ok:r.ok&&data&&data.ok===true&&data.echo&&data.echo.runId===runId,detail:'HTTP '+r.status+'; echo='+(data&&data.echo&&data.echo.runId||'none')+'; colo='+(data&&data.server&&data.server.colo||'--')}});
+    await safeCheck('Main page HTML delivery',async()=>{const r=await fetch(location.pathname||'/',{cache:'no-store',headers:{accept:'text/html'}}); const text=await r.text(); return {ok:r.ok&&/text\/html/i.test(r.headers.get('content-type')||'')&&text.includes('WWG QA Team'),detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')}});
+    await safeCheck('Static asset delivery',async()=>{const r=await fetch('/audio.mp3',{cache:'no-store'}); return {ok:r.ok,detail:'HTTP '+r.status+'; content-type='+(r.headers.get('content-type')||'')+'; bytes='+(r.headers.get('content-length')||'unknown')}});
+    await safeCheck('EVENT LOG connection',async()=>({ok:typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function',detail:'logger='+(typeof window.logUsefulEvent)+'; original='+(typeof window.__hymOriginalUsefulEvent)}));
+    await safeCheck('DOM ready state',async()=>({ok:document.readyState==='interactive'||document.readyState==='complete',detail:'readyState='+document.readyState}));
+    await safeCheck('Cookie write/read/delete',async()=>{const key='backend_status_cookie_'+Date.now(); document.cookie=key+'=ok; SameSite=Lax; path=/'; const read=document.cookie.includes(key+'=ok'); document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; const removed=!document.cookie.includes(key+'=ok'); return {ok:read&&removed,detail:'read='+read+'; removed='+removed}});
+    await safeCheck('LocalStorage write/read/delete',async()=>storageRoundtrip('localStorage',localStorage));
+    await safeCheck('SessionStorage write/read/delete',async()=>storageRoundtrip('sessionStorage',sessionStorage));
+    await safeCheck('IndexedDB write/read',indexedDbRoundtrip);
+    lastReport.finishedAt=new Date().toISOString();
+    lastReport.ok=lastReport.checks.every(x=>x.ok);
+    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length;
+    eventLog('scan finished · '+ok+'/'+total+' systems working', lastReport.ok?'SUCCESS':'WARN');
+    eventLog('scanned list · '+lastReport.checks.map(x=>x.name+': '+(x.ok?'OK':'ISSUE')).join(' | '),'INFO');
+    buttons.forEach(b=>{b.disabled=false;b.textContent='Backend Status';b.classList.remove('is-running')});
+    showResult();
+  }
+  function reportText(){
+    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);
+    const lines=['WWG BACKEND STATUS TXT REPORT','Version: '+VERSION,'Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')&&$('launchSourceBadge').textContent)||'unknown'),'OS: '+(($('osBadge')&&$('osBadge').textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SCREEN STATUS:',ok+'/'+total+' systems working',issues.length?'Issues: '+issues.length:'Issues: 0','','CHECK DETAILS:'];
+    lastReport.checks.forEach((x,i)=>lines.push('',(i+1)+'. '+x.name,'Status: '+(x.ok?'OK':'ISSUE'),'Detail: '+x.detail,'Elapsed: '+x.elapsedMs+'ms','Time: '+x.time));
+    lines.push('','NOTE:','Screen shows only the numeric system status. Working systems are detailed only in this TXT report. If a system is broken, only that broken system is shown on screen.');
+    return lines.join('\n');
+  }
+  function copyTxt(){const txt=reportText(); if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>eventLog('TXT copied','SUCCESS'),()=>eventLog('TXT copy failed','WARN')); else eventLog('Clipboard unavailable','WARN');}
+  function downloadTxt(){const blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='backend-status-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt'; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove()},500); eventLog('TXT downloaded','SUCCESS');}
+  function showResult(){
+    const modal=$('autotestResultModal'), body=modal&&modal.querySelector('.autotest-result-body'), title=$('autotestResultTitle'), meta=$('autotestResultMeta');
+    const ok=lastReport.checks.filter(x=>x.ok).length,total=lastReport.checks.length,issues=lastReport.checks.filter(x=>!x.ok);
+    if(title)title.textContent='BACKEND STATUS';
+    if(meta)meta.textContent=ok+'/'+total;
+    if(body){
+      const ratio=ok+'/'+total+' systems working';
+      const issueHtml=issues.length?('<div class="autotest-result-list" style="display:block;margin-top:12px">'+issues.map(x=>'<div class="autotest-row fail"><div class="autotest-state">ISSUE</div><div><div class="autotest-name">'+esc(x.name)+'</div><div class="autotest-detail">'+esc(x.detail||'No detail')+'</div></div></div>').join('')+'</div>'):'';
+      body.innerHTML='<div class="autotest-result-note" style="font-size:13px;color:#d7f5ee;border-color:#1c2a2f">'+
+        '<strong style="display:block;font-size:22px;color:'+(issues.length?'#ff7b83':'#34ff9a')+';margin-bottom:6px">'+esc(ratio)+'</strong>'+ 
+        '<span>'+(issues.length?'Only failed systems are shown below. Working systems are inside TXT.':'All checked systems are OK. Details are inside TXT.')+'</span></div>'+issueHtml+
+        '<div class="autotest-result-actions"><button class="btn green" id="backendStatusDownload" type="button">DOWNLOAD TXT</button><button class="btn" id="backendStatusCopy" type="button">COPY TXT</button><button class="btn" id="backendStatusRunAgain" type="button">RUN AGAIN</button></div>';
+      setTimeout(()=>{const d=$('backendStatusDownload'),c=$('backendStatusCopy'),r=$('backendStatusRunAgain'); if(d)d.onclick=downloadTxt; if(c)c.onclick=copyTxt; if(r)r.onclick=run;},0);
+    }
+    if(modal){modal.classList.add('on');modal.setAttribute('aria-hidden','false')}
+  }
+  function normalizeUi(){
+    const top=$('autotestStart'); if(top){top.textContent='Backend Status';top.setAttribute('data-testid','backend-status-start')}
+    const t=$('autotestTitle'); if(t)t.textContent='BACKEND STATUS';
+    const hm=$('autotestHeadMeta'); if(hm)hm.textContent='site/server';
+    document.querySelectorAll('.autotest-manual,.autotest-flow-panel,.autotest-list,.autotest-summary,#autotestDeepLinks,#autotestKeyboardInput,#gqaAutoFlowRunner').forEach(el=>{if(el)el.style.display='none'});
+    const status=$('autotestStatus'); if(status)status.textContent='Shows only numeric system status. Full details are inside TXT.';
+    const actions=document.querySelector('#autotestModal .autotest-actions');
+    if(actions){
+      [...actions.querySelectorAll('button')].forEach(b=>b.remove());
+      let runBtn=$('backendStatusRunMain'); if(!runBtn){runBtn=document.createElement('button');runBtn.className='btn green';runBtn.id='backendStatusRunMain';runBtn.type='button';runBtn.textContent='RUN STATUS';actions.appendChild(runBtn)}
+      let cp=$('backendStatusCopyMain'); if(!cp){cp=document.createElement('button');cp.className='btn';cp.id='backendStatusCopyMain';cp.type='button';cp.textContent='COPY TXT';actions.appendChild(cp)}
+      runBtn.onclick=run; cp.onclick=copyTxt;
+    }
+  }
+  function bindTop(){
+    const old=$('autotestStart');
+    if(old&&!old.dataset.backendStatusV205){
+      const btn=old.cloneNode(true); btn.textContent='Backend Status'; btn.dataset.backendStatusV205='1'; old.replaceWith(btn); btn.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();run();},true);
+    }
+  }
+  function boot(){normalizeUi(); bindTop(); eventLog('ready · numeric system status only','INFO');}
+  window.hymRunAutotest=run;
+  window.hymBackendStatusRun=run;
+  window.hymStatusCoreRun=run;
+  window.hymAutotestReportText=reportText;
+  window.hymAutotestReportLines=()=>reportText().split('\n');
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true}); else boot();
+  setTimeout(boot,100); setTimeout(boot,600); setTimeout(boot,1600);
+  try{new MutationObserver(()=>normalizeUi()).observe(document.documentElement,{childList:true,subtree:true,characterData:true});}catch{}
+})();
+/* --- /v205 Backend Status ratio-only result --- */
+
+</script>
 </body></html>
