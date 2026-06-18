@@ -853,6 +853,12 @@ body.dashboard-focus-open{overflow:hidden}
 
 /* --- v194 WebView flow QA launcher + result report modal --- */
 .autotest-top-btn{appearance:none;display:inline-grid;place-items:center;min-width:max-content;background:#071013;border:1px solid #1c2a2f;color:#9cded0;font:900 10px/1 "JetBrains Mono","Cascadia Code",Consolas,monospace;padding:8px 9px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;box-shadow:0 0 0 rgba(52,255,154,0);transition:.15s ease}.autotest-top-btn::before{content:"▶";color:var(--green);margin-right:6px}.autotest-top-btn:hover{border-color:var(--green);color:#eafff8;background:#0b1716;box-shadow:0 0 18px rgba(52,255,154,.12)}.autotest-top-btn.is-running{border-color:#b8ff5f;color:#b8ff5f;animation:autotestPulse 1s ease-in-out infinite}.autotest-top-btn.is-running::before{content:"●"}@keyframes autotestPulse{0%,100%{box-shadow:0 0 0 rgba(52,255,154,0)}50%{box-shadow:0 0 18px rgba(52,255,154,.28)}}.autotest-modal-box{width:min(920px,100%)}.autotest-result-modal-box{width:min(980px,calc(100vw - 20px));max-height:92vh}.autotest-modal-body,.autotest-result-body{padding:12px;max-height:82vh;overflow:auto}.autotest-result-body{display:grid;gap:10px}.autotest-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-bottom:10px}.autotest-result-body .autotest-summary{margin-bottom:0}.autotest-pill{border:1px solid #1c2a2f;background:#060a0b;padding:8px 9px}.autotest-pill strong{display:block;color:#eafff8;font-size:16px}.autotest-pill span{display:block;color:#607b77;font-size:9px;text-transform:uppercase;letter-spacing:.1em}.autotest-list{display:grid;gap:6px}.autotest-result-list{display:grid;gap:6px;max-height:48vh;overflow:auto;padding-right:2px}.autotest-row{display:grid;grid-template-columns:82px minmax(0,1fr);gap:8px;align-items:flex-start;border:1px solid #1c2a2f;background:#060a0b;padding:8px 9px}.autotest-state{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.09em}.autotest-row.pass .autotest-state{color:#34ff9a}.autotest-row.warn .autotest-state{color:#ffd76d}.autotest-row.fail .autotest-state{color:#ff7b83}.autotest-row.info .autotest-state{color:#42d8ff}.autotest-name{font-size:12px;font-weight:900;color:#d7f5ee}.autotest-detail{font-size:10px;color:#6f8d88;margin-top:3px;line-height:1.35;word-break:break-word}.autotest-actions,.autotest-result-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.autotest-result-actions{margin-top:0;justify-content:flex-end}.autotest-status,.autotest-result-status{font-size:10px;color:#6f8d88;margin-top:8px;min-height:14px}.autotest-result-status{margin-top:0}.autotest-result-note{border:1px solid #1c2a2f;background:#060a0b;color:#7c9994;font-size:10px;line-height:1.45;padding:9px}.autotest-manual{margin-top:11px;border:1px solid #1c2a2f;background:linear-gradient(180deg,rgba(7,16,19,.88),rgba(4,8,9,.88));padding:10px}.autotest-manual-title{font-size:11px;font-weight:900;letter-spacing:.12em;color:#eafff8;text-transform:uppercase;margin-bottom:7px}.autotest-manual-help{font-size:10px;color:#6f8d88;line-height:1.35;margin-bottom:9px}.autotest-manual-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.autotest-mini-input{position:absolute;left:-9999px;width:1px;height:1px;opacity:.01}.autotest-deeplink-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:8px}.autotest-deeplink-grid .btn,.autotest-manual-grid .btn{font-size:10px;padding:8px 9px}.autotest-flow-status{font-size:10px;color:#7c9994;line-height:1.4;margin-top:8px;white-space:pre-wrap;word-break:break-word}.autotest-section-label{margin-top:10px;font-size:9px;color:#34ff9a;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.autotest-danger-note{color:#ffd76d}@media(max-width:700px){.autotest-top-btn{padding:7px 8px;font-size:9px}.autotest-top-btn::before{margin-right:4px}.autotest-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.autotest-row{grid-template-columns:68px minmax(0,1fr);padding:8px}.autotest-modal-body,.autotest-result-body{padding:9px}.autotest-result-actions{display:grid;grid-template-columns:1fr}.autotest-result-actions .btn{width:100%}.top-right{flex-wrap:wrap}.v{order:4;width:100%;justify-content:flex-start}.autotest-top-btn{order:2}.autotest-manual-grid,.autotest-deeplink-grid{grid-template-columns:1fr 1fr}}
+
+/* --- v196 Gambling QA case runner styles --- */
+.gqa-runner{margin-top:11px;border:1px solid #244047;background:linear-gradient(180deg,rgba(4,12,13,.96),rgba(2,6,7,.94));padding:10px;box-shadow:inset 0 0 0 1px rgba(52,255,154,.04)}
+.gqa-runner-actions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}.gqa-cases{display:grid;gap:10px}.gqa-section{border:1px solid #152a2f;background:#040808;padding:8px}.gqa-section-title{font-size:10px;color:#34ff9a;font-weight:900;letter-spacing:.13em;text-transform:uppercase;margin:0 0 7px}.gqa-case{border:1px solid #1c2a2f;background:#060a0b;margin:7px 0;padding:8px}.gqa-case.pass{border-color:rgba(52,255,154,.42)}.gqa-case.fail{border-color:rgba(255,123,131,.55)}.gqa-case.warn{border-color:rgba(255,215,109,.48)}.gqa-case.info{border-color:#1c2a2f}.gqa-case-head{display:grid;grid-template-columns:34px minmax(0,1fr)86px;gap:7px;align-items:center}.gqa-case-head strong{font-size:11px;color:#eafff8;line-height:1.25}.gqa-case-head em{font-style:normal;text-align:right;font-size:9px;color:#7c9994;text-transform:uppercase}.gqa-num{display:inline-grid;place-items:center;border:1px solid #234047;color:#34ff9a;font-size:9px;height:22px}.gqa-expected{margin-top:7px;border-left:2px solid #234047;padding-left:8px;font-size:10px;line-height:1.4;color:#85a4a0}.gqa-expected b{color:#d7f5ee}.gqa-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.gqa-actions .btn{font-size:9px;padding:7px 8px}.gqa-status.active{border-color:#34ff9a;color:#eafff8;box-shadow:0 0 12px rgba(52,255,154,.15)}.gqa-note{width:100%;min-height:42px;margin-top:7px;resize:vertical;background:#030607;border:1px solid #1c2a2f;color:#d7f5ee;padding:8px;font:10px/1.35 "JetBrains Mono","Cascadia Code",Consolas,monospace}.qa-stub-screen{min-height:300px;display:grid;place-items:center;align-content:center;gap:12px;text-align:center;background:radial-gradient(circle at center,rgba(52,255,154,.18),rgba(4,8,9,.95) 45%,#020303);border:1px solid #244047}.qa-stub-screen strong{font-size:22px;letter-spacing:.18em;color:#eafff8}.qa-stub-screen span{font-size:10px;color:#7c9994}.qa-stub-loader{width:46px;height:46px;border:3px solid #1c2a2f;border-top-color:#34ff9a;border-radius:50%;animation:gqaSpin 1s linear infinite}@keyframes gqaSpin{to{transform:rotate(360deg)}}@media(max-width:700px){.gqa-case-head{grid-template-columns:28px minmax(0,1fr);}.gqa-case-head em{grid-column:2;text-align:left}.gqa-runner-actions,.gqa-actions{display:grid;grid-template-columns:1fr 1fr}.gqa-actions .btn,.gqa-runner-actions .btn{width:100%}}
+.auto-flow-runner{border-color:#31524b;background:linear-gradient(180deg,rgba(4,18,16,.94),rgba(4,9,10,.94));box-shadow:0 0 26px rgba(52,255,154,.08) inset}.auto-flow-runner .autotest-manual-title{color:#34ff9a}.auto-flow-runner .gqa-runner-actions{grid-template-columns:repeat(6,minmax(0,1fr))}@media(max-width:700px){.auto-flow-runner .gqa-runner-actions{grid-template-columns:1fr 1fr}.auto-flow-runner .gqa-runner-actions .btn{width:100%}}
+/* --- /v196 Gambling QA case runner styles --- */
 /* --- /v194 WebView flow QA launcher + result report modal --- */
 
 </style>
@@ -2477,8 +2483,8 @@ function hymAutotestReportLines(results=hymAutotestLastReport){return ["WWG WEBV
 function hymAutotestReportText(results=hymAutotestLastReport){return hymAutotestReportLines(results).join("\n")}
 function hymAutotestDownloadText(filename,text){try{const blob=new Blob([text],{type:"text/plain;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200);return true}catch{return false}}
 function hymAutotestRenderRows(target,results){if(!target)return;target.replaceChildren();(results||[]).forEach(item=>{const row=document.createElement("div");row.className="autotest-row "+(item.state||"info");const state=document.createElement("div");state.className="autotest-state";state.textContent=item.state||"info";const body=document.createElement("div");const title=document.createElement("div");title.className="autotest-name";title.textContent=item.name||"check";const detail=document.createElement("div");detail.className="autotest-detail";detail.textContent=item.detail||"";body.append(title,detail);row.append(state,body);target.append(row)})}
-function hymAutotestRenderSummary(target,results){if(!target)return;const pass=results.filter(item=>item.state==="pass").length,warn=results.filter(item=>item.state==="warn").length,fail=results.filter(item=>item.state==="fail").length;target.innerHTML='<div class="autotest-pill"><strong>'+results.length+'</strong><span>checks</span></div><div class="autotest-pill"><strong>'+pass+'</strong><span>Passed</span></div><div class="autotest-pill"><strong>'+warn+'</strong><span>I Can’t without hand</span></div><div class="autotest-pill"><strong>'+fail+'</strong><span>No pass</span></div>'}
-function hymAutotestShowResultModal(results=hymAutotestLastReport){hymAutotestRenderSummary(el("autotestResultSummary"),results);hymAutotestRenderRows(el("autotestResultList"),results);const meta=el("autotestResultMeta");if(meta){const fail=results.filter(item=>item.state==="fail").length,warn=results.filter(item=>item.state==="warn").length;meta.textContent=(fail?"fail":warn?"warn":"pass")+" · "+results.length+" checks · "+new Date().toLocaleTimeString()}hymAutotestSetResultStatus("Report ready. Можна SAVE / DOWNLOAD TXT / COPY.");hymAutotestResultOpen()}
+function hymAutotestRenderSummary(target,results){if(!target)return;const pass=results.filter(item=>item.state==="pass").length,warn=results.filter(item=>item.state==="warn").length,fail=results.filter(item=>item.state==="fail").length,pending=results.filter(item=>item.state==="info").length;target.innerHTML='<div class="autotest-pill"><strong>'+results.length+'</strong><span>checks</span></div><div class="autotest-pill"><strong>'+pass+'</strong><span>Passed</span></div><div class="autotest-pill"><strong>'+warn+'</strong><span>I Can’t without hand</span></div><div class="autotest-pill"><strong>'+fail+'</strong><span>No pass</span></div><div class="autotest-pill"><strong>'+pending+'</strong><span>pending</span></div>'}
+function hymAutotestShowResultModal(results=hymAutotestLastReport){hymAutotestRenderSummary(el("autotestResultSummary"),results);hymAutotestRenderRows(el("autotestResultList"),results);const meta=el("autotestResultMeta");if(meta){const fail=results.filter(item=>item.state==="fail").length,warn=results.filter(item=>item.state==="warn").length,pending=results.filter(item=>item.state==="info").length;meta.textContent=(fail?"fail":warn?"warn":pending?"pending":"pass")+" · "+results.length+" checks · "+new Date().toLocaleTimeString()}hymAutotestSetResultStatus("Report ready. Можна SAVE / DOWNLOAD TXT / COPY.");hymAutotestResultOpen()}
 function hymAutotestSaveResult(){const payload={version:HYM_AUTOTEST_VERSION,savedAt:new Date().toISOString(),href:location.href,ua:navigator.userAgent,results:hymAutotestLastReport};try{const key="hymWebviewQaSavedReports";const old=JSON.parse(localStorage.getItem(key)||"[]");old.unshift(payload);localStorage.setItem(key,JSON.stringify(old.slice(0,10)));hymAutotestSetResultStatus("Saved locally. Збережено в цьому браузері/WebView, останні 10 звітів.");return true}catch(error){hymAutotestSetResultStatus("Local save blocked: "+(error?.message||error)+". Спробуй DOWNLOAD TXT або COPY.");return false}}
 function hymAutotestDownloadResult(){const stamp=new Date().toISOString().replace(/[:.]/g,"-");const ok=hymAutotestDownloadText("wwg-webview-qa-"+stamp+".txt",hymAutotestReportText());hymAutotestSetResultStatus(ok?"TXT download started.":"Download blocked by WebView. Спробуй COPY.")}
 function hymAutotestCopyResult(){const report=hymAutotestReportText();if(navigator.clipboard?.writeText){navigator.clipboard.writeText(report).then(()=>hymAutotestSetResultStatus("Report copied."),()=>hymAutotestSetResultStatus(report));}else hymAutotestSetResultStatus(report)}
@@ -2653,6 +2659,92 @@ function initHymAutotest(){
   document.addEventListener("keydown",event=>{if(event.key==="Escape"&&el("autotestResultModal")?.classList.contains("on")){hymAutotestResultClose();event.stopImmediatePropagation();return}if(event.key==="Escape"&&el("autotestModal")?.classList.contains("on")){hymAutotestClose();event.stopImmediatePropagation()}});
 }
 // --- /v193 WebView gambling/container flow QA runner ---
+/* --- v196 Gambling QA case runner: manual status remains not determined until tester verdict --- */
+(function(){
+  const CASE_VERSION='v196 Gambling QA runner';
+  const statusList=['passed','failed','blocked','skipped'];
+  const cases=[
+    {id:'env-passport', group:'Environment', title:'Detect launch container', expected:'Source is detected: Safari / Custom Tabs / WebView / Telegram / app WebView. Cookies, storage, viewport and APIs are recorded.', auto:true},
+    {id:'stub-open', group:'Stub / Splash', title:'Open application / stub splash', expected:"Doesn't crash. Loading screen and overall design match Asana/reference. No white screen and no eternal loading.", probe:'stub'},
+    {id:'stub-redirect', group:'Stub / Splash', title:'Redirect to stub / placeholder resource', expected:'Redirect opens expected stub/offer resource. Back/return does not break the app container.', probe:'offer'},
+    {id:'stub-minigame', group:'Stub / Mini game', title:'Play a mini game', expected:"Application plays as expected. Doesn't crash. Logic is not broken.", probe:'wild'},
+    {id:'stub-other', group:'Stub / General', title:'Check other functionality', expected:'Everything works as expected. Buttons, blocks, images and controls do not collapse.'},
+    {id:'stub-restart', group:'Stub / Lifecycle', title:'Restart app', expected:"Doesn't crash. Logic is not broken. App returns to expected state after close/reopen."},
+    {id:'stub-volume', group:'Stub / Native controls', title:'Check [volume] buttons', expected:"Application doesn't crash. Volume indicator appears. No unexpected navigation or UI actions."},
+    {id:'stub-lock', group:'Stub / Native controls', title:'Check [screen lock] button', expected:'Phone screen is locked. After unlocking, game/offer continues at the same place where it was stopped.'},
+    {id:'stub-multitap', group:'Stub / Stress', title:'Tap many times on the buttons in the game', expected:"The game doesn't crash. No double-submit, frozen loader or broken logic."},
+    {id:'stub-rotation', group:'Stub / Orientation', title:'Check screen rotation', expected:'Buttons are displayed correctly, game keeps running, text is displayed correctly.', probe:'orientation'},
+    {id:'stub-curtains', group:'Stub / Lifecycle', title:'Check top curtains', expected:'The game is working correctly after notification/control center curtain open-close.'},
+    {id:'splash-back', group:'Offer loading', title:'Back during splash/loading', expected:'Splash does not crash. Previous page or expected screen loads. No white screen.'},
+    {id:'splash-minimize', group:'Offer loading', title:'Minimize app during splash/loading', expected:'Splash does not crash. After return there is no eternal loading or white screen.', probe:'lifecycle'},
+    {id:'splash-lock', group:'Offer loading', title:'Lock screen during splash/loading', expected:'After unlock the offer continues loading or opens normally. No crash.'},
+    {id:'splash-taps', group:'Offer loading', title:'Tap many times on splash/loading', expected:'No crash, no broken navigation, no double actions.'},
+    {id:'offer-images', group:'Offer', title:'Check display of images on the offer', expected:'All pictures are uploaded and displayed. External blocks do not break after rotation/minimize/back.'},
+    {id:'offer-scroll', group:'Offer', title:'Test scroll', expected:'User can scroll as expected in slots, main menu and other parts of the offer.'},
+    {id:'registration', group:'Auth', title:'Registration form', expected:'User can enter phone/email and password. Registration completes or clear validation error is shown. Keyboard does not cover form.', probe:'keyboard'},
+    {id:'telegram-auth', group:'Auth', title:'Telegram authorization', expected:'Telegram auth opens. If Telegram is installed, app opens; if not installed/blocked, status is clear. Return to WebView works.', probe:'telegram'},
+    {id:'google-auth', group:'Auth', title:'Google authorization', expected:'Google auth opens or reports popup/WebView block. Cancel/return does not crash.'},
+    {id:'session-restore', group:'Auth', title:'Close app and reopen authorized state', expected:'There must be an authorized main screen after reopen, unless logout was expected.'},
+    {id:'card-payment', group:'Payment', title:'Check card payment form', expected:'Card fields can be filled and submitted with test card; expected payment error appears, no crash.'},
+    {id:'google-pay', group:'Payment', title:'Google Pay attempt', expected:'Google Pay sheet opens or a clear unavailable/blocked status is recorded. Cancel returns to offer.', probe:'gpay'},
+    {id:'payment-back', group:'Payment', title:'Back button after payment attempt', expected:'1 click and several clicks do not crash the app and load the previous/expected page.'},
+    {id:'deeplink-installed', group:'Redirects / Apps', title:'Installed apps status', expected:'Installed apps open and return correctly. Status is recorded as APP OPENED / returned.', probe:'deeplinks'},
+    {id:'deeplink-not-installed', group:'Redirects / Apps', title:'Not installed apps status', expected:'Not installed apps show NOT INSTALLED / BLOCKED or fallback. No white screen or broken WebView.', probe:'deeplinks'},
+    {id:'contacts', group:'Redirects / Apps', title:'Click contacts links', expected:'Phone, mail, Telegram/social media links open expected functionality or clear blocked/not installed status.', probe:'deeplinks'},
+    {id:'camera-docs', group:'Camera / Gallery', title:'Upload documents through camera/gallery', expected:'Documents/photos are loaded. App responds correctly to closed/open camera access.', probe:'camera'},
+    {id:'photo-share', group:'Camera / Gallery', title:'Attach and share photo', expected:'Photo is attached. Share opens if supported or blocked status is recorded.', probe:'photo'},
+    {id:'support-chat', group:'Support', title:'Open support chat, send message and photo', expected:'Message sent, photo attached. Keyboard and photo picker do not break the chat.', probe:'keyboard'},
+    {id:'slot-demo', group:'Slots', title:'Test game in slots demo', expected:'Game looks and responds as expected. Back twice returns to main screen.', probe:'wild'},
+    {id:'slot-rotation', group:'Slots', title:'Screen rotation in slots', expected:'Game should not restart or close. Interface adapts to frequent and single changes.', probe:'orientation'},
+    {id:'slot-volume', group:'Slots', title:'Volume buttons in slot', expected:'Game sound volume changes, system volume indicator appears, no other actions happen.'},
+    {id:'slot-lock', group:'Slots', title:'Lock/unlock in slot', expected:'After unlocking the app opens in the same place where the screen turned off.'},
+    {id:'keyboard', group:'Keyboard', title:'Keyboard behavior', expected:'Keyboard opens/closes correctly, input remains visible, back closes keyboard or navigates correctly.', probe:'keyboard'},
+    {id:'cookies-session', group:'Cookies / Session', title:'Cookies and session', expected:'Cookies/localStorage work. Session survives reload/reopen when expected.', probe:'cookie'},
+  ];
+  window.hymGamblingQaCases=cases;
+  function $(id){return document.getElementById(id)}
+  function getStore(){try{return JSON.parse(localStorage.getItem('hymGamblingQaCaseStatuses')||'{}')}catch{return {}}}
+  function setStore(data){try{localStorage.setItem('hymGamblingQaCaseStatuses',JSON.stringify(data));return true}catch{return false}}
+  function labelStatus(st,started){return st==='passed'?'Passed':st==='failed'?'Failed':st==='blocked'?'Blocked':st==='skipped'?'Skipped':started?'Started · not determined':'Status not determined'}
+  function stateFromStatus(st){return st==='passed'?'pass':st==='failed'?'fail':(st==='blocked'||st==='skipped')?'warn':'info'}
+  function record(id,status){const store=getStore();store[id]={status,at:new Date().toISOString()};setStore(store);renderCases();updateReportFromCases();try{if(typeof logUsefulEvent==='function'){const c=cases.find(x=>x.id===id);logUsefulEvent('Gambling QA · '+(c?.title||id)+' · '+status)}}catch{}}
+  function note(id,value){const store=getStore();store[id]=store[id]||{};store[id].note=value;store[id].at=store[id].at||new Date().toISOString();setStore(store);updateReportFromCases(false)}
+  function startCase(id){const c=cases.find(x=>x.id===id);if(!c)return; const store=getStore();store[id]=store[id]||{};store[id].startedAt=store[id].startedAt||new Date().toISOString();setStore(store);renderCases();updateReportFromCases(false);
+    const map={camera:'autotestCameraProbe',keyboard:'autotestKeyboardProbe',photo:'autotestPhotoProbe',gpay:'autotestGpayProbe',cookie:'autotestCookieProbe',offer:'autotestOfferProbe',wild:'autotestWildProbe'};
+    if(c.probe==='telegram'){ const btn=[...document.querySelectorAll('#autotestDeepLinks button')].find(b=>/telegram/i.test(b.textContent||'')); if(btn)btn.click(); }
+    else if(c.probe==='deeplinks'){ const grid=$('autotestDeepLinks'); if(grid)grid.scrollIntoView({block:'center'}); }
+    else if(c.probe==='orientation'){ window.dispatchEvent(new Event('orientationchange')); window.dispatchEvent(new Event('resize')); if(typeof hymAutotestAppend==='function')hymAutotestAppend('Orientation probe','info','Rotate the real phone now, then mark the case Passed/Failed. JS resize/orientation listeners are armed.'); }
+    else if(c.probe==='lifecycle'){ if(typeof hymAutotestAppend==='function')hymAutotestAppend('Lifecycle probe','info','Minimize/lock/top curtain now, then return and mark the case. visibilitychange/pagehide/pageshow events will be logged.'); }
+    else if(c.probe==='stub'){ showStub(); }
+    else if(map[c.probe]){ const b=$(map[c.probe]); if(b)b.click(); }
+    if(typeof hymAutotestSetFlowStatus==='function')hymAutotestSetFlowStatus('Started case: '+c.title+' · status is NOT DETERMINED until you manually choose Passed / Failed / Blocked / Skipped.');
+  }
+  function showStub(){
+    let m=$('hymQaStubModal');
+    if(!m){m=document.createElement('div');m.id='hymQaStubModal';m.className='temp-mail-modal on';m.innerHTML='<div class="temp-mail-modal-box autotest-modal-box" role="dialog" aria-modal="true"><div class="temp-mail-modal-head"><div><strong>QA STUB / SPLASH TEST</strong><span class="event-log-modal-head-meta">local placeholder</span></div><button class="temp-mail-modal-close" id="hymQaStubClose" type="button">×</button></div><div class="autotest-modal-body"><div class="qa-stub-screen"><div class="qa-stub-loader"></div><strong>WWG TEST STUB</strong><span>Splash / mini game / redirect placeholder</span><button class="btn green" id="hymQaStubPlay" type="button">PLAY MINI GAME</button><button class="btn" id="hymQaStubRotate" type="button">SIMULATE ROTATION</button></div><div class="autotest-flow-status" id="hymQaStubStatus">Open application stub. Check design, splash, buttons, rotate, lock/minimize manually.</div></div></div>';document.body.appendChild(m);m.querySelector('#hymQaStubClose').onclick=()=>{m.classList.remove('on');m.setAttribute('aria-hidden','true')};m.querySelector('#hymQaStubPlay').onclick=()=>{const s=$('hymQaStubStatus'); if(s)s.textContent='Mini game action clicked · logic alive · now mark Passed/Failed in Gambling QA.'; try{if(typeof logUsefulEvent==='function')logUsefulEvent('QA stub mini game clicked')}catch{}};m.querySelector('#hymQaStubRotate').onclick=()=>{window.dispatchEvent(new Event('resize'));window.dispatchEvent(new Event('orientationchange'));const s=$('hymQaStubStatus'); if(s)s.textContent='Rotation event simulated · rotate real device too for native/WebView check.';};}
+    m.classList.add('on');m.setAttribute('aria-hidden','false');try{if(typeof logUsefulEvent==='function')logUsefulEvent('QA stub opened')}catch{}
+  }
+  function renderCases(){const root=$('gamblingQaCases'); if(!root)return; const store=getStore(); const groups=[...new Set(cases.map(c=>c.group))]; root.innerHTML=''; groups.forEach(group=>{const sec=document.createElement('div');sec.className='gqa-section';sec.innerHTML='<div class="gqa-section-title">'+group+'</div>';cases.filter(c=>c.group===group).forEach((c,idx)=>{const item=store[c.id]||{};const val=item.status||'not-run';const started=Boolean(item.startedAt&&!item.status);const card=document.createElement('div');card.className='gqa-case '+stateFromStatus(val);card.innerHTML='<div class="gqa-case-head"><span class="gqa-num">'+String(idx+1).padStart(2,'0')+'</span><strong>'+c.title+'</strong><em>'+labelStatus(val,started)+'</em></div><div class="gqa-expected"><b>Expected result</b><br>'+c.expected+'</div><div class="gqa-actions"><button class="btn" data-start="'+c.id+'" type="button">'+(started?'STARTED':'START')+'</button>'+statusList.map(st=>'<button class="btn gqa-status '+(val===st?'active':'')+'" data-case="'+c.id+'" data-status="'+st+'" type="button">'+labelStatus(st)+'</button>').join('')+'</div><textarea class="gqa-note" data-note="'+c.id+'" placeholder="Note / actual result">'+(item.note||'')+'</textarea>';sec.appendChild(card)});root.appendChild(sec)});root.querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>record(b.dataset.case,b.dataset.status));root.querySelectorAll('[data-start]').forEach(b=>b.onclick=()=>startCase(b.dataset.start));root.querySelectorAll('[data-note]').forEach(t=>t.oninput=()=>note(t.dataset.note,t.value));}
+  function caseResults(){const store=getStore();return cases.map(c=>{const item=store[c.id]||{};const st=item.status||'not-run';const started=Boolean(item.startedAt&&!item.status);return {name:c.group+' · '+c.title,state:stateFromStatus(st),detail:labelStatus(st,started)+' · Manual verdict required'+(started?' · STARTED':'')+' · Expected: '+c.expected+(item.note?' · Note: '+item.note:'')}})}
+  function envResults(){ const list=[]; try{list.push({name:'Environment · Launch source',state:'pass',detail:($('launchSourceBadge')?.textContent||'unknown')+' · '+navigator.userAgent});list.push({name:'Environment · Viewport',state:'pass',detail:window.innerWidth+'x'+window.innerHeight+' · visual '+(window.visualViewport?Math.round(window.visualViewport.width)+'x'+Math.round(window.visualViewport.height):'n/a')});list.push({name:'Environment · Storage/Cookies',state:navigator.cookieEnabled?'pass':'warn',detail:'cookies '+(navigator.cookieEnabled?'enabled':'blocked')+' · localStorage '+(function(){try{localStorage.setItem('__gqa','1');localStorage.removeItem('__gqa');return 'ok'}catch{return 'blocked'}})()});}catch{} return list; }
+  function updateReportFromCases(open){const results=envResults().concat(caseResults(), window.hymAutotestLastReport||[]); window.hymAutotestLastReport=results; if(typeof hymAutotestRenderSummary==='function')hymAutotestRenderSummary($('autotestResultSummary'),results); if(typeof hymAutotestRenderRows==='function')hymAutotestRenderRows($('autotestResultList'),results); const meta=$('autotestResultMeta'); if(meta)meta.textContent='gambling qa · '+new Date().toLocaleTimeString(); if(open&&typeof hymAutotestShowResultModal==='function')hymAutotestShowResultModal(results);}
+  function install(){
+    const start=$('autotestStart'); if(start)start.textContent='Gambling QA';
+    const title=$('autotestTitle'); if(title)title.textContent='GAMBLING WEBVIEW QA';
+    const ready=document.querySelector('#autotestList .autotest-name'); if(ready)ready.textContent='Gambling/WebView regression runner';
+    const detail=document.querySelector('#autotestList .autotest-detail'); if(detail)detail.textContent='Це не фейк-тест сайту: ресурс створює QA cases під оффер/заглушку/авторизацію/оплати/deep links/камеру/слоти/lifecycle. Частина подій ловиться автоматично, частину ти підтверджуєш Passed/Failed/Blocked/Skipped.';
+    let host=$('gamblingQaCases'); if(!host){const manual=document.querySelector('.autotest-manual'); if(manual){const wrap=document.createElement('div');wrap.className='gqa-runner';wrap.innerHTML='<div class="autotest-manual-title">Gambling QA cases</div><div class="autotest-manual-help">Натискай START біля кейсу, виконуй дію в app/WebView/offer. START не ставить Passed автоматично: поки ти не обереш Passed / Failed / Blocked / Skipped, статус буде Status not determined. У фінальний report піде список кейсів + actual notes + авто-події контейнера.</div><div class="gqa-runner-actions"><button class="btn green" id="gqaBuildReport" type="button">BUILD FINAL REPORT</button><button class="btn" id="gqaResetCases" type="button">RESET CASES</button><button class="btn" id="gqaOpenStub" type="button">OPEN QA STUB</button></div><div id="gamblingQaCases" class="gqa-cases"></div>';manual.parentNode.insertBefore(wrap,manual);} }
+    renderCases();
+    const build=$('gqaBuildReport'); if(build)build.onclick=()=>updateReportFromCases(true);
+    const reset=$('gqaResetCases'); if(reset)reset.onclick=()=>{try{localStorage.removeItem('hymGamblingQaCaseStatuses')}catch{} renderCases(); updateReportFromCases(false); if(typeof hymAutotestSetFlowStatus==='function')hymAutotestSetFlowStatus('Gambling QA cases reset.');};
+    const stub=$('gqaOpenStub'); if(stub)stub.onclick=showStub;
+    ['visibilitychange','pagehide','pageshow','blur','focus','resize','orientationchange'].forEach(ev=>window.addEventListener(ev,()=>{try{if(typeof logUsefulEvent==='function')logUsefulEvent('Gambling QA native event · '+ev+' · hidden='+document.hidden+' · '+window.innerWidth+'x'+window.innerHeight)}catch{}},{capture:true}));
+    const oldReport=window.hymAutotestReportLines; window.hymAutotestReportLines=function(results){const base=oldReport?oldReport(results||window.hymAutotestLastReport||[]):[];return ['WWG GAMBLING WEBVIEW QA '+CASE_VERSION,'Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch: '+($('launchSourceBadge')?.textContent||'unknown'),'OS: '+($('osBadge')?.textContent||'unknown'),''].concat((results||window.hymAutotestLastReport||[]).map(item=>'['+String(item.state||'info').toUpperCase()+'] '+item.name+' — '+(item.detail||'')));};
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install);else install();
+})();
+/* --- /v196 Gambling QA case runner --- */
+
 
 
 
@@ -2941,6 +3033,149 @@ function initHymAutotest(){
 
 
 
+/* --- v199 Test Light honest runner UI + event log bridge --- */
+(function(){
+  const VERSION='v199 Test Light';
+  const LABELS={pass:'Passed',hand:"I Can\'t without hand",nopass:'No pass'};
+  const $=id=>document.getElementById(id);
+  function safeText(v){return String(v||'').replace(/\s+/g,' ').trim().slice(0,220)}
+  function rawLog(message,level){try{if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent(message,level);if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent(message,level)}catch{}}
+  function normalizeLogText(message){
+    return safeText(message)
+      .replace(/WebView QA/gi,'Test Light')
+      .replace(/WebView flow QA/gi,'Test Light')
+      .replace(/Gambling Auto Flow QA/gi,'Test Light')
+      .replace(/GAMBLING AUTO FLOW QA/gi,'TEST LIGHT')
+      .replace(/Gambling WEBVIEW QA/gi,'Test Light')
+      .replace(/Gambling QA/gi,'Test Light')
+      .replace(/Auto Flow/gi,'Test Light');
+  }
+  function testLightLog(message,level='INFO'){
+    try{rawLog('TEST LIGHT · '+normalizeLogText(message),level)}catch{}
+  }
+  window.hymTestLightLog=testLightLog;
+  if(typeof window.logUsefulEvent==='function'&&!window.__hymOriginalUsefulEvent){
+    window.__hymOriginalUsefulEvent=window.logUsefulEvent;
+    window.logUsefulEvent=function(message,level='INFO'){
+      const text=safeText(message);
+      if(/WebView QA|WebView flow QA|Gambling QA|Auto Flow|TEST LIGHT/i.test(text)){
+        return window.__hymOriginalUsefulEvent('TEST LIGHT · '+normalizeLogText(text).replace(/^TEST LIGHT · /i,''),level);
+      }
+      return window.__hymOriginalUsefulEvent(message,level);
+    };
+  }
+  function counts(results){
+    const list=(results||[]).map(item=>{
+      const label=typeof window.hymQaPublicStatus==='function'?window.hymQaPublicStatus(item):(item?.state==='pass'?LABELS.pass:item?.state==='fail'?LABELS.nopass:LABELS.hand);
+      return {label};
+    });
+    return {total:list.length,passed:list.filter(i=>i.label===LABELS.pass).length,hand:list.filter(i=>i.label===LABELS.hand).length,nopass:list.filter(i=>i.label===LABELS.nopass).length};
+  }
+  function setText(id,text){const n=$(id); if(n)n.textContent=text;}
+  function tuneUi(){
+    setText('autotestTitle','TEST LIGHT');
+    setText('autotestResultTitle','TEST LIGHT RESULT');
+    const start=$('autotestStart'); if(start&&!start.classList.contains('is-running'))start.textContent='Test Light';
+    const meta=$('autotestHeadMeta'); if(meta&&/GAMBLING|WEBVIEW/i.test(meta.textContent||''))meta.textContent='light mode';
+    const note=document.querySelector('.autotest-result-note'); if(note)note.textContent='Only the main result is shown here. Full proof is inside TXT report.';
+    const flow=$('gqaAutoFlowStatus'); if(flow&&!flow.dataset.v199){flow.dataset.v199='1';flow.textContent="Test Light ready. Screen shows only Passed / I Can't without hand / No pass. Full proof goes to TXT.";}
+    const runnerTitle=document.querySelector('#gqaAutoFlowRunner .autotest-manual-title'); if(runnerTitle)runnerTitle.textContent='Test Light · auto runner';
+    const runnerHelp=document.querySelector('#gqaAutoFlowRunner .autotest-manual-help'); if(runnerHelp)runnerHelp.textContent="Runs only what the browser/WebView can really try: cookies, storage, camera/API checks, app links, fallbacks and redirects. If the site cannot prove the result itself, status becomes I Can't without hand.";
+    const manualTitle=document.querySelector('.autotest-manual-title'); if(manualTitle&&/Manual probes/i.test(manualTitle.textContent||''))manualTitle.textContent='Manual confirmation only where WebView is blind';
+  }
+  function mainVerdict(c){
+    if(c.nopass>0)return 'No pass';
+    if(c.hand>0)return "I Can't without hand";
+    return 'Passed';
+  }
+  const oldRender=window.hymAutotestRender;
+  window.hymAutotestRender=function(results){
+    if(typeof oldRender==='function')oldRender(results);
+    tuneUi();
+    const c=counts(results||[]);
+    const status=$('autotestStatus');
+    if(status)status.textContent='Test Light: '+mainVerdict(c)+' · Passed '+c.passed+' · I Can\'t without hand '+c.hand+' · No pass '+c.nopass;
+    testLightLog('screen summary updated · '+mainVerdict(c)+' · passed '+c.passed+' · hand '+c.hand+' · no pass '+c.nopass);
+  };
+  const oldShow=window.hymAutotestShowResultModal;
+  window.hymAutotestShowResultModal=function(results=window.hymAutotestLastReport||[]){
+    if(typeof oldShow==='function')oldShow(results);
+    tuneUi();
+    const c=counts(results||[]);
+    const meta=$('autotestResultMeta'); if(meta)meta.textContent=mainVerdict(c)+' · '+c.total+' checks';
+    const status=$('autotestResultStatus'); if(status)status.textContent='Result: '+mainVerdict(c)+'. Download TXT for full proof.';
+    testLightLog('final short result · '+mainVerdict(c)+' · total '+c.total+' · passed '+c.passed+' · hand '+c.hand+' · no pass '+c.nopass);
+  };
+  const oldAppend=window.hymAutotestAppend;
+  window.hymAutotestAppend=function(name,state,detail){
+    const result=typeof oldAppend==='function'?oldAppend(name,state,detail):null;
+    const item={name,state,detail};
+    const label=typeof window.hymQaPublicStatus==='function'?window.hymQaPublicStatus(item):(state==='pass'?LABELS.pass:state==='fail'?LABELS.nopass:LABELS.hand);
+    testLightLog((name||'check')+' · '+label+' · '+safeText(detail));
+    return result;
+  };
+  window.hymAutotestReportLines=function(results=window.hymAutotestLastReport||[]){
+    const list=(results||[]).map(item=>{
+      const label=typeof window.hymQaPublicStatus==='function'?window.hymQaPublicStatus(item):(item?.state==='pass'?LABELS.pass:item?.state==='fail'?LABELS.nopass:LABELS.hand);
+      return Object.assign({},item,{screenStatus:label});
+    });
+    const c=counts(list);
+    const lines=[
+      'WWG TEST LIGHT REPORT v199',
+      'Generated: '+new Date().toISOString(),
+      'URL: '+location.href,
+      'Launch source: '+(($('launchSourceBadge')?.textContent)||'unknown'),
+      'OS: '+(($('osBadge')?.textContent)||'unknown'),
+      'User-Agent: '+navigator.userAgent,
+      '',
+      'SHORT RESULT:',
+      'Overall: '+mainVerdict(c),
+      'Passed: '+c.passed,
+      "I Can't without hand: "+c.hand,
+      'No pass: '+c.nopass,
+      'Total: '+c.total,
+      '',
+      'HOW TO READ STATUSES:',
+      'Passed = the site did the check itself and received direct proof.',
+      "I Can't without hand = the site tried, but WebView/browser cannot prove the final result without your confirmation.",
+      'No pass = blocked, failed, unavailable, or no useful signal was detected.',
+      '',
+      'DETAILS:'
+    ];
+    list.forEach((item,index)=>{
+      const name=item.name||'check';
+      const rawState=item.state||'info';
+      const detail=item.detail||'no details';
+      lines.push('');
+      lines.push((index+1)+'. '+name);
+      lines.push('Screen status: '+item.screenStatus);
+      lines.push('Raw technical state: '+rawState);
+      lines.push('What Test Light did / saw: '+detail);
+      if(item.screenStatus===LABELS.pass)lines.push('Meaning: direct browser/WebView proof exists for this exact check.');
+      else if(item.screenStatus===LABELS.nopass)lines.push('Meaning: the action did not work, was blocked, unsupported, unavailable, or produced no useful signal.');
+      else lines.push('Meaning: Test Light attempted the action, but the final result needs your eyes/hands because WebView does not expose a reliable proof API.');
+    });
+    return lines;
+  };
+  window.hymAutotestReportText=function(results=window.hymAutotestLastReport||[]){return window.hymAutotestReportLines(results).join('\n')};
+  function bindActionLogs(){
+    document.addEventListener('click',event=>{
+      const btn=event.target&&event.target.closest&&event.target.closest('#autotestModal button,#autotestResultModal button,#gqaAutoFlowRunner button,.autotest-manual button');
+      if(!btn)return;
+      const label=safeText(btn.textContent||btn.id||'button');
+      testLightLog('button clicked · '+label);
+    },true);
+    ['visibilitychange','pagehide','pageshow','blur','focus','resize','orientationchange'].forEach(ev=>{
+      window.addEventListener(ev,()=>testLightLog('native event · '+ev+' · hidden='+document.hidden+' · viewport '+innerWidth+'x'+innerHeight),{capture:true,passive:true});
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{tuneUi();bindActionLogs();testLightLog('ready');},{once:true});
+  else {tuneUi();bindActionLogs();testLightLog('ready');}
+  setTimeout(tuneUi,80);setTimeout(tuneUi,400);setTimeout(tuneUi,1200);
+})();
+/* --- /v199 Test Light honest runner UI + event log bridge --- */
+
+
 // --- v171 visible random button hover/tap FX ---
 (function(){
   const fx=["scan","pulse","glitch","lift","alarm"];
@@ -3050,5 +3285,177 @@ function initMoodTiny(options={}){
 hymMediaRender();initYoutubeEventLogger();initGoogleLoginCancelTracking();
 dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:true,repairPosition:true});initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();initHymAutotest();
 // --- /v167 useful redirect + event engine ---
+
+/* --- v200 Test Light self-verifiable only --- */
+(function(){
+  const VERSION='v200 Test Light · self checks only';
+  const $=id=>document.getElementById(id);
+  const LABELS={pass:'Passed',nopass:'No pass',hand:"I Can't without hand"};
+  let lastResults=[];
+  function text(v){return String(v||'').replace(/\s+/g,' ').trim()}
+  function log(message,level='INFO'){
+    try{
+      if(typeof window.__hymOriginalUsefulEvent==='function')return window.__hymOriginalUsefulEvent('TEST LIGHT · '+text(message),level);
+      if(typeof window.logUsefulEvent==='function')return window.logUsefulEvent('TEST LIGHT · '+text(message),level);
+    }catch{}
+  }
+  function openModal(){
+    try{ if(typeof window.hymAutotestOpen==='function')window.hymAutotestOpen(); else {$('autotestModal')?.classList.add('on');$('autotestModal')?.setAttribute('aria-hidden','false');} }catch{}
+  }
+  function setStatus(msg){ const n=$('autotestStatus'); if(n)n.textContent=msg; const f=$('gqaAutoFlowStatus')||$('autotestFlowStatus'); if(f)f.textContent=msg; }
+  function shortState(item){return item.state==='pass'?LABELS.pass:LABELS.nopass}
+  function counts(results){return {total:results.length,passed:results.filter(x=>x.state==='pass').length,nopass:results.filter(x=>x.state!=='pass').length,hand:0}}
+  function renderSummary(target,results){
+    if(!target)return; const c=counts(results);
+    target.innerHTML='<div class="autotest-pill"><strong>'+c.total+'</strong><span>checks</span></div><div class="autotest-pill"><strong>'+c.passed+'</strong><span>Passed</span></div><div class="autotest-pill"><strong>0</strong><span>I Can\'t without hand</span></div><div class="autotest-pill"><strong>'+c.nopass+'</strong><span>No pass</span></div>';
+  }
+  function renderRows(target,results,shortOnly=false){
+    if(!target)return; target.replaceChildren();
+    results.forEach(item=>{
+      const row=document.createElement('div'); row.className='autotest-row '+(item.state==='pass'?'pass':'fail');
+      const state=document.createElement('div'); state.className='autotest-state'; state.textContent=shortState(item);
+      const body=document.createElement('div'); const title=document.createElement('div'); title.className='autotest-name'; title.textContent=item.name;
+      const detail=document.createElement('div'); detail.className='autotest-detail'; detail.textContent=shortOnly?'Details are inside TXT report.':item.short;
+      body.append(title,detail); row.append(state,body); target.append(row);
+    });
+  }
+  function render(results){
+    lastResults=results.slice(); window.hymAutotestLastReport=lastResults.slice();
+    renderSummary($('autotestSummary'),lastResults); renderRows($('autotestList'),lastResults,false);
+    const c=counts(lastResults); const verdict=c.nopass?'No pass':'Passed';
+    const meta=$('autotestHeadMeta'); if(meta)meta.textContent=verdict+' · '+c.total+' checks';
+    setStatus('Test Light: '+verdict+' · Passed '+c.passed+' · I Can\'t without hand 0 · No pass '+c.nopass);
+  }
+  function add(results,name,state,short,details){
+    const item={name,state:state==='pass'?'pass':'fail',short:short||'',detail:details||short||'',time:new Date().toISOString()};
+    results.push(item); log(name+' · '+shortState(item)+' · '+(short||''),item.state==='pass'?'SUCCESS':'ERROR'); render(results); return item;
+  }
+  function testCookie(){
+    try{const key='tl_self_cookie_'+Date.now(); document.cookie=key+'=ok; SameSite=Lax; path=/'; const written=document.cookie.includes(key+'=ok'); document.cookie=key+'=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; const removed=!document.cookie.includes(key+'=ok'); return written&&removed?['pass','Cookie write/read/delete works','Created test cookie, read it from document.cookie, deleted it, confirmed it disappeared.']:['fail','Cookie roundtrip failed','Could not prove cookie write/read/delete. written='+written+' removed='+removed];}catch(e){return ['fail','Cookie check error',e?.message||String(e)]}
+  }
+  function testStorage(kind,storage){
+    try{const key='tl_self_'+kind+'_'+Date.now(); storage.setItem(key,'ok'); const read=storage.getItem(key)==='ok'; storage.removeItem(key); const removed=storage.getItem(key)===null; return read&&removed?['pass',kind+' write/read/delete works','Wrote value, read it back, removed it, confirmed it disappeared.']:['fail',kind+' roundtrip failed','read='+read+' removed='+removed];}catch(e){return ['fail',kind+' blocked or failed',e?.message||String(e)]}
+  }
+  function testIndexedDb(){
+    return new Promise(resolve=>{
+      if(!window.indexedDB)return resolve(['fail','IndexedDB unavailable','window.indexedDB is missing.']);
+      const dbName='tl_self_db_'+Date.now(); let done=false;
+      const finish=(state,short,detail)=>{if(done)return; done=true; try{indexedDB.deleteDatabase(dbName)}catch{} resolve([state,short,detail]);};
+      try{
+        const req=indexedDB.open(dbName,1);
+        req.onupgradeneeded=()=>{try{req.result.createObjectStore('kv')}catch{}};
+        req.onerror=()=>finish('fail','IndexedDB open failed',req.error?.message||'open error');
+        req.onsuccess=()=>{
+          const db=req.result;
+          try{
+            const tx=db.transaction('kv','readwrite'); const store=tx.objectStore('kv');
+            store.put('ok','key');
+            const get=store.get('key');
+            get.onsuccess=()=>{ const ok=get.result==='ok'; try{db.close()}catch{} finish(ok?'pass':'fail',ok?'IndexedDB write/read works':'IndexedDB read mismatch','Stored value and read it back. result='+String(get.result)); };
+            get.onerror=()=>{try{db.close()}catch{} finish('fail','IndexedDB read failed',get.error?.message||'read error')};
+          }catch(e){try{db.close()}catch{} finish('fail','IndexedDB transaction failed',e?.message||String(e))}
+        };
+        setTimeout(()=>finish('fail','IndexedDB timeout','No success/error response in time.'),2500);
+      }catch(e){finish('fail','IndexedDB exception',e?.message||String(e))}
+    });
+  }
+  function testDom(){
+    const ids=['autotestModal','eventLogModal','section-temp-mail','section-ua'];
+    const missing=ids.filter(id=>!$(id));
+    return missing.length?['fail','Required UI elements missing','Missing: '+missing.join(', ')]:['pass','Required UI elements exist','Checked required local DOM nodes: '+ids.join(', ')];
+  }
+  function testViewport(){
+    const w=Math.round(window.innerWidth||0),h=Math.round(window.innerHeight||0); const vv=window.visualViewport; const vw=Math.round(vv?.width||0),vh=Math.round(vv?.height||0);
+    const ok=w>0&&h>0&&(!vv||(vw>0&&vh>0));
+    return ok?['pass','Viewport values readable','window '+w+'x'+h+(vv?' · visualViewport '+vw+'x'+vh:' · visualViewport unavailable but window viewport is readable')]:['fail','Viewport values invalid','window '+w+'x'+h+' visualViewport '+vw+'x'+vh];
+  }
+  function testHorizontalOverflow(){
+    const overflow=Math.max(0,Math.round((document.documentElement.scrollWidth||0)-(window.innerWidth||0)));
+    return overflow<=4?['pass','No critical horizontal overflow','scrollWidth - innerWidth = '+overflow+'px']:['fail','Horizontal overflow detected','scrollWidth - innerWidth = '+overflow+'px'];
+  }
+  function testEventLog(){
+    const ok=typeof window.logUsefulEvent==='function'||typeof window.__hymOriginalUsefulEvent==='function';
+    return ok?['pass','EVENT LOG writer available','logUsefulEvent bridge is available and Test Light actions are written to EVENT LOG.']:['fail','EVENT LOG writer missing','Cannot find logUsefulEvent bridge.'];
+  }
+  async function runSelfChecks(){
+    openModal(); const btn=$('autotestStart'); if(btn){btn.disabled=true;btn.classList.add('is-running');btn.textContent='Testing…'}
+    const again=$('autotestRunAgain'); if(again)again.disabled=true;
+    const results=[]; lastResults=[]; render(results); log('self checks started','INFO');
+    setStatus('Test Light is running only checks it can prove by itself…');
+    add(results,'JS runtime','pass','JavaScript executed','The Test Light script started and rendered this result.');
+    let r=testDom(); add(results,'Local UI DOM',r[0],r[1],r[2]);
+    r=testEventLog(); add(results,'EVENT LOG integration',r[0],r[1],r[2]);
+    r=testViewport(); add(results,'Viewport read',r[0],r[1],r[2]);
+    r=testHorizontalOverflow(); add(results,'Horizontal layout check',r[0],r[1],r[2]);
+    r=testCookie(); add(results,'Cookie roundtrip',r[0],r[1],r[2]);
+    r=testStorage('LocalStorage',window.localStorage); add(results,'LocalStorage roundtrip',r[0],r[1],r[2]);
+    r=testStorage('SessionStorage',window.sessionStorage); add(results,'SessionStorage roundtrip',r[0],r[1],r[2]);
+    r=await testIndexedDb(); add(results,'IndexedDB roundtrip',r[0],r[1],r[2]);
+    const c=counts(results); const verdict=c.nopass?'No pass':'Passed';
+    setStatus('Test Light finished: '+verdict+' · Passed '+c.passed+' · No pass '+c.nopass+' · I Can\'t without hand 0');
+    log('self checks finished · '+verdict+' · passed '+c.passed+' · no pass '+c.nopass,'INFO');
+    if(btn){btn.disabled=false;btn.classList.remove('is-running');btn.textContent='Test Light'}
+    if(again)again.disabled=false;
+    showResult(results);
+  }
+  async function runCameraCheck(){
+    openModal(); const results=lastResults.slice(); log('camera real check started','INFO');
+    if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){add(results,'Camera real check','fail','Camera API unavailable','navigator.mediaDevices.getUserMedia is missing.');showResult(results);return}
+    try{setStatus('Requesting camera permission…'); const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:false}); stream.getTracks().forEach(t=>t.stop()); add(results,'Camera real check','pass','Camera stream received','getUserMedia returned a real video stream and Test Light stopped it safely.');}
+    catch(e){add(results,'Camera real check','fail','Camera not available or permission denied',(e?.name||'Error')+': '+(e?.message||'camera request failed'));}
+    showResult(results);
+  }
+  function showResult(results=lastResults){
+    lastResults=results.slice(); window.hymAutotestLastReport=lastResults.slice();
+    renderSummary($('autotestResultSummary'),lastResults); renderRows($('autotestResultList'),lastResults,true);
+    const c=counts(lastResults); const verdict=c.nopass?'No pass':'Passed';
+    const meta=$('autotestResultMeta'); if(meta)meta.textContent=verdict+' · '+c.total+' checks';
+    const note=document.querySelector('.autotest-result-note'); if(note)note.textContent='Only checks with direct proof are included. Full details are inside TXT.';
+    const status=$('autotestResultStatus'); if(status)status.textContent='Result: '+verdict+'. Download TXT for full details.';
+    try{if(typeof window.hymAutotestResultOpen==='function')window.hymAutotestResultOpen(); else {$('autotestResultModal')?.classList.add('on');$('autotestResultModal')?.setAttribute('aria-hidden','false');}}catch{}
+  }
+  function reportLines(results=lastResults){
+    const c=counts(results); const verdict=c.nopass?'No pass':'Passed';
+    const lines=['WWG TEST LIGHT REPORT v200','Mode: self-verifiable checks only','Generated: '+new Date().toISOString(),'URL: '+location.href,'Launch source: '+(($('launchSourceBadge')?.textContent)||'unknown'),'OS: '+(($('osBadge')?.textContent)||'unknown'),'User-Agent: '+navigator.userAgent,'','SHORT RESULT:','Overall: '+verdict,'Passed: '+c.passed,"I Can't without hand: 0",'No pass: '+c.nopass,'Total: '+c.total,'','WHAT WAS REMOVED:','No deep links, store fallbacks, Google/Telegram auth, payments, photo picker, share sheet, volume, screen lock, back button or rotation are counted here because the site cannot prove those results by itself.','','DETAILS:'];
+    results.forEach((item,i)=>{lines.push('',(i+1)+'. '+item.name,'Screen status: '+shortState(item),'What Test Light did: '+item.detail,'Meaning: '+(item.state==='pass'?'Direct proof was received by the browser/WebView.':'The browser/WebView did not provide direct proof or the check failed.'));});
+    return lines;
+  }
+  function tuneUi(){
+    const start=$('autotestStart'); if(start&&!start.classList.contains('is-running'))start.textContent='Test Light';
+    const title=$('autotestTitle'); if(title)title.textContent='TEST LIGHT';
+    const resultTitle=$('autotestResultTitle'); if(resultTitle)resultTitle.textContent='TEST LIGHT RESULT';
+    const meta=$('autotestHeadMeta'); if(meta)meta.textContent='self checks only';
+    const list=$('autotestList'); if(list&&!list.dataset.v200Ready){list.dataset.v200Ready='1';list.innerHTML='<div class="autotest-row warn"><div class="autotest-state">READY</div><div><div class="autotest-name">Test Light</div><div class="autotest-detail">Only checks the site can prove by itself. Deep links, auth, payments, photo picker, rotation, back, volume and screen lock were removed from autotest.</div></div></div>';}
+    const manual=document.querySelector('.autotest-manual'); if(manual)manual.style.display='none';
+    const runner=$('gqaAutoFlowRunner'); if(runner){runner.innerHTML='<div class="autotest-manual-title">Self checks only</div><div class="autotest-manual-help">Removed everything that needs eyes/hands or external app confirmation. This runner tests only direct browser proofs.</div><div class="gqa-runner-actions"><button class="btn green" id="tlSelfChecks" type="button">RUN SELF CHECKS</button><button class="btn" id="tlCameraCheck" type="button">CAMERA REAL CHECK</button></div><div class="autotest-flow-status" id="gqaAutoFlowStatus">Ready. No deep links, no payments, no auth in autotest.</div>';}
+    if(!$('gqaAutoFlowRunner')){
+      const body=document.querySelector('.autotest-modal-body'); const before=document.querySelector('.autotest-actions');
+      if(body&&before){const wrap=document.createElement('div');wrap.id='gqaAutoFlowRunner';wrap.className='gqa-runner auto-flow-runner';wrap.innerHTML='<div class="autotest-manual-title">Self checks only</div><div class="autotest-manual-help">Removed everything that needs eyes/hands or external app confirmation. This runner tests only direct browser proofs.</div><div class="gqa-runner-actions"><button class="btn green" id="tlSelfChecks" type="button">RUN SELF CHECKS</button><button class="btn" id="tlCameraCheck" type="button">CAMERA REAL CHECK</button></div><div class="autotest-flow-status" id="gqaAutoFlowStatus">Ready. No deep links, no payments, no auth in autotest.</div>';body.insertBefore(wrap,before);}
+    }
+    const runAgain=$('autotestRunAgain'); if(runAgain)runAgain.textContent='RUN SELF CHECKS';
+    const copy=$('autotestCopy'); if(copy)copy.textContent='COPY TXT';
+    const mail=$('autotestOpenMail'); if(mail)mail.style.display='none';
+    const dev=$('autotestOpenDevice'); if(dev)dev.style.display='none';
+    $('tlSelfChecks')?.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();runSelfChecks();},{once:false});
+    $('tlCameraCheck')?.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();runCameraCheck();},{once:false});
+  }
+  window.hymAutotestReportLines=function(results=lastResults.length?lastResults:(window.hymAutotestLastReport||[])){return reportLines(results)};
+  window.hymAutotestReportText=function(results=lastResults.length?lastResults:(window.hymAutotestLastReport||[])){return reportLines(results).join('\n')};
+  window.hymAutotestShowResultModal=showResult;
+  window.hymAutotestRender=render;
+  window.hymRunAutotest=runSelfChecks;
+  window.hymTestLightSelfChecks=runSelfChecks;
+  function bind(){
+    tuneUi();
+    $('autotestStart')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();runSelfChecks();},true);
+    $('autotestRunAgain')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();runSelfChecks();},true);
+    $('autotestCopy')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();const txt=window.hymAutotestReportText(); if(navigator.clipboard?.writeText)navigator.clipboard.writeText(txt).then(()=>setStatus('TXT copied.'),()=>setStatus(txt)); else setStatus(txt);},true);
+    log('v200 ready · self-verifiable checks only','INFO');
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
+  setTimeout(tuneUi,100);setTimeout(tuneUi,500);setTimeout(tuneUi,1200);
+})();
+/* --- /v200 Test Light self-verifiable only --- */
+
 </script>
 </body></html>

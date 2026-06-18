@@ -1,19 +1,18 @@
-// Optional local E2E tests. Install when needed: npx playwright install
-import { defineConfig, devices } from '@playwright/test';
-
-const baseURL = process.env.E2E_BASE_URL || 'https://for-my-love-girl.black-sci-official.workers.dev/';
-
-export default defineConfig({
-  testDir: './tests',
-  timeout: 45000,
-  expect: { timeout: 8000 },
-  use: {
-    baseURL,
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure'
+{
+  "name": "for-my-love-girl",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy --config wrangler.jsonc",
+    "dev": "wrangler dev",
+    "check": "node --check src/index.js",
+    "deploy:production": "wrangler deploy --config wrangler.jsonc",
+    "test:e2e": "npx playwright test",
+    "test:e2e:ui": "npx playwright test --ui",
+    "test:e2e:codegen": "npx playwright codegen"
   },
-  projects: [
-    { name: 'desktop-chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'mobile-webkit', use: { ...devices['iPhone 13'] } }
-  ]
-});
+  "devDependencies": {
+    "wrangler": "^4.37.1"
+  }
+}
