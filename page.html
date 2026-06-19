@@ -850,6 +850,32 @@ body.dashboard-focus-open{overflow:hidden}
 .redirect-modal-field-label{font-size:10px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.12em}
 .redirect-modal-column input{margin:0}
 .redirect-modal-url{margin-top:9px;font-size:11px;color:var(--muted);word-break:break-all}
+
+
+/* v183 safe QA tools collapsed block */
+#section-tools{grid-column:span 4;padding:0;overflow:hidden}
+#section-tools>summary{list-style:none;cursor:pointer;padding:12px;font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:10px;text-transform:uppercase;color:#e6fff8}
+#section-tools>summary::-webkit-details-marker{display:none}
+#section-tools>summary::before{content:"sandbox tools";display:block;margin-bottom:5px;color:var(--green);font-size:9px;letter-spacing:.15em;font-weight:900;text-transform:uppercase}
+#section-tools>summary::after{content:"[+]";color:var(--green);font-size:12px}
+#section-tools[open]>summary::after{content:"[-]"}
+#section-tools[open]>summary{border-bottom:1px solid var(--line)}
+.tools-content{padding:12px;display:grid;gap:10px;background:radial-gradient(circle at 15% 0%,rgba(52,255,154,.06),transparent 34%),rgba(5,9,10,.35)}
+.tools-note{font-size:10px;color:#587b76;line-height:1.45;margin:0;text-transform:uppercase;letter-spacing:.05em}
+.tools-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:stretch}
+.tools-row input,.tools-row select{margin:0;min-width:0}
+.tools-mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.tools-card-list{display:grid;gap:6px}
+.tools-preset{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center;padding:8px;border:1px solid #1c2a2f;background:#060a0b}
+.tools-preset strong{display:block;font-size:10px;color:#d7f5ee;text-transform:uppercase;letter-spacing:.08em}
+.tools-preset code{display:block;margin-top:4px;font-size:10px;color:#8dffc0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tools-preset small{display:block;margin-top:2px;font-size:9px;color:#4b6461;line-height:1.35}
+.tools-output{min-height:86px;margin:0;resize:vertical;white-space:pre-wrap}
+.tools-status{min-height:14px;color:#7c9994;font-size:10px;line-height:1.35}
+.tools-status.ok{color:#8dffc0}.tools-status.bad{color:#ff9aa0}
+@media(max-width:1000px){#section-tools{grid-column:auto}.tools-mini-grid{grid-template-columns:1fr}}
+@media(max-width:700px){#section-tools{grid-column:1/-1}.tools-content{padding:10px}.tools-row{grid-template-columns:1fr}.tools-mini-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -907,6 +933,17 @@ body.dashboard-focus-open{overflow:hidden}
 <p class="info temp-mail-status" id="tempMailStatus"></p>
 <div class="temp-mail-saved" id="tempMailSaved"></div>
 
+</div>
+</details>
+<details class="card" id="section-tools">
+<summary>Інструменти</summary>
+<div class="tools-content">
+<p class="tools-note">QA sandbox only · без live-check, без реальних карт, без “find live”.</p>
+<div class="tools-row"><input id="toolsPanInput" inputmode="numeric" autocomplete="off" placeholder="Встав номер для Luhn-перевірки"/><button class="btn green" id="toolsCheckPan" type="button">Check</button></div>
+<div class="tools-mini-grid"><button class="btn" id="toolsCopyExpiry" type="button">Copy MM/YY + CVV</button><button class="btn" id="toolsMakeProfile" type="button">QA Profile</button></div>
+<div class="tools-card-list" id="toolsPresetCards"></div>
+<textarea class="tools-output" id="toolsOutput" readonly="" placeholder="Результат інструментів..."></textarea>
+<div class="tools-status" id="toolsStatus"></div>
 </div>
 </details><section class="card" id="section-signin"><h2>Google Sign-In</h2><div id="signinBox"></div><p class="info" id="signinStatus">Loading Google Sign-In…</p><div class="profile" id="profile"><div class="badge">LOGGED IN</div><div class="profile-head"><img id="avatar"/><div><div id="userName"></div><div class="info" id="userEmail"></div></div></div><button class="btn" id="googleLogout" style="margin-top:10px" type="button">Вийти з Google</button></div></section><section class="card" id="section-telegram">
 <h2>Telegram Login</h2>
@@ -1664,7 +1701,10 @@ async function tempMailRenderRichBody(viewer,message){
   let safeHtml=htmlValue?tempMailSanitizeHtml(htmlValue):"";safeHtml=tempMailHydrateInlineImages(safeHtml,assets);
   const rich=tempMailMake("div","temp-mail-rich");
   if(safeHtml.trim()){
-    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}</style></head><body>'+safeHtml+'</body></html>';rich.append(frame)
+    const frame=document.createElement("iframe");frame.className="temp-mail-html-frame";frame.setAttribute("sandbox","allow-popups allow-popups-to-escape-sandbox");frame.setAttribute("referrerpolicy","no-referrer");frame.srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#111;background:#fff;padding:14px;line-height:1.45;overflow-wrap:anywhere}img{max-width:100%;height:auto;display:block}table{max-width:100%}a{color:#0645ad}
+
+
+</style></head><body>'+safeHtml+'</body></html>';rich.append(frame)
   }else{rich.append(tempMailMake("div","temp-mail-body",tempMailSafeText(message)||"Текст листа відсутній."))}
   const imageAssets=assets.filter(asset=>asset.isImage);
   if(imageAssets.length){const gallery=tempMailMake("div","temp-mail-image-gallery");imageAssets.forEach(asset=>{const link=document.createElement("a");link.className="temp-mail-image-card";link.href=asset.blobUrl;link.target="_blank";link.rel="noopener noreferrer";link.title=asset.filename;const img=document.createElement("img");img.src=asset.inlineUrl;img.alt=asset.filename;img.loading="lazy";const label=tempMailMake("span","",asset.filename);link.append(img,label);gallery.append(link)});rich.append(gallery)}
@@ -2561,8 +2601,70 @@ function initMoodTiny(options={}){
 }
 // --- /v134 tiny mood status ---
 
+
+
+// --- v183 safe QA tools: sandbox-only card helpers, no live check ---
+function initSafeQaTools(){
+  const root=document.getElementById("section-tools");
+  if(!root||root.dataset.ready)return;
+  root.dataset.ready="1";
+  const input=document.getElementById("toolsPanInput"),out=document.getElementById("toolsOutput"),status=document.getElementById("toolsStatus"),list=document.getElementById("toolsPresetCards");
+  const presets=[
+    {label:"Visa success",pan:"4242424242424242",note:"sandbox approve template"},
+    {label:"Mastercard success",pan:"5555555555554444",note:"sandbox approve template"},
+    {label:"Amex success",pan:"378282246310005",note:"sandbox approve template"},
+    {label:"Decline",pan:"4000000000000002",note:"sandbox decline template"},
+    {label:"Insufficient funds",pan:"4000000000009995",note:"sandbox decline template"}
+  ];
+  function clean(value){return String(value||"").replace(/\D+/g,"")}
+  function brand(pan){
+    if(/^4/.test(pan))return "Visa";
+    if(/^(5[1-5]|2[2-7])/.test(pan))return "Mastercard";
+    if(/^3[47]/.test(pan))return "American Express";
+    if(/^6(?:011|5)/.test(pan))return "Discover";
+    return "Unknown";
+  }
+  function luhn(pan){
+    let sum=0,alt=false;
+    for(let i=pan.length-1;i>=0;i--){let n=Number(pan[i]);if(alt){n*=2;if(n>9)n-=9}sum+=n;alt=!alt}
+    return pan.length>=12&&sum%10===0;
+  }
+  function mask(pan){return pan.length>8?pan.slice(0,6)+"••••••"+pan.slice(-4):pan}
+  function setStatus(text,kind=""){if(!status)return;status.textContent=text||"";status.className="tools-status"+(kind?" "+kind:"")}
+  function write(text,kind=""){if(out)out.value=text;setStatus(kind==="ok"?"Copied / ready":kind==="bad"?"Check failed":"Ready",kind)}
+  async function copyText(text){try{await navigator.clipboard.writeText(text);setStatus("Copied", "ok")}catch{setStatus("Copy blocked by browser", "bad")}}
+  function analyze(){
+    const pan=clean(input?.value);
+    if(!pan){write("Встав номер для локальної Luhn-перевірки.\nLive-check тут спеціально не доданий.","bad");return}
+    const ok=luhn(pan),b=brand(pan);
+    write(["LOCAL QA CHECK",`Brand: ${b}`,`Digits: ${pan.length}`,`Luhn: ${ok?"VALID":"INVALID"}`,`Masked: ${mask(pan)}`,"", "No network request. No live status check."].join("\n"),ok?"ok":"bad");
+    try{if(typeof logUsefulEvent==="function")logUsefulEvent("qa tools · luhn "+(ok?"valid":"invalid"),ok?"SUCCESS":"INFO")}catch{}
+  }
+  if(list&&!list.dataset.rendered){
+    list.dataset.rendered="1";
+    presets.forEach(item=>{
+      const row=document.createElement("div");row.className="tools-preset";
+      row.innerHTML=`<div><strong>${item.label}</strong><code>${item.pan}</code><small>${item.note}</small></div><button class="btn" type="button">COPY</button>`;
+      row.querySelector("button")?.addEventListener("click",()=>{const payload=`${item.pan}|12/30|123`;write(`${item.label}\n${payload}\n\nUse only in payment sandbox/test mode.`,"ok");copyText(payload);try{if(typeof logUsefulEvent==="function")logUsefulEvent("qa tools · copied test card") }catch{}});
+      list.append(row);
+    });
+  }
+  document.getElementById("toolsCheckPan")?.addEventListener("click",analyze);
+  input?.addEventListener("keydown",event=>{if(event.key==="Enter")analyze()});
+  document.getElementById("toolsCopyExpiry")?.addEventListener("click",()=>{
+    const d=new Date();const yy=String((d.getFullYear()+4)%100).padStart(2,"0");const payload=`12/${yy}|CVV 123|AMEX CVV 1234`;
+    write("Sandbox expiry helper\n"+payload,"ok");copyText(payload);
+  });
+  document.getElementById("toolsMakeProfile")?.addEventListener("click",()=>{
+    const n=Math.floor(1000+Math.random()*8999);
+    const profile=["QA Sandbox Profile",`Name: Test User ${n}`,`Email: qa${n}@example.test`,`Phone: +1000000${n}`,`Address: ${n} Test Lane, Sandbox City`,"ZIP: 00000", "Country: Testland"].join("\n");
+    write(profile,"ok");copyText(profile);
+  });
+}
+// --- /v183 safe QA tools ---
+
 hymMediaRender();initYoutubeEventLogger();initGoogleLoginCancelTracking();
-dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:true,repairPosition:true});initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
+dashboardInitExpandablePanels();initRedirectModal();initMoodTiny({forceVisible:true,repairPosition:true});initSafeQaTools();initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
 // --- /v167 useful redirect + event engine ---
 </script>
 </body></html>
