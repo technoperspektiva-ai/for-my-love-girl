@@ -680,6 +680,23 @@ body.dashboard-focus-open{overflow:hidden}
 @media(max-width:560px){.qa-status-row{grid-template-columns:1fr}.qa-status-controls{justify-content:flex-start}.qa-status-modal-box{max-height:92vh}.qa-status-body{padding:10px}}
 /* --- /v172 QA status dialog button --- */
 
+
+/* --- v173 QA status visual split / active states --- */
+.qa-status-section{position:relative;overflow:hidden;border-radius:2px;margin-bottom:10px;border-width:1px;background:linear-gradient(135deg,rgba(7,16,19,.96),rgba(3,7,8,.98));box-shadow:0 0 0 1px rgba(255,255,255,.015),0 0 18px rgba(52,255,154,.045)}
+.qa-status-section:before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,transparent,var(--qa-glow,#34ff9a),transparent);opacity:.9}
+.qa-status-section-title{position:relative;display:inline-flex;width:max-content;max-width:100%;padding:5px 9px;border:1px solid color-mix(in srgb,var(--qa-glow,#34ff9a) 42%,#1c2a2f);background:linear-gradient(90deg,rgba(255,255,255,.035),rgba(255,255,255,.01));color:var(--qa-glow,#34ff9a);text-shadow:0 0 12px color-mix(in srgb,var(--qa-glow,#34ff9a) 70%,transparent);box-shadow:0 0 18px color-mix(in srgb,var(--qa-glow,#34ff9a) 18%,transparent)}
+.qa-status-section[data-qa-section-index="0"]{--qa-glow:#34ff9a;box-shadow:0 0 22px rgba(52,255,154,.08)}
+.qa-status-section[data-qa-section-index="1"]{--qa-glow:#42d8ff;box-shadow:0 0 22px rgba(66,216,255,.08)}
+.qa-status-section[data-qa-section-index="2"]{--qa-glow:#ffcf5a;box-shadow:0 0 22px rgba(255,207,90,.08)}
+.qa-status-section[data-qa-section-index="3"]{--qa-glow:#ff67d8;box-shadow:0 0 22px rgba(255,103,216,.08)}
+.qa-status-pick{transition:transform .12s ease,box-shadow .12s ease,background .12s ease,border-color .12s ease;color:#9ab7b1;background:#071012}
+.qa-status-pick.active{transform:translateY(-1px);outline:2px solid rgba(255,255,255,.16);outline-offset:1px;font-weight:1000}
+.qa-status-pick.is-ok.active{border-color:#34ff9a;color:#03150c;background:linear-gradient(180deg,#a8ffd1,#34ff9a);box-shadow:0 0 0 1px rgba(52,255,154,.28),0 0 18px rgba(52,255,154,.36)}
+.qa-status-pick.is-bad.active{border-color:#ff6875;color:#210207;background:linear-gradient(180deg,#ffdfe2,#ff6875);box-shadow:0 0 0 1px rgba(255,104,117,.28),0 0 18px rgba(255,104,117,.34)}
+.qa-status-row.has-ok .qa-status-name{color:#a8ffd1;text-shadow:0 0 10px rgba(52,255,154,.16)}
+.qa-status-row.has-bad .qa-status-name{color:#ffdfe2;text-shadow:0 0 10px rgba(255,104,117,.14)}
+/* --- /v173 QA status visual split / active states --- */
+
 </style>
 </head>
 <body>

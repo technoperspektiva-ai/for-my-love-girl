@@ -868,6 +868,23 @@ body.dashboard-focus-open{overflow:hidden}
 @media(max-width:560px){.qa-status-row{grid-template-columns:1fr}.qa-status-controls{justify-content:flex-start}.qa-status-modal-box{max-height:92vh}.qa-status-body{padding:10px}}
 /* --- /v172 QA status dialog button --- */
 
+
+/* --- v173 QA status visual split / active states --- */
+.qa-status-section{position:relative;overflow:hidden;border-radius:2px;margin-bottom:10px;border-width:1px;background:linear-gradient(135deg,rgba(7,16,19,.96),rgba(3,7,8,.98));box-shadow:0 0 0 1px rgba(255,255,255,.015),0 0 18px rgba(52,255,154,.045)}
+.qa-status-section:before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,transparent,var(--qa-glow,#34ff9a),transparent);opacity:.9}
+.qa-status-section-title{position:relative;display:inline-flex;width:max-content;max-width:100%;padding:5px 9px;border:1px solid color-mix(in srgb,var(--qa-glow,#34ff9a) 42%,#1c2a2f);background:linear-gradient(90deg,rgba(255,255,255,.035),rgba(255,255,255,.01));color:var(--qa-glow,#34ff9a);text-shadow:0 0 12px color-mix(in srgb,var(--qa-glow,#34ff9a) 70%,transparent);box-shadow:0 0 18px color-mix(in srgb,var(--qa-glow,#34ff9a) 18%,transparent)}
+.qa-status-section[data-qa-section-index="0"]{--qa-glow:#34ff9a;box-shadow:0 0 22px rgba(52,255,154,.08)}
+.qa-status-section[data-qa-section-index="1"]{--qa-glow:#42d8ff;box-shadow:0 0 22px rgba(66,216,255,.08)}
+.qa-status-section[data-qa-section-index="2"]{--qa-glow:#ffcf5a;box-shadow:0 0 22px rgba(255,207,90,.08)}
+.qa-status-section[data-qa-section-index="3"]{--qa-glow:#ff67d8;box-shadow:0 0 22px rgba(255,103,216,.08)}
+.qa-status-pick{transition:transform .12s ease,box-shadow .12s ease,background .12s ease,border-color .12s ease;color:#9ab7b1;background:#071012}
+.qa-status-pick.active{transform:translateY(-1px);outline:2px solid rgba(255,255,255,.16);outline-offset:1px;font-weight:1000}
+.qa-status-pick.is-ok.active{border-color:#34ff9a;color:#03150c;background:linear-gradient(180deg,#a8ffd1,#34ff9a);box-shadow:0 0 0 1px rgba(52,255,154,.28),0 0 18px rgba(52,255,154,.36)}
+.qa-status-pick.is-bad.active{border-color:#ff6875;color:#210207;background:linear-gradient(180deg,#ffdfe2,#ff6875);box-shadow:0 0 0 1px rgba(255,104,117,.28),0 0 18px rgba(255,104,117,.34)}
+.qa-status-row.has-ok .qa-status-name{color:#a8ffd1;text-shadow:0 0 10px rgba(52,255,154,.16)}
+.qa-status-row.has-bad .qa-status-name{color:#ffdfe2;text-shadow:0 0 10px rgba(255,104,117,.14)}
+/* --- /v173 QA status visual split / active states --- */
+
 </style>
 </head>
 <body>
@@ -2582,8 +2599,9 @@ function initMoodTiny(options={}){
 
 // --- v172 QA status checklist dialog ---
 const qaStatusConfig=[
-  {title:"Головні",items:["Пуш","GAID","GG PAY","GOOGLE SIGN IN","TELEGRAM SIGN IN"]},
-  {title:"SlotoKing",items:["Telegram","TikTok","Facebook","Viber","Dia","Instagram","X","WhatsApp","HTTP","Posido","PlayID","CBC","KBC","CBC Buisness","KBC Buisness","Платіжка RAPID Skrill"]},
+  {title:"Important",items:["Пуш","GAID","GG PAY","GOOGLE SIGN IN","TELEGRAM SIGN IN"]},
+  {title:"SlotoKing",items:["Telegram","TikTok","Facebook","Viber","Dia","Instagram","X","WhatsApp","HTTP"]},
+  {title:"Posido",items:["PlayID","CBC","KBC","CBC Buisness","KBC Buisness","Платіжка RAPID Skrill"]},
   {title:"Raja",items:["PayTM","PhonePE"]}
 ];
 const qaStatusKey="hymQaStatusV172";
@@ -2594,7 +2612,7 @@ function qaStatusRender(){
   const wrap=el("qaStatusSections");if(!wrap)return;
   const data=qaStatusLoad();
   if(el("qaStatusAppName"))el("qaStatusAppName").value=data.appName||"";
-  wrap.innerHTML=qaStatusConfig.map((section,si)=>'<div class="qa-status-section"><div class="qa-status-section-title">'+section.title+'</div>'+section.items.map((name,ii)=>{const key=si+":"+ii;const value=data.items?.[key]||"";return '<div class="qa-status-row" data-qa-key="'+key+'" data-qa-name="'+name.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")+'" data-qa-section="'+section.title+'"><div class="qa-status-name">'+name+'</div><div class="qa-status-controls"><button class="qa-status-pick is-ok '+(value==="ok"?"active":"")+'" data-qa-value="ok" type="button">✓</button><button class="qa-status-pick is-bad '+(value==="bad"?"active":"")+'" data-qa-value="bad" type="button">✕</button></div></div>'}).join("")+'</div>').join("");
+  wrap.innerHTML=qaStatusConfig.map((section,si)=>'<div class="qa-status-section" data-qa-section-index="'+si+'"><div class="qa-status-section-title">'+section.title+'</div>'+section.items.map((name,ii)=>{const key=si+":"+ii;const value=data.items?.[key]||"";const safeName=name.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");return '<div class="qa-status-row '+(value==="ok"?"has-ok":value==="bad"?"has-bad":"")+'" data-qa-key="'+key+'" data-qa-name="'+safeName+'" data-qa-section="'+section.title+'"><div class="qa-status-name">'+safeName+'</div><div class="qa-status-controls"><button aria-pressed="'+(value==="ok"?"true":"false")+'" class="qa-status-pick is-ok '+(value==="ok"?"active":"")+'" data-qa-value="ok" type="button">✓</button><button aria-pressed="'+(value==="bad"?"true":"false")+'" class="qa-status-pick is-bad '+(value==="bad"?"active":"")+'" data-qa-value="bad" type="button">✕</button></div></div>'}).join("")+'</div>').join("");
 }
 function qaStatusOpen(){qaStatusRender();const m=el("qaStatusModal");if(typeof tempMailModalOpen==="function")tempMailModalOpen(m);else m?.classList.add("on")}
 function qaStatusClose(){const m=el("qaStatusModal");if(typeof tempMailModalClose==="function")tempMailModalClose(m);else m?.classList.remove("on")}
