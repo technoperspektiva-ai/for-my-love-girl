@@ -928,22 +928,9 @@ body.dashboard-focus-open{overflow:hidden}
 .verification-modal .verification-modal-box{width:min(520px,calc(100vw - 28px))!important;max-width:calc(100vw - 28px)!important;transform:translateY(8px) scale(.985);opacity:0;transition:transform .18s ease,opacity .18s ease}
 .verification-modal.on .verification-modal-box{transform:translateY(0) scale(1);opacity:1}
 .verification-body{padding:14px;overflow:auto}
-.verification-view[hidden]{display:none!important}
 .verification-actions{display:grid;grid-template-columns:1fr;gap:8px}
 .verification-actions .btn{width:100%;min-height:42px}
-.verification-diia{text-align:center}
-.verification-diia h3{margin:0 0 10px;color:#e6fff8;font-size:16px;text-transform:uppercase;letter-spacing:.04em}
-.verification-diia-copy{margin:0 auto 14px;max-width:390px;color:var(--muted);font-size:12px;line-height:1.5}
-.verification-qr-frame{width:min(250px,76vw);margin:0 auto 14px;padding:10px;border:1px solid #294146;background:#fff;box-shadow:0 12px 28px rgba(0,0,0,.34)}
-.verification-qr-link{display:block;text-decoration:none;outline:none}
-.verification-qr-link:focus-visible{box-shadow:0 0 0 3px rgba(52,255,154,.35)}
-.verification-qr-frame img{display:block;width:100%;height:auto;background:#fff;image-rendering:pixelated}
-.verification-diia-actions{display:grid;grid-template-columns:1fr;gap:8px}
-.verification-diia-actions .btn{width:100%}
-.verification-diia .verification-back{margin-top:0}
-@media(max-width:700px){.verification-modal{padding:7px}.verification-body{padding:11px}.verification-qr-frame{width:min(230px,78vw);padding:8px}.verification-diia h3{font-size:14px}.verification-diia-copy{font-size:11px}}
-@media(prefers-reduced-motion:reduce){.verification-modal,.verification-modal .verification-modal-box{transition:none}}
-
+@media(max-width:700px){.verification-modal{padding:7px}.verification-body{padding:11px}
 </style>
 </head>
 <body>
@@ -1033,15 +1020,6 @@ body.dashboard-focus-open{overflow:hidden}
         <div class="verification-actions">
           <button class="btn green" id="verificationKyc" type="button">KYC ВЕРИФІКАЦІЯ</button>
           <button class="btn red" id="verificationDiia" type="button">ДІЯ ВЕРИФІКАЦІЯ</button>
-        </div>
-      </div>
-      <div class="verification-view verification-diia" id="verificationDiiaView" hidden>
-        <h3>ДІЯ ВЕРИФІКАЦІЯ</h3>
-        <p class="verification-diia-copy">На телефоні натисни «ВІДКРИТИ В ДІЇ». На іншому пристрої відскануй QR-код.</p>
-        <div class="verification-qr-frame"><a aria-label="Відкрити Дія верифікацію" class="verification-qr-link" href="/diia-verification" id="verificationDiiaQrLink"><img alt="QR-код для Дія верифікації" id="verificationDiiaQr" src="/diia-verification-qr.png"/></a></div>
-        <div class="verification-diia-actions">
-          <button class="btn green" id="verificationOpenDiia" type="button">ВІДКРИТИ В ДІЇ</button>
-          <button class="btn verification-back" id="verificationBack" type="button">НАЗАД</button>
         </div>
       </div>
     </div>
@@ -1291,21 +1269,13 @@ function initRedirectModal(){
 }
 
 const KYC_VERIFICATION_URL="https://forms.kycaid.com/2011145f002907418b29aa80940ef12e4544";
-const DIIA_VERIFICATION_REDIRECT="/diia-verification";
+const DIIA_VERIFICATION_URL="https://diia.app/acquirers/branch/offer/offer-request/0be32325-aa4f-4de5-97cd-a0460ec57afb";
 let verificationModalLastFocus=null;
-function verificationModalSetView(view="choice"){
-  const choice=el("verificationChoiceView"),diia=el("verificationDiiaView"),meta=el("verificationModalMeta");
-  const showDiia=view==="diia";
-  if(choice)choice.hidden=showDiia;
-  if(diia)diia.hidden=!showDiia;
-  if(meta)meta.textContent=showDiia?"Дія QR":"обери спосіб";
-  setTimeout(()=>el(showDiia?"verificationBack":"verificationKyc")?.focus(),20);
-}
 function openVerificationModal(){
   const modal=el("verificationModal");if(!modal)return;
   verificationModalLastFocus=document.activeElement;
-  verificationModalSetView("choice");
   modal.classList.add("on");modal.setAttribute("aria-hidden","false");
+  setTimeout(()=>el("verificationKyc")?.focus(),20);
 }
 function closeVerificationModal(){
   const modal=el("verificationModal");if(!modal)return;
@@ -1319,20 +1289,14 @@ function openKycVerification(){
 }
 function openDiiaVerification(){
   if(typeof eventLogMarkExternal==="function")eventLogMarkExternal("external","Дія verification");
-  const mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||navigator.maxTouchPoints>1&&/Macintosh/i.test(navigator.userAgent);
-  if(mobile){location.assign(DIIA_VERIFICATION_REDIRECT);return}
-  const opened=window.open(DIIA_VERIFICATION_REDIRECT,"_blank","noopener,noreferrer");
-  if(!opened)location.assign(DIIA_VERIFICATION_REDIRECT);
+  location.assign(DIIA_VERIFICATION_URL);
 }
 function initVerificationModal(){
   const modal=el("verificationModal");if(!modal||modal.dataset.ready)return;
   modal.dataset.ready="1";
   el("verificationModalClose")?.addEventListener("click",closeVerificationModal);
   el("verificationKyc")?.addEventListener("click",openKycVerification);
-  el("verificationDiia")?.addEventListener("click",()=>verificationModalSetView("diia"));
-  el("verificationOpenDiia")?.addEventListener("click",openDiiaVerification);
-  el("verificationDiiaQrLink")?.addEventListener("click",event=>{event.preventDefault();openDiiaVerification()});
-  el("verificationBack")?.addEventListener("click",()=>verificationModalSetView("choice"));
+  el("verificationDiia")?.addEventListener("click",openDiiaVerification);
   modal.addEventListener("click",event=>{if(event.target===modal)closeVerificationModal()});
   document.addEventListener("keydown",event=>{if(event.key==="Escape"&&modal.classList.contains("on")){closeVerificationModal();event.stopImmediatePropagation()}});
 }
