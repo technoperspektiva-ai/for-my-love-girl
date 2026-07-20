@@ -920,6 +920,26 @@ body.dashboard-focus-open{overflow:hidden}
 @keyframes authorEggBuzz{0%{transform:translate(0,0)}25%{transform:translate(1px,-1px)}50%{transform:translate(-1px,1px)}75%{transform:translate(1px,1px)}100%{transform:translate(-1px,-1px)}}
 /* --- /v175 mood cyan easter egg author modal --- */
 
+
+
+/* Verification modal: reuses the existing dashboard controls and palette. */
+.verification-modal{display:grid!important;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease,visibility 0s linear .18s;z-index:560}
+.verification-modal.on{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+.verification-modal .verification-modal-box{width:min(520px,calc(100vw - 28px))!important;max-width:calc(100vw - 28px)!important;transform:translateY(8px) scale(.985);opacity:0;transition:transform .18s ease,opacity .18s ease}
+.verification-modal.on .verification-modal-box{transform:translateY(0) scale(1);opacity:1}
+.verification-body{padding:14px;overflow:auto}
+.verification-view[hidden]{display:none!important}
+.verification-actions{display:grid;grid-template-columns:1fr;gap:8px}
+.verification-actions .btn{width:100%;min-height:42px}
+.verification-diia{text-align:center}
+.verification-diia h3{margin:0 0 10px;color:#e6fff8;font-size:16px;text-transform:uppercase;letter-spacing:.04em}
+.verification-diia-copy{margin:0 auto 14px;max-width:390px;color:var(--muted);font-size:12px;line-height:1.5}
+.verification-qr-frame{width:min(250px,76vw);margin:0 auto 14px;padding:10px;border:1px solid #294146;background:#fff;box-shadow:0 12px 28px rgba(0,0,0,.34)}
+.verification-qr-frame img{display:block;width:100%;height:auto;background:#fff;image-rendering:pixelated}
+.verification-diia .verification-back{width:100%;margin-top:2px}
+@media(max-width:700px){.verification-modal{padding:7px}.verification-body{padding:11px}.verification-qr-frame{width:min(230px,78vw);padding:8px}.verification-diia h3{font-size:14px}.verification-diia-copy{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.verification-modal,.verification-modal .verification-modal-box{transition:none}}
+
 </style>
 </head>
 <body>
@@ -997,6 +1017,29 @@ body.dashboard-focus-open{overflow:hidden}
 </section><section class="card" id="section-text"><h2>Text + Photo</h2><input placeholder="Text field 1"/><textarea placeholder="Text area"></textarea><div class="photo-control-row"><input accept="image/*" class="photo-native-input" id="photo" type="file"/><label class="photo-select-btn" for="photo">Додати фото</label><button aria-label="Відкрити додане фото" class="photo-open-btn" disabled="" id="photoOpen" title="Фото ще не додано" type="button">PHOTO</button></div></section><section class="card" id="section-media"><h2>Ютуб + аудіо плеєр</h2><iframe allowfullscreen="" id="youtubePlayer" src="https://www.youtube.com/embed/PxmjpQmguNM?enablejsapi=1&playsinline=1"></iframe><audio controls="" src="/audio.mp3"></audio></section><section class="card" id="section-qr"><h2>QR scanner</h2><button class="btn green qr-open-btn" id="qrScannerOpen" type="button">Відкрити webqr.com</button></section><section class="card wild-party-card" id="section-wild-beach-party"><button aria-label="Відкрити офіційну demo-сторінку Wild Beach Party" class="wild-party-launch" id="wildBeachPartyOpen" type="button"><span aria-hidden="true" class="wild-party-glow"></span><span class="wild-party-fruits" aria-hidden="true">🍍 · 🍇 · 🍎 · 🥥</span><span class="wild-party-name">Wild Beach Party™</span><span class="wild-party-demo">DEMO · 18+</span></button></section><details class="card cookie-card" id="section-cookies"><summary>Test - Cokies🍪</summary><div class="cookie-content"><div class="cookie-actions"><button class="btn green" id="cookieRandom" type="button">Випадковий</button><button class="btn" id="cookieList" type="button">Отримати список</button><button class="btn red" id="cookieDelete" type="button">Видалити</button></div><div class="cookie-output-shell"><div aria-hidden="true" class="cookie-output-decor"><span class="cookie-decor-badge cookie-decor-badge-left">cookie<br/>jar</span><span class="cookie-decor-badge cookie-decor-badge-right">qa<br/>mode</span><span class="cookie-decor-chip cookie-decor-chip-a"></span><span class="cookie-decor-chip cookie-decor-chip-b"></span><span class="cookie-decor-scan"></span></div><textarea class="cookie-output" id="cookieOutput" placeholder="Список тестових cookie HYM" readonly=""></textarea></div></div></details><div class="temp-mail-attribution"><a href="https://mail.tm/" rel="noopener noreferrer" target="_blank">mail.tm</a></div></div>
 </div>
 <div aria-hidden="true" class="temp-mail-modal qa-status-modal" id="qaStatusModal"><div aria-modal="true" aria-labelledby="qaStatusTitle" class="temp-mail-modal-box qa-status-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="qaStatusTitle">QA STATUS CHECK</strong><span class="event-log-modal-head-meta">локальна таблиця</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити QA STATUS" class="temp-mail-modal-close" id="qaStatusClose" type="button">×</button></div></div><div class="qa-status-body"><div class="qa-status-app"><label for="qaStatusAppName">Назва додатку</label><input autocomplete="off" class="qa-status-title-input" id="qaStatusAppName" placeholder="Наприклад: SlotoKing / Posido / Raja" type="text"/></div><div id="qaStatusSections"></div><div class="qa-status-actions"><button class="btn green" id="qaStatusMakeReport" type="button">Завантажити фото-звіт</button><button class="btn red" id="qaStatusReset" type="button">Скинути</button></div><div class="qa-status-status" id="qaStatusSaveState"></div><div class="qa-status-note">У звіт потрапляють тільки ті пункти, де ти натиснув ✓ або ✕. Статуси зберігаються тільки у браузері цього пристрою, сайт і блоки не рухаємо — відкривається лише діалог.</div></div></div></div><div aria-hidden="true" class="temp-mail-modal author-egg-modal" id="authorEggModal"><div aria-modal="true" aria-labelledby="authorEggTitle" class="temp-mail-modal-box author-egg-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="authorEggTitle">AUTHOR EASTER EGG</strong><span class="event-log-modal-head-meta">cyan unlock</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити author easter egg" class="temp-mail-modal-close" id="authorEggCloseTop" type="button">×</button></div></div><div class="author-egg-body"><div class="author-egg-kicker">пасхалка автора</div><h3 class="author-egg-title">Cyan mode detected</h3><div class="author-egg-copy">Ти відкрив прихований сигнал автора. Якщо хочеш, переходь у Telegram для швидкого звʼязку або QA‑комунікації.</div><div class="author-egg-chip">@Thundery_QA</div><div class="author-egg-actions"><button class="btn author-egg-open" id="authorEggOpenTelegram" type="button">Відкрити Telegram</button><button class="btn author-egg-close" id="authorEggClose" type="button">Закрити</button></div><div class="author-egg-note">Умова запуску: mood status = CYAN + 3 натискання на смайл.</div></div></div></div><div aria-hidden="true" class="temp-mail-modal ua-info-modal" id="uaInfoModal"><div aria-modal="true" class="temp-mail-modal-box ua-info-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong>Device Info</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Device Info" class="temp-mail-modal-close" id="uaInfoClose" type="button">×</button></div></div><div class="ua-info-modal-body"><div class="ua-capability-grid" id="uaCapabilityGrid"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal event-log-modal" id="eventLogModal"><div aria-modal="true" aria-labelledby="eventLogTitle" class="temp-mail-modal-box event-log-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="eventLogTitle">EVENT LOG</strong><span class="event-log-modal-head-meta" id="eventLogCount">0 events</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити Event Log" class="temp-mail-modal-close" id="eventLogClose" type="button">×</button></div></div><div class="event-log-modal-body"><div class="event-log-list" id="eventLogList"></div><div class="event-log-actions"><button class="btn" id="eventLogCopy" type="button">COPY</button><button class="btn" id="eventLogExport" type="button">EXPORT</button><button class="btn red event-log-clear" id="eventLogClear" type="button">CLEAR</button></div><div class="event-log-status" id="eventLogStatus"></div></div></div></div><div aria-hidden="true" class="temp-mail-modal photo-preview-modal" id="photoPreviewModal"><div aria-modal="true" aria-labelledby="photoPreviewTitle" class="temp-mail-modal-box photo-preview-modal-box" role="dialog"><div class="temp-mail-modal-head"><strong id="photoPreviewTitle">Перегляд фото</strong><div class="temp-mail-modal-head-actions"><button aria-label="Закрити фото" class="temp-mail-modal-close" id="photoPreviewClose" type="button">×</button></div></div><div class="photo-preview-modal-body"><div class="photo-preview-stage"><img alt="Selected preview" id="preview"/></div><div class="photo-preview-modal-actions"><button class="btn green photo-share-btn" id="photoShare" type="button">Поширити фото</button><button class="btn red photo-delete-btn" id="photoDelete" type="button">Видалити фото</button></div><div aria-live="polite" class="photo-share-status" id="photoShareStatus"></div></div></div></div><div aria-hidden="true" class="dashboard-focus-backdrop" id="dashboardFocusBackdrop"></div>
+
+<div aria-hidden="true" class="temp-mail-modal verification-modal" id="verificationModal">
+  <div aria-modal="true" aria-labelledby="verificationModalTitle" class="temp-mail-modal-box verification-modal-box" role="dialog">
+    <div class="temp-mail-modal-head">
+      <div><strong id="verificationModalTitle">ВЕРИФІКАЦІЯ</strong><span class="event-log-modal-head-meta" id="verificationModalMeta">обери спосіб</span></div>
+      <div class="temp-mail-modal-head-actions"><button aria-label="Закрити верифікацію" class="temp-mail-modal-close" id="verificationModalClose" type="button">×</button></div>
+    </div>
+    <div class="verification-body">
+      <div class="verification-view" id="verificationChoiceView">
+        <div class="verification-actions">
+          <button class="btn green" id="verificationKyc" type="button">KYC ВЕРИФІКАЦІЯ</button>
+          <button class="btn red" id="verificationDiia" type="button">ДІЯ ВЕРИФІКАЦІЯ</button>
+        </div>
+      </div>
+      <div class="verification-view verification-diia" id="verificationDiiaView" hidden>
+        <h3>ДІЯ ВЕРИФІКАЦІЯ</h3>
+        <p class="verification-diia-copy">Відкрий застосунок Дія та відскануй QR-код</p>
+        <div class="verification-qr-frame"><img alt="QR-код для Дія верифікації" id="verificationDiiaQr" src="diia-verification-qr.png"/></div>
+        <button class="btn verification-back" id="verificationBack" type="button">НАЗАД</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div aria-hidden="true" class="temp-mail-modal redirect-modal" id="redirectModal"><div aria-modal="true" aria-labelledby="redirectModalTitle" class="temp-mail-modal-box redirect-modal-box" role="dialog"><div class="temp-mail-modal-head"><div><strong id="redirectModalTitle">REDIRECT LINK</strong><span class="event-log-modal-head-meta" id="redirectModalLabel">paste destination</span></div><div class="temp-mail-modal-head-actions"><button aria-label="Закрити redirect dialog" class="temp-mail-modal-close" id="redirectModalClose" type="button">×</button></div></div><div class="redirect-modal-body redirect-input-only"><div class="redirect-modal-column"><label class="redirect-modal-field-label" for="redirectModalInput">Куди напрямок</label><input id="redirectModalInput" inputmode="url" autocomplete="off" spellcheck="false" placeholder="http:// або https://"/><button class="btn green" id="redirectModalSend" type="button">ВІДПРАВИТИ</button><button class="btn red" id="redirectModalClose2" type="button">CLOSE</button></div><div class="redirect-modal-url" id="redirectModalUrl">—</div></div></div></div>
 <div aria-hidden="true" class="temp-mail-modal" id="tempMailInboxModal">
 <div aria-modal="true" class="temp-mail-modal-box temp-mail-inbox-modal-box" role="dialog">
@@ -1033,7 +1076,7 @@ const upiApps=[
 ["PhonePe UPI","phonepe://pay?pa=test%40upi&pn=QATest&am=1.00&cu=INR"],
 ["Paytm UPI","paytmmp://pay?pa=test%40upi&pn=QATest&am=1.00&cu=INR"]
 ];
-const apps=[["HTTP","http://veb-page.blogspot.com/"],["Telegram","tg://resolve?domain=nsqmarket"],["Viber","viber://"],["WhatsApp","whatsapp://send?text=hello"],["Instagram","instagram://app"],["TikTok","snssdk1233://"],["Facebook","fb://profile"],["Дія","diia://"]];
+const apps=[["HTTP","http://veb-page.blogspot.com/"],["Telegram","tg://resolve?domain=nsqmarket"],["Viber","viber://"],["WhatsApp","whatsapp://send?text=hello"],["Instagram","instagram://app"],["TikTok","snssdk1233://"],["Facebook","fb://profile"],["ВЕРИФІКАЦІЯ",""]];
 const offers=[
 {label:"BetKing",url:"https://betking.com.ua/?gclid=CjwKCAjwxITRBhBYEiwA6mZm7ScusNx2vV5sg_8mnTtpT4G7XJEF4JGIMOImJ0Y0J5_W2ofKp39wphoCP5UQAvD_BwE",theme:"gold",kicker:"Premium offer",icon:"♛"},
 {label:"VBET",url:"https://www.vbet.ua/uk/?utm_campaign=UA_competitor_ggl_search_16.09.2025&utm_medium=cpc&utm_source=google&utm_adgroup=189196595687&gad_source=1&gad_campaignid=23018234049&gbraid=0AAAABAi2veBFIazlc_67i9fKbpYIZ1OqP&gclid=CjwKCAjwxITRBhBYEiwA6mZm7VSDjuCtVLQq1F_TRQTOhQ1qThbDHKaHfmO8DpQSPTDvhdSyfwj2cRoCSTsQAvD_BwE",theme:"violet",kicker:"Feel the rush",icon:"♠"},
@@ -1148,7 +1191,7 @@ let googleAccountSubject="";
 
 const APP_STORE_SEARCH_TERMS={
   "PhonePe UPI":"PhonePe","Paytm UPI":"Paytm","Telegram":"Telegram","Viber":"Viber","WhatsApp":"WhatsApp",
-  "Instagram":"Instagram","TikTok":"TikTok","Facebook":"Facebook","Дія":"Дія"
+  "Instagram":"Instagram","TikTok":"TikTok","Facebook":"Facebook"
 };
 function hymMobilePlatform(){const ua=navigator.userAgent||"";if(/android/i.test(ua))return"android";if(/iphone|ipad|ipod/i.test(ua))return"ios";return"other"}
 function hymAppStoreFallbackUrl(label){
@@ -1239,6 +1282,44 @@ function initRedirectModal(){
   document.querySelector("#section-redirects > h2")?.addEventListener("click",event=>{if(hymEditMode)return;event.preventDefault();event.stopPropagation();openRedirectModal("REDIRECT")});
   document.addEventListener("keydown",event=>{if(event.key==="Escape"&&el("redirectModal")?.classList.contains("on")){close();event.stopImmediatePropagation()}});
 }
+
+const KYC_VERIFICATION_URL="https://forms.kycaid.com/2011145f002907418b29aa80940ef12e4544";
+let verificationModalLastFocus=null;
+function verificationModalSetView(view="choice"){
+  const choice=el("verificationChoiceView"),diia=el("verificationDiiaView"),meta=el("verificationModalMeta");
+  const showDiia=view==="diia";
+  if(choice)choice.hidden=showDiia;
+  if(diia)diia.hidden=!showDiia;
+  if(meta)meta.textContent=showDiia?"Дія QR":"обери спосіб";
+  setTimeout(()=>el(showDiia?"verificationBack":"verificationKyc")?.focus(),20);
+}
+function openVerificationModal(){
+  const modal=el("verificationModal");if(!modal)return;
+  verificationModalLastFocus=document.activeElement;
+  verificationModalSetView("choice");
+  modal.classList.add("on");modal.setAttribute("aria-hidden","false");
+}
+function closeVerificationModal(){
+  const modal=el("verificationModal");if(!modal)return;
+  modal.classList.remove("on");modal.setAttribute("aria-hidden","true");
+  setTimeout(()=>verificationModalLastFocus?.focus?.(),20);
+}
+function openKycVerification(){
+  if(typeof eventLogMarkExternal==="function")eventLogMarkExternal("external","KYC verification");
+  const opened=window.open(KYC_VERIFICATION_URL,"_blank","noopener,noreferrer");
+  if(!opened)location.href=KYC_VERIFICATION_URL;
+}
+function initVerificationModal(){
+  const modal=el("verificationModal");if(!modal||modal.dataset.ready)return;
+  modal.dataset.ready="1";
+  el("verificationModalClose")?.addEventListener("click",closeVerificationModal);
+  el("verificationKyc")?.addEventListener("click",openKycVerification);
+  el("verificationDiia")?.addEventListener("click",()=>verificationModalSetView("diia"));
+  el("verificationBack")?.addEventListener("click",()=>verificationModalSetView("choice"));
+  modal.addEventListener("click",event=>{if(event.target===modal)closeVerificationModal()});
+  document.addEventListener("keydown",event=>{if(event.key==="Escape"&&modal.classList.contains("on")){closeVerificationModal();event.stopImmediatePropagation()}});
+}
+
 function openOffer(label,u){
   if(!u){logEvent("ERROR",label,"offer URL missing");return}
   openUrl(label,u);
@@ -1265,7 +1346,8 @@ payments.forEach(p=>{
   el("payments").appendChild(b);
 });
 upiApps.forEach(a=>{const b=document.createElement("button");b.className="btn green";b.textContent=a[0];b.onclick=()=>hymSmartAppOpen(a[0],a[1]);el("payments").appendChild(b)});
-apps.forEach(a=>{const b=document.createElement("button");b.className="btn red";b.textContent=a[0];b.onclick=()=>{if(a[0]==="HTTP")openUrl(a[0],a[1]);else hymSmartAppOpen(a[0],a[1])};el("apps").appendChild(b)});
+apps.forEach(a=>{const b=document.createElement("button");b.className="btn red";b.textContent=a[0];b.onclick=()=>{if(a[0]==="ВЕРИФІКАЦІЯ")openVerificationModal();else if(a[0]==="HTTP")openUrl(a[0],a[1]);else hymSmartAppOpen(a[0],a[1])};el("apps").appendChild(b)});
+initVerificationModal();
 offers.forEach(offer=>el("offers").appendChild(buildOfferButton(offer)));
 
 let paymentsClient=null;
@@ -2734,7 +2816,7 @@ function initMoodAuthorEasterEgg(){
 // --- /v175 cyan mood easter egg ---
 
 hymMediaRender();initYoutubeEventLogger();initGoogleLoginCancelTracking();
-dashboardInitExpandablePanels();initRedirectModal();initQaStatusPanel();initMoodTiny({forceVisible:true,repairPosition:true});initMoodAuthorEasterEgg();initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
+dashboardInitExpandablePanels();initRedirectModal();initVerificationModal();initQaStatusPanel();initMoodTiny({forceVisible:true,repairPosition:true});initMoodAuthorEasterEgg();initGooglePay();initGoogleSignIn();initTelegramSession();initStripeQa();initTempMail();
 // --- /v167 useful redirect + event engine ---
 </script>
 </body></html>
