@@ -1,0 +1,18 @@
+Telegram Web Login update
+
+Included:
+- New Telegram Login library from oauth.telegram.org instead of legacy iframe widget.
+- Server-side RS256 id_token validation against Telegram JWKS.
+- Existing 7-day WWG Telegram session preserved.
+- Owner login notifications preserved.
+- Default owner/admin Telegram chat ID: 7765639387.
+- Main YouTube video changed to https://www.youtube.com/watch?v=M7xx0WejDV4
+
+BotFather > Bot Settings > Web Login / Login Widget:
+- Allowed/Trusted origin: https://for-my-love-girl.black-sci-official.workers.dev
+- Copy the Client ID shown there.
+- This patch defaults TELEGRAM_CLIENT_ID to 8874816951 (bot ID). If BotFather shows another Client ID, create/update Cloudflare Worker variable:
+  TELEGRAM_CLIENT_ID=<Client ID from BotFather>
+
+Owner notifications default to 7765639387. Optional Cloudflare override:
+TELEGRAM_OWNER_CHAT_ID=7765639387
