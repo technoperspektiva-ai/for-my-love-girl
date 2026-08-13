@@ -1,0 +1,16 @@
+Telegram owner login notifications
+
+1. Відкрий @WWG_MY_HOME_BOT зі свого Telegram-акаунта і натисни Start.
+2. У Cloudflare Worker додай environment variable/secret:
+   TELEGRAM_OWNER_CHAT_ID = твій numeric Telegram chat ID
+3. Redeploy Worker.
+
+Після цього @WWG_MY_HOME_BOT надсилатиме власнику повідомлення ТІЛЬКИ після нового успішного Telegram Login.
+F5, повторне відкриття сторінки та відновлення 7-денної сесії повідомлення не створюють.
+
+Повідомлення містить:
+- ім'я;
+- @username, якщо є;
+- Telegram ID;
+- час входу;
+- домен сайту.
