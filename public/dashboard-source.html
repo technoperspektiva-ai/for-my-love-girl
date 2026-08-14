@@ -1294,7 +1294,7 @@ payments.forEach(p=>{
   el("payments").appendChild(b);
 });
 upiApps.forEach(a=>{const b=document.createElement("button");b.className="btn green";b.textContent=a[0];b.onclick=()=>hymSmartAppOpen(a[0],a[1]);el("payments").appendChild(b)});
-apps.forEach(a=>{const b=document.createElement("button");b.className="btn "+(a[0]==="Верифікація"?"green":"red");b.textContent=a[0];b.onclick=()=>{if(a[1]==="__verification__"){const panel=el("verificationInline");if(panel){panel.hidden=!panel.hidden;b.setAttribute("aria-expanded",String(!panel.hidden));if(!panel.hidden)setVerificationStatus("Оберіть QES або Дія")};return}if(a[0]==="HTTP")openUrl(a[0],a[1]);else hymSmartAppOpen(a[0],a[1])};if(a[1]==="__verification__")b.setAttribute("aria-expanded","false");el("apps").appendChild(b)});
+apps.forEach(a=>{const b=document.createElement("button");b.className="btn red";b.textContent=a[0];b.onclick=()=>{if(a[1]==="__verification__"){const panel=el("verificationInline");if(panel){panel.hidden=!panel.hidden;b.setAttribute("aria-expanded",String(!panel.hidden));if(!panel.hidden)setVerificationStatus("Оберіть QES або Дія")};return}if(a[0]==="HTTP")openUrl(a[0],a[1]);else hymSmartAppOpen(a[0],a[1])};if(a[1]==="__verification__")b.setAttribute("aria-expanded","false");el("apps").appendChild(b)});
 offers.forEach(offer=>el("offers").appendChild(buildOfferButton(offer)));
 
 let paymentsClient=null;
