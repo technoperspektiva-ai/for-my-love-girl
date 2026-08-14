@@ -1,23 +1,21 @@
-# Diia.Signature QA flow
+# Верифікація — QES + Дія.Підпис
 
-The existing **Дія** redirect button now starts a server-side signing-session request instead of opening bare `diia://`.
+## QES
+Кнопка `Верифікація → QES` відкриває:
 
-## What it does
+`https://forms.kycaid.com/2011145f002907418b29aa80940ef12e4544`
 
-1. Browser calls `POST /api/diia/sign-request`.
-2. Cloudflare Worker calls the signing-session endpoint configured in `DIIA_SIGN_CREATE_URL`.
-3. Worker extracts a `deepLink`/URL from the upstream response.
-4. Browser opens that link so the Diia app can show the real request.
-5. For QA you may stop as soon as the request screen appears; the site does not require a successful signature callback.
+## Дія
+Кнопка `Верифікація → Дія` викликає `POST /api/diia/sign-request`. Worker створює signing-session через endpoint вашої інтеграції, знаходить deep link у відповіді та відкриває його, щоб перейти в застосунок Дія.
 
-## Required Cloudflare secrets / vars
+Cloudflare Worker variables:
+- `DIIA_SIGN_CREATE_URL`
+- `DIIA_SIGN_AUTH_HEADER` (опційно, default `Authorization`)
+- `DIIA_SIGN_AUTH_VALUE` (опційно)
+- `DIIA_SIGN_API_KEY_HEADER` (опційно, default `X-API-Key`)
+- `DIIA_SIGN_API_KEY` (опційно)
+- `DIIA_SIGN_CALLBACK_URL` (опційно)
+- `DIIA_SIGN_RETURN_URL` (опційно)
+- `DIIA_SIGN_REQUEST_TEMPLATE` (опційно JSON)
 
-- `DIIA_SIGN_CREATE_URL` — signing-session creation endpoint provided for your Diia integration/test environment.
-- `DIIA_SIGN_AUTH_VALUE` — full authorization header value if required, for example the exact value issued by the provider.
-- `DIIA_SIGN_AUTH_HEADER` — defaults to `Authorization`.
-- `DIIA_SIGN_API_KEY` / `DIIA_SIGN_API_KEY_HEADER` — optional API-key style credential.
-- `DIIA_SIGN_REQUEST_TEMPLATE` — JSON request body expected by your integration.
-
-Template placeholders: `__REQUEST_ID__`, `__CALLBACK_URL__`, `__RETURN_URL__`, `__PURPOSE__`.
-
-The project deliberately does **not** fabricate a Diia session token or hard-code another company's credentials. A real prompt requires credentials/configuration issued for an authorized integration.
+Без валідних інтеграційних параметрів кнопка Дія покаже помилку конфігурації; фіктивний deep link не генерується.
