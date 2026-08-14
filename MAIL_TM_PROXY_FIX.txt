@@ -1,0 +1,7 @@
+Mail.tm proxy fix
+
+The browser no longer calls https://api.mail.tm directly.
+All temporary-mail requests now go through /api/temp-mail/proxy on the Cloudflare Worker.
+The proxy forwards Mail.tm HTTP status and adds x-mail-tm-status for diagnostics.
+
+No Cloudflare variable is required. Deploy the Worker after applying this update.

@@ -1448,7 +1448,7 @@ async function initStripeQa(){
 }
 const TEMP_MAIL_SESSION_KEY="wwg_temp_mail_session_v3";
 const TEMP_MAIL_SAVED_KEY="wwg_temp_mail_saved_v1";
-const TEMP_MAIL_API_BASE="https://api.mail.tm";
+const TEMP_MAIL_API_BASE="/api/temp-mail/proxy";
 const TEMP_MAIL_DOMAIN_CURSOR_KEY="wwg_temp_mail_domain_cursor_v1";
 const TEMP_MAIL_SPECIAL_DOMAIN="web-library.net";
 const TEMP_MAIL_SPECIAL_PASSWORD="2024";
@@ -1705,7 +1705,7 @@ async function tempMailAttachmentAsset(item){
   const raw=tempMailAttachmentPath(item);if(!raw)return null;
   let response;
   if(tempMailState?.fixed){response=await fetch("/api/temp-mail/fixed/attachment?path="+encodeURIComponent(raw),{cache:"no-store"})}
-  else{const target=new URL(raw,TEMP_MAIL_API_BASE);response=await fetch(target,{headers:{authorization:"Bearer "+tempMailState.token},cache:"no-store"})}
+  else{const target=new URL(raw,"https://api.mail.tm");const proxyTarget=TEMP_MAIL_API_BASE+target.pathname+target.search;response=await fetch(proxyTarget,{headers:{authorization:"Bearer "+tempMailState.token},cache:"no-store"})}
   if(!response.ok)throw new Error("Attachment HTTP "+response.status);
   const blob=await response.blob();const blobUrl=URL.createObjectURL(blob);tempMailViewerObjectUrls.push(blobUrl);
   const filename=String(item?.filename||item?.name||"attachment");const type=String(item?.contentType||blob.type||"");const isImage=/^image\//i.test(type)||/\.(png|jpe?g|gif|webp|bmp|svg|avif)$/i.test(filename);let dataUrl="";
