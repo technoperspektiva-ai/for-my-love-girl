@@ -210,7 +210,7 @@ function verificationModalClose(){const m=el("verificationModal");if(!m)return;i
 function initVerification(){
   const qes=el("verificationQes"),diia=el("verificationDiia"),close=el("verificationClose"),modal=el("verificationModal");
   if(qes&&!qes.dataset.ready){qes.dataset.ready="1";qes.addEventListener("click",()=>{setVerificationStatus("Відкриваю QES / KYCAID…");window.open(VERIFICATION_QES_URL,"_blank","noopener")})}
-  if(diia&&!diia.dataset.ready){diia.dataset.ready="1";diia.addEventListener("click",()=>startDiiaSigningRequest(diia))}
+  if(diia&&!diia.dataset.ready){diia.dataset.ready="1";diia.addEventListener("click",()=>{setVerificationStatus("Відкриваю Дію…");location.href="https://diia.app/acquirers/offer-request/"})}
   if(close&&!close.dataset.ready){close.dataset.ready="1";close.addEventListener("click",verificationModalClose)}
   if(modal&&!modal.dataset.ready){modal.dataset.ready="1";modal.addEventListener("click",event=>{if(event.target===modal)verificationModalClose()})}
   if(!document.documentElement.dataset.verificationEscReady){document.documentElement.dataset.verificationEscReady="1";document.addEventListener("keydown",event=>{if(event.key==="Escape"&&el("verificationModal")?.classList.contains("on"))verificationModalClose()})}
