@@ -1608,7 +1608,11 @@ async function initStripeQa(){
 }
 const TEMP_MAIL_SESSION_KEY="wwg_temp_mail_session_v3";
 const TEMP_MAIL_SAVED_KEY="wwg_temp_mail_saved_v1";
-const TEMP_MAIL_API_BASE="https://api.mail.tm";
+const TEMP_MAIL_API_BASES=["https://api.mail.tm","https://api.mail.gw"];
+let tempMailApiBase=TEMP_MAIL_API_BASES[0];
+function tempMailCurrentApiBase(mailbox=tempMailState){
+  return mailbox?.apiBase||tempMailApiBase||TEMP_MAIL_API_BASES[0];
+}
 const TEMP_MAIL_DOMAIN_CURSOR_KEY="wwg_temp_mail_domain_cursor_v1";
 const TEMP_MAIL_SPECIAL_DOMAIN="web-library.net";
 const TEMP_MAIL_SPECIAL_PASSWORD="2024";
@@ -1677,14 +1681,22 @@ function tempMailRememberToken(mailbox,token){
 async function tempMailTokenFor(mailbox,{force=false}={}){
   if(mailbox?.token&&!force)return mailbox.token;
   if(!mailbox?.address||!mailbox?.password)throw new Error("Для цієї пошти немає даних входу. Створи нову адресу.");
-  const response=await fetch(TEMP_MAIL_API_BASE+"/token",{method:"POST",headers:{accept:"application/json","content-type":"application/json"},body:JSON.stringify({address:mailbox.address,password:mailbox.password}),cache:"no-store"});
+  const base=tempMailCurrentApiBase(mailbox);
+  tempMailApiBase=base;
+  let response;
+  try{
+    response=await fetch(base+"/token",{method:"POST",headers:{accept:"application/json","content-type":"application/json"},body:JSON.stringify({address:mailbox.address,password:mailbox.password}),cache:"no-store"});
+  }catch(error){
+    throw new Error("Мережа не дозволяє підключитися до "+base+": "+(error?.message||"Failed to fetch"));
+  }
   const data=await response.json().catch(()=>({}));
   if(!response.ok||!data?.token){
-    const detail=data?.message||data?.detail||(`Mail.tm HTTP ${response.status}`);
+    const detail=data?.message||data?.detail||(`Temp Mail HTTP ${response.status}`);
     const error=new Error(detail);
     error.status=response.status;
     throw error;
   }
+  mailbox.apiBase=base;
   tempMailRememberToken(mailbox,data.token);
   return data.token;
 }
@@ -1722,7 +1734,7 @@ async function tempMailDeleteSaved(accountId){
   if(!saved.special){
     try{
       const token=await tempMailTokenFor(saved,{force:true});
-      const response=await fetch(TEMP_MAIL_API_BASE+"/accounts/"+encodeURIComponent(saved.accountId),{method:"DELETE",headers:{authorization:"Bearer "+token},cache:"no-store"});
+      const response=await fetch(tempMailCurrentApiBase(saved)+"/accounts/"+encodeURIComponent(saved.accountId),{method:"DELETE",headers:{authorization:"Bearer "+token},cache:"no-store"});
       if(response.ok||response.status===404)remoteDeleted=true;
       else remoteWarning="Mail.tm HTTP "+response.status;
     }catch(error){remoteWarning=error.message}
@@ -1761,11 +1773,26 @@ async function tempMailRequest(path,options={},retried=false){
   if(tempMailNeedsAuth(path,requestOptions.method)&&tempMailState?.token&&!headers.has("authorization")){
     headers.set("authorization","Bearer "+tempMailState.token);
   }
-  let response=await fetch(TEMP_MAIL_API_BASE+path,{...requestOptions,headers,cache:"no-store"});
+  const base=tempMailCurrentApiBase();
+  let response;
+  try{
+    response=await fetch(base+path,{...requestOptions,headers,cache:"no-store"});
+  }catch(error){
+    const networkError=new Error("Не вдалося підключитися до "+base+" ("+(error?.message||"Failed to fetch")+")");
+    networkError.network=true;
+    networkError.cause=error;
+    throw networkError;
+  }
   if(response.status===401&&!retried&&tempMailNeedsAuth(path,requestOptions.method)&&tempMailState?.address&&tempMailState?.password){
     const token=await tempMailTokenFor(tempMailState,{force:true});
     headers.set("authorization","Bearer "+token);
-    response=await fetch(TEMP_MAIL_API_BASE+path,{...requestOptions,headers,cache:"no-store"});
+    try{
+      response=await fetch(base+path,{...requestOptions,headers,cache:"no-store"});
+    }catch(error){
+      const networkError=new Error("Не вдалося повторно підключитися до "+base+" ("+(error?.message||"Failed to fetch")+")");
+      networkError.network=true;
+      throw networkError;
+    }
   }
   const type=response.headers.get("content-type")||"";
   let data=null;
@@ -1773,7 +1800,7 @@ async function tempMailRequest(path,options={},retried=false){
     data=type.includes("application/json")?await response.json():{message:await response.text()};
   }
   if(!response.ok){
-    const detail=data?.message||data?.detail||data?.error||(`Mail.tm HTTP ${response.status}`);
+    const detail=data?.message||data?.detail||data?.error||(`Temp Mail HTTP ${response.status}`);
     const error=new Error(detail);
     error.status=response.status;
     throw error;
@@ -1788,14 +1815,32 @@ function tempMailDomainItems(payload){
   return [];
 }
 async function tempMailPickDomain(){
-  const payload=await tempMailRequest("/domains");
-  const items=tempMailDomainItems(payload)
-    .filter(item=>typeof item?.domain==="string"&&item.domain.trim())
-    .filter(item=>item.isActive===true);
-  if(!items.length)throw new Error("Mail.tm не повернув активний домен");
-  const chosen=items[0].domain.trim();
-  console.info("Mail.tm selected active domain",chosen);
-  return chosen;
+  const failures=[];
+  for(const base of TEMP_MAIL_API_BASES){
+    try{
+      const response=await fetch(base+"/domains",{headers:{accept:"application/json"},cache:"no-store"});
+      if(!response.ok){
+        failures.push(base+" HTTP "+response.status);
+        continue;
+      }
+      const payload=await response.json();
+      const items=tempMailDomainItems(payload)
+        .filter(item=>typeof item?.domain==="string"&&item.domain.trim())
+        .filter(item=>item.isActive===true);
+      if(!items.length){
+        failures.push(base+" не повернув активних доменів");
+        continue;
+      }
+      tempMailApiBase=base;
+      const chosen=items[0].domain.trim();
+      console.info("Temporary Mail provider",base,"domain",chosen);
+      return chosen;
+    }catch(error){
+      failures.push(base+" → "+(error?.message||"Failed to fetch"));
+      console.warn("Temporary Mail provider unavailable",base,error);
+    }
+  }
+  throw new Error("Жоден temp-mail API недоступний: "+failures.join(" | "));
 }
 async function tempMailFixedRequest(path,options={}){
   const response=await fetch("/api/temp-mail/fixed"+path,{...options,cache:"no-store"});
@@ -1855,7 +1900,7 @@ async function tempMailAttachmentAsset(item){
   const raw=tempMailAttachmentPath(item);if(!raw)return null;
   let response;
   if(tempMailState?.fixed){response=await fetch("/api/temp-mail/fixed/attachment?path="+encodeURIComponent(raw),{cache:"no-store"})}
-  else{const target=new URL(raw,TEMP_MAIL_API_BASE);response=await fetch(target,{headers:{authorization:"Bearer "+tempMailState.token},cache:"no-store"})}
+  else{const target=new URL(raw,tempMailCurrentApiBase());response=await fetch(target,{headers:{authorization:"Bearer "+tempMailState.token},cache:"no-store"})}
   if(!response.ok)throw new Error("Attachment HTTP "+response.status);
   const blob=await response.blob();const blobUrl=URL.createObjectURL(blob);tempMailViewerObjectUrls.push(blobUrl);
   const filename=String(item?.filename||item?.name||"attachment");const type=String(item?.contentType||blob.type||"");const isImage=/^image\//i.test(type)||/\.(png|jpe?g|gif|webp|bmp|svg|avif)$/i.test(filename);let dataUrl="";
@@ -2108,6 +2153,7 @@ async function tempMailCreate({replace=false}={}){
       accountId:account.id,
       token:auth.token,
       password,
+      apiBase:tempMailApiBase,
       recipientName:"WWG QA Team"
     };
     tempMailSave();
@@ -2115,7 +2161,7 @@ async function tempMailCreate({replace=false}={}){
     tempMailEmptyChecks=0;
     tempMailMessagesSignature="";
     tempMailSetInboxMeta("ще не перевірено");
-    tempMailSetStatus("Пошта WWG QA Team готова: "+address);
+    tempMailSetStatus("Пошта WWG QA Team готова: "+address+" · "+new URL(tempMailApiBase).hostname);
     await tempMailRefresh({force:true});
   }catch(error){
     tempMailSetStatus("Не вдалося створити адресу: "+error.message);
