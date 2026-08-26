@@ -14,3 +14,17 @@ DIIA_SIGN_API_KEY=
 DIIA_SIGN_REQUEST_TEMPLATE={"requestId":"__REQUEST_ID__","callbackUrl":"__CALLBACK_URL__","returnUrl":"__RETURN_URL__","purpose":"__PURPOSE__"}
 DIIA_SIGN_CALLBACK_URL=
 DIIA_SIGN_RETURN_URL=
+
+
+# UPC eCommerce Connect TEST (never commit real production credentials)
+UPC_MERCHANT_ID=
+UPC_TERMINAL_ID=
+# PKCS#8 PEM private key. For Wrangler local dev use escaped \n between PEM lines.
+UPC_PRIVATE_KEY_PEM=
+UPC_SIGNATURE_HASH=SHA-1
+UPC_GATEWAY_URL=https://ecg.test.upc.ua/go/enter
+UPC_STATUS_URL=https://ecg.test.upc.ua/go/service/01
+UPC_REFUND_URL=https://ecg.test.upc.ua/go/repayment
+UPC_CURRENCY=980
+UPC_AMOUNT=100
+UPC_PURCHASE_DESC=WWG QA UPC TEST
