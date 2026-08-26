@@ -1524,12 +1524,27 @@ const upcOfferLinks={
   abank:{label:"А-Банк",url:"https://paybybank.upc.ua/?invoiceId=SfdxObGfWW&locale=uk&siteUrl=https%3A%2F%2Fbetking.com.ua%2Fcash%2Fpending%2F&bank_id=903&return_scenario=1#/pay/mobile"},
   otp:{label:"OTP",url:"https://paybybank.upc.ua/?invoiceId=Y5yJuHX5YQ&locale=uk&siteUrl=https%3A%2F%2Fbetking.com.ua%2Fcash%2Fpending%2F&bank_id=907&return_scenario=1#/pay/mobile"}
 };
+function upcBuildOfferUrl(rawUrl){
+  try{
+    const u=new URL(rawUrl);
+    if(u.hostname==="paybybank.upc.ua" && u.searchParams.has("siteUrl")){
+      const returnUrl=new URL(window.location.href);
+      returnUrl.searchParams.set("upcReturn","1");
+      returnUrl.hash="";
+      u.searchParams.set("siteUrl",returnUrl.toString());
+    }
+    return u.toString();
+  }catch(e){
+    return rawUrl;
+  }
+}
 function upcOpenOfferLink(method){
   const offer=upcOfferLinks[method];
   if(!offer){upcSetStatus("Unknown UPC offer method: "+method,"ERROR");return}
-  if(typeof logEvent==="function")logEvent("INFO","UPC PAY","offer redirect · "+offer.label+" · "+offer.url);
+  const targetUrl=upcBuildOfferUrl(offer.url);
+  if(typeof logEvent==="function")logEvent("INFO","UPC PAY","offer redirect · "+offer.label+" · "+targetUrl);
   upcSetStatus("Opening "+offer.label+" offer…","INFO");
-  window.location.href=offer.url;
+  window.location.href=targetUrl;
 }
 function upcMethodClick(method){
   const names={card:"Bank card · Visa/Mastercard",gpay:"Google Pay",mono:"mono",sense:"Sense Bank",alliance:"Alliance Bank",abank:"àbank24",otp:"OTP Bank"};
